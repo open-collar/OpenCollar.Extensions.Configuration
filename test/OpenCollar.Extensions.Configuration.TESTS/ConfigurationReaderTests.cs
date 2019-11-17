@@ -9,16 +9,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS
     public class ConfigurationReaderTests
     {
         /// <summary>
-        /// Test that constructors work as expected.
+        /// Test that a service can be registered for a configuration object.
         /// </summary>
         [Fact]
-        public void Construct()
-        {
-            var x = new OpenCollar.Extensions.Configuration.ConfigurationReader();
-
-            Assert.NotNull(x);
-        }
-
         public void ServiceRegistration(){
             
         }

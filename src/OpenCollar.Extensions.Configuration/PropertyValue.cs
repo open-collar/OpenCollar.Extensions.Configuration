@@ -10,14 +10,6 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>The parent configuration object for which this object represents a property.</summary>
         private readonly ConfigurationObjectBase _parent;
 
-        /// <summary>
-        /// The colon-delimited path to the underlying configuration value.
-        /// </summary>
-        private readonly string _path;
-
-        /// <summary>The name of the property represented by this object.</summary>
-        private readonly string _propertyName;
-
         /// <summary>The type of the value held in the property.</summary>
         private readonly System.Type _type;
 
@@ -38,11 +30,11 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="propertyDef">The definition of the property to represent.</param>
         /// <param name="parent">The parent configuration object for which this object represents a property.</param>
         /// <param name="value">The current value held in this property.</param>
-        internal PropertyValue(PropertyDef propertyDef, ConfigurationObjectBase parent, object value)
+        internal PropertyValue(PropertyDef propertyDef, ConfigurationObjectBase parent, object? value)
         {
             _parent = parent;
-            _path = propertyDef.Path;
-            _propertyName = propertyDef.PropertyName;
+            Path = propertyDef.Path;
+            PropertyName = propertyDef.PropertyName;
             _type = propertyDef.Type;
             _originalValue = value;
             _currentValue = value;
@@ -109,10 +101,16 @@ namespace OpenCollar.Extensions.Configuration
 
         /// <summary>Gets the colon-delimited path to the underlying configuration value.</summary>
         /// <value>The colon-delimited path to the underlying configuration value.</value>
-        public string Path => _path;
+        public string Path
+        {
+            get;
+        }
 
         /// <summary>Gets the name of the property represented by this object.</summary>
         /// <value>The name of the property represented by this object.</value>
-        public string PropertyName => _propertyName;
+        public string PropertyName
+        {
+            get;
+        }
     }
 }

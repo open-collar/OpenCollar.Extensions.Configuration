@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\test\OpenCollar.Extensions.Configuration\OpenCollar.Extensions.Configuration.csproj" />
+    <ProjectReference Include="..\..\src\OpenCollar.Extensions.Configuration\OpenCollar.Extensions.Configuration.csproj" />
   </ItemGroup>
 
 </Project>

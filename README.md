@@ -24,6 +24,11 @@ cinst docfx -y
 
 Download and install the Visual Studio 2019 Build Tools (free) from the [Microsoft Visual Studio Downloads](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2019) page; look for "Build Tools for Visual Studio 2019" on the page.
 
+## Project Resources
+
+ * [Source Code](https://github.com/open-collar/OpenCollar.Extensions.Configuration)
+ * [Issue Tracking](https://github.com/open-collar/OpenCollar.Extensions.Configuration/issues)
+
 ## Reference
 
  * [Options Pattern in .NET Core](https://codeburst.io/options-pattern-in-net-core-a50285aeb18d);

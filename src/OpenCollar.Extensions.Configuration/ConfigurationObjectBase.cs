@@ -27,12 +27,12 @@ namespace OpenCollar.Extensions.Configuration
     /// </remarks>
     internal abstract class ConfigurationObjectBase : IConfigurationObject
     {
-        
+
 
         /// <summary>
         /// A dictionary of property values keyed on the path to the underlying value (case insensitive).
         /// </summary>
-        private readonly System.Collections.Generic.Dictionary<string, PropertyValue> _propertiesByPath = new System.Collections.Generic.Dictionary<string, PropertyValue>(System.Text.CaseInsensitiveOrdinalComparer);
+        private readonly System.Collections.Generic.Dictionary<string, PropertyValue> _propertiesByPath = new System.Collections.Generic.Dictionary<string, PropertyValue>(System.StringComparer.OrdinalIgnoreCase);
 
         /// <summary>The configuration root from which to read and write values.</summary>
         private readonly IConfigurationRoot _configurationRoot;
@@ -48,23 +48,54 @@ namespace OpenCollar.Extensions.Configuration
 
             foreach (var propertyDef in propertyDefs)
             {
-                var property = new PropertyValue(propertyDef, this, GetValue(configurationRoot, propertyDef.Path));
+                var property = new PropertyValue(propertyDef, this, GetValue(configurationRoot, propertyDef.Path, propertyDef.Type));
                 _propertiesByName.Add(property.PropertyName, property);
                 _propertiesByPath.Add(property.Path, property);
             }
         }
 
-        protected object this[string name]
+        /// <summary>Gets the value for the path given, converted to the type specified.</summary>
+        /// <param name="configurationRoot">The configuration root from which to read the value.</param>
+        /// <param name="path">The path to the configuration value required.</param>
+        /// <param name="type">The type to which the configuration value must be cast.</param>
+        /// <returns>The configuration value requested, cast to the type specified.</returns>
+        private object? GetValue(IConfigurationRoot configurationRoot, string path, Type type)
+        {
+            var value = configurationRoot[path];
+
+            if (ReferenceEquals(value, null))
+            {
+                return null;
+            }
+
+            if ((type == typeof(string)) && (value.Length <= 0))
+            {
+                return GetDefault(type);
+            }
+
+            return System.Convert.ChangeType(value, type);
+        }
+
+        /// <summary>
+        /// Returns the default value for the type specified.
+        /// </summary>
+        /// <param name="type">The type of the default value required.</param>
+        /// <returns>The default value for the type specified.</returns>
+        public static object? GetDefault(Type type)
+        {
+            if (type.IsValueType)
+            {
+                return Activator.CreateInstance(type);
+            }
+
+            return null;
+        }
+
+        protected object? this[string name]
         {
             // TODO: Add validation.
-            get
-            {
-                return _propertiesByName[name].Value;
-            }
-            set
-            {
-                _propertiesByName[name].Value = value;
-            }
+            get => _propertiesByName[name].Value;
+            set => _propertiesByName[name].Value = value;
         }
 
         /// <summary>Called when an underlying property has been changed.</summary>
@@ -112,7 +143,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         /// A dictionary of property values keyed on the name of the property it represents (case sensitive).
         /// </summary>
-        private readonly System.Collections.Generic.Dictionary<string, PropertyValue> _propertiesByName = new System.Collections.Generic.Dictionary<string, PropertyValue>(System.Text.OrdinalComparer);
+        private readonly System.Collections.Generic.Dictionary<string, PropertyValue> _propertiesByName = new System.Collections.Generic.Dictionary<string, PropertyValue>(System.StringComparer.Ordinal);
 
         /// <summary>A flag used to track whether this instance has been disposed of.  Any non-zero values indicates that it has been disposed of.</summary>
         private int _isDisposed = 0;
@@ -127,7 +158,7 @@ namespace OpenCollar.Extensions.Configuration
         public bool IsDirty => _propertiesByName.Values.Any(p => p.IsDirty);
 
         /// <summary>Occurs when a property changes.</summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>Releases unmanaged and - optionally - managed resources.</summary>
         /// <param name="disposing"><see langword="true" /> to release both managed and unmanaged resources; <see langword="false" /> to release only unmanaged resources.</param>

@@ -12,7 +12,7 @@ namespace OpenCollar.Extensions.Configuration
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// Add a new kind of configuration reader that represents values taken directly from the <see cref="Microsoft.Extensions.Configuration.IRootConfiguration"/> object in the service collection.
+        /// Add a new kind of configuration reader that represents values taken directly from the <see cref="Microsoft.Extensions.Configuration.IConfigurationRoot"/> object in the service collection.
         /// </summary>
         /// <param name="serviceCollection">The service collection to which to add the configuration reader.  This must not be <see langword="null"/>.</param>
         /// <typeparam name="TConfigurationObject">The interface through which consumers will access the configuration.
@@ -41,7 +41,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <returns>The a type that implemnents the interface required.</returns>
         private static Type GenerateConfigurationObjectType<TConfigurationObject>() where TConfigurationObject : IConfigurationObject
         {
-            return null;
+            return typeof(string);
         }
     }
 }
