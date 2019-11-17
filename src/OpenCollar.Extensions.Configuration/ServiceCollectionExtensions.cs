@@ -29,7 +29,9 @@ namespace OpenCollar.Extensions.Configuration
                 return;
             }
 
-            var implementationType = GenerateConfigurationObjectType<TConfigurationObject>();
+            var context = new ConfigurationContext();
+
+            var implementationType = GenerateConfigurationObjectType<TConfigurationObject>(context);
 
             var descriptor = new ServiceDescriptor(serviceType, implementationType, ServiceLifetime.Singleton);
 
@@ -38,10 +40,79 @@ namespace OpenCollar.Extensions.Configuration
 
         /// <summary>Creates the type of the configuration object.</summary>
         /// <typeparam name="TConfigurationObject">The type of the interface to be implemented by the configuration object to create.</typeparam>
-        /// <returns>The a type that implemnents the interface required.</returns>
-        private static Type GenerateConfigurationObjectType<TConfigurationObject>() where TConfigurationObject : IConfigurationObject
+        /// <param name="context">Defines the context in which the configuration is to be constructed.</param>
+        /// <returns>
+        /// An implementation of the interface specified that can be used to interact with the configuration.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        /// Type specifies more than one 'Path' attribute and so cannot be processed.
+        /// - or -
+        /// Property specifies more than one 'Path' attribute and so cannot be processed.
+        /// </exception>
+        private static Type GenerateConfigurationObjectType<TConfigurationObject>(ConfigurationContext context) where TConfigurationObject : IConfigurationObject
         {
-            return typeof(string);
+            var type = typeof(TConfigurationObject);
+            var localContext = new ConfigurationContext(context);
+
+            var pathAttributes = type.GetCustomAttributes(typeof(PathAttribute), true);
+            if (!ReferenceEquals(pathAttributes, null) && (pathAttributes.Length > 0))
+            {
+                if (pathAttributes.Length > 1)
+                {
+                    throw new InvalidOperationException($"Type '{type.Namespace}.{type.Name}' specifies more than one 'Path' attribute and so cannot be processed.");
+                }
+                localContext.ApplyPathAttribute((PathAttribute)pathAttributes[0]);
+            }
+
+            var propertyDefs = new System.Collections.Generic.List<PropertyDef>();
+
+            foreach (var property in type.GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public))
+            {
+                if (!property.CanRead)
+                {
+                    continue;
+                }
+
+                var path = localContext.Path;
+                var name = property.Name;
+
+                pathAttributes = property.GetCustomAttributes(typeof(PathAttribute), true);
+                if (!ReferenceEquals(pathAttributes, null) && (pathAttributes.Length > 0))
+                {
+                    if (pathAttributes.Length > 1)
+                    {
+                        throw new InvalidOperationException($"Property '{type.Namespace}.{type.Name}.{name}' specifies more than one 'Path' attribute and so cannot be processed.");
+                    }
+                    var pathAttribute = ((PathAttribute)pathAttributes[0]);
+
+                    switch (pathAttribute.Usage)
+                    {
+                        case PathIs.Root:
+                            path = pathAttribute.Path;
+                            break;
+
+                        case PathIs.Suffix:
+                            if (string.IsNullOrWhiteSpace(path))
+                            {
+                                path = pathAttribute.Path;
+                            }
+                            else
+                            {
+                                path = string.Concat(path, ConfigurationContext.PathDelimiter, pathAttribute.Path);
+                            }
+                            break;
+                    }
+                }
+
+                if (typeof(IConfigurationObject).IsAssignableFrom(property.PropertyType))
+                {
+                    // The property represents another level in the tree.
+                }
+
+                propertyDefs.Add(new PropertyDef(path, name, property.PropertyType, !property.CanWrite));
+            }
+
+            return typeof(TConfigurationObject);
         }
     }
 }
