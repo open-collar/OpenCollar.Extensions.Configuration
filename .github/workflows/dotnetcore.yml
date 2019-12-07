@@ -13,13 +13,16 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.100
+
     - name: Build with dotnet
       run: dotnet build --configuration Release
       
+    - name: Commit files
+      run: |
+        git config --local user.email "jevans@open-collar.org.uk"
+        git config --local user.name "Jonathan Evans"
+        git commit -m "Published documentation from source code." -a
+      
     - name: Publish documentation
-      uses: ludeeus/action-push@master
-      env:
-        ACTION_MAIL: jevans@open-collar.org.uk
-        ACTION_NAME: Jonathan Evans
-        ACTION_MESSAGE: Published documentation from source code.
+      uses: ad-m/github-push-action@v0.5.0
       
