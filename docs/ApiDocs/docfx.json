@@ -4,9 +4,9 @@
       "src": [
         {
           "files": [
-            "OpenCollar.Extensions.Configuration/OpenCollar.Extensions.Configuration.csproj"
+            "**.csproj"
           ],
-          "cwd":"../../src/"
+          "src": "..\\..\\src"
         }
       ],
       "dest": "api",

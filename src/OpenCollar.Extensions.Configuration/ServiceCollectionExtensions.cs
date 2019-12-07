@@ -54,6 +54,21 @@ namespace OpenCollar.Extensions.Configuration
             var type = typeof(TConfigurationObject);
             var localContext = new ConfigurationContext(context);
 
+            var propertyDefs = GetConfigurationObjectDefinition(type, localContext);
+
+            // TODO: Replace with real implementation!
+            return typeof(object);
+        }
+
+        /// <summary>A thread-safe dictionary of the property definition collections keyed on the type of the class that defines them.</summary>
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<Type, PropertyDef> _propertyDefs = new System.Collections.Concurrent.ConcurrentDictionary<Type, PropertyDef>();
+
+
+
+        private static System.Collections.Generic.List<PropertyDef> GetConfigurationObjectDefinition(Type type, ConfigurationContext localContext)
+        {
+            // TODO: Circular reference detection - for this version.
+
             var pathAttributes = type.GetCustomAttributes(typeof(PathAttribute), true);
             if (!ReferenceEquals(pathAttributes, null) && (pathAttributes.Length > 0))
             {
@@ -109,10 +124,38 @@ namespace OpenCollar.Extensions.Configuration
                     // The property represents another level in the tree.
                 }
 
+                if (IsConfigurationCollection(property.PropertyType))
+                {
+                    // The property represents another level in the tree.
+                }
+
                 propertyDefs.Add(new PropertyDef(path, name, property.PropertyType, !property.CanWrite));
             }
 
-            return typeof(TConfigurationObject);
+            return propertyDefs;
+        }
+
+        /// <summary>
+        /// Determines whether the specified type is a is configuration collection.
+        /// </summary>
+        /// <param name="type">The type to verify.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the type is configuration collection; otherwise, <see langword="false" />.
+        /// </returns>
+        public static bool IsConfigurationCollection(Type type)
+        {
+            if (!type.IsConstructedGenericType)
+                return false;
+
+            if (type.GetGenericTypeDefinition() != typeof(IConfigurationCollection<>))
+                return false;
+
+            var arguments = type.GetGenericArguments();
+
+            if (arguments.Length != 1)
+                return false;
+
+            return typeof(IConfigurationObject).IsAssignableFrom(arguments[0]);
         }
     }
 }

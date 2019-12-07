@@ -26,7 +26,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     /// The definition of a property of a configuration object.
     /// </summary>
-    internal class PropertyDef
+    public class PropertyDef
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyDef" /> class.
