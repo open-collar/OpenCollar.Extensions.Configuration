@@ -21,3 +21,6 @@ There are no hard dependencies on tooling, all that is required is the .NET Core
  * [Options Pattern in .NET Core](https://codeburst.io/options-pattern-in-net-core-a50285aeb18d);
  * [Tutorial: Express your design intent more clearly with nullable and non-nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/nullable-reference-types);
  * [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
+
+## Status
+* ![Master](https://github.com/open-collar/OpenCollar.Extensions.Configuration/workflows/.NET%20Core/badge.svg)

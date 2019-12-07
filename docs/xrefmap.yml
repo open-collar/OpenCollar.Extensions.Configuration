@@ -1,0 +1,663 @@
+### YamlMime:XRefMap
+sorted: true
+references:
+- uid: OpenCollar.Extensions.Configuration
+  name: OpenCollar.Extensions.Configuration
+  href: api/OpenCollar.Extensions.Configuration.html
+  commentId: N:OpenCollar.Extensions.Configuration
+  fullName: OpenCollar.Extensions.Configuration
+  nameWithType: OpenCollar.Extensions.Configuration
+- uid: OpenCollar.Extensions.Configuration.Collections
+  name: OpenCollar.Extensions.Configuration.Collections
+  href: api/OpenCollar.Extensions.Configuration.Collections.html
+  commentId: N:OpenCollar.Extensions.Configuration.Collections
+  fullName: OpenCollar.Extensions.Configuration.Collections
+  nameWithType: OpenCollar.Extensions.Configuration.Collections
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2
+  name: ConfigurationDictionaryBase<TKey, TElement>
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html
+  commentId: T:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2
+  name.vb: ConfigurationDictionaryBase(Of TKey, TElement)
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement)
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement)
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Add(`0,`1)
+  name: Add(TKey, TElement)
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Add__0__1_
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Add(`0,`1)
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Add(TKey, TElement)
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Add(TKey, TElement)
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Add(TKey, TElement)
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Add(TKey, TElement)
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Add(System.Collections.Generic.KeyValuePair{`0,`1})
+  name: Add(KeyValuePair<TKey, TElement>)
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Add_System_Collections_Generic_KeyValuePair__0__1__
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Add(System.Collections.Generic.KeyValuePair{`0,`1})
+  name.vb: Add(KeyValuePair(Of TKey, TElement))
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Add(System.Collections.Generic.KeyValuePair<TKey, TElement>)
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Add(System.Collections.Generic.KeyValuePair(Of TKey, TElement))
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Add(KeyValuePair<TKey, TElement>)
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Add(KeyValuePair(Of TKey, TElement))
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Add*
+  name: Add
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Add_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Add
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Add
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Add
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Add
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Add
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Clear
+  name: Clear()
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Clear
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Clear
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Clear()
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Clear()
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Clear()
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Clear()
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Clear*
+  name: Clear
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Clear_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Clear
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Clear
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Clear
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Clear
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Clear
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.CollectionChanged
+  name: CollectionChanged
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_CollectionChanged
+  commentId: E:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.CollectionChanged
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.CollectionChanged
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).CollectionChanged
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.CollectionChanged
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).CollectionChanged
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Contains(System.Collections.Generic.KeyValuePair{`0,`1})
+  name: Contains(KeyValuePair<TKey, TElement>)
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Contains_System_Collections_Generic_KeyValuePair__0__1__
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Contains(System.Collections.Generic.KeyValuePair{`0,`1})
+  name.vb: Contains(KeyValuePair(Of TKey, TElement))
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Contains(System.Collections.Generic.KeyValuePair<TKey, TElement>)
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Contains(System.Collections.Generic.KeyValuePair(Of TKey, TElement))
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Contains(KeyValuePair<TKey, TElement>)
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Contains(KeyValuePair(Of TKey, TElement))
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Contains*
+  name: Contains
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Contains_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Contains
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Contains
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Contains
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Contains
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Contains
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.ContainsKey(`0)
+  name: ContainsKey(TKey)
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_ContainsKey__0_
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.ContainsKey(`0)
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.ContainsKey(TKey)
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).ContainsKey(TKey)
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.ContainsKey(TKey)
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).ContainsKey(TKey)
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.ContainsKey*
+  name: ContainsKey
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_ContainsKey_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.ContainsKey
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.ContainsKey
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).ContainsKey
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.ContainsKey
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).ContainsKey
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}[],System.Int32)
+  name: CopyTo(KeyValuePair<TKey, TElement>[], Int32)
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_CopyTo_System_Collections_Generic_KeyValuePair__0__1____System_Int32_
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}[],System.Int32)
+  name.vb: CopyTo(KeyValuePair(Of TKey, TElement)(), Int32)
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.CopyTo(System.Collections.Generic.KeyValuePair<TKey, TElement>[], System.Int32)
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).CopyTo(System.Collections.Generic.KeyValuePair(Of TKey, TElement)(), System.Int32)
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.CopyTo(KeyValuePair<TKey, TElement>[], Int32)
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).CopyTo(KeyValuePair(Of TKey, TElement)(), Int32)
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.CopyTo*
+  name: CopyTo
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_CopyTo_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.CopyTo
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.CopyTo
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).CopyTo
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.CopyTo
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).CopyTo
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Count
+  name: Count
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Count
+  commentId: P:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Count
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Count
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Count
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Count
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Count
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Count*
+  name: Count
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Count_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Count
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Count
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Count
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Count
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Count
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Dispose
+  name: Dispose()
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Dispose
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Dispose
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Dispose()
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Dispose()
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Dispose()
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Dispose()
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Dispose*
+  name: Dispose
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Dispose_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Dispose
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Dispose
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Dispose
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Dispose
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Dispose
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetEnumerator
+  name: GetEnumerator()
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_GetEnumerator
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetEnumerator
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.GetEnumerator()
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).GetEnumerator()
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.GetEnumerator()
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).GetEnumerator()
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetEnumerator*
+  name: GetEnumerator
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_GetEnumerator_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetEnumerator
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.GetEnumerator
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).GetEnumerator
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.GetEnumerator
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).GetEnumerator
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.IsDirty
+  name: IsDirty
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_IsDirty
+  commentId: P:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.IsDirty
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.IsDirty
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).IsDirty
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.IsDirty
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).IsDirty
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.IsDirty*
+  name: IsDirty
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_IsDirty_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.IsDirty
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.IsDirty
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).IsDirty
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.IsDirty
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).IsDirty
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.IsReadOnly
+  name: IsReadOnly
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_IsReadOnly
+  commentId: P:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.IsReadOnly
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.IsReadOnly
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).IsReadOnly
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.IsReadOnly
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).IsReadOnly
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.IsReadOnly*
+  name: IsReadOnly
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_IsReadOnly_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.IsReadOnly
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.IsReadOnly
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).IsReadOnly
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.IsReadOnly
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).IsReadOnly
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Item(`0)
+  name: Item[TKey]
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Item__0_
+  commentId: P:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Item(`0)
+  name.vb: Item(TKey)
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Item[TKey]
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Item(TKey)
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Item[TKey]
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Item(TKey)
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Item*
+  name: Item
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Item_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Item
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Item
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Item
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Item
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Item
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.ItemChanged
+  name: ItemChanged
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_ItemChanged
+  commentId: E:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.ItemChanged
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.ItemChanged
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).ItemChanged
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.ItemChanged
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).ItemChanged
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Keys
+  name: Keys
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Keys
+  commentId: P:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Keys
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Keys
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Keys
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Keys
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Keys
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Keys*
+  name: Keys
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Keys_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Keys
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Keys
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Keys
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Keys
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Keys
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.PropertyChanged
+  name: PropertyChanged
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_PropertyChanged
+  commentId: E:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.PropertyChanged
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.PropertyChanged
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).PropertyChanged
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.PropertyChanged
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).PropertyChanged
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Reload
+  name: Reload()
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Reload
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Reload
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Reload()
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Reload()
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Reload()
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Reload()
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Reload*
+  name: Reload
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Reload_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Reload
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Reload
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Reload
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Reload
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Reload
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Remove(`0)
+  name: Remove(TKey)
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Remove__0_
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Remove(`0)
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Remove(TKey)
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Remove(TKey)
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Remove(TKey)
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Remove(TKey)
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Remove(System.Collections.Generic.KeyValuePair{`0,`1})
+  name: Remove(KeyValuePair<TKey, TElement>)
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Remove_System_Collections_Generic_KeyValuePair__0__1__
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Remove(System.Collections.Generic.KeyValuePair{`0,`1})
+  name.vb: Remove(KeyValuePair(Of TKey, TElement))
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Remove(System.Collections.Generic.KeyValuePair<TKey, TElement>)
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Remove(System.Collections.Generic.KeyValuePair(Of TKey, TElement))
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Remove(KeyValuePair<TKey, TElement>)
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Remove(KeyValuePair(Of TKey, TElement))
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Remove*
+  name: Remove
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Remove_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Remove
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Remove
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Remove
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Remove
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Remove
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Save
+  name: Save()
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Save
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Save
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Save()
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Save()
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Save()
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Save()
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Save*
+  name: Save
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Save_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Save
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Save
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Save
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Save
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Save
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.System#Collections#IEnumerable#GetEnumerator
+  name: IEnumerable.GetEnumerator()
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_System_Collections_IEnumerable_GetEnumerator
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.System#Collections#IEnumerable#GetEnumerator
+  name.vb: System.Collections.IEnumerable.GetEnumerator()
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.System.Collections.IEnumerable.GetEnumerator()
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).System.Collections.IEnumerable.GetEnumerator()
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.IEnumerable.GetEnumerator()
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).System.Collections.IEnumerable.GetEnumerator()
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.System#Collections#IEnumerable#GetEnumerator*
+  name: IEnumerable.GetEnumerator
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_System_Collections_IEnumerable_GetEnumerator_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.System#Collections#IEnumerable#GetEnumerator
+  isSpec: "True"
+  name.vb: System.Collections.IEnumerable.GetEnumerator
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.System.Collections.IEnumerable.GetEnumerator
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).System.Collections.IEnumerable.GetEnumerator
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.IEnumerable.GetEnumerator
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).System.Collections.IEnumerable.GetEnumerator
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.TryGetValue(`0,`1@)
+  name: TryGetValue(TKey, out TElement)
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_TryGetValue__0__1__
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.TryGetValue(`0,`1@)
+  name.vb: TryGetValue(TKey, ByRef TElement)
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.TryGetValue(TKey, out TElement)
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).TryGetValue(TKey, ByRef TElement)
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.TryGetValue(TKey, out TElement)
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).TryGetValue(TKey, ByRef TElement)
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.TryGetValue*
+  name: TryGetValue
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_TryGetValue_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.TryGetValue
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.TryGetValue
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).TryGetValue
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.TryGetValue
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).TryGetValue
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Values
+  name: Values
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Values
+  commentId: P:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Values
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Values
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Values
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Values
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Values
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Values*
+  name: Values
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Values_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Values
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Values
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Values
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Values
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Values
+- uid: OpenCollar.Extensions.Configuration.IConfigurationCollection`1
+  name: IConfigurationCollection<TElement>
+  href: api/OpenCollar.Extensions.Configuration.IConfigurationCollection-1.html
+  commentId: T:OpenCollar.Extensions.Configuration.IConfigurationCollection`1
+  name.vb: IConfigurationCollection(Of TElement)
+  fullName: OpenCollar.Extensions.Configuration.IConfigurationCollection<TElement>
+  fullName.vb: OpenCollar.Extensions.Configuration.IConfigurationCollection(Of TElement)
+  nameWithType: IConfigurationCollection<TElement>
+  nameWithType.vb: IConfigurationCollection(Of TElement)
+- uid: OpenCollar.Extensions.Configuration.IConfigurationDictionary`1
+  name: IConfigurationDictionary<TElement>
+  href: api/OpenCollar.Extensions.Configuration.IConfigurationDictionary-1.html
+  commentId: T:OpenCollar.Extensions.Configuration.IConfigurationDictionary`1
+  name.vb: IConfigurationDictionary(Of TElement)
+  fullName: OpenCollar.Extensions.Configuration.IConfigurationDictionary<TElement>
+  fullName.vb: OpenCollar.Extensions.Configuration.IConfigurationDictionary(Of TElement)
+  nameWithType: IConfigurationDictionary<TElement>
+  nameWithType.vb: IConfigurationDictionary(Of TElement)
+- uid: OpenCollar.Extensions.Configuration.IConfigurationObject
+  name: IConfigurationObject
+  href: api/OpenCollar.Extensions.Configuration.IConfigurationObject.html
+  commentId: T:OpenCollar.Extensions.Configuration.IConfigurationObject
+  fullName: OpenCollar.Extensions.Configuration.IConfigurationObject
+  nameWithType: IConfigurationObject
+- uid: OpenCollar.Extensions.Configuration.IConfigurationObject.IsDirty
+  name: IsDirty
+  href: api/OpenCollar.Extensions.Configuration.IConfigurationObject.html#OpenCollar_Extensions_Configuration_IConfigurationObject_IsDirty
+  commentId: P:OpenCollar.Extensions.Configuration.IConfigurationObject.IsDirty
+  fullName: OpenCollar.Extensions.Configuration.IConfigurationObject.IsDirty
+  nameWithType: IConfigurationObject.IsDirty
+- uid: OpenCollar.Extensions.Configuration.IConfigurationObject.IsDirty*
+  name: IsDirty
+  href: api/OpenCollar.Extensions.Configuration.IConfigurationObject.html#OpenCollar_Extensions_Configuration_IConfigurationObject_IsDirty_
+  commentId: Overload:OpenCollar.Extensions.Configuration.IConfigurationObject.IsDirty
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.IConfigurationObject.IsDirty
+  nameWithType: IConfigurationObject.IsDirty
+- uid: OpenCollar.Extensions.Configuration.IConfigurationObject.Reload
+  name: Reload()
+  href: api/OpenCollar.Extensions.Configuration.IConfigurationObject.html#OpenCollar_Extensions_Configuration_IConfigurationObject_Reload
+  commentId: M:OpenCollar.Extensions.Configuration.IConfigurationObject.Reload
+  fullName: OpenCollar.Extensions.Configuration.IConfigurationObject.Reload()
+  nameWithType: IConfigurationObject.Reload()
+- uid: OpenCollar.Extensions.Configuration.IConfigurationObject.Reload*
+  name: Reload
+  href: api/OpenCollar.Extensions.Configuration.IConfigurationObject.html#OpenCollar_Extensions_Configuration_IConfigurationObject_Reload_
+  commentId: Overload:OpenCollar.Extensions.Configuration.IConfigurationObject.Reload
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.IConfigurationObject.Reload
+  nameWithType: IConfigurationObject.Reload
+- uid: OpenCollar.Extensions.Configuration.IConfigurationObject.Save
+  name: Save()
+  href: api/OpenCollar.Extensions.Configuration.IConfigurationObject.html#OpenCollar_Extensions_Configuration_IConfigurationObject_Save
+  commentId: M:OpenCollar.Extensions.Configuration.IConfigurationObject.Save
+  fullName: OpenCollar.Extensions.Configuration.IConfigurationObject.Save()
+  nameWithType: IConfigurationObject.Save()
+- uid: OpenCollar.Extensions.Configuration.IConfigurationObject.Save*
+  name: Save
+  href: api/OpenCollar.Extensions.Configuration.IConfigurationObject.html#OpenCollar_Extensions_Configuration_IConfigurationObject_Save_
+  commentId: Overload:OpenCollar.Extensions.Configuration.IConfigurationObject.Save
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.IConfigurationObject.Save
+  nameWithType: IConfigurationObject.Save
+- uid: OpenCollar.Extensions.Configuration.INotifyItemChanged
+  name: INotifyItemChanged
+  href: api/OpenCollar.Extensions.Configuration.INotifyItemChanged.html
+  commentId: T:OpenCollar.Extensions.Configuration.INotifyItemChanged
+  fullName: OpenCollar.Extensions.Configuration.INotifyItemChanged
+  nameWithType: INotifyItemChanged
+- uid: OpenCollar.Extensions.Configuration.INotifyItemChanged.ItemChanged
+  name: ItemChanged
+  href: api/OpenCollar.Extensions.Configuration.INotifyItemChanged.html#OpenCollar_Extensions_Configuration_INotifyItemChanged_ItemChanged
+  commentId: E:OpenCollar.Extensions.Configuration.INotifyItemChanged.ItemChanged
+  fullName: OpenCollar.Extensions.Configuration.INotifyItemChanged.ItemChanged
+  nameWithType: INotifyItemChanged.ItemChanged
+- uid: OpenCollar.Extensions.Configuration.ItemChangedEventArgs
+  name: ItemChangedEventArgs
+  href: api/OpenCollar.Extensions.Configuration.ItemChangedEventArgs.html
+  commentId: T:OpenCollar.Extensions.Configuration.ItemChangedEventArgs
+  fullName: OpenCollar.Extensions.Configuration.ItemChangedEventArgs
+  nameWithType: ItemChangedEventArgs
+- uid: OpenCollar.Extensions.Configuration.ItemChangedEventArgs.#ctor(OpenCollar.Extensions.Configuration.PropertyDef)
+  name: ItemChangedEventArgs(PropertyDef)
+  href: api/OpenCollar.Extensions.Configuration.ItemChangedEventArgs.html#OpenCollar_Extensions_Configuration_ItemChangedEventArgs__ctor_OpenCollar_Extensions_Configuration_PropertyDef_
+  commentId: M:OpenCollar.Extensions.Configuration.ItemChangedEventArgs.#ctor(OpenCollar.Extensions.Configuration.PropertyDef)
+  fullName: OpenCollar.Extensions.Configuration.ItemChangedEventArgs.ItemChangedEventArgs(OpenCollar.Extensions.Configuration.PropertyDef)
+  nameWithType: ItemChangedEventArgs.ItemChangedEventArgs(PropertyDef)
+- uid: OpenCollar.Extensions.Configuration.ItemChangedEventArgs.#ctor*
+  name: ItemChangedEventArgs
+  href: api/OpenCollar.Extensions.Configuration.ItemChangedEventArgs.html#OpenCollar_Extensions_Configuration_ItemChangedEventArgs__ctor_
+  commentId: Overload:OpenCollar.Extensions.Configuration.ItemChangedEventArgs.#ctor
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.ItemChangedEventArgs.ItemChangedEventArgs
+  nameWithType: ItemChangedEventArgs.ItemChangedEventArgs
+- uid: OpenCollar.Extensions.Configuration.ItemChangedEventArgs.PropertyDefinition
+  name: PropertyDefinition
+  href: api/OpenCollar.Extensions.Configuration.ItemChangedEventArgs.html#OpenCollar_Extensions_Configuration_ItemChangedEventArgs_PropertyDefinition
+  commentId: P:OpenCollar.Extensions.Configuration.ItemChangedEventArgs.PropertyDefinition
+  fullName: OpenCollar.Extensions.Configuration.ItemChangedEventArgs.PropertyDefinition
+  nameWithType: ItemChangedEventArgs.PropertyDefinition
+- uid: OpenCollar.Extensions.Configuration.ItemChangedEventArgs.PropertyDefinition*
+  name: PropertyDefinition
+  href: api/OpenCollar.Extensions.Configuration.ItemChangedEventArgs.html#OpenCollar_Extensions_Configuration_ItemChangedEventArgs_PropertyDefinition_
+  commentId: Overload:OpenCollar.Extensions.Configuration.ItemChangedEventArgs.PropertyDefinition
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.ItemChangedEventArgs.PropertyDefinition
+  nameWithType: ItemChangedEventArgs.PropertyDefinition
+- uid: OpenCollar.Extensions.Configuration.ItemChangedEventHandler
+  name: ItemChangedEventHandler
+  href: api/OpenCollar.Extensions.Configuration.ItemChangedEventHandler.html
+  commentId: T:OpenCollar.Extensions.Configuration.ItemChangedEventHandler
+  fullName: OpenCollar.Extensions.Configuration.ItemChangedEventHandler
+  nameWithType: ItemChangedEventHandler
+- uid: OpenCollar.Extensions.Configuration.PathAttribute
+  name: PathAttribute
+  href: api/OpenCollar.Extensions.Configuration.PathAttribute.html
+  commentId: T:OpenCollar.Extensions.Configuration.PathAttribute
+  fullName: OpenCollar.Extensions.Configuration.PathAttribute
+  nameWithType: PathAttribute
+- uid: OpenCollar.Extensions.Configuration.PathAttribute.#ctor(OpenCollar.Extensions.Configuration.PathIs,System.String)
+  name: PathAttribute(PathIs, String)
+  href: api/OpenCollar.Extensions.Configuration.PathAttribute.html#OpenCollar_Extensions_Configuration_PathAttribute__ctor_OpenCollar_Extensions_Configuration_PathIs_System_String_
+  commentId: M:OpenCollar.Extensions.Configuration.PathAttribute.#ctor(OpenCollar.Extensions.Configuration.PathIs,System.String)
+  fullName: OpenCollar.Extensions.Configuration.PathAttribute.PathAttribute(OpenCollar.Extensions.Configuration.PathIs, System.String)
+  nameWithType: PathAttribute.PathAttribute(PathIs, String)
+- uid: OpenCollar.Extensions.Configuration.PathAttribute.#ctor*
+  name: PathAttribute
+  href: api/OpenCollar.Extensions.Configuration.PathAttribute.html#OpenCollar_Extensions_Configuration_PathAttribute__ctor_
+  commentId: Overload:OpenCollar.Extensions.Configuration.PathAttribute.#ctor
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.PathAttribute.PathAttribute
+  nameWithType: PathAttribute.PathAttribute
+- uid: OpenCollar.Extensions.Configuration.PathIs
+  name: PathIs
+  href: api/OpenCollar.Extensions.Configuration.PathIs.html
+  commentId: T:OpenCollar.Extensions.Configuration.PathIs
+  fullName: OpenCollar.Extensions.Configuration.PathIs
+  nameWithType: PathIs
+- uid: OpenCollar.Extensions.Configuration.PathIs.Root
+  name: Root
+  href: api/OpenCollar.Extensions.Configuration.PathIs.html#OpenCollar_Extensions_Configuration_PathIs_Root
+  commentId: F:OpenCollar.Extensions.Configuration.PathIs.Root
+  fullName: OpenCollar.Extensions.Configuration.PathIs.Root
+  nameWithType: PathIs.Root
+- uid: OpenCollar.Extensions.Configuration.PathIs.Suffix
+  name: Suffix
+  href: api/OpenCollar.Extensions.Configuration.PathIs.html#OpenCollar_Extensions_Configuration_PathIs_Suffix
+  commentId: F:OpenCollar.Extensions.Configuration.PathIs.Suffix
+  fullName: OpenCollar.Extensions.Configuration.PathIs.Suffix
+  nameWithType: PathIs.Suffix
+- uid: OpenCollar.Extensions.Configuration.PathIs.Unknown
+  name: Unknown
+  href: api/OpenCollar.Extensions.Configuration.PathIs.html#OpenCollar_Extensions_Configuration_PathIs_Unknown
+  commentId: F:OpenCollar.Extensions.Configuration.PathIs.Unknown
+  fullName: OpenCollar.Extensions.Configuration.PathIs.Unknown
+  nameWithType: PathIs.Unknown
+- uid: OpenCollar.Extensions.Configuration.PropertyDef
+  name: PropertyDef
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html
+  commentId: T:OpenCollar.Extensions.Configuration.PropertyDef
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef
+  nameWithType: PropertyDef
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.IsReadOnly
+  name: IsReadOnly
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_IsReadOnly
+  commentId: P:OpenCollar.Extensions.Configuration.PropertyDef.IsReadOnly
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.IsReadOnly
+  nameWithType: PropertyDef.IsReadOnly
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.IsReadOnly*
+  name: IsReadOnly
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_IsReadOnly_
+  commentId: Overload:OpenCollar.Extensions.Configuration.PropertyDef.IsReadOnly
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.IsReadOnly
+  nameWithType: PropertyDef.IsReadOnly
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.Path
+  name: Path
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_Path
+  commentId: P:OpenCollar.Extensions.Configuration.PropertyDef.Path
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.Path
+  nameWithType: PropertyDef.Path
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.Path*
+  name: Path
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_Path_
+  commentId: Overload:OpenCollar.Extensions.Configuration.PropertyDef.Path
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.Path
+  nameWithType: PropertyDef.Path
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.PropertyName
+  name: PropertyName
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_PropertyName
+  commentId: P:OpenCollar.Extensions.Configuration.PropertyDef.PropertyName
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.PropertyName
+  nameWithType: PropertyDef.PropertyName
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.PropertyName*
+  name: PropertyName
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_PropertyName_
+  commentId: Overload:OpenCollar.Extensions.Configuration.PropertyDef.PropertyName
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.PropertyName
+  nameWithType: PropertyDef.PropertyName
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.Type
+  name: Type
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_Type
+  commentId: P:OpenCollar.Extensions.Configuration.PropertyDef.Type
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.Type
+  nameWithType: PropertyDef.Type
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.Type*
+  name: Type
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_Type_
+  commentId: Overload:OpenCollar.Extensions.Configuration.PropertyDef.Type
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.Type
+  nameWithType: PropertyDef.Type
+- uid: OpenCollar.Extensions.Configuration.ReadOnlyAttribute
+  name: ReadOnlyAttribute
+  href: api/OpenCollar.Extensions.Configuration.ReadOnlyAttribute.html
+  commentId: T:OpenCollar.Extensions.Configuration.ReadOnlyAttribute
+  fullName: OpenCollar.Extensions.Configuration.ReadOnlyAttribute
+  nameWithType: ReadOnlyAttribute
+- uid: OpenCollar.Extensions.Configuration.ServiceCollectionExtensions
+  name: ServiceCollectionExtensions
+  href: api/OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.html
+  commentId: T:OpenCollar.Extensions.Configuration.ServiceCollectionExtensions
+  fullName: OpenCollar.Extensions.Configuration.ServiceCollectionExtensions
+  nameWithType: ServiceCollectionExtensions
+- uid: OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader*
+  name: AddConfigurationReader
+  href: api/OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.html#OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationReader_
+  commentId: Overload:OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader
+  nameWithType: ServiceCollectionExtensions.AddConfigurationReader
+- uid: OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  name: AddConfigurationReader<TConfigurationObject>(IServiceCollection)
+  href: api/OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.html#OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationReader__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_
+  commentId: M:OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  name.vb: AddConfigurationReader(Of TConfigurationObject)(IServiceCollection)
+  fullName: OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader<TConfigurationObject>(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  fullName.vb: OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader(Of TConfigurationObject)(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  nameWithType: ServiceCollectionExtensions.AddConfigurationReader<TConfigurationObject>(IServiceCollection)
+  nameWithType.vb: ServiceCollectionExtensions.AddConfigurationReader(Of TConfigurationObject)(IServiceCollection)
+- uid: OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.IsConfigurationCollection(System.Type)
+  name: IsConfigurationCollection(Type)
+  href: api/OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.html#OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_IsConfigurationCollection_System_Type_
+  commentId: M:OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.IsConfigurationCollection(System.Type)
+  fullName: OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.IsConfigurationCollection(System.Type)
+  nameWithType: ServiceCollectionExtensions.IsConfigurationCollection(Type)
+- uid: OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.IsConfigurationCollection*
+  name: IsConfigurationCollection
+  href: api/OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.html#OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_IsConfigurationCollection_
+  commentId: Overload:OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.IsConfigurationCollection
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.IsConfigurationCollection
+  nameWithType: ServiceCollectionExtensions.IsConfigurationCollection
+- uid: OpenCollar.Extensions.Configuration.StructuralElementKind
+  name: StructuralElementKind
+  href: api/OpenCollar.Extensions.Configuration.StructuralElementKind.html
+  commentId: T:OpenCollar.Extensions.Configuration.StructuralElementKind
+  fullName: OpenCollar.Extensions.Configuration.StructuralElementKind
+  nameWithType: StructuralElementKind
+- uid: OpenCollar.Extensions.Configuration.StructuralElementKind.Array
+  name: Array
+  href: api/OpenCollar.Extensions.Configuration.StructuralElementKind.html#OpenCollar_Extensions_Configuration_StructuralElementKind_Array
+  commentId: F:OpenCollar.Extensions.Configuration.StructuralElementKind.Array
+  fullName: OpenCollar.Extensions.Configuration.StructuralElementKind.Array
+  nameWithType: StructuralElementKind.Array
+- uid: OpenCollar.Extensions.Configuration.StructuralElementKind.Dictionary
+  name: Dictionary
+  href: api/OpenCollar.Extensions.Configuration.StructuralElementKind.html#OpenCollar_Extensions_Configuration_StructuralElementKind_Dictionary
+  commentId: F:OpenCollar.Extensions.Configuration.StructuralElementKind.Dictionary
+  fullName: OpenCollar.Extensions.Configuration.StructuralElementKind.Dictionary
+  nameWithType: StructuralElementKind.Dictionary
+- uid: OpenCollar.Extensions.Configuration.StructuralElementKind.Property
+  name: Property
+  href: api/OpenCollar.Extensions.Configuration.StructuralElementKind.html#OpenCollar_Extensions_Configuration_StructuralElementKind_Property
+  commentId: F:OpenCollar.Extensions.Configuration.StructuralElementKind.Property
+  fullName: OpenCollar.Extensions.Configuration.StructuralElementKind.Property
+  nameWithType: StructuralElementKind.Property
+- uid: OpenCollar.Extensions.Configuration.StructuralElementKind.Unknown
+  name: Unknown
+  href: api/OpenCollar.Extensions.Configuration.StructuralElementKind.html#OpenCollar_Extensions_Configuration_StructuralElementKind_Unknown
+  commentId: F:OpenCollar.Extensions.Configuration.StructuralElementKind.Unknown
+  fullName: OpenCollar.Extensions.Configuration.StructuralElementKind.Unknown
+  nameWithType: StructuralElementKind.Unknown
