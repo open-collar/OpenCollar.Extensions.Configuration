@@ -15,3 +15,12 @@ jobs:
         dotnet-version: 3.1.100
     - name: Build with dotnet
       run: dotnet build --configuration Release
+      
+    - name: git Actions
+      uses: ludeeus/action-push@master
+      env:
+        ACTION_MAIL: jevans@open-collar.org.uk
+        ACTION_NAME: Jonathan Evans
+        ACTION_BRANCH: master
+        ACTION_MESSAGE: Updated documentation from source code.
+      
