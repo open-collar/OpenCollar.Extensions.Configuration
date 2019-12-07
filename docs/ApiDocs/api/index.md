@@ -1,2 +1,5 @@
-# PLACEHOLDER
-TODO: Add .NET projects to the *src* folder and run `docfx` to generate **REAL** *API Documentation*!
+# OpenCollar.Extensions.Configuration
+
+Support for automatic validation, update and strongly-typed access to configuration.
+
+## API Documentation

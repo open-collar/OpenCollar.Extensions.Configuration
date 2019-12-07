@@ -29,17 +29,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\dotnetcore.yml = .github\workflows\dotnetcore.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "media", "media", "{3DC14E4F-02A1-4CB4-A392-11024EF229BC}"
-	ProjectSection(SolutionItems) = preProject
-		media\opencollar-icon-16x16x32.png = media\opencollar-icon-16x16x32.png
-		media\opencollar-icon-320x320x32.png = media\opencollar-icon-320x320x32.png
-		media\opencollar-icon-32x32x32.png = media\opencollar-icon-32x32x32.png
-		media\opencollar-icon.svg = media\opencollar-icon.svg
-		media\opencollar-logo-320x132x32.png = media\opencollar-logo-320x132x32.png
-		media\opencollar-logo-320x25x32.png = media\opencollar-logo-320x25x32.png
-		media\opencollar-logo.svg = media\opencollar-logo.svg
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{97510A42-1DFE-46A9-94BC-F716322F2598}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiDocs", "docs\ApiDocs\ApiDocs.csproj", "{795B4473-83B0-443D-9A75-7B7426F08E58}"
