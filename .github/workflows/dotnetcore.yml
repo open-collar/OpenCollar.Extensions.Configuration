@@ -17,7 +17,10 @@ jobs:
     - name: Generate build number
       uses: einaregilsson/build-number@v2 
       with:
-        token: ${{secrets.github_token}}      
+        token: ${{secrets.github_token}}
+
+    - name: Report build number
+      run: echo "Build number is $BUILD_NUMBER"
 
     - name: Build with dotnet
       run: dotnet build --configuration Release -p:Version=$BUILD_NUMBER
