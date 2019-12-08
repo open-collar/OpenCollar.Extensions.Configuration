@@ -217,12 +217,12 @@ lunr.Token.prototype.clone = function (fn) {
  * Arrays will have their elements converted to strings and wrapped in a lunr.Token.
  *
  * @static
- * @param {?(string|object|object$VERSION)} obj - The object to convert into tokens
- * @returns {lunr.Token$VERSION}
+ * @param {?(string|object|object0.1.17)} obj - The object to convert into tokens
+ * @returns {lunr.Token0.1.17}
  */
 lunr.tokenizer = function (obj) {
   if (obj == null || obj == undefined) {
-    return $VERSION
+    return 0.1.17
   }
 
   if (Array.isArray(obj)) {
@@ -233,7 +233,7 @@ lunr.tokenizer = function (obj) {
 
   var str = obj.toString().trim().toLowerCase(),
       len = str.length,
-      tokens = $VERSION
+      tokens = 0.1.17
 
   for (var sliceEnd = 0, sliceStart = 0; sliceEnd <= len; sliceEnd++) {
     var char = str.charAt(sliceEnd),
@@ -301,7 +301,7 @@ lunr.tokenizer.separator = /[\s\-]+/
  * @constructor
  */
 lunr.Pipeline = function () {
-  this._stack = $VERSION
+  this._stack = 0.1.17
 }
 
 lunr.Pipeline.registeredFunctions = Object.create(null)
@@ -323,8 +323,8 @@ lunr.Pipeline.registeredFunctions = Object.create(null)
  * @interface lunr.PipelineFunction
  * @param {lunr.Token} token - A token from the document being processed.
  * @param {number} i - The index of this token in the complete list of tokens for this document/field.
- * @param {lunr.Token$VERSION} tokens - All tokens for this document/field.
- * @returns {(?lunr.Token|lunr.Token$VERSION)}
+ * @param {lunr.Token0.1.17} tokens - All tokens for this document/field.
+ * @returns {(?lunr.Token|lunr.Token0.1.17)}
  */
 
 /**
@@ -393,7 +393,7 @@ lunr.Pipeline.load = function (serialised) {
  *
  * Logs a warning if the function has not been registered.
  *
- * @param {lunr.PipelineFunction$VERSION} functions - Any number of functions to add to the pipeline.
+ * @param {lunr.PipelineFunction0.1.17} functions - Any number of functions to add to the pipeline.
  */
 lunr.Pipeline.prototype.add = function () {
   var fns = Array.prototype.slice.call(arguments)
@@ -478,7 +478,7 @@ lunr.Pipeline.prototype.run = function (tokens) {
       if (result === void 0 || result === '') return memo
 
       return memo.concat(result)
-    }, $VERSION)
+    }, 0.1.17)
   }
 
   return tokens
@@ -490,7 +490,7 @@ lunr.Pipeline.prototype.run = function (tokens) {
  * token and mapping the resulting tokens back to strings.
  *
  * @param {string} str - The string to pass through the pipeline.
- * @returns {string$VERSION}
+ * @returns {string0.1.17}
  */
 lunr.Pipeline.prototype.runString = function (str) {
   var token = new lunr.Token (str)
@@ -505,7 +505,7 @@ lunr.Pipeline.prototype.runString = function (str) {
  *
  */
 lunr.Pipeline.prototype.reset = function () {
-  this._stack = $VERSION
+  this._stack = 0.1.17
 }
 
 /**
@@ -541,11 +541,11 @@ lunr.Pipeline.prototype.toJSON = function () {
  * performance when being used for vector calculations.
  *
  * @constructor
- * @param {Number$VERSION} [elements] - The flat list of element index and element value pairs.
+ * @param {Number0.1.17} [elements] - The flat list of element index and element value pairs.
  */
 lunr.Vector = function (elements) {
   this._magnitude = 0
-  this.elements = elements || $VERSION
+  this.elements = elements || 0.1.17
 }
 
 
@@ -699,7 +699,7 @@ lunr.Vector.prototype.similarity = function (otherVector) {
 /**
  * Converts the vector to an array of the elements within the vector.
  *
- * @returns {Number$VERSION}
+ * @returns {Number0.1.17}
  */
 lunr.Vector.prototype.toArray = function () {
   var output = new Array (this.elements.length / 2)
@@ -714,7 +714,7 @@ lunr.Vector.prototype.toArray = function () {
 /**
  * A JSON serializable representation of the vector.
  *
- * @returns {Number$VERSION}
+ * @returns {Number0.1.17}
  */
 lunr.Vector.prototype.toJSON = function () {
   return this.elements
@@ -777,7 +777,7 @@ lunr.stemmer = (function(){
     V = v + "[aeiou]*",      // vowel sequence
 
     mgr0 = "^(" + C + ")?" + V + C,               // [C]VC... is m>0
-    meq1 = "^(" + C + ")?" + V + C + "(" + V + ")?$",  // [C]VC[$VERSION is m=1
+    meq1 = "^(" + C + ")?" + V + C + "(" + V + ")?$",  // [C]VC[0.1.17 is m=1
     mgr1 = "^(" + C + ")?" + V + C + V + C,       // [C]VCVC... is m>1
     s_v = "^(" + C + ")?" + v;                   // vowel in stem
 
@@ -1177,7 +1177,7 @@ lunr.TokenSet._nextId = 1
 /**
  * Creates a TokenSet instance from the given sorted array of words.
  *
- * @param {String$VERSION} arr - A sorted array of strings to create the set from.
+ * @param {String0.1.17} arr - A sorted array of strings to create the set from.
  * @returns {lunr.TokenSet}
  * @throws Will throw an error if the input array is not sorted.
  */
@@ -1416,10 +1416,10 @@ lunr.TokenSet.fromString = function (str) {
  * Converts this TokenSet into an array of strings
  * contained within the TokenSet.
  *
- * @returns {string$VERSION}
+ * @returns {string0.1.17}
  */
 lunr.TokenSet.prototype.toArray = function () {
-  var words = $VERSION
+  var words = 0.1.17
 
   var stack = [{
     prefix: "",
@@ -1560,7 +1560,7 @@ lunr.TokenSet.prototype.intersect = function (b) {
 lunr.TokenSet.Builder = function () {
   this.previousWord = ""
   this.root = new lunr.TokenSet
-  this.uncheckedNodes = $VERSION
+  this.uncheckedNodes = 0.1.17
   this.minimizedNodes = {}
 }
 
@@ -1644,7 +1644,7 @@ lunr.TokenSet.Builder.prototype.minimize = function (downTo) {
  * @param {Object} attrs.invertedIndex - An index of term/field to document reference.
  * @param {Object<string, lunr.Vector>} attrs.documentVectors - Document vectors keyed by document reference.
  * @param {lunr.TokenSet} attrs.tokenSet - An set of all corpus tokens.
- * @param {string$VERSION} attrs.fields - The names of indexed document fields.
+ * @param {string0.1.17} attrs.fields - The names of indexed document fields.
  * @param {lunr.Pipeline} attrs.pipeline - The pipeline to use for search terms.
  */
 lunr.Index = function (attrs) {
@@ -1715,7 +1715,7 @@ lunr.Index = function (attrs) {
  *
  * @param {lunr.Index~QueryString} queryString - A string containing a lunr query.
  * @throws {lunr.QueryParseError} If the passed query string cannot be parsed.
- * @returns {lunr.Index~Result$VERSION}
+ * @returns {lunr.Index~Result0.1.17}
  */
 lunr.Index.prototype.search = function (queryString) {
   return this.query(function (query) {
@@ -1747,7 +1747,7 @@ lunr.Index.prototype.search = function (queryString) {
  * customized.
  *
  * @param {lunr.Index~queryBuilder} fn - A function that is used to build the query.
- * @returns {lunr.Index~Result$VERSION}
+ * @returns {lunr.Index~Result0.1.17}
  */
 lunr.Index.prototype.query = function (fn) {
   // for each query clause
@@ -2001,7 +2001,7 @@ lunr.Index.load = function (serializedIndex) {
  *
  * @constructor
  * @property {string} _ref - Internal reference to the document reference field.
- * @property {string$VERSION} _fields - Internal reference to the document fields to index.
+ * @property {string0.1.17} _fields - Internal reference to the document fields to index.
  * @property {object} invertedIndex - The inverted index maps terms to document fields.
  * @property {object} documentTermFrequencies - Keeps track of document term frequencies.
  * @property {object} documentLengths - Keeps track of the length of documents added to the index.
@@ -2016,7 +2016,7 @@ lunr.Index.load = function (serializedIndex) {
  */
 lunr.Builder = function () {
   this._ref = "id"
-  this._fields = $VERSION
+  this._fields = 0.1.17
   this.invertedIndex = Object.create(null)
   this.fieldTermFrequencies = {}
   this.fieldLengths = {}
@@ -2027,7 +2027,7 @@ lunr.Builder = function () {
   this._b = 0.75
   this._k1 = 1.2
   this.termIndex = 0
-  this.metadataWhitelist = $VERSION
+  this.metadataWhitelist = 0.1.17
 }
 
 /**
@@ -2156,7 +2156,7 @@ lunr.Builder.prototype.add = function (doc) {
             metadata = term.metadata[metadataKey]
 
         if (this.invertedIndex[term][fieldName][docRef][metadataKey] == undefined) {
-          this.invertedIndex[term][fieldName][docRef][metadataKey] = $VERSION
+          this.invertedIndex[term][fieldName][docRef][metadataKey] = 0.1.17
         }
 
         this.invertedIndex[term][fieldName][docRef][metadataKey].push(metadata)
@@ -2372,11 +2372,11 @@ lunr.MatchData.prototype.combine = function (otherMatchData) {
  * so the query object is pre-initialized with the right index fields.
  *
  * @constructor
- * @property {lunr.Query~Clause$VERSION} clauses - An array of query clauses.
- * @property {string$VERSION} allFields - An array of all available fields in a lunr.Index.
+ * @property {lunr.Query~Clause0.1.17} clauses - An array of query clauses.
+ * @property {string0.1.17} allFields - An array of all available fields in a lunr.Index.
  */
 lunr.Query = function (allFields) {
-  this.clauses = $VERSION
+  this.clauses = 0.1.17
   this.allFields = allFields
 }
 
@@ -2413,7 +2413,7 @@ lunr.Query.wildcard.TRAILING = 2
  * match that term against a {@link lunr.Index}.
  *
  * @typedef {Object} lunr.Query~Clause
- * @property {string$VERSION} fields - The fields in an index this clause should be matched against.
+ * @property {string0.1.17} fields - The fields in an index this clause should be matched against.
  * @property {number} [boost=1] - Any boost that should be applied when matching this clause.
  * @property {number} [editDistance] - Whether the term should have fuzzy matching applied, and how fuzzy the match should be.
  * @property {boolean} [usePipeline] - Whether the term should be passed through the search pipeline.
@@ -2495,12 +2495,12 @@ lunr.QueryParseError = function (message, start, end) {
 
 lunr.QueryParseError.prototype = new Error
 lunr.QueryLexer = function (str) {
-  this.lexemes = $VERSION
+  this.lexemes = 0.1.17
   this.str = str
   this.length = str.length
   this.pos = 0
   this.start = 0
-  this.escapeCharPositions = $VERSION
+  this.escapeCharPositions = 0.1.17
 }
 
 lunr.QueryLexer.prototype.run = function () {
@@ -2512,7 +2512,7 @@ lunr.QueryLexer.prototype.run = function () {
 }
 
 lunr.QueryLexer.prototype.sliceString = function () {
-  var subSlices = $VERSION,
+  var subSlices = 0.1.17,
       sliceStart = this.start,
       sliceEnd = this.pos
 

@@ -108,14 +108,14 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).ContainsKey
   nameWithType: ConfigurationDictionaryBase<TKey, TElement>.ContainsKey
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).ContainsKey
-- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}$VERSION,System.Int32)
-  name: CopyTo(KeyValuePair<TKey, TElement>$VERSION, Int32)
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}0.1.17,System.Int32)
+  name: CopyTo(KeyValuePair<TKey, TElement>0.1.17, Int32)
   href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_CopyTo_System_Collections_Generic_KeyValuePair__0__1____System_Int32_
-  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}$VERSION,System.Int32)
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}0.1.17,System.Int32)
   name.vb: CopyTo(KeyValuePair(Of TKey, TElement)(), Int32)
-  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.CopyTo(System.Collections.Generic.KeyValuePair<TKey, TElement>$VERSION, System.Int32)
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.CopyTo(System.Collections.Generic.KeyValuePair<TKey, TElement>0.1.17, System.Int32)
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).CopyTo(System.Collections.Generic.KeyValuePair(Of TKey, TElement)(), System.Int32)
-  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.CopyTo(KeyValuePair<TKey, TElement>$VERSION, Int32)
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.CopyTo(KeyValuePair<TKey, TElement>0.1.17, Int32)
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).CopyTo(KeyValuePair(Of TKey, TElement)(), Int32)
 - uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.CopyTo*
   name: CopyTo
