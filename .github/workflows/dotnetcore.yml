@@ -32,7 +32,8 @@ jobs:
     - name: Build
       run: |
         VERSION=$(<.version/version.txt)
-        dotnet build --configuration Release -p:Version="$VERSION"
+        SUFFIX="-preview"
+        dotnet build --configuration Release -p:Version="$VERSION" -p:NuGetVersion="$VERSION$SUFFIX"
 
     - name: Test
       run: |
