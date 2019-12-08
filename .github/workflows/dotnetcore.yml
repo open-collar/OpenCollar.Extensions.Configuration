@@ -35,13 +35,12 @@ jobs:
 
     - name: Build with dotnet
       run: |
-        VERSION=$(<.version/version.txt)
         dotnet build --configuration Release -p:Version="$VERSION"
 
     - name: Set documentation version number
       run: |
         cd docs
-        grep -rli '[[VERSION]]' * | xargs -i@ sed -i 's/[[VERSION]]/$VERSION/g' @
+        grep -rli '[[VERSION]]' * | xargs -i@ sed -i "s/[[VERSION]]/$VERSION/g" @
         cd ..
       
     - name: Commit files
