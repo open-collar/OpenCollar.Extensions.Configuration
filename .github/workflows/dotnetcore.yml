@@ -46,13 +46,14 @@ jobs:
         git grep -lz 'BUILD_VERSION' | xargs -0 sed -i -e "s/BUILD_VERSION/$VERSION/g"
         cd ..
       
-    - name: Commit files
+    - name: Commit changes (documentation)
       run: |
         git config --local user.email "jevans@open-collar.org.uk"
         git config --local user.name "Jonathan Evans"
-        git commit -m "Published documentation from build." -a
+        git add -- ./docs
+        git commit -m "Published documentation from build."
       
-    - name: Publish documentation
+    - name: Push changes (documentation)
       uses: ad-m/github-push-action@v0.5.0
       if: github.ref == 'refs/heads/master'
       with:
