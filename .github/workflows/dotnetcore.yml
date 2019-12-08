@@ -40,8 +40,9 @@ jobs:
 
     - name: Set documentation version number
       run: |
-        cd /docs
+        cd docs
         grep -rli '[[VERSION]]' * | xargs -i@ sed -i 's/[[VERSION]]/$VERSION/g' @
+        cd ..
       
     - name: Commit files
       run: |
