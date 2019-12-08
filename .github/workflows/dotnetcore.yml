@@ -29,10 +29,15 @@ jobs:
         VERSION=$(<.version/version.txt)
         echo "Version: $VERSION"
 
-    - name: Build with dotnet
+    - name: Build
       run: |
         VERSION=$(<.version/version.txt)
         dotnet build --configuration Release -p:Version="$VERSION"
+
+    - name: Test
+      run: |
+        VERSION=$(<.version/version.txt)
+        dotnet test --configuration Release -p:Version="$VERSION"
 
     - name: Set documentation version number
       run: |
@@ -40,11 +45,6 @@ jobs:
         cd docs
         git grep -lz 'BUILD_VERSION' | xargs -0 sed -i -e "s/BUILD_VERSION/$VERSION/g"
         cd ..
-
-    - name: Test with dotnet
-      run: |
-        VERSION=$(<.version/version.txt)
-        dotnet test --configuration Release -p:Version="$VERSION"
       
     - name: Commit files
       run: |
