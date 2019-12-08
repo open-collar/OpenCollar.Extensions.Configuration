@@ -30,7 +30,9 @@ jobs:
         echo "Version: $VERSION"
 
     - name: Build with dotnet
-      run: dotnet build --configuration Release -p:Version="$VERSION" -p:NuGetVersion="$VERSION"
+      run: |
+        VERSION=$(<.version/version.txt)
+        dotnet build --configuration Release -p:Version="$VERSION"
       
     - name: Commit files
       run: |
