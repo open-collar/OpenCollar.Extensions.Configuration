@@ -57,7 +57,7 @@ namespace OpenCollar.Extensions.Configuration
             var propertyDefs = GetConfigurationObjectDefinition(type, localContext);
 
             // TODO: Replace with real implementation!
-            return typeof(object);
+            return null;// typeof(object);
         }
 
         /// <summary>A thread-safe dictionary of the property definition collections keyed on the type of the class that defines them.</summary>
