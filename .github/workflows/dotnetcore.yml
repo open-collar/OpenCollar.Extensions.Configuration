@@ -37,7 +37,7 @@ jobs:
     - name: Set documentation version number
       run: |
         VERSION=$(<.version/version.txt)        
-        find ./docs -type f -name "*.html" -print0 | xargs -0 sed -i '' -e "s/[[VERSION]]/$VERSION/g" @
+        find ./docs -type f -name "*.html" -print0 | xargs -0 sed -i '' -e "s/[[VERSION]]/$VERSION/g"
 
     - name: Test with dotnet
       run: |
