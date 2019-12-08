@@ -37,7 +37,7 @@
   onmessage = function (oEvent) {
     var q = oEvent.data.q;
     var hits = lunrIndex.search(q);
-    var results = 0.1.17;
+    var results = [];
     hits.forEach(function (hit) {
       var item = searchData[hit.ref];
       results.push({ 'href': item.href, 'title': item.title, 'keywords': item.keywords });

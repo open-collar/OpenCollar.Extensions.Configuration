@@ -1,5 +1,5 @@
 {
-  "homepages": 0.1.17,
+  "homepages": [],
   "source_base_path": "/home/runner/work/OpenCollar.Extensions.Configuration/OpenCollar.Extensions.Configuration/docs-src/ApiDocs",
   "xrefmap": "xrefmap.yml",
   "files": [
@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html",
-          "hash": "sSf9HGTlxDZwVI8+SzweNw=="
+          "hash": "JKfBH+BiXyKN61q7lhxy/A=="
         }
       },
       "is_incremental": false,
@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.Collections.html",
-          "hash": "UEjkGj+uudataFc7IRNcrw=="
+          "hash": "agI5i8fOeEhZTE4E2MviPQ=="
         }
       },
       "is_incremental": false,
@@ -42,7 +42,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationCollection-1.html",
-          "hash": "O/QsmZDFO3riaIwsPFXxYg=="
+          "hash": "vckOaX9BsnYf/6229CFU7Q=="
         }
       },
       "is_incremental": false,
@@ -54,7 +54,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationDictionary-1.html",
-          "hash": "Z4DyVT2wNd+nv9hj+kRw5w=="
+          "hash": "zDFcYd3L+TyNFYBoP52a8g=="
         }
       },
       "is_incremental": false,
@@ -66,7 +66,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationObject.html",
-          "hash": "ZfeQUz/zLVeOGvjC/Q8eXQ=="
+          "hash": "bByWRyznaa0WVV4U2qH1Ww=="
         }
       },
       "is_incremental": false,
@@ -78,7 +78,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.INotifyItemChanged.html",
-          "hash": "pnQRPncYHzft7iAIlCQ+9A=="
+          "hash": "7jdfiJ6Z1SMVnwzKYQ/Kdw=="
         }
       },
       "is_incremental": false,
@@ -90,7 +90,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ItemChangedEventArgs.html",
-          "hash": "6gMkCZv6zV7f078jlA5oOg=="
+          "hash": "DII/LO/P0sFnZZlJ5ZLn3w=="
         }
       },
       "is_incremental": false,
@@ -102,7 +102,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ItemChangedEventHandler.html",
-          "hash": "TMuDl1B/m3ieWBugJwuz5w=="
+          "hash": "eeJL6qNbfyzIiiMvAiFqJg=="
         }
       },
       "is_incremental": false,
@@ -114,7 +114,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.PathAttribute.html",
-          "hash": "S+Y++0x5cG19/Ur/NU82Mg=="
+          "hash": "rd1/wg8/pON35bfnVr2W/Q=="
         }
       },
       "is_incremental": false,
@@ -126,7 +126,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.PathIs.html",
-          "hash": "f3UEP3ODr8Y0AV6/LzYOEg=="
+          "hash": "tO1nUkFPfkwnkVlhPO+vaw=="
         }
       },
       "is_incremental": false,
@@ -138,7 +138,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.PropertyDef.html",
-          "hash": "9I18onQSNxDAvzZydQeJ+g=="
+          "hash": "dc4jS2DFJHZQ6nK80m2kwg=="
         }
       },
       "is_incremental": false,
@@ -150,7 +150,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ReadOnlyAttribute.html",
-          "hash": "+O7etcjm+6v12UrpRW76qQ=="
+          "hash": "udS81wcZuZFwIAMaRxg1Mg=="
         }
       },
       "is_incremental": false,
@@ -162,7 +162,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.html",
-          "hash": "BdFOLnZ3TvtC+I1JJHTFdA=="
+          "hash": "/VVgijNQbjbDaveNfPwkTQ=="
         }
       },
       "is_incremental": false,
@@ -174,7 +174,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.StructuralElementKind.html",
-          "hash": "lJJOAjbGxKPRUXRTagKSag=="
+          "hash": "GDHZ8IdT/YnxYrDwPbO+Hg=="
         }
       },
       "is_incremental": false,
@@ -186,7 +186,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.html",
-          "hash": "pS/eOMvvpO+s68lx3P7oHA=="
+          "hash": "1209tLPdbbc+kde+k/YTPQ=="
         }
       },
       "is_incremental": false,
@@ -198,7 +198,7 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "pVsQiGvp/MspE3CW/xd7HA=="
+          "hash": "4dF3jjekRAwI1rk1v+gaYA=="
         }
       },
       "is_incremental": false,
@@ -222,7 +222,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/intro.html",
-          "hash": "y7JINIQKbU7mabz6HgkkWA=="
+          "hash": "6H/HtgSkiEFvJBCeiLm1VQ=="
         }
       },
       "is_incremental": false,
@@ -334,7 +334,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "hJKWlshUWIVtXCx+YzOUWQ=="
+          "hash": "luaEiaQMy19SrwmGAb94AA=="
         }
       },
       "is_incremental": false,
@@ -364,9 +364,9 @@
         "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
-        "ResourceDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
           "total_file_count": 0,
           "skipped_file_count": 0
@@ -383,9 +383,9 @@
           "total_file_count": 15,
           "skipped_file_count": 0
         },
-        "TocDocumentProcessor": {
+        "ResourceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
           "total_file_count": 0,
           "skipped_file_count": 0
