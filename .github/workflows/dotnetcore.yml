@@ -19,20 +19,18 @@ jobs:
       with:
         token: ${{secrets.github_token}}
     
-    - name: Generate version number
+    - name: Set version number environment variables
       run: |
-        VERSION_REVISION=$BUILD_NUMBER
+        export VERSION_REVISION="$BUILD_NUMBER""
         echo "$VERSION_REVISION" > .version/revision.txt
-        VERSION_MAJOR=$(<.version/major.txt)
-        VERSION_MINOR=$(<.version/minor.txt)
+        export VERSION_MAJOR=$(<.version/major.txt)
+        export VERSION_MINOR=$(<.version/minor.txt)
         echo "$VERSION_MAJOR.$VERSION_MINOR.$VERSION_REVISION" > .version/version.txt
-        VERSION=$(<.version/version.txt)
+        export VERSION=$(<.version/version.txt)
         echo "Version: $VERSION"
 
     - name: Build with dotnet
-      run: |
-        VERSION=$(<.version/version.txt)
-        dotnet build --configuration Release -p:Version="$VERSION"
+      run: dotnet build --configuration Release -p:Version="$VERSION"
       
     - name: Commit files
       run: |

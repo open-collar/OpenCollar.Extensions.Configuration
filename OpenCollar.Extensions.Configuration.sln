@@ -34,9 +34,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{97510A42-1
 		docs\.gitignore = docs\.gitignore
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiDocs", "doc-src\ApiDocs\ApiDocs.csproj", "{DE0DD469-09DC-4436-8CC5-E86AD4231371}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiDocs", "docs-src\ApiDocs\ApiDocs.csproj", "{DE0DD469-09DC-4436-8CC5-E86AD4231371}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc-src", "doc-src", "{EB2B82BB-BE74-4B60-B93C-633AA5D5B6AF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs-src", "docs-src", "{EB2B82BB-BE74-4B60-B93C-633AA5D5B6AF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".version", ".version", "{EBC507DC-50D5-4EB8-A7D1-40A5B30B410F}"
 	ProjectSection(SolutionItems) = preProject
