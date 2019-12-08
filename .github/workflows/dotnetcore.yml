@@ -21,6 +21,7 @@ jobs:
     
     - name: Generate version number
       run: |
+        VERSION_REVISION=$BUILD_NUMBER
         echo "$VERSION_REVISION" > .version/revision.txt
         VERSION_MAJOR=$(<.version/major.txt)
         VERSION_MINOR=$(<.version/minor.txt)
