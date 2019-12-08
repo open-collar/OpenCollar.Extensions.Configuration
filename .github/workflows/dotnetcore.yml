@@ -54,7 +54,7 @@ jobs:
       
     - name: Publish documentation
       uses: ad-m/github-push-action@v0.5.0
-      if: github.base_ref='master'
+      if: github.ref == 'refs/heads/master'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
       
