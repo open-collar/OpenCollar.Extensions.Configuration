@@ -27,18 +27,16 @@ jobs:
         VERSION_MINOR=$(<.version/minor.txt)
         echo "$VERSION_MAJOR.$VERSION_MINOR.$VERSION_REVISION" > .version/version.txt
         VERSION=$(<.version/version.txt)
-        echo "::set-env VERSION_MAJOR=$VERSION_MAJOR"
-        echo "::set-env VERSION_MINOR=$VERSION_MINOR"
-        echo "::set-env VERSION_REVISION=$VERSION_REVISION"
-        echo "::set-env VERSION=$VERSION"
         echo "Version: $VERSION"
 
     - name: Build with dotnet
       run: |
+        VERSION=$(<.version/version.txt)
         dotnet build --configuration Release -p:Version="$VERSION"
 
     - name: Set documentation version number
       run: |
+        VERSION=$(<.version/version.txt)
         cd docs
         grep -rli '[[VERSION]]' * | xargs -i@ sed -i "s/[[VERSION]]/$VERSION/g" @
         cd ..
