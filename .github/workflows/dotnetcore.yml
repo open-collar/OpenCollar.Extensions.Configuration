@@ -14,16 +14,22 @@ jobs:
       with:
         dotnet-version: 3.1.100
 
-    - name: Generate build number
+    - name: Generate revision number
       uses: einaregilsson/build-number@v2 
       with:
         token: ${{secrets.github_token}}
-
-    - name: Report build number
-      run: echo "Build number is $BUILD_NUMBER"
+    
+    - name: Generate version number
+      run: |
+        echo "$VERSION_REVISION" > .version/revision.txt
+        VERSION_MAJOR=$(<.version/major.txt)
+        VERSION_MINOR=$(<.version/minor.txt)
+        echo "$VERSION_MAJOR.$VERSION_MINOR.$VERSION_REVISION" > .version/version.txt
+        VERSION=$(<.version/version.txt)
+        echo "Version: $VERSION"
 
     - name: Build with dotnet
-      run: dotnet build --configuration Release -p:Version=$BUILD_NUMBER
+      run: dotnet build --configuration Release -p:Version=$VERSION_REVISION
       
     - name: Commit files
       run: |
