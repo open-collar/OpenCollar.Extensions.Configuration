@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>OpenCollar.Extensions.Configuration | API Documentation </title>
+    <title>Where to Start | API Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="OpenCollar.Extensions.Configuration | API Documentation ">
+    <meta name="title" content="Where to Start | API Documentation ">
     <meta name="generator" content="docfx 2.47.0.0">
     
     <link rel="shortcut icon" href="favicon.ico">
@@ -70,9 +70,34 @@
         <div class="article row grid">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="opencollarextensionsconfiguration">OpenCollar.Extensions.Configuration</h1>
 
 <p>Support for automatic validation, update and strongly-typed access to configuration.</p>
+<h1 id="where-to-start">Where to Start</h1>
+<p>The starting point is to define an interface through which to read your configuration and add a reader in <code>Startup.cs</code>:</p>
+<pre><code>// This method gets called by the runtime. Use this method to add services to the container.
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddRazorPages();
+    services.AddConfigurationReader&lt;IMyConfig&gt;();
+}
+</code></pre>
+<p>Later, when needed the configuration reader will be available as a service:</p>
+<pre><code>public MyConstructor(IMyConfig config)
+{
+    // Your config is available through the interface you defined in IMyConfig, strongly typed and validated.
+}
+</code></pre>
+<h1 id="project">Project</h1>
+<h2 id="project-resources">Project Resources</h2>
+<ul>
+<li><a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration">Source Code</a></li>
+<li><a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/issues">Issue Tracking</a></li>
+<li><a href="https://open-collar.github.io/OpenCollar.Extensions.Configuration/">GitHub Pages</a></li>
+</ul>
+<h2 id="build-status">Build Status</h2>
+<ul>
+<li><img src="https://github.com/open-collar/OpenCollar.Extensions.Configuration/workflows/.NET%20Core/badge.svg" alt="Master"></li>
+</ul>
 </article>
           </div>
           
