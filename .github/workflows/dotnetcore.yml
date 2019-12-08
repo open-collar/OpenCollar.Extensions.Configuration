@@ -23,10 +23,10 @@ jobs:
       run: |
         echo "::set-env VERSION_REVISION=$BUILD_NUMBER"
         echo "$VERSION_REVISION" > .version/revision.txt
-        echo "::set-env VERSION_MAJOR=$(<.version/major.txt)
-        echo "::set-env VERSION_MINOR=$(<.version/minor.txt)
+        echo "::set-env VERSION_MAJOR=$(<.version/major.txt)"
+        echo "::set-env VERSION_MINOR=$(<.version/minor.txt)"
         echo "$VERSION_MAJOR.$VERSION_MINOR.$VERSION_REVISION" > .version/version.txt
-        echo "::set-env VERSION=$(<.version/version.txt)
+        echo "::set-env VERSION=$(<.version/version.txt)"
         echo "Version: $VERSION"
 
     - name: Build with dotnet
