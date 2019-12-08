@@ -48,15 +48,18 @@ jobs:
         cd ..
       
     - name: Commit changes (documentation)
+      if: github.ref == 'refs/heads/master'
       run: |
         git config --local user.email "jevans@open-collar.org.uk"
         git config --local user.name "Jonathan Evans"
         git add -- ./docs
         git commit -m "Published documentation from build."
+        git push origin
       
     - name: Push changes (documentation)
       uses: ad-m/github-push-action@v0.5.0
       if: github.ref == 'refs/heads/master'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: 'gh-pages'
       
