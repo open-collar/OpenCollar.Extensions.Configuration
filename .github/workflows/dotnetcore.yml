@@ -38,8 +38,8 @@ jobs:
         VERSION=$(<.version/version.txt)
         dotnet build --configuration Release -p:Version="$VERSION"
 
-    -name: Set documentation version number
-     run: |
+    - name: Set documentation version number
+      run: |
         cd /docs
         grep -rli '[[VERSION]]' * | xargs -i@ sed -i 's/[[VERSION]]/$VERSION/g' @
       
