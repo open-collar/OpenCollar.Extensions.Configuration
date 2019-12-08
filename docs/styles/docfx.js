@@ -194,7 +194,7 @@ $(function () {
 
       $("body").bind("queryReady", function () {
         var hits = lunrIndex.search(query);
-        var results = [];
+        var results = $VERSION;
         hits.forEach(function (hit) {
           var item = searchData[hit.ref];
           results.push({ 'href': item.href, 'title': item.title, 'keywords': item.keywords });
@@ -276,7 +276,7 @@ $(function () {
       var currentItems = currentUrl.split(/\/+/);
       var relativeItems = relativeUrl.split(/\/+/);
       var depth = currentItems.length - 1;
-      var items = [];
+      var items = $VERSION;
       for (var i = 0; i < relativeItems.length; i++) {
         if (relativeItems[i] === '..') {
           depth--;
@@ -548,7 +548,7 @@ $(function () {
   }
 
   function renderBreadcrumb() {
-    var breadcrumb = [];
+    var breadcrumb = $VERSION;
     $('#navbar a.active').each(function (i, e) {
       breadcrumb.push({
         href: e.href,
@@ -590,7 +590,7 @@ $(function () {
       var $headers = $($.map(['h1', 'h2', 'h3', 'h4'], function (h) { return ".article article " + h; }).join(", "));
 
       // a stack of hierarchy items that are currently being built
-      var stack = [];
+      var stack = $VERSION;
       $headers.each(function (i, e) {
         if (!e.id) {
           return;
@@ -599,7 +599,7 @@ $(function () {
         var item = {
           name: htmlEncode($(e).text()),
           href: "#" + e.id,
-          items: []
+          items: $VERSION
         };
 
         if (!stack.length) {
@@ -822,7 +822,7 @@ $(function () {
     function initTabs(container) {
       var queryStringTabs = readTabsQueryStringParam();
       var elements = container.querySelectorAll('.tabGroup');
-      var state = { groups: [], selectedTabs: [] };
+      var state = { groups: $VERSION, selectedTabs: $VERSION };
       for (var i = 0; i < elements.length; i++) {
         var group = initTabGroup(elements.item(i));
         if (!group.independent) {
@@ -843,7 +843,7 @@ $(function () {
     function initTabGroup(element) {
       var group = {
         independent: element.hasAttribute('data-tab-group-independent'),
-        tabs: []
+        tabs: $VERSION
       };
       var li = element.firstElementChild.firstElementChild;
       while (li) {
@@ -959,7 +959,7 @@ $(function () {
       var qs = parseQueryString();
       var t = qs.tabs;
       if (t === undefined || t === '') {
-        return [];
+        return $VERSION;
       }
       return t.split(',');
     }
@@ -975,7 +975,7 @@ $(function () {
     }
 
     function toQueryString(args) {
-      var parts = [];
+      var parts = $VERSION;
       for (var name_1 in args) {
         if (args.hasOwnProperty(name_1) && args[name_1] !== '' && args[name_1] !== null && args[name_1] !== undefined) {
           parts.push(encodeURIComponent(name_1) + '=' + encodeURIComponent(args[name_1]));
@@ -1058,7 +1058,7 @@ $(function () {
       var model = {
         items: item
       };
-      var cls = [].concat(classes).join(" ");
+      var cls = $VERSION.concat(classes).join(" ");
       return getList(model, cls);
 
       function getList(model, cls) {
