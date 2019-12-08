@@ -21,7 +21,7 @@ jobs:
     
     - name: Set version number environment variables
       run: |
-        export VERSION_REVISION="$BUILD_NUMBER""
+        export VERSION_REVISION="$BUILD_NUMBER"
         echo "$VERSION_REVISION" > .version/revision.txt
         export VERSION_MAJOR=$(<.version/major.txt)
         export VERSION_MINOR=$(<.version/minor.txt)
