@@ -1,9 +1,6 @@
 name: .NET Core
 
-on:
-  push:
-    branches:
-      - master
+on: [push]
 
 jobs:
   build:
@@ -41,7 +38,7 @@ jobs:
       run: |
         VERSION=$(<.version/version.txt)        
         cd docs
-        git grep -lz '{{VERSION}}' | xargs -0 sed -i '' -e "s/{{VERSION}}/$VERSION/g"
+        git grep -lz 'BUILD_VERSION' | xargs -0 sed -i '' -e "s/BUILD_VERSION/$VERSION/g"
         cd ..
 
     - name: Test with dotnet
@@ -57,6 +54,7 @@ jobs:
       
     - name: Publish documentation
       uses: ad-m/github-push-action@v0.5.0
+      if: github.base_ref='master'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
       

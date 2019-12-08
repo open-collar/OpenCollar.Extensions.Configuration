@@ -67,7 +67,7 @@
         },
         "globalMetadata": {
             "_appTitle": "API Documentation",
-            "_appFooter": "Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a> | <span style='font-style: italic;'>Version: {{VERSION}}</span>",
+            "_appFooter": "Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a> | <span style='font-style: italic;'>Version: BUILD_VERSION</span>",
             "_appLogoPath": "./images/opencollar-icon-48x96x32.png",
             "_enableSearch": true,
             "_enableNewTab": true,
