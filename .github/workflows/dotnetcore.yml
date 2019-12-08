@@ -1,6 +1,9 @@
 name: .NET Core
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -38,7 +41,7 @@ jobs:
       run: |
         VERSION=$(<.version/version.txt)        
         cd docs
-        find . -type f -name "*.html" -print0 | xargs -0 sed -i '' -e "s/[[VERSION]]/$VERSION/g"
+        git grep -lz '[[VERSION]]' | xargs -0 sed -i '' -e "s/[[VERSION]]/$VERSION/g"
         cd ..
 
     - name: Test with dotnet
