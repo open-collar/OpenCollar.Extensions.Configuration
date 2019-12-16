@@ -143,14 +143,14 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Count
   nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Count
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Count
-- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Dispose
-  name: Dispose()
-  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Dispose
-  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Dispose
-  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Dispose()
-  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Dispose()
-  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Dispose()
-  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Dispose()
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Dispose(System.Boolean)
+  name: Dispose(Boolean)
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Dispose_System_Boolean_
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Dispose(System.Boolean)
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.Dispose(System.Boolean)
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Dispose(System.Boolean)
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Dispose(Boolean)
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Dispose(Boolean)
 - uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Dispose*
   name: Dispose
   href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Dispose_
@@ -229,14 +229,6 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Item
   nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Item
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Item
-- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.ItemChanged
-  name: ItemChanged
-  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_ItemChanged
-  commentId: E:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.ItemChanged
-  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.ItemChanged
-  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).ItemChanged
-  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.ItemChanged
-  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).ItemChanged
 - uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Keys
   name: Keys
   href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Keys
@@ -376,6 +368,57 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Values
   nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Values
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Values
+- uid: OpenCollar.Extensions.Configuration.Disposable
+  name: Disposable
+  href: api/OpenCollar.Extensions.Configuration.Disposable.html
+  commentId: T:OpenCollar.Extensions.Configuration.Disposable
+  fullName: OpenCollar.Extensions.Configuration.Disposable
+  nameWithType: Disposable
+- uid: OpenCollar.Extensions.Configuration.Disposable.Dispose
+  name: Dispose()
+  href: api/OpenCollar.Extensions.Configuration.Disposable.html#OpenCollar_Extensions_Configuration_Disposable_Dispose
+  commentId: M:OpenCollar.Extensions.Configuration.Disposable.Dispose
+  fullName: OpenCollar.Extensions.Configuration.Disposable.Dispose()
+  nameWithType: Disposable.Dispose()
+- uid: OpenCollar.Extensions.Configuration.Disposable.Dispose(System.Boolean)
+  name: Dispose(Boolean)
+  href: api/OpenCollar.Extensions.Configuration.Disposable.html#OpenCollar_Extensions_Configuration_Disposable_Dispose_System_Boolean_
+  commentId: M:OpenCollar.Extensions.Configuration.Disposable.Dispose(System.Boolean)
+  fullName: OpenCollar.Extensions.Configuration.Disposable.Dispose(System.Boolean)
+  nameWithType: Disposable.Dispose(Boolean)
+- uid: OpenCollar.Extensions.Configuration.Disposable.Dispose*
+  name: Dispose
+  href: api/OpenCollar.Extensions.Configuration.Disposable.html#OpenCollar_Extensions_Configuration_Disposable_Dispose_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Disposable.Dispose
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Disposable.Dispose
+  nameWithType: Disposable.Dispose
+- uid: OpenCollar.Extensions.Configuration.Disposable.EnforceDisposed
+  name: EnforceDisposed()
+  href: api/OpenCollar.Extensions.Configuration.Disposable.html#OpenCollar_Extensions_Configuration_Disposable_EnforceDisposed
+  commentId: M:OpenCollar.Extensions.Configuration.Disposable.EnforceDisposed
+  fullName: OpenCollar.Extensions.Configuration.Disposable.EnforceDisposed()
+  nameWithType: Disposable.EnforceDisposed()
+- uid: OpenCollar.Extensions.Configuration.Disposable.EnforceDisposed*
+  name: EnforceDisposed
+  href: api/OpenCollar.Extensions.Configuration.Disposable.html#OpenCollar_Extensions_Configuration_Disposable_EnforceDisposed_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Disposable.EnforceDisposed
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Disposable.EnforceDisposed
+  nameWithType: Disposable.EnforceDisposed
+- uid: OpenCollar.Extensions.Configuration.Disposable.IsDisposed
+  name: IsDisposed
+  href: api/OpenCollar.Extensions.Configuration.Disposable.html#OpenCollar_Extensions_Configuration_Disposable_IsDisposed
+  commentId: P:OpenCollar.Extensions.Configuration.Disposable.IsDisposed
+  fullName: OpenCollar.Extensions.Configuration.Disposable.IsDisposed
+  nameWithType: Disposable.IsDisposed
+- uid: OpenCollar.Extensions.Configuration.Disposable.IsDisposed*
+  name: IsDisposed
+  href: api/OpenCollar.Extensions.Configuration.Disposable.html#OpenCollar_Extensions_Configuration_Disposable_IsDisposed_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Disposable.IsDisposed
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Disposable.IsDisposed
+  nameWithType: Disposable.IsDisposed
 - uid: OpenCollar.Extensions.Configuration.IConfigurationCollection`1
   name: IConfigurationCollection<TElement>
   href: api/OpenCollar.Extensions.Configuration.IConfigurationCollection-1.html
@@ -439,56 +482,6 @@ references:
   isSpec: "True"
   fullName: OpenCollar.Extensions.Configuration.IConfigurationObject.Save
   nameWithType: IConfigurationObject.Save
-- uid: OpenCollar.Extensions.Configuration.INotifyItemChanged
-  name: INotifyItemChanged
-  href: api/OpenCollar.Extensions.Configuration.INotifyItemChanged.html
-  commentId: T:OpenCollar.Extensions.Configuration.INotifyItemChanged
-  fullName: OpenCollar.Extensions.Configuration.INotifyItemChanged
-  nameWithType: INotifyItemChanged
-- uid: OpenCollar.Extensions.Configuration.INotifyItemChanged.ItemChanged
-  name: ItemChanged
-  href: api/OpenCollar.Extensions.Configuration.INotifyItemChanged.html#OpenCollar_Extensions_Configuration_INotifyItemChanged_ItemChanged
-  commentId: E:OpenCollar.Extensions.Configuration.INotifyItemChanged.ItemChanged
-  fullName: OpenCollar.Extensions.Configuration.INotifyItemChanged.ItemChanged
-  nameWithType: INotifyItemChanged.ItemChanged
-- uid: OpenCollar.Extensions.Configuration.ItemChangedEventArgs
-  name: ItemChangedEventArgs
-  href: api/OpenCollar.Extensions.Configuration.ItemChangedEventArgs.html
-  commentId: T:OpenCollar.Extensions.Configuration.ItemChangedEventArgs
-  fullName: OpenCollar.Extensions.Configuration.ItemChangedEventArgs
-  nameWithType: ItemChangedEventArgs
-- uid: OpenCollar.Extensions.Configuration.ItemChangedEventArgs.#ctor(OpenCollar.Extensions.Configuration.PropertyDef)
-  name: ItemChangedEventArgs(PropertyDef)
-  href: api/OpenCollar.Extensions.Configuration.ItemChangedEventArgs.html#OpenCollar_Extensions_Configuration_ItemChangedEventArgs__ctor_OpenCollar_Extensions_Configuration_PropertyDef_
-  commentId: M:OpenCollar.Extensions.Configuration.ItemChangedEventArgs.#ctor(OpenCollar.Extensions.Configuration.PropertyDef)
-  fullName: OpenCollar.Extensions.Configuration.ItemChangedEventArgs.ItemChangedEventArgs(OpenCollar.Extensions.Configuration.PropertyDef)
-  nameWithType: ItemChangedEventArgs.ItemChangedEventArgs(PropertyDef)
-- uid: OpenCollar.Extensions.Configuration.ItemChangedEventArgs.#ctor*
-  name: ItemChangedEventArgs
-  href: api/OpenCollar.Extensions.Configuration.ItemChangedEventArgs.html#OpenCollar_Extensions_Configuration_ItemChangedEventArgs__ctor_
-  commentId: Overload:OpenCollar.Extensions.Configuration.ItemChangedEventArgs.#ctor
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.ItemChangedEventArgs.ItemChangedEventArgs
-  nameWithType: ItemChangedEventArgs.ItemChangedEventArgs
-- uid: OpenCollar.Extensions.Configuration.ItemChangedEventArgs.PropertyDefinition
-  name: PropertyDefinition
-  href: api/OpenCollar.Extensions.Configuration.ItemChangedEventArgs.html#OpenCollar_Extensions_Configuration_ItemChangedEventArgs_PropertyDefinition
-  commentId: P:OpenCollar.Extensions.Configuration.ItemChangedEventArgs.PropertyDefinition
-  fullName: OpenCollar.Extensions.Configuration.ItemChangedEventArgs.PropertyDefinition
-  nameWithType: ItemChangedEventArgs.PropertyDefinition
-- uid: OpenCollar.Extensions.Configuration.ItemChangedEventArgs.PropertyDefinition*
-  name: PropertyDefinition
-  href: api/OpenCollar.Extensions.Configuration.ItemChangedEventArgs.html#OpenCollar_Extensions_Configuration_ItemChangedEventArgs_PropertyDefinition_
-  commentId: Overload:OpenCollar.Extensions.Configuration.ItemChangedEventArgs.PropertyDefinition
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.ItemChangedEventArgs.PropertyDefinition
-  nameWithType: ItemChangedEventArgs.PropertyDefinition
-- uid: OpenCollar.Extensions.Configuration.ItemChangedEventHandler
-  name: ItemChangedEventHandler
-  href: api/OpenCollar.Extensions.Configuration.ItemChangedEventHandler.html
-  commentId: T:OpenCollar.Extensions.Configuration.ItemChangedEventHandler
-  fullName: OpenCollar.Extensions.Configuration.ItemChangedEventHandler
-  nameWithType: ItemChangedEventHandler
 - uid: OpenCollar.Extensions.Configuration.PathAttribute
   name: PathAttribute
   href: api/OpenCollar.Extensions.Configuration.PathAttribute.html
