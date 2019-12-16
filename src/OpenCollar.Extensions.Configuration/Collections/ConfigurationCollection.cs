@@ -17,33 +17,35 @@
  * Copyright © 2019 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
+using System;
+using System.Collections.Generic;
+
+using OpenCollar.Extensions.Configuration.Collections;
+
 namespace OpenCollar.Extensions.Configuration
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
-    using OpenCollar.Extensions.Configuration.Collections;
-
-    /// <summary>
-    /// A collection of <see cref="IConfigurationObject">configuration objects</see> that notifies when an element is added or removed.
-    /// </summary>
+    /// <summary>A collection of <see cref="IConfigurationObject">configuration objects</see> that notifies when an element is added or removed.</summary>
     /// <typeparam name="TElement">The type of the element.</typeparam>
-    /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationCollection{TElement}" />
-    internal sealed class ConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IConfigurationCollection<TElement> where TElement : IConfigurationObject
+    /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationCollection{TElement}"/>
+    internal sealed class ConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IConfigurationCollection<TElement>
+        where TElement : IConfigurationObject
     {
-        public override bool IsReadOnly
-        {
-            get;
-        }
+        public override bool IsReadOnly { get; }
 
         public void Add(TElement item) => throw new NotImplementedException();
+
         public bool Contains(TElement item) => throw new NotImplementedException();
+
         public void CopyTo(TElement[] array, int arrayIndex) => throw new NotImplementedException();
+
         public int IndexOf(TElement item) => throw new NotImplementedException();
+
         public void Insert(int index, TElement item) => throw new NotImplementedException();
+
         public bool Remove(TElement item) => throw new NotImplementedException();
+
         public void RemoveAt(int index) => throw new NotImplementedException();
+
         IEnumerator<TElement> IEnumerable<TElement>.GetEnumerator() => throw new NotImplementedException();
     }
 }

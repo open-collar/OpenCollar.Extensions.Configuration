@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.FileProviders;
 
 namespace ApiDocs
 {
@@ -21,12 +18,15 @@ namespace ApiDocs
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            var options = new FileServerOptions() { EnableDefaultFiles = true };
+            var options = new FileServerOptions()
+            {
+                EnableDefaultFiles = true
+            };
             options.StaticFileOptions.DefaultContentType = @"text/html";
             options.StaticFileOptions.ServeUnknownFileTypes = true;
-            options.StaticFileOptions.FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(System.IO.Path.Combine(env.ContentRootPath, @"..", @"..", @"docs"));
-            options.DefaultFilesOptions.DefaultFileNames .Add(@"index.html");
-            app.UseFileServer(options );
+            options.StaticFileOptions.FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, @"..", @"..", @"docs"));
+            options.DefaultFilesOptions.DefaultFileNames.Add(@"index.html");
+            app.UseFileServer(options);
         }
     }
 }

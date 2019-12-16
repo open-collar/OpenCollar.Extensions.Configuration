@@ -17,31 +17,57 @@
  * Copyright © 2019 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
+using System;
+using System.Collections;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
+
 namespace OpenCollar.Extensions.Configuration.Collections
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
-    using System.ComponentModel;
-
-    /// <summary>
-    /// A base class provide the functionality used by both dictionaries and collections.
-    /// </summary>
+    /// <summary>A base class provide the functionality used by both dictionaries and collections.</summary>
     /// <typeparam name="TKey">The type of the key.</typeparam>
     /// <typeparam name="TElement">The type of the element.</typeparam>
-    /// <seealso cref="System.Collections.Generic.IDictionary{TKey, TElement}" />
-    /// <seealso cref="System.Collections.Specialized.INotifyCollectionChanged" />
-    public abstract class ConfigurationDictionaryBase<TKey, TElement> : IDictionary<TKey, TElement>, System.Collections.Specialized.INotifyCollectionChanged, INotifyItemChanged, IConfigurationObject where TElement : IConfigurationObject
+    /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationObject"/>
+    /// <seealso cref="System.Collections.Generic.IDictionary{TKey, TElement}"/>
+    /// <seealso cref="System.Collections.Specialized.INotifyCollectionChanged"/>
+    public abstract class ConfigurationDictionaryBase<TKey, TElement> : Disposable, IDictionary<TKey, TElement>, INotifyCollectionChanged, IConfigurationObject
+        where TElement : IConfigurationObject
     {
-
         /// <summary>A thread-safe dictionary containing the elements of the dictionary recorded against the keys supplied.</summary>
-        private readonly System.Collections.Concurrent.ConcurrentDictionary<TKey, TElement> _items = new System.Collections.Concurrent.ConcurrentDictionary<TKey, TElement>();
+        private readonly ConcurrentDictionary<TKey, TElement> _items = new ConcurrentDictionary<TKey, TElement>();
 
-        /// <summary>
-        /// Gets or sets the <see cref="TElement" /> with the specified key.
-        /// </summary>
-        /// <value>The <see cref="TElement" /> to get or set.</value>
+        /// <summary>An ordered list of the elements in the collection.</summary>
+        private readonly List<KeyValuePair<TKey, TElement>> _orderedItems = new List<KeyValuePair<TKey, TElement>>();
+
+        /// <summary>Gets a value indicating whether this object has any properties with unsaved changes.</summary>
+        /// <value><see langword="true"/> if this object has any properties with unsaved changes; otherwise, <see langword="false"/> .</value>
+        public bool IsDirty
+        {
+            get
+            {
+                EnforceDisposed();
+
+                return _orderedItems.Any(i => i.Value.IsDirty);
+            }
+        }
+
+        /// <summary>Occurs when a property value changes.</summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>Loads all of the properties from the configuration sources, overwriting any unsaved changes.</summary>
+        /// <exception cref="NotImplementedException"></exception>
+        public void Reload() => throw new NotImplementedException();
+
+        /// <summary>Saves this current values for each property back to the configuration sources.</summary>
+        /// <exception cref="NotImplementedException"></exception>
+        public void Save() => throw new NotImplementedException();
+
+        /// <summary>Gets or sets the item with the specified key.</summary>
+        /// <value>The item to get or set.</value>
         /// <param name="key">The key identifying the element to get or set.</param>
         /// <returns>The element specified by <paramref name="key"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="key"/> did not identify a valid element.</exception>
@@ -49,81 +75,338 @@ namespace OpenCollar.Extensions.Configuration.Collections
         {
             get
             {
-                if (_items.TryGetValue(key, out var value))
+                EnforceDisposed();
+
+                if(_items.TryGetValue(key, out var value))
+                {
                     return value;
+                }
+
                 throw new ArgumentOutOfRangeException(nameof(key), "'key' did not identify a valid element.");
             }
             set
             {
+                EnforceDisposed();
+
                 // TODO: add change detection and notification.
-                _items.AddOrUpdate(key, k => value, (k, oldValue) => value);
+                var isNew = true;
+                _items.AddOrUpdate(key, k => value, (k, oldValue) =>
+                {
+                    isNew = false;
+                    return value;
+                });
+
+                if(isNew)
+                {
+                    _orderedItems.Add(new KeyValuePair<TKey, TElement>(key, value));
+                    OnPropertyChanged(nameof(Count));
+                }
+
+                Debug.Assert(_orderedItems.Count == _items.Count);
             }
         }
-
         /// <summary>
-        /// Gets an <see cref="System.Collections.Generic.ICollection{T}" /> containing the keys of the <see cref="System.Collections.Generic.IDictionary{T,T}" />.
+        ///     Gets an <see cref="System.Collections.Generic.ICollection{T}"/> containing the keys of the
+        ///     <see cref="System.Collections.Generic.IDictionary{T,T}"/>.
         /// </summary>
         public ICollection<TKey> Keys
         {
             get
             {
-                // TODO: Return the keys in the correct order
-                return _items.Keys;
+                EnforceDisposed();
+
+                return _orderedItems.Select(i => i.Key).ToArray();
             }
         }
         /// <summary>
-        /// Gets an <see cref="System.Collections.Generic.ICollection{T}" /> containing the values in the <see cref="System.Collections.Generic.IDictionary{T,T}" />.
+        ///     Gets an <see cref="System.Collections.Generic.ICollection{T}"/> containing the values in the
+        ///     <see cref="System.Collections.Generic.IDictionary{T,T}"/>.
         /// </summary>
         public ICollection<TElement> Values
         {
-            get;
+            get
+            {
+                EnforceDisposed();
+
+                return _orderedItems.Select(v => v.Value).ToArray();
+            }
         }
-        /// <summary>
-        /// Gets the number of elements contained in the <see cref="System.Collections.Generic.ICollection{T}" />.
-        /// </summary>
+        /// <summary>Gets the number of elements contained in the <see cref="System.Collections.Generic.ICollection{T}"/>.</summary>
         public int Count
         {
             get
             {
+                EnforceDisposed();
+
                 return _items.Count;
             }
         }
-        /// <summary>
-        /// Gets a value indicating whether this object has any properties with unsaved changes.
-        /// </summary>
-        /// <value>
-        ///   <see langword="true" /> if this object has any properties with unsaved changes; otherwise, <see langword="false" />.
-        /// </value>
-        public bool IsDirty
+
+        /// <summary>Gets a value indicating whether the <see cref="System.Collections.Generic.ICollection{T}"/> is read-only.</summary>
+        public abstract bool IsReadOnly { get; }
+
+        /// <summary>Adds an element with the provided key and value to the <see cref="System.Collections.Generic.IDictionary{T,T}"/>.</summary>
+        /// <param name="key">The object to use as the key of the element to add.</param>
+        /// <param name="value">The object to use as the value of the element to add.</param>
+        public void Add(TKey key, TElement value)
         {
-            get;
+            Add(new KeyValuePair<TKey, TElement>(key, value));
+        }
+
+        /// <summary>Adds an item to the <see cref="System.Collections.Generic.ICollection{T}"/>.</summary>
+        /// <param name="item">The object to add to the <see cref="System.Collections.Generic.ICollection{T}"/>.</param>
+        public void Add(KeyValuePair<TKey, TElement> item)
+        {
+            EnforceDisposed();
+
+            if(_items.TryAdd(item.Key, item.Value))
+            {
+                _orderedItems.Add(item);
+                OnPropertyChanged(nameof(Count));
+                return;
+            }
+
+            throw new ArgumentException("An item with the same key has already been added.", nameof(item));
+        }
+
+        /// <summary>Removes all items from the <see cref="System.Collections.Generic.ICollection{T}"/>.</summary>
+        public void Clear()
+        {
+            EnforceDisposed();
+
+            InternalClear();
+        }
+
+        /// <summary>Determines whether this instance contains the object.</summary>
+        /// <param name="item">The object to locate in the <see cref="System.Collections.Generic.ICollection{T}"/>.</param>
+        /// <returns>
+        ///     <see langword="true"/> if <paramref name="item"/> is found in the <see cref="System.Collections.Generic.ICollection{T}"/>; otherwise,
+        ///     <see langword="false"/>.
+        /// </returns>
+        public bool Contains(KeyValuePair<TKey, TElement> item)
+        {
+            EnforceDisposed();
+
+            return _items.ContainsKey(item.Key);
+        }
+
+        /// <summary>Determines whether the <see cref="System.Collections.Generic.IDictionary{T,T}"/> contains an element with the specified key.</summary>
+        /// <param name="key">The key to locate in the <see cref="System.Collections.Generic.IDictionary{T,T}"/>.</param>
+        /// <returns>
+        ///     <see langword="true"/> if the <see cref="System.Collections.Generic.IDictionary{T,T}"/> contains an element with the key; otherwise,
+        ///     <see langword="false"/>.
+        /// </returns>
+        public bool ContainsKey(TKey key)
+        {
+            EnforceDisposed();
+
+            return _items.ContainsKey(key);
         }
 
         /// <summary>
-        /// Gets a value indicating whether the <see cref="System.Collections.Generic.ICollection{T}" /> is read-only.
+        ///     Copies the elements of the <see cref="System.Collections.Generic.ICollection{T}"/> to an <see cref="System.Array"/>, starting at a particular
+        ///     <see cref="System.Array"/> index.
         /// </summary>
-        public abstract bool IsReadOnly
+        /// <param name="array">
+        ///     The one-dimensional <see cref="System.Array"/> that is the destination of the elements copied from
+        ///     <see cref="System.Collections.Generic.ICollection{T}"/>. The <see cref="System.Array"/> must have zero-based indexing.
+        /// </param>
+        /// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
+        public void CopyTo(KeyValuePair<TKey, TElement>[] array, int arrayIndex)
         {
-            get;
+            EnforceDisposed();
+
+            _orderedItems.CopyTo(array, arrayIndex);
         }
 
+        /// <summary>Returns an enumerator that iterates through the collection.</summary>
+        /// <returns>An enumerator that can be used to iterate through the collection.</returns>
+        public IEnumerator<KeyValuePair<TKey, TElement>> GetEnumerator()
+        {
+            EnforceDisposed();
+
+            return _orderedItems.GetEnumerator();
+        }
+
+        /// <summary>Removes the element with the specified key from the <see cref="System.Collections.Generic.IDictionary{T,T}"/>.</summary>
+        /// <param name="key">The key of the element to remove.</param>
+        /// <returns>
+        ///     <see langword="true"/> if the element is successfully removed; otherwise, <see langword="false"/>.  This method also returns
+        ///     <see langword="false"/> if <paramref name="key"/> was not found in the original <see cref="System.Collections.Generic.IDictionary{T,T}"/>.
+        /// </returns>
+        public bool Remove(TKey key)
+        {
+            EnforceDisposed();
+
+            if(_items.TryRemove(key, out _))
+            {
+                var removed = _orderedItems.First(i => i.Key.Equals(key));
+                if(!_orderedItems.Remove(removed))
+                {
+                    Debug.Assert(false, "A matching item must always be found.");
+                }
+
+                OnPropertyChanged(nameof(Count));
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>Removes the first occurrence of a specific object from the <see cref="System.Collections.Generic.ICollection{T}"/>.</summary>
+        /// <param name="item">The object to remove from the <see cref="System.Collections.Generic.ICollection{T}"/>.</param>
+        /// <returns>
+        ///     <see langword="true"/> if <paramref name="item"/> was successfully removed from the <see cref="System.Collections.Generic.ICollection{T}"/>;
+        ///     otherwise, <see langword="false"/>. This method also returns <see langword="false"/> if <paramref name="item"/> is not found in the original
+        ///     <see cref="System.Collections.Generic.ICollection{T}"/>.
+        /// </returns>
+        public bool Remove(KeyValuePair<TKey, TElement> item)
+        {
+            EnforceDisposed();
+
+            if(_items.Remove(item.Key, out var removed))
+            {
+                if(!_orderedItems.Remove(item))
+                {
+                    Debug.Assert(false, "A matching item must always be found.");
+                }
+
+                OnPropertyChanged(nameof(Count));
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>Gets the value associated with the specified key.</summary>
+        /// <param name="key">The key whose value to get.</param>
+        /// <param name="value">
+        ///     When this method returns, the value associated with the specified key, if the key is found; otherwise, the default value for the type of the
+        ///     <paramref name="value"/> parameter. This parameter is passed uninitialized.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> if the object that implements <see cref="System.Collections.Generic.IDictionary{T,T}"/> contains an element with the
+        ///     specified key; otherwise, <see langword="false"/>.
+        /// </returns>
+        public bool TryGetValue(TKey key, out TElement value)
+        {
+            EnforceDisposed();
+
+            return _items.TryGetValue(key, out value);
+        }
+
+        /// <summary>Returns an enumerator that iterates through a collection.</summary>
+        /// <returns>An <see cref="System.Collections.IEnumerator"/> object that can be used to iterate through the collection.</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            EnforceDisposed();
+
+            return ((IEnumerable)_orderedItems).GetEnumerator();
+        }
+
+        /// <summary>Occurs when the collection changes.</summary>
         public event NotifyCollectionChangedEventHandler CollectionChanged;
-        public event ItemChangedEventHandler ItemChanged;
-        public event PropertyChangedEventHandler PropertyChanged;
 
-        public void Add(TKey key, TElement value) => throw new NotImplementedException();
-        public void Add(KeyValuePair<TKey, TElement> item) => throw new NotImplementedException();
-        public void Clear() => throw new NotImplementedException();
-        public bool Contains(KeyValuePair<TKey, TElement> item) => throw new NotImplementedException();
-        public bool ContainsKey(TKey key) => throw new NotImplementedException();
-        public void CopyTo(KeyValuePair<TKey, TElement>[] array, int arrayIndex) => throw new NotImplementedException();
-        public void Dispose() => throw new NotImplementedException();
-        public IEnumerator<KeyValuePair<TKey, TElement>> GetEnumerator() => throw new NotImplementedException();
-        public void Reload() => throw new NotImplementedException();
-        public bool Remove(TKey key) => throw new NotImplementedException();
-        public bool Remove(KeyValuePair<TKey, TElement> item) => throw new NotImplementedException();
-        public void Save() => throw new NotImplementedException();
-        public bool TryGetValue(TKey key, out TElement value) => throw new NotImplementedException();
-        IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
+        /// <summary>Releases unmanaged and - optionally - managed resources.</summary>
+        /// <param name="disposing">
+        ///     <see langword="true"/> to release both managed and unmanaged resources; <see langword="false"/> to release only unmanaged
+        ///     resources.
+        /// </param>
+        protected override void Dispose(bool disposing)
+        {
+            if(disposing)
+            {
+                InternalClear();
+            }
+        }
+
+        /// <summary>Removes all items from the <see cref="System.Collections.Generic.ICollection{T}"/>.</summary>
+        private void InternalClear()
+        {
+            var count = _orderedItems.Count;
+            _items.Clear();
+            _orderedItems.Clear();
+
+            if(count > 0)
+            {
+                return;
+            }
+
+            OnPropertyChanged(nameof(Count));
+        }
+
+        /// <summary>Called when a property is to be changed.</summary>
+        /// <typeparam name="T">The type of the property.</typeparam>
+        /// <param name="field">The field to which the value is to be assigned.</param>
+        /// <param name="value">The value to assign.</param>
+        /// <param name="propertyName">The name of the property that has changed.</param>
+        /// <remarks>Raises the <see cref="PropertyChanged"/> event if the value has changed.</remarks>
+        private void OnPropertyChanged<T>(ref T field, T value, string propertyName)
+        {
+            if(Equals(field, value))
+            {
+                return;
+            }
+
+            field = value;
+
+            OnPropertyChanged(propertyName);
+        }
+
+        /// <summary>Called when a property is to be changed.</summary>
+        /// <param name="propertyName">The name of the property that has changed.</param>
+        /// <remarks>Raises the <see cref="PropertyChanged"/> event.</remarks>
+        private void OnPropertyChanged(string propertyName)
+        {
+            if(IsDisposed)
+            {
+                return;
+            }
+
+            var eventHandler = PropertyChanged;
+            if(ReferenceEquals(eventHandler, null))
+            {
+                return;
+            }
+
+            var callbacks = eventHandler.GetInvocationList();
+
+            if(callbacks.Length <= 0)
+            {
+                return;
+            }
+
+            var args = new PropertyChangedEventArgs(propertyName);
+
+            foreach(var callback in callbacks)
+            {
+                callback.DynamicInvoke(this, args);
+            }
+        }
+
+        /// <summary>Called when the collection has changed.</summary>
+        /// <param name="action">The action that occurred.</param>
+        private void OnCollectionChanged(NotifyCollectionChangedAction action)
+        {
+            var eventHandler = CollectionChanged;
+            if(ReferenceEquals(eventHandler, null))
+            {
+                return;
+            }
+
+            var callbacks = eventHandler.GetInvocationList();
+
+            if(callbacks.Length <= 0)
+            {
+                return;
+            }
+
+            var args = new NotifyCollectionChangedEventArgs(action);
+
+            foreach(var callback in callbacks)
+            {
+                callback.DynamicInvoke(this, args);
+            }
+        }
     }
 }
