@@ -21,12 +21,12 @@ jobs:
     
     - name: Generate version number
       run: |
-        VERSION_REVISION=$BUILD_NUMBER
+        echo "::set-env name=VERSION_REVISION::$BUILD_NUMBER"
         echo "$VERSION_REVISION" > .version/revision.txt
-        VERSION_MAJOR=$(<.version/major.txt)
-        VERSION_MINOR=$(<.version/minor.txt)
+        echo "::set-env name=VERSION_MAJOR::$(<.version/major.txt)"
+        echo "::set-env name=VERSION_MINOR::$(<.version/minor.txt)"
         echo "$VERSION_MAJOR.$VERSION_MINOR.$VERSION_REVISION" > .version/version.txt
-        VERSION=$(<.version/version.txt)
+        echo "::set-env name=VERSION::$(<.version/version.txt)"
         echo "Version: $VERSION"
 
     - name: Build
