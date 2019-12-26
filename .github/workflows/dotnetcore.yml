@@ -23,8 +23,11 @@ jobs:
       run: |
         echo "::set-env name=VERSION_REVISION::$BUILD_NUMBER"
         echo "$VERSION_REVISION" > .version/revision.txt
+        echo "Revision: $VERSION_REVISION"
         echo "::set-env name=VERSION_MAJOR::$(<.version/major.txt)"
+        echo "Major version: $VERSION_MAJOR"
         echo "::set-env name=VERSION_MINOR::$(<.version/minor.txt)"
+        echo "Minor version: $VERSION_MINOR"
         echo "$VERSION_MAJOR.$VERSION_MINOR.$VERSION_REVISION" > .version/version.txt
         echo "::set-env name=VERSION::$(<.version/version.txt)"
         echo "Version: $VERSION"
