@@ -21,20 +21,24 @@ jobs:
     
     - name: Generate version number
       run: |
-        echo "::set-env name=VERSION_REVISION::$BUILD_NUMBER"
+        VERSION_REVISION=$BUILD_NUMBER
         echo "$VERSION_REVISION" > .version/revision.txt
-        echo "Revision: $VERSION_REVISION"
-        echo "::set-env name=VERSION_MAJOR::$(<.version/major.txt)"
-        echo "Major version: $VERSION_MAJOR"
-        echo "::set-env name=VERSION_MINOR::$(<.version/minor.txt)"
-        echo "Minor version: $VERSION_MINOR"
+        VERSION_MAJOR=$(<.version/major.txt)
+        VERSION_MINOR=$(<.version/minor.txt)
         echo "$VERSION_MAJOR.$VERSION_MINOR.$VERSION_REVISION" > .version/version.txt
+        VERSION=$(<.version/version.txt)
+        echo "::set-env name=VERSION_REVISION::$VERSION_REVISION"
+        echo "::set-env name=VERSION_MAJOR::$VERSION_MAJOR"
+        echo "::set-env name=VERSION_MINOR::$VERSION_MINOR"
+        echo "::set-env name=VERSION::$VERSION"
+        echo "Revision: $VERSION_REVISION"
+        echo "Major version: $VERSION_MAJOR"
+        echo "Minor version: $VERSION_MINOR"
         echo "::set-env name=VERSION::$(<.version/version.txt)"
         echo "Version: $VERSION"
 
     - name: Build
       run: |
-        VERSION=$(<.version/version.txt)
         SUFFIX="-preview"
         dotnet build --configuration Release -p:Version="$VERSION" -p:NuGetVersion="$VERSION$SUFFIX"
 
