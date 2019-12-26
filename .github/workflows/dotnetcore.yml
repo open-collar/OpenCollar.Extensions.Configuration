@@ -40,6 +40,7 @@ jobs:
     - name: Build
       run: |
         SUFFIX="-preview"
+        echo "Building version: $VERSION"
         dotnet build --configuration Release -p:Version="$VERSION" -p:NuGetVersion="$VERSION$SUFFIX"
 
     - name: Test
@@ -49,7 +50,7 @@ jobs:
 
     - name: Set documentation version number
       run: |
-        VERSION=$(<.version/version.txt)        
+        echo "Setting documentation version: $VERSION"        
         cd docs
         git grep -lz 'BUILD_VERSION' | xargs -0 sed -i -e "s/BUILD_VERSION/$VERSION/g"
         cd ..
