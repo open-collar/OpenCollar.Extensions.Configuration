@@ -45,8 +45,7 @@ jobs:
 
     - name: Test
       run: |
-        VERSION=$(<.version/version.txt)
-        dotnet test --configuration Release -p:Version="$VERSION"
+        dotnet test --configuration Release -p:Version="$VERSION" -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover
 
     - name: Set documentation version number
       run: |
