@@ -17,13 +17,6 @@
  * Copyright © 2019 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
-using OpenCollar.Extensions.Configuration.Collections;
+using System.Runtime.CompilerServices;
 
-namespace OpenCollar.Extensions.Configuration
-{
-    internal sealed class ConfigurationDictionary<TElement> : ConfigurationDictionaryBase<string, TElement>, IConfigurationDictionary<TElement>
-        where TElement : IConfigurationObject
-    {
-        public override bool IsReadOnly { get; }
-    }
-}
+[assembly: InternalsVisibleTo("OpenCollar.Extensions.Configuration.TESTS")]

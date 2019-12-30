@@ -1,19 +1,19 @@
 /*
  * This file is part of OpenCollar.Extensions.Configuration.
- * 
- * OpenCollar.Extensions.Configuration is free software: you can redistribute it 
+ *
+ * OpenCollar.Extensions.Configuration is free software: you can redistribute it
  * and/or modify it under the terms of the GNU General Public License as published
  * by the Free Software Foundation, either version 3 of the License, or (at your
  * option) any later version.
- * 
+ *
  * OpenCollar.Extensions.Configuration is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
  * License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * OpenCollar.Extensions.Configuration.  If not, see <https://www.gnu.org/licenses/>.
- * 
+ *
  * Copyright © 2019 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
@@ -27,26 +27,34 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>Extensions to the <see cref="IServiceCollection"/> type allowing configuration objects to be registered.</summary>
+    /// <summary>
+    ///     Extensions to the <see cref="IServiceCollection" /> type allowing configuration objects to be registered.
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
-        /// <summary>A thread-safe dictionary of the property definition collections keyed on the type of the class that defines them.</summary>
+        /// <summary>
+        ///     A thread-safe dictionary of the property definition collections keyed on the type of the class that
+        ///     defines them.
+        /// </summary>
         private static readonly ConcurrentDictionary<Type, PropertyDef> _propertyDefs = new ConcurrentDictionary<Type, PropertyDef>();
 
         /// <summary>
         ///     Add a new kind of configuration reader that represents values taken directly from the
-        ///     <see cref="Microsoft.Extensions.Configuration.IConfigurationRoot"/> object in the service collection.
+        ///     <see cref="Microsoft.Extensions.Configuration.IConfigurationRoot" /> object in the service collection.
         /// </summary>
-        /// <param name="serviceCollection">The service collection to which to add the configuration reader.  This must not be <see langword="null"/>.</param>
+        /// <param name="serviceCollection">
+        ///     The service collection to which to add the configuration reader. This must not be <see langword="null" />.
+        /// </param>
         /// <typeparam name="TConfigurationObject">
         ///     The interface through which consumers will access the configuration. This must be derived from the
-        ///     <see cref="IConfigurationObject"/> interface.
+        ///     <see cref="IConfigurationObject" /> interface.
         /// </typeparam>
-        /// <exception type="System.ArgumentNullException"><paramref name="serviceCollection"/> was <see langword="null"/>.</exception>
+        /// <exception type="System.ArgumentNullException"> <paramref name="serviceCollection" /> was <see langword="null" />. </exception>
         public static void AddConfigurationReader<TConfigurationObject>(this IServiceCollection serviceCollection)
             where TConfigurationObject : IConfigurationObject
         {
-            // Check to see if the collection has the relevant configuration reader registered, and if not, create and add a new instance.
+            // Check to see if the collection has the relevant configuration reader registered, and if not, create and
+            // add a new instance.
 
             var serviceType = typeof(TConfigurationObject);
 
@@ -64,13 +72,44 @@ namespace OpenCollar.Extensions.Configuration
             serviceCollection.Add(descriptor);
         }
 
-        /// <summary>Creates the type of the configuration object.</summary>
-        /// <typeparam name="TConfigurationObject">The type of the interface to be implemented by the configuration object to create.</typeparam>
-        /// <param name="context">Defines the context in which the configuration is to be constructed.</param>
-        /// <returns>An implementation of the interface specified that can be used to interact with the configuration.</returns>
+        /// <summary>
+        ///     Determines whether the specified type is a is configuration collection.
+        /// </summary>
+        /// <param name="type"> The type to verify. </param>
+        /// <returns> <see langword="true" /> if the type is configuration collection; otherwise, <see langword="false" />. </returns>
+        public static bool IsConfigurationCollection(Type type)
+        {
+            if(!type.IsConstructedGenericType)
+            {
+                return false;
+            }
+
+            if(type.GetGenericTypeDefinition() != typeof(IConfigurationCollection<>))
+            {
+                return false;
+            }
+
+            var arguments = type.GetGenericArguments();
+
+            if(arguments.Length != 1)
+            {
+                return false;
+            }
+
+            return typeof(IConfigurationObject).IsAssignableFrom(arguments[0]);
+        }
+
+        /// <summary>
+        ///     Creates the type of the configuration object.
+        /// </summary>
+        /// <typeparam name="TConfigurationObject">
+        ///     The type of the interface to be implemented by the configuration object to create.
+        /// </typeparam>
+        /// <param name="context"> Defines the context in which the configuration is to be constructed. </param>
+        /// <returns> An implementation of the interface specified that can be used to interact with the configuration. </returns>
         /// <exception cref="InvalidOperationException">
-        ///     Type specifies more than one 'Path' attribute and so cannot be processed. - or - Property specifies more than one 'Path' attribute and so cannot
-        ///     be processed.
+        ///     Type specifies more than one 'Path' attribute and so cannot be processed. - or - Property specifies more
+        ///     than one 'Path' attribute and so cannot be processed.
         /// </exception>
         private static Type GenerateConfigurationObjectType<TConfigurationObject>(ConfigurationContext context)
             where TConfigurationObject : IConfigurationObject
@@ -157,31 +196,6 @@ namespace OpenCollar.Extensions.Configuration
             }
 
             return propertyDefs;
-        }
-
-        /// <summary>Determines whether the specified type is a is configuration collection.</summary>
-        /// <param name="type">The type to verify.</param>
-        /// <returns><see langword="true"/> if the type is configuration collection; otherwise, <see langword="false"/>.</returns>
-        public static bool IsConfigurationCollection(Type type)
-        {
-            if(!type.IsConstructedGenericType)
-            {
-                return false;
-            }
-
-            if(type.GetGenericTypeDefinition() != typeof(IConfigurationCollection<>))
-            {
-                return false;
-            }
-
-            var arguments = type.GetGenericArguments();
-
-            if(arguments.Length != 1)
-            {
-                return false;
-            }
-
-            return typeof(IConfigurationObject).IsAssignableFrom(arguments[0]);
         }
     }
 }
