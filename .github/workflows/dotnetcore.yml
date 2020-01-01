@@ -51,7 +51,7 @@ jobs:
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: /home/runner/work/OpenCollar.Extensions.Configuration/OpenCollar.Extensions.Configuration/coverage/coverage.lcov.xml
+        path-to-lcov: /home/runner/work/OpenCollar.Extensions.Configuration/OpenCollar.Extensions.Configuration/coverage/coverage.info
 
     - name: Set documentation version number
       run: |
