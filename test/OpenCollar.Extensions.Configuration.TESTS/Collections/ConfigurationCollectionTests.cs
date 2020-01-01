@@ -66,6 +66,46 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         }
 
         [Fact]
+        public void ContainsTests()
+        {
+            var x = new ConfigurationCollection<IChildElement>();
+
+            var a = (new Moq.Mock<IChildElement>()).Object;
+            var b = (new Moq.Mock<IChildElement>()).Object;
+            var c = (new Moq.Mock<IChildElement>()).Object;
+
+            x.Add(a);
+            x.Add(b);
+
+            Assert.True(x.Contains(a));
+            Assert.True(x.Contains(b));
+            Assert.False(x.Contains(c));
+            Assert.False(x.Contains(null));
+        }
+
+        [Fact]
+        public void CopyToTests()
+        {
+            var x = new ConfigurationCollection<IChildElement>();
+
+            var a = (new Moq.Mock<IChildElement>()).Object;
+            var b = (new Moq.Mock<IChildElement>()).Object;
+            var c = (new Moq.Mock<IChildElement>()).Object;
+
+            x.Add(a);
+            x.Add(b);
+            x.Add(c);
+
+            var array = new IChildElement[3];
+
+            x.CopyTo(array, 0);
+
+            Assert.Equal(a, array[0]);
+            Assert.Equal(b, array[1]);
+            Assert.Equal(c, array[2]);
+        }
+
+        [Fact]
         public void EnumeratorTests()
         {
             var x = new ConfigurationCollection<IChildElement>();
@@ -90,10 +130,46 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 {
                     case 0:
                         Assert.Equal(a, item);
+                        break;
 
+                    case 1:
+                        Assert.Equal(b, item);
+                        break;
+
+                    case 2:
+                        Assert.Equal(c, item);
+                        break;
+
+                    default:
+                        Assert.True(false);
                         break;
                 }
             }
+        }
+
+        [Fact]
+        public void IndexerTests()
+        {
+            var x = new ConfigurationCollection<IChildElement>();
+
+            var a = (new Moq.Mock<IChildElement>()).Object;
+            var b = (new Moq.Mock<IChildElement>()).Object;
+            var c = (new Moq.Mock<IChildElement>()).Object;
+
+            x.Add(a);
+            x.Add(b);
+            x.Add(c);
+
+            Assert.Equal(a, x[0]);
+            Assert.Equal(b, x[1]);
+            Assert.Equal(c, x[2]);
+
+            x[0] = c;
+            x[2] = a;
+
+            Assert.Equal(c, x[0]);
+            Assert.Equal(b, x[1]);
+            Assert.Equal(a, x[2]);
         }
 
         [Fact]
