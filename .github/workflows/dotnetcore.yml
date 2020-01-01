@@ -45,13 +45,13 @@ jobs:
 
     - name: Test
       run: |
-        dotnet test --configuration Release -p:Version="$VERSION" -p:CollectCoverage=true -p:CoverletOutput=/home/runner/work/OpenCollar.Extensions.Configuration/OpenCollar.Extensions.Configuration/coverage/ -p:CoverletOutputFormat=opencover
+        dotnet test --configuration Release -p:Version="$VERSION" -p:CollectCoverage=true -p:CoverletOutput=/home/runner/work/OpenCollar.Extensions.Configuration/OpenCollar.Extensions.Configuration/coverage/ -p:CoverletOutputFormat=lcov
 
     - name: Coveralls
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: /home/runner/work/OpenCollar.Extensions.Configuration/OpenCollar.Extensions.Configuration/coverage/coverage.opencover.xml
+        path-to-lcov: /home/runner/work/OpenCollar.Extensions.Configuration/OpenCollar.Extensions.Configuration/coverage/coverage.lcov.xml
 
     - name: Set documentation version number
       run: |
