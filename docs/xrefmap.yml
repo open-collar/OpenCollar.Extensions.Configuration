@@ -160,23 +160,6 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Dispose
   nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Dispose
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Dispose
-- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetEnumerator
-  name: GetEnumerator()
-  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_GetEnumerator
-  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetEnumerator
-  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.GetEnumerator()
-  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).GetEnumerator()
-  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.GetEnumerator()
-  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).GetEnumerator()
-- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetEnumerator*
-  name: GetEnumerator
-  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_GetEnumerator_
-  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetEnumerator
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.GetEnumerator
-  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).GetEnumerator
-  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.GetEnumerator
-  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).GetEnumerator
 - uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.IsDirty
   name: IsDirty
   href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_IsDirty
@@ -263,6 +246,23 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Lock
   nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Lock
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Lock
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.OrderedItems
+  name: OrderedItems
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_OrderedItems
+  commentId: P:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.OrderedItems
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.OrderedItems
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).OrderedItems
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.OrderedItems
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).OrderedItems
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.OrderedItems*
+  name: OrderedItems
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_OrderedItems_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.OrderedItems
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.OrderedItems
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).OrderedItems
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.OrderedItems
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).OrderedItems
 - uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.PropertyChanged
   name: PropertyChanged
   href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_PropertyChanged
