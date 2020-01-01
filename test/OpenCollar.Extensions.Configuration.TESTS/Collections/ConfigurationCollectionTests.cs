@@ -17,6 +17,7 @@
  * Copyright © 2019 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -103,6 +104,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Equal(a, array[0]);
             Assert.Equal(b, array[1]);
             Assert.Equal(c, array[2]);
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => x.CopyTo(array, 1));
+
+            array = new IChildElement[2];
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => x.CopyTo(array, 0));
         }
 
         [Fact]
@@ -223,6 +230,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             x.Add(c);
 
             Assert.True(x.Remove(b));
+            Assert.False(x.Remove(b));
 
             Assert.Equal(2, x.Count);
             Assert.Equal(a, x[0]);
@@ -241,11 +249,11 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             x.Add(b);
             x.Add(c);
 
-            x.RemoveAt(0);
+            x.RemoveAt(2);
 
             Assert.Equal(2, x.Count);
-            Assert.Equal(b, x[0]);
-            Assert.Equal(c, x[1]);
+            Assert.Equal(a, x[0]);
+            Assert.Equal(b, x[1]);
         }
 
         /// <summary>
