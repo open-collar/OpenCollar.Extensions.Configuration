@@ -17,6 +17,7 @@
  * Copyright © 2019 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
+using System.Collections.Generic;
 using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS.Collections
@@ -62,6 +63,66 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Equal(a, x[0]);
             Assert.Equal(c, x[1]);
             Assert.Equal(b, x[2]);
+        }
+
+        [Fact]
+        public void EnumeratorTests()
+        {
+            var x = new ConfigurationCollection<IChildElement>();
+
+            var a = (new Moq.Mock<IChildElement>()).Object;
+            var b = (new Moq.Mock<IChildElement>()).Object;
+            var c = (new Moq.Mock<IChildElement>()).Object;
+
+            foreach(var item in x)
+            {
+                Assert.True(false);
+            }
+
+            x.Add(a);
+            x.Add(b);
+            x.Add(c);
+
+            var n = 0;
+            foreach(var item in (IEnumerable<IChildElement>)x)
+            {
+                switch(n++)
+                {
+                    case 0:
+                        Assert.Equal(a, item);
+
+                        break;
+                }
+            }
+        }
+
+        [Fact]
+        public void IndexOfTests()
+        {
+            var x = new ConfigurationCollection<IChildElement>();
+
+            var a = (new Moq.Mock<IChildElement>()).Object;
+            var b = (new Moq.Mock<IChildElement>()).Object;
+            var c = (new Moq.Mock<IChildElement>()).Object;
+
+            Assert.True(x.IndexOf(a) < 0);
+            Assert.True(x.IndexOf(b) < 0);
+            Assert.True(x.IndexOf(c) < 0);
+
+            x.Add(a);
+            x.Add(b);
+
+            Assert.Equal(0, x.IndexOf(a));
+            Assert.Equal(1, x.IndexOf(b));
+            Assert.True(x.IndexOf(c) < 0);
+
+            x.Add(c);
+
+            Assert.Equal(0, x.IndexOf(a));
+            Assert.Equal(1, x.IndexOf(b));
+            Assert.Equal(2, x.IndexOf(c));
+
+            Assert.True(x.IndexOf(null) < 0);
         }
 
         /// <summary>

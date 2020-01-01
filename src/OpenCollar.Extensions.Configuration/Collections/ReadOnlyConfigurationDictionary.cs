@@ -23,7 +23,7 @@ using OpenCollar.Extensions.Configuration.Collections;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    internal abstract class ReadOnlyConfigurationDictionary<TElement> : ConfigurationDictionaryBase<string, TElement>, IReadOnlyDictionary<string, TElement>
+    internal sealed class ReadOnlyConfigurationDictionary<TElement> : ConfigurationDictionary<TElement>, IReadOnlyDictionary<string, TElement>
         where TElement : IConfigurationObject
     {
         public override bool IsReadOnly => true;

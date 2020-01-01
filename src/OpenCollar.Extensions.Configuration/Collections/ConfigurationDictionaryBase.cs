@@ -36,7 +36,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationObject" />
     /// <seealso cref="System.Collections.Generic.IDictionary{TKey, TElement}" />
     /// <seealso cref="System.Collections.Specialized.INotifyCollectionChanged" />
-    public abstract class ConfigurationDictionaryBase<TKey, TElement> : Disposable, IDictionary<TKey, TElement>, INotifyCollectionChanged, IConfigurationObject
+    public abstract class ConfigurationDictionaryBase<TKey, TElement> : Disposable, IEnumerable, INotifyCollectionChanged, IConfigurationObject
         where TElement : IConfigurationObject
     {
         /// <summary>
@@ -159,6 +159,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </summary>
         /// <value> The lock object used to control concurrent access to the collection. </value>
         protected ReaderWriterLockSlim Lock { get; } = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
+
+        /// <summary>
+        ///     Gets the items in the dictionary as an ordered, read-only list.
+        /// </summary>
+        /// <value> The items in the dictionary as an ordered, read-only list. </value>
+        protected IReadOnlyList<KeyValuePair<TKey, TElement>> OrderedItems { get { return _orderedItems; } }
 
         /// <summary>
         ///     Gets or sets the item with the specified key.
@@ -368,24 +374,24 @@ namespace OpenCollar.Extensions.Configuration.Collections
             }
         }
 
-        /// <summary>
-        ///     Returns an enumerator that iterates through the collection.
-        /// </summary>
-        /// <returns> An enumerator that can be used to iterate through the collection. </returns>
-        public IEnumerator<KeyValuePair<TKey, TElement>> GetEnumerator()
-        {
-            EnforceDisposed();
+        ///// <summary>
+        /////     Returns an enumerator that iterates through the collection.
+        ///// </summary>
+        ///// <returns> An enumerator that can be used to iterate through the collection. </returns>
+        //public IEnumerator<KeyValuePair<TKey, TElement>> GetEnumerator()
+        //{
+        //    EnforceDisposed();
 
-            Lock.EnterReadLock();
-            try
-            {
-                return _orderedItems.GetEnumerator();
-            }
-            finally
-            {
-                Lock.ExitReadLock();
-            }
-        }
+        //    Lock.EnterReadLock();
+        //    try
+        //    {
+        //        return _orderedItems.GetEnumerator();
+        //    }
+        //    finally
+        //    {
+        //        Lock.ExitReadLock();
+        //    }
+        //}
 
         /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.

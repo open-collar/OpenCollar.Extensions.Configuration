@@ -17,13 +17,33 @@
  * Copyright © 2019 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
+using System.Collections.Generic;
 using OpenCollar.Extensions.Configuration.Collections;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    internal sealed class ConfigurationDictionary<TElement> : ConfigurationDictionaryBase<string, TElement>, IConfigurationDictionary<TElement>
+    internal class ConfigurationDictionary<TElement> : ConfigurationDictionaryBase<string, TElement>, IConfigurationDictionary<TElement>
         where TElement : IConfigurationObject
     {
-        public override bool IsReadOnly { get; }
+        public override bool IsReadOnly { get { return false; } }
+
+        /// <summary>
+        ///     Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns> An enumerator that can be used to iterate through the collection. </returns>
+        public IEnumerator<KeyValuePair<string, TElement>> GetEnumerator()
+        {
+            EnforceDisposed();
+
+            Lock.EnterReadLock();
+            try
+            {
+                return OrderedItems.GetEnumerator();
+            }
+            finally
+            {
+                Lock.ExitReadLock();
+            }
+        }
     }
 }

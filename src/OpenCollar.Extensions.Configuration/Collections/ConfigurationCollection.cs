@@ -30,23 +30,92 @@ namespace OpenCollar.Extensions.Configuration
     /// </summary>
     /// <typeparam name="TElement"> The type of the element. </typeparam>
     /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationCollection{TElement}" />
-    internal sealed class ConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IConfigurationCollection<TElement>
+    internal class ConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IConfigurationCollection<TElement>
         where TElement : IConfigurationObject
     {
-        public override bool IsReadOnly { get; }
+        /// <summary>
+        ///     Gets a value indicating whether the <see cref="System.Collections.Generic.ICollection{TElement}" /> is read-only.
+        /// </summary>
+        /// <value> <see langword="true" /> if this collection is read-only; otherwise, <see langword="false" />. </value>
+        public override bool IsReadOnly { get { return false; } }
 
+        int ICollection<TElement>.Count { get; }
+
+        bool ICollection<TElement>.IsReadOnly { get; }
+
+        /// <summary>
+        ///     Gets or sets the <typeparamref name="TElement" /> at the specified index.
+        /// </summary>
+        /// <value> The <typeparamref name="TElement" /> at the index specified. </value>
+        /// <param name="index"> The index of the item to get or set. </param>
+        /// <returns> </returns>
+        public new TElement this[int index]
+        {
+            get { return base[index]; }
+            set { base[index] = value; }
+        }
+
+        /// <summary>
+        ///     Adds the specified item to the end of the collection..
+        /// </summary>
+        /// <param name="item"> The item to add. </param>
         public void Add(TElement item) => base.Add(base.Count, item);
 
-        public bool Contains(TElement item) => throw new NotImplementedException();
+        /// <summary>
+        ///     Determines whether this instance contains the object.
+        /// </summary>
+        /// <param name="item"> The item. </param>
+        /// <returns> <see langword="true" /> if [contains] [the specified item]; otherwise, <see langword="false" />. </returns>
+        /// <exception cref="NotImplementedException"> </exception>
+        public bool Contains(TElement item) => IndexOf(item) >= 0;
 
-        public void CopyTo(TElement[] array, int arrayIndex) => throw new NotImplementedException();
+        /// <summary>
+        ///     Copies the contents of the collection to an array.
+        /// </summary>
+        /// <param name="array"> The array to which to copy the contents of the collection. </param>
+        /// <param name="arrayIndex">
+        ///     The index of the first location in the array to which to copy the collection contents.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     <paramref name="arrayIndex" /> must be at least zero. or <paramref name="array" /> is not large enough
+        ///     to hold the contents of this collection (if data is copied to the location specified by <paramref name="arrayIndex" />.
+        /// </exception>
+        public void CopyTo(TElement[] array, int arrayIndex)
+        {
+            if(arrayIndex < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, $"'{nameof(arrayIndex)}' must be at least zero.");
+            }
+            if((arrayIndex + Count) > array.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(array), array, $"'{nameof(array)}' is not large enough to hold the contents of this collection (if data is copied to the location specified by '{nameof(arrayIndex)}'.");
+            }
 
+            foreach(var item in this)
+            {
+                array[arrayIndex++] = item;
+            }
+        }
+
+        /// <summary>
+        ///     Gets the enumerator for the values in this collection.
+        /// </summary>
+        /// <returns> The enumerator for the values in this collection. </returns>
+        public IEnumerator<TElement> GetEnumerator() => Values.GetEnumerator();
+
+        /// <summary>
+        ///     Finds the index of the first element in the collection that equals the item provided.
+        /// </summary>
+        /// <param name="item"> The item to find. </param>
+        /// <returns>
+        ///     The zero-based index of the first matching item or a value less than zero if no match is found.
+        /// </returns>
         public int IndexOf(TElement item)
         {
             var n = 0;
             foreach(var element in this)
             {
-                if(Equals(element.Value, item))
+                if(Equals(element, item))
                 {
                     return n;
                 }
@@ -56,8 +125,26 @@ namespace OpenCollar.Extensions.Configuration
             return -1;
         }
 
-        public void Insert(int index, TElement item) => throw new NotImplementedException();
+        /// <summary>
+        ///     Inserts an iten at the specified index.
+        /// </summary>
+        /// <param name="index"> The zero-based index of the location at which the item should be inserted. </param>
+        /// <param name="item"> The item to insert. </param>
+        public void Insert(int index, TElement item)
+        {
+            throw new NotImplementedException();
+        }
 
+        /// <summary>
+        ///     Removes the first occurrence of a specific object from the <see cref="System.Collections.Generic.ICollection{TElement}" />.
+        /// </summary>
+        /// <param name="item"> The object to remove from the <see cref="System.Collections.Generic.ICollection{TElement}" />. </param>
+        /// <returns>
+        ///     <see langword="true" /> if <paramref name="item" /> was successfully removed from the
+        ///     <see cref="System.Collections.Generic.ICollection{TElement}" />; otherwise, <see langword="false" />.
+        ///     This method also returns <see langword="false" /> if <paramref name="item" /> is not found in the
+        ///     original <see cref="System.Collections.Generic.ICollection{TElement}" />.
+        /// </returns>
         public bool Remove(TElement item)
         {
             var index = IndexOf(item);
@@ -71,14 +158,20 @@ namespace OpenCollar.Extensions.Configuration
             return false;
         }
 
+        /// <summary>
+        ///     Removes the item at the zero-based index specifiedt.
+        /// </summary>
+        /// <param name="index"> The index of the item to remove. </param>
         public void RemoveAt(int index)
         {
             base.Remove(index);
             Reindex(index);
         }
 
-        IEnumerator<TElement> IEnumerable<TElement>.GetEnumerator() => base.Values.GetEnumerator();
-
+        /// <summary>
+        ///     Reindexes the items after the specified index after removing an item.
+        /// </summary>
+        /// <param name="removedIndex"> Index of the removed item. </param>
         private void Reindex(int removedIndex)
         {
             if(removedIndex >= Count)
