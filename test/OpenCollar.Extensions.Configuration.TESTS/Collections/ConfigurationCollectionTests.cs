@@ -107,6 +107,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             Assert.Throws<ArgumentOutOfRangeException>(() => x.CopyTo(array, 1));
 
+            Assert.Throws<ArgumentOutOfRangeException>(() => x.CopyTo(array, -1));
+
             array = new IChildElement[2];
 
             Assert.Throws<ArgumentOutOfRangeException>(() => x.CopyTo(array, 0));
