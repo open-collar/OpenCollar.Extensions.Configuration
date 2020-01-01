@@ -125,6 +125,53 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.True(x.IndexOf(null) < 0);
         }
 
+        [Fact]
+        public void IsReadOnlyTests()
+        {
+            var x = new ConfigurationCollection<IChildElement>();
+
+            Assert.False(x.IsReadOnly);
+        }
+
+        [Fact]
+        public void RemoveTests()
+        {
+            var x = new ConfigurationCollection<IChildElement>();
+
+            var a = (new Moq.Mock<IChildElement>()).Object;
+            var b = (new Moq.Mock<IChildElement>()).Object;
+            var c = (new Moq.Mock<IChildElement>()).Object;
+
+            x.Add(a);
+            x.Add(b);
+            x.Add(c);
+
+            Assert.True(x.Remove(b));
+
+            Assert.Equal(2, x.Count);
+            Assert.Equal(a, x[0]);
+            Assert.Equal(c, x[1]);
+
+            Assert.True(x.Remove(0));
+
+            Assert.Equal(1, x.Count);
+            Assert.Equal(c, x[0]);
+
+            x.RemoveAt(0);
+
+            Assert.Equal(0, x.Count);
+
+            x.Add(a);
+            x.Add(b);
+            x.Add(c);
+
+            x.RemoveAt(0);
+
+            Assert.Equal(2, x.Count);
+            Assert.Equal(b, x[0]);
+            Assert.Equal(c, x[1]);
+        }
+
         /// <summary>
         ///     Tests for the constructor.
         /// </summary>

@@ -408,7 +408,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     This method also returns <see langword="false" /> if <paramref name="key" /> was not found in the
         ///     original <see cref="System.Collections.Generic.IDictionary{T,T}" />.
         /// </returns>
-        public bool Remove(TKey key)
+        public virtual bool Remove(TKey key)
         {
             EnforceDisposed();
 
@@ -479,7 +479,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     <see cref="System.Collections.Generic.ICollection{T}" />; otherwise, <see langword="false" />. This
         ///     method also returns <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="System.Collections.Generic.ICollection{T}" />.
         /// </returns>
-        public bool Remove(TElement item)
+        public virtual bool Remove(TElement item)
         {
             EnforceDisposed();
             Lock.EnterWriteLock();

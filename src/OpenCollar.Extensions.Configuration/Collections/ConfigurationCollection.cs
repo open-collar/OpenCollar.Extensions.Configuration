@@ -39,10 +39,6 @@ namespace OpenCollar.Extensions.Configuration
         /// <value> <see langword="true" /> if this collection is read-only; otherwise, <see langword="false" />. </value>
         public override bool IsReadOnly { get { return false; } }
 
-        int ICollection<TElement>.Count { get; }
-
-        bool ICollection<TElement>.IsReadOnly { get; }
-
         /// <summary>
         ///     Gets or sets the <typeparamref name="TElement" /> at the specified index.
         /// </summary>
@@ -145,12 +141,31 @@ namespace OpenCollar.Extensions.Configuration
         ///     This method also returns <see langword="false" /> if <paramref name="item" /> is not found in the
         ///     original <see cref="System.Collections.Generic.ICollection{TElement}" />.
         /// </returns>
-        public bool Remove(TElement item)
+        public override bool Remove(TElement item)
         {
             var index = IndexOf(item);
             if(index >= 0)
             {
                 Remove(index);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        ///     Removes the element with the specified key from the <see cref="System.Collections.Generic.IDictionary{T,T}" />.
+        /// </summary>
+        /// <param name="index"> The zero-based index of the element to remove. </param>
+        /// <returns>
+        ///     <see langword="true" /> if the element is successfully removed; otherwise, <see langword="false" />.
+        ///     This method also returns <see langword="false" /> if <paramref name="key" /> was not found in the
+        ///     original <see cref="System.Collections.Generic.IDictionary{T,T}" />.
+        /// </returns>
+        public override bool Remove(int index)
+        {
+            if(base.Remove(index))
+            {
                 Reindex(index);
                 return true;
             }
