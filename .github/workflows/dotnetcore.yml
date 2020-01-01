@@ -45,7 +45,13 @@ jobs:
 
     - name: Test
       run: |
-        dotnet test --configuration Release -p:Version="$VERSION" -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover
+        dotnet test --configuration Release -p:Version="$VERSION" -p:CollectCoverage=true -p:CoverletOutput=coverage/ -p:CoverletOutputFormat=opencover
+
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: coverage/coverage.xml
 
     - name: Set documentation version number
       run: |
