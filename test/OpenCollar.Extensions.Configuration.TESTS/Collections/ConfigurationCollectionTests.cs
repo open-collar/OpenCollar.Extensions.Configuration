@@ -302,6 +302,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Equal(b, x[1]);
 
             Assert.False(x.Remove(d));
+            Assert.False(x.Remove(2));
         }
 
         /// <summary>
