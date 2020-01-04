@@ -128,7 +128,35 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="item"> The item to insert. </param>
         public void Insert(int index, TElement item)
         {
-            throw new NotImplementedException();
+            if(index == Count)
+            {
+                Add(item);
+                return;
+            }
+
+            base.Lock.EnterWriteLock();
+            try
+            {
+                var entries = new KeyValuePair<int, TElement>[base.InnerCount + 1];
+                base.InnerCopyTo(entries, 0);
+
+                var list = new List<KeyValuePair<int, TElement>>(entries);
+                list.Insert(index, new KeyValuePair<int, TElement>(index, item));
+                var n = 0;
+                foreach(var element in list.ToArray())
+                {
+                    if(n > index)
+                    {
+                        list[n] = new KeyValuePair<int, TElement>(n, element.Value);
+                    }
+                    ++n;
+                }
+                base.Replace(list);
+            }
+            finally
+            {
+                base.Lock.ExitWriteLock();
+            }
         }
 
         /// <summary>

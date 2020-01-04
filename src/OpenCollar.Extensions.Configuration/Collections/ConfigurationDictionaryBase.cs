@@ -62,6 +62,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the number of elements contained in the <see cref="System.Collections.Generic.ICollection{T}" />.
         /// </summary>
+        /// <value> The number of elements contained in the <see cref="System.Collections.Generic.ICollection{T}" />. </value>
         public int Count
         {
             get
@@ -153,6 +154,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 }
             }
         }
+
+        /// <summary>
+        ///     Gets the number of elements contained in the <see cref="System.Collections.Generic.ICollection{T}" />.
+        /// </summary>
+        /// <value> The number of elements contained in the <see cref="System.Collections.Generic.ICollection{T}" />. </value>
+        /// <remarks> Assumes that the caller already holds a read or write lock. </remarks>
+        protected int InnerCount { get { return _items.Count; } }
 
         /// <summary>
         ///     Gets the lock object used to control concurrent access to the collection.
@@ -374,13 +382,27 @@ namespace OpenCollar.Extensions.Configuration.Collections
             }
         }
 
-        ///// <summary>
-        /////     Returns an enumerator that iterates through the collection.
-        ///// </summary>
-        ///// <returns> An enumerator that can be used to iterate through the collection. </returns>
-        //public IEnumerator<KeyValuePair<TKey, TElement>> GetEnumerator()
-        //{
-        //    EnforceDisposed();
+        /// <summary>
+        ///     Copies the elements of the <see cref="System.Collections.Generic.ICollection{T}" /> to an
+        ///     <see cref="System.Array" />, starting at a particular <see cref="System.Array" /> index.
+        /// </summary>
+        /// <param name="array">
+        ///     The one-dimensional <see cref="System.Array" /> that is the destination of the elements copied from
+        ///     <see cref="System.Collections.Generic.ICollection{T}" />. The <see cref="System.Array" /> must have
+        ///     zero-based indexing.
+        /// </param>
+        /// <param name="arrayIndex"> The zero-based index in <paramref name="array" /> at which copying begins. </param>
+        /// <remarks> Assumes the caller already holds a read or write lock. </remarks>
+        public void InnerCopyTo(KeyValuePair<TKey, TElement>[] array, int arrayIndex)
+        {
+            _orderedItems.CopyTo(array, arrayIndex);
+        }
+
+        /// <summary>
+        ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
+        /// </summary>
+        /// <exception cref="NotImplementedException"> </exception>
+        public void Reload() => throw new NotImplementedException();
 
         //    Lock.EnterReadLock();
         //    try
@@ -392,13 +414,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
         //        Lock.ExitReadLock();
         //    }
         //}
-
-        /// <summary>
-        ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
-        /// </summary>
-        /// <exception cref="NotImplementedException"> </exception>
-        public void Reload() => throw new NotImplementedException();
-
         /// <summary>
         ///     Removes the element with the specified key from the <see cref="System.Collections.Generic.IDictionary{T,T}" />.
         /// </summary>
@@ -435,6 +450,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
             }
         }
 
+        ///// <summary>
+        /////     Returns an enumerator that iterates through the collection.
+        ///// </summary>
+        ///// <returns> An enumerator that can be used to iterate through the collection. </returns>
+        //public IEnumerator<KeyValuePair<TKey, TElement>> GetEnumerator()
+        //{
+        //    EnforceDisposed();
         /// <summary>
         ///     Removes the first occurrence of a specific object from the <see cref="System.Collections.Generic.ICollection{T}" />.
         /// </summary>
@@ -585,6 +607,22 @@ namespace OpenCollar.Extensions.Configuration.Collections
             {
                 InternalClear();
                 Lock.Dispose();
+            }
+        }
+
+        /// <summary>
+        ///     Replaces the contents of the dictionary.
+        /// </summary>
+        /// <param name="list"> The new contents. </param>
+        /// <remarks> Assumes that a write lock is held by the caller. </remarks>
+        protected void Replace(IEnumerable<KeyValuePair<TKey, TElement>> list)
+        {
+            _orderedItems.Clear();
+            _orderedItems.InsertRange(0, list);
+            _items.Clear();
+            foreach(var item in list)
+            {
+                _items.Add(item.Key, item.Value);
             }
         }
 

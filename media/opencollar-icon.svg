@@ -5,11 +5,35 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
    id="svg-rdix-logo"
    viewBox="0 0 319.999 319.999"
    height="320"
-   width="320">
+   width="320"
+   sodipodi:docname="opencollar-icon.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     id="namedview3733"
+     showgrid="false"
+     inkscape:zoom="1.8959301"
+     inkscape:cx="117.82553"
+     inkscape:cy="154.7475"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer-rdix-logo" />
   <title
      id="title-rdix-logo">Rdix Logo</title>
   <defs
@@ -57,24 +81,23 @@
   </metadata>
   <g
      id="layer-rdix-logo">
-    <g
-       transform="translate(0,1.1999845)"
-       id="g822">
-      <path
-         id="left-green"
-         d="M 70.7619,220.48152 141.5243,97.917436 H -5e-4 Z"
-         style="fill:#dc322f;fill-opacity:1"
-         Fill="#859900" />
-      <path
-         id="middle-yellow"
-         d="m 159.9995,99.51746 70.7624,122.5641 H 89.2371 Z"
-         style="fill:none;fill-opacity:1;stroke:#859900;stroke-width:7.9999752;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         Fill="#B58900" />
-      <path
-         id="right-blue"
-         d="M 249.2371,220.48152 319.9995,97.917436 H 178.4747 Z"
-         style="fill:#268bd2"
-         Fill="#268BD2" />
-    </g>
+    <path
+       inkscape:connector-curvature="0"
+       Fill="#859900"
+       style="fill:#dc322f;fill-opacity:1"
+       d="M 70.7619,221.6815 141.5243,99.11742 H -5e-4 Z"
+       id="left-green" />
+    <path
+       inkscape:connector-curvature="0"
+       Fill="#B58900"
+       style="fill:none;fill-opacity:1;stroke:#859900;stroke-width:7.54224253;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 159.73578,101.86625 225.3638,219.32902 H 94.107756 Z"
+       id="middle-yellow" />
+    <path
+       inkscape:connector-curvature="0"
+       Fill="#268BD2"
+       style="fill:#268bd2"
+       d="M 249.2371,221.6815 319.9995,99.11742 H 178.4747 Z"
+       id="right-blue" />
   </g>
 </svg>

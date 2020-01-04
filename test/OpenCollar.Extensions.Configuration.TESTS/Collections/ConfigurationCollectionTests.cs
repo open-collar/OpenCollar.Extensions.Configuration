@@ -211,6 +211,25 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         }
 
         [Fact]
+        public void InsertTests()
+        {
+            var x = new ConfigurationCollection<IChildElement>();
+
+            var a = (new Moq.Mock<IChildElement>()).Object;
+            var b = (new Moq.Mock<IChildElement>()).Object;
+            var c = (new Moq.Mock<IChildElement>()).Object;
+
+            x.Add(a);
+            x.Add(c);
+
+            x.Insert(1, b);
+
+            Assert.Equal(a, x[0]);
+            Assert.Equal(b, x[1]);
+            Assert.Equal(c, x[2]);
+        }
+
+        [Fact]
         public void IsReadOnlyTests()
         {
             var x = new ConfigurationCollection<IChildElement>();
