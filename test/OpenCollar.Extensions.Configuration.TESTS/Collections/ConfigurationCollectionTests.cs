@@ -226,12 +226,15 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             x.Insert(1, b);
 
+            Assert.Equal(3, x.Count);
+
             Assert.Equal(a, x[0]);
             Assert.Equal(b, x[1]);
             Assert.Equal(c, x[2]);
 
-            x.Insert(3, d);
+            x.Insert(x.Count, d);
 
+            Assert.Equal(4, x.Count);
             Assert.Equal(a, x[0]);
             Assert.Equal(b, x[1]);
             Assert.Equal(c, x[2]);
@@ -239,11 +242,15 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             x.Insert(0, e);
 
+            Assert.Equal(5, x.Count);
             Assert.Equal(e, x[0]);
             Assert.Equal(a, x[1]);
             Assert.Equal(b, x[2]);
             Assert.Equal(c, x[3]);
             Assert.Equal(d, x[4]);
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => { x.Insert(-1, a); });
+            Assert.Throws<ArgumentOutOfRangeException>(() => { x.Insert(x.Count + 1, a); });
         }
 
         [Fact]

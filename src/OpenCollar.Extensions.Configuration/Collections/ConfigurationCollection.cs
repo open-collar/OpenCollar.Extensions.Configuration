@@ -132,7 +132,7 @@ namespace OpenCollar.Extensions.Configuration
             {
                 throw new ArgumentOutOfRangeException(nameof(index), index, $"'{nameof(index)}' must be greater than or equal to zero.");
             }
-            if(index > Count)
+            if(index > InnerCount)
             {
                 throw new ArgumentOutOfRangeException(nameof(index), index, $"'{nameof(index)}' must be less than or equal to the number of items in the collection.");
             }
@@ -146,7 +146,7 @@ namespace OpenCollar.Extensions.Configuration
             base.Lock.EnterWriteLock();
             try
             {
-                var entries = new KeyValuePair<int, TElement>[base.InnerCount + 1];
+                var entries = new KeyValuePair<int, TElement>[base.InnerCount];
                 base.InnerCopyTo(entries, 0);
 
                 var list = new List<KeyValuePair<int, TElement>>(entries);
