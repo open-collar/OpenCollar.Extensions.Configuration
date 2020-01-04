@@ -218,6 +218,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var a = (new Moq.Mock<IChildElement>()).Object;
             var b = (new Moq.Mock<IChildElement>()).Object;
             var c = (new Moq.Mock<IChildElement>()).Object;
+            var d = (new Moq.Mock<IChildElement>()).Object;
+            var e = (new Moq.Mock<IChildElement>()).Object;
 
             x.Add(a);
             x.Add(c);
@@ -227,6 +229,21 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Equal(a, x[0]);
             Assert.Equal(b, x[1]);
             Assert.Equal(c, x[2]);
+
+            x.Insert(3, d);
+
+            Assert.Equal(a, x[0]);
+            Assert.Equal(b, x[1]);
+            Assert.Equal(c, x[2]);
+            Assert.Equal(d, x[3]);
+
+            x.Insert(0, e);
+
+            Assert.Equal(e, x[0]);
+            Assert.Equal(a, x[1]);
+            Assert.Equal(b, x[2]);
+            Assert.Equal(c, x[3]);
+            Assert.Equal(d, x[4]);
         }
 
         [Fact]
@@ -245,6 +262,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var a = (new Moq.Mock<IChildElement>()).Object;
             var b = (new Moq.Mock<IChildElement>()).Object;
             var c = (new Moq.Mock<IChildElement>()).Object;
+            var d = (new Moq.Mock<IChildElement>()).Object;
 
             x.Add(a);
             x.Add(b);
@@ -275,6 +293,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Equal(2, x.Count);
             Assert.Equal(a, x[0]);
             Assert.Equal(b, x[1]);
+
+            Assert.False(x.Remove(d));
         }
 
         /// <summary>

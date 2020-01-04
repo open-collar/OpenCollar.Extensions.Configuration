@@ -128,6 +128,15 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="item"> The item to insert. </param>
         public void Insert(int index, TElement item)
         {
+            if(index < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index), index, $"'{nameof(index)}' must be greater than or equal to zero.");
+            }
+            if(index > Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index), index, $"'{nameof(index)}' must be less than or equal to the number of items in the collection.");
+            }
+
             if(index == Count)
             {
                 Add(item);
