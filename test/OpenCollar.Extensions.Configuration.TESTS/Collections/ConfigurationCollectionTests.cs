@@ -31,11 +31,11 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         [Fact]
         public void AddAndRetrieveTests()
         {
-            var x = new ConfigurationCollection<IChildElement>();
+            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
 
-            var a = (new Moq.Mock<IChildElement>()).Object;
-            var b = (new Moq.Mock<IChildElement>()).Object;
-            var c = (new Moq.Mock<IChildElement>()).Object;
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
 
             x.Add(a);
 
@@ -69,11 +69,11 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         [Fact]
         public void ContainsTests()
         {
-            var x = new ConfigurationCollection<IChildElement>();
+            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
 
-            var a = (new Moq.Mock<IChildElement>()).Object;
-            var b = (new Moq.Mock<IChildElement>()).Object;
-            var c = (new Moq.Mock<IChildElement>()).Object;
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
 
             x.Add(a);
             x.Add(b);
@@ -87,11 +87,11 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         [Fact]
         public void CopyToTests()
         {
-            var x = new ConfigurationCollection<IChildElement>();
+            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
 
-            var a = (new Moq.Mock<IChildElement>()).Object;
-            var b = (new Moq.Mock<IChildElement>()).Object;
-            var c = (new Moq.Mock<IChildElement>()).Object;
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
 
             x.Add(a);
             x.Add(b);
@@ -117,11 +117,11 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         [Fact]
         public void EnumeratorTests()
         {
-            var x = new ConfigurationCollection<IChildElement>();
+            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
 
-            var a = (new Moq.Mock<IChildElement>()).Object;
-            var b = (new Moq.Mock<IChildElement>()).Object;
-            var c = (new Moq.Mock<IChildElement>()).Object;
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
 
             foreach(var item in x)
             {
@@ -159,11 +159,11 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         [Fact]
         public void IndexerTests()
         {
-            var x = new ConfigurationCollection<IChildElement>();
+            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
 
-            var a = (new Moq.Mock<IChildElement>()).Object;
-            var b = (new Moq.Mock<IChildElement>()).Object;
-            var c = (new Moq.Mock<IChildElement>()).Object;
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
 
             x.Add(a);
             x.Add(b);
@@ -184,11 +184,11 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         [Fact]
         public void IndexOfTests()
         {
-            var x = new ConfigurationCollection<IChildElement>();
+            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
 
-            var a = (new Moq.Mock<IChildElement>()).Object;
-            var b = (new Moq.Mock<IChildElement>()).Object;
-            var c = (new Moq.Mock<IChildElement>()).Object;
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
 
             Assert.True(x.IndexOf(a) < 0);
             Assert.True(x.IndexOf(b) < 0);
@@ -213,13 +213,13 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         [Fact]
         public void InsertTests()
         {
-            var x = new ConfigurationCollection<IChildElement>();
+            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
 
-            var a = (new Moq.Mock<IChildElement>()).Object;
-            var b = (new Moq.Mock<IChildElement>()).Object;
-            var c = (new Moq.Mock<IChildElement>()).Object;
-            var d = (new Moq.Mock<IChildElement>()).Object;
-            var e = (new Moq.Mock<IChildElement>()).Object;
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
+            var d = TestValues.GetChildElement("d");
+            var e = TestValues.GetChildElement("e");
 
             x.Add(a);
             x.Add(c);
@@ -256,7 +256,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         [Fact]
         public void IsReadOnlyTests()
         {
-            var x = new ConfigurationCollection<IChildElement>();
+            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
 
             Assert.False(x.IsReadOnly);
         }
@@ -264,12 +264,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         [Fact]
         public void RemoveTests()
         {
-            var x = new ConfigurationCollection<IChildElement>();
+            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
 
-            var a = (new Moq.Mock<IChildElement>()).Object;
-            var b = (new Moq.Mock<IChildElement>()).Object;
-            var c = (new Moq.Mock<IChildElement>()).Object;
-            var d = (new Moq.Mock<IChildElement>()).Object;
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
+            var d = TestValues.GetChildElement("d");
 
             x.Add(a);
             x.Add(b);
@@ -311,7 +311,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         [Xunit.Fact]
         public void TestConstructor()
         {
-            var x = new ConfigurationCollection<IChildElement>();
+            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
 
             Assert.NotNull(x);
         }

@@ -26,6 +26,14 @@ namespace OpenCollar.Extensions.Configuration
     internal sealed class ReadOnlyConfigurationDictionary<TElement> : ConfigurationDictionary<TElement>, IReadOnlyDictionary<string, TElement>
         where TElement : IConfigurationObject
     {
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ReadOnlyConfigurationDictionary{TElement}" /> class.
+        /// </summary>
+        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        public ReadOnlyConfigurationDictionary(PropertyDef propertyDef) : base(propertyDef)
+        {
+        }
+
         public override bool IsReadOnly => true;
 
         IEnumerable<string> IReadOnlyDictionary<string, TElement>.Keys { get; }

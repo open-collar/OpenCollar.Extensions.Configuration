@@ -37,6 +37,12 @@ namespace OpenCollar.Extensions.Configuration
         bool IsDirty { get; }
 
         /// <summary>
+        ///     Gets the definition of this property object.
+        /// </summary>
+        /// <value> The definition of this property object. </value>
+        PropertyDef PropertyDef { get; }
+
+        /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
         void Reload();

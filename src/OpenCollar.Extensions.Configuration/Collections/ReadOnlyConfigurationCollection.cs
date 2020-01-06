@@ -27,6 +27,14 @@ namespace OpenCollar.Extensions.Configuration
     internal sealed class ReadOnlyConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IReadOnlyCollection<TElement>
         where TElement : IConfigurationObject
     {
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ReadOnlyConfigurationCollection{TElement}" /> class.
+        /// </summary>
+        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        public ReadOnlyConfigurationCollection(PropertyDef propertyDef) : base(propertyDef)
+        {
+        }
+
         public override bool IsReadOnly { get; }
 
         IEnumerator<TElement> IEnumerable<TElement>.GetEnumerator() => throw new NotImplementedException();

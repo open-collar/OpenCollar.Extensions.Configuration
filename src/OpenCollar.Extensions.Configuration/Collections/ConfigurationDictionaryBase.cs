@@ -60,6 +60,15 @@ namespace OpenCollar.Extensions.Configuration.Collections
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationDictionaryBase{TKey, TElement}" /> class.
+        /// </summary>
+        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        public ConfigurationDictionaryBase(PropertyDef propertyDef)
+        {
+            PropertyDef = propertyDef;
+        }
+
+        /// <summary>
         ///     Gets the number of elements contained in the <see cref="System.Collections.Generic.ICollection{T}" />.
         /// </summary>
         /// <value> The number of elements contained in the <see cref="System.Collections.Generic.ICollection{T}" />. </value>
@@ -133,6 +142,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
             }
         }
 
+        public PropertyDef PropertyDef { get; }
+
         /// <summary>
         ///     Gets an <see cref="System.Collections.Generic.ICollection{T}" /> containing the values in the <see cref="System.Collections.Generic.IDictionary{T,T}" />.
         /// </summary>
@@ -175,6 +186,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         protected IReadOnlyList<KeyValuePair<TKey, TElement>> OrderedItems { get { return _orderedItems; } }
 
         /// <summary>
+        ///     Gets a value indicating whether to set values using the key first.
+        /// </summary>
+        /// <value> <see langword="true" /> if set value using key first; otherwise to value first, <see langword="false" />. </value>
+        protected virtual bool SetValueUsingKeyFirst { get; }
+
+        /// <summary>
         ///     Gets or sets the item with the specified key.
         /// </summary>
         /// <value> The item to get or set. </value>
@@ -194,64 +211,19 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     return value;
                 }
 
-                throw new ArgumentOutOfRangeException(nameof(key), "'key' did not identify a valid element.");
+                throw new ArgumentOutOfRangeException(nameof(key), $"'{nameof(key)}' did not identify a valid element.");
             }
             set
             {
                 EnforceDisposed();
 
-                Lock.EnterUpgradeableReadLock();
-                try
+                if(SetValueUsingKeyFirst)
                 {
-                    if(_items.ContainsKey(key))
-                    {
-                        var foundItem = _items[key];
-                        if(Equals(value, foundItem))
-                        {
-                            return;
-                        }
-
-                        Lock.EnterWriteLock();
-                        try
-                        {
-                            _items[key] = value;
-                            var n = 0;
-                            foreach(var element in _orderedItems)
-                            {
-                                if(Equals(element.Value, foundItem))
-                                {
-                                    _orderedItems[n] = new KeyValuePair<TKey, TElement>(key, value);
-                                    break;
-                                }
-                                ++n;
-                            }
-                        }
-                        finally
-                        {
-                            Lock.ExitWriteLock();
-                        }
-                    }
-                    else
-                    {
-                        Lock.EnterWriteLock();
-                        try
-                        {
-                            _items.Add(key, value);
-                            _orderedItems.Add(new KeyValuePair<TKey, TElement>(key, value));
-                            OnPropertyChanged(nameof(Count));
-                        }
-                        finally
-                        {
-                            Lock.ExitWriteLock();
-                        }
-                    }
-
-                    // TODO: add change detection and notification.
-                    Debug.Assert(_orderedItems.Count == _items.Count);
+                    SetValueByKey(key, value);
                 }
-                finally
+                else
                 {
-                    Lock.ExitUpgradeableReadLock();
+                    SetValueByValue(key, value);
                 }
             }
         }
@@ -261,7 +233,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </summary>
         /// <param name="key"> The object to use as the key of the element to add. </param>
         /// <param name="value"> The object to use as the value of the element to add. </param>
-        public void Add(TKey key, TElement value)
+        public virtual void Add(TKey key, TElement value)
         {
             Add(new KeyValuePair<TKey, TElement>(key, value));
         }
@@ -308,29 +280,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
             EnforceDisposed();
 
             InternalClear();
-        }
-
-        /// <summary>
-        ///     Determines whether this instance contains the object.
-        /// </summary>
-        /// <param name="item"> The object to locate in the <see cref="System.Collections.Generic.ICollection{T}" />. </param>
-        /// <returns>
-        ///     <see langword="true" /> if <paramref name="item" /> is found in the
-        ///     <see cref="System.Collections.Generic.ICollection{T}" />; otherwise, <see langword="false" />.
-        /// </returns>
-        public bool Contains(KeyValuePair<TKey, TElement> item)
-        {
-            EnforceDisposed();
-
-            Lock.EnterReadLock();
-            try
-            {
-                return _items.ContainsKey(item.Key);
-            }
-            finally
-            {
-                Lock.ExitReadLock();
-            }
         }
 
         /// <summary>
@@ -513,7 +462,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     {
                         if(!_items.Remove(element.Key, out var removedElement))
                         {
-                            System.Diagnostics.Debug.Assert(false, "We assume the element can be removed if it can be found.");
+                            Debug.Assert(false, "We assume the element can be removed if it can be found.");
                         }
 
                         var n = 0;
@@ -527,7 +476,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                             }
                             ++n;
                         }
-                        System.Diagnostics.Debug.Assert(false, "We assume the element can be removed from both collections.");
+                        Debug.Assert(false, "We assume the element can be removed from both collections.");
                     }
                 }
 
@@ -587,6 +536,56 @@ namespace OpenCollar.Extensions.Configuration.Collections
             try
             {
                 return ((IEnumerable)_orderedItems).GetEnumerator();
+            }
+            finally
+            {
+                Lock.ExitReadLock();
+            }
+        }
+
+        /// <summary>
+        ///     Determines whether this instance contains the object.
+        /// </summary>
+        /// <param name="item"> The object to locate in the <see cref="System.Collections.Generic.ICollection{T}" />. </param>
+        /// <returns>
+        ///     <see langword="true" /> if <paramref name="item" /> is found in the
+        ///     <see cref="System.Collections.Generic.ICollection{T}" />; otherwise, <see langword="false" />.
+        /// </returns>
+        protected bool Contains(KeyValuePair<TKey, TElement> item)
+        {
+            EnforceDisposed();
+
+            Lock.EnterReadLock();
+            try
+            {
+                return _items.Contains(item);
+            }
+            finally
+            {
+                Lock.ExitReadLock();
+            }
+        }
+
+        /// <summary>
+        ///     Determines whether this instance contains the object.
+        /// </summary>
+        /// <param name="item"> The object to locate in the <see cref="System.Collections.Generic.ICollection{T}" />. </param>
+        /// <returns>
+        ///     <see langword="true" /> if <paramref name="item" /> is found in the
+        ///     <see cref="System.Collections.Generic.ICollection{T}" />; otherwise, <see langword="false" />.
+        /// </returns>
+        protected bool ContainsValue(TElement item)
+        {
+            EnforceDisposed();
+
+            Lock.EnterReadLock();
+            try
+            {
+                foreach(var value in _orderedItems)
+                    if(Equals(value.Value, item))
+                        return true;
+
+                return false;
             }
             finally
             {
@@ -722,6 +721,111 @@ namespace OpenCollar.Extensions.Configuration.Collections
             foreach(var callback in callbacks)
             {
                 callback.DynamicInvoke(this, args);
+            }
+        }
+
+        /// <summary>
+        ///     Sets the value by looking up the key.
+        /// </summary>
+        /// <param name="key"> The key identifying the value. </param>
+        /// <param name="value"> The new value. </param>
+        private void SetValueByKey(TKey key, TElement value)
+        {
+            Lock.EnterUpgradeableReadLock();
+            try
+            {
+                _items[key] = value;
+                var n = 0;
+                foreach(var element in _orderedItems)
+                {
+                    if(Equals(element.Value, value))
+                    {
+                        Lock.EnterWriteLock();
+                        try
+                        {
+                            var existing = _orderedItems[n];
+                            _orderedItems[n] = new KeyValuePair<TKey, TElement>(key, value);
+                            _items.Remove(existing.Key);
+                            _items.Add(key, value);
+                        }
+                        finally
+                        {
+                            Lock.ExitWriteLock();
+                        }
+                        return;
+                    }
+                    ++n;
+                }
+
+                _items.Add(key, value);
+                _orderedItems.Add(new KeyValuePair<TKey, TElement>(key, value));
+                OnPropertyChanged(nameof(Count));
+            }
+            finally
+            {
+                Lock.ExitUpgradeableReadLock();
+            }
+        }
+
+        /// <summary>
+        ///     Sets the value by looking up the value.
+        /// </summary>
+        /// <param name="key"> The key identifying the value. </param>
+        /// <param name="value"> The new value. </param>
+        private void SetValueByValue(TKey key, TElement value)
+        {
+            Lock.EnterUpgradeableReadLock();
+            try
+            {
+                if(_items.ContainsKey(key))
+                {
+                    var foundItem = _items[key];
+                    if(Equals(value, foundItem))
+                    {
+                        return;
+                    }
+
+                    Lock.EnterWriteLock();
+                    try
+                    {
+                        _items[key] = value;
+                        var n = 0;
+                        foreach(var element in _orderedItems)
+                        {
+                            if(Equals(element.Value, foundItem))
+                            {
+                                _orderedItems[n] = new KeyValuePair<TKey, TElement>(key, value);
+                                break;
+                            }
+                            ++n;
+                        }
+                    }
+                    finally
+                    {
+                        Lock.ExitWriteLock();
+                    }
+                }
+                else
+                {
+                    Lock.EnterWriteLock();
+                    try
+                    {
+                        _items.Add(key, value);
+                        _orderedItems.Add(new KeyValuePair<TKey, TElement>(key, value));
+                        OnPropertyChanged(nameof(Count));
+                    }
+                    finally
+                    {
+                        Lock.ExitWriteLock();
+                    }
+                }
+
+                // TODO: add change detection and notification.
+                Debug.Assert(_orderedItems.Count == _items.Count);
+            }
+            finally
+            {
+                Lock.ExitUpgradeableReadLock();
             }
         }
     }

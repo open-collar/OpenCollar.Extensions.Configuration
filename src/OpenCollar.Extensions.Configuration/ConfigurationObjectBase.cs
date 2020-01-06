@@ -31,6 +31,7 @@ namespace OpenCollar.Extensions.Configuration
     ///     A base class that allows configuration from classes in the <see cref="Microsoft.Extensions.Configuration" />
     ///     namespace to be to be accessed through a user-defined model with strongly typed interfaces.
     /// </summary>
+    /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationObject" />
     /// <remarks>
     ///     <para>
     ///         For each requested model only a single instance of the model is ever constructed for a given
@@ -76,6 +77,15 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationObjectBase" /> class.
         /// </summary>
+        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        public ConfigurationObjectBase(PropertyDef propertyDef)
+        {
+            PropertyDef = propertyDef;
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationObjectBase" /> class.
+        /// </summary>
         /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
         /// <param name="propertyDefs"> A sequence containing the definitions of the properties to represent. </param>
         internal ConfigurationObjectBase(IConfigurationRoot configurationRoot, IEnumerable<PropertyDef> propertyDefs)
@@ -89,6 +99,8 @@ namespace OpenCollar.Extensions.Configuration
                 _propertiesByPath.Add(property.Path, property);
             }
         }
+
+        public PropertyDef PropertyDef { get; }
 
         /// <summary>
         ///     Gets a value indicating whether this object has any properties with unsaved changes.

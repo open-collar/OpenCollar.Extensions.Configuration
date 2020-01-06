@@ -34,10 +34,24 @@ namespace OpenCollar.Extensions.Configuration
         where TElement : IConfigurationObject
     {
         /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationCollection{TElement}" /> class.
+        /// </summary>
+        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        public ConfigurationCollection(PropertyDef propertyDef) : base(propertyDef)
+        {
+        }
+
+        /// <summary>
         ///     Gets a value indicating whether the <see cref="System.Collections.Generic.ICollection{TElement}" /> is read-only.
         /// </summary>
         /// <value> <see langword="true" /> if this collection is read-only; otherwise, <see langword="false" />. </value>
         public override bool IsReadOnly { get { return false; } }
+
+        /// <summary>
+        ///     Gets a value indicating whether to set values using the key first.
+        /// </summary>
+        /// <value> <see langword="true" /> if set value using key first; otherwise to value first, <see langword="false" />. </value>
+        protected override bool SetValueUsingKeyFirst { get { return false; } }
 
         /// <summary>
         ///     Gets or sets the <typeparamref name="TElement" /> at the specified index.
@@ -55,7 +69,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     Adds the specified item to the end of the collection..
         /// </summary>
         /// <param name="item"> The item to add. </param>
-        public void Add(TElement item) => base.Add(base.Count, item);
+        public void Add(TElement item) => Add(Count, item);
 
         /// <summary>
         ///     Determines whether this instance contains the object.
@@ -63,7 +77,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="item"> The item. </param>
         /// <returns> <see langword="true" /> if [contains] [the specified item]; otherwise, <see langword="false" />. </returns>
         /// <exception cref="NotImplementedException"> </exception>
-        public bool Contains(TElement item) => IndexOf(item) >= 0;
+        public bool Contains(TElement item) => ContainsValue(item);
 
         /// <summary>
         ///     Copies the contents of the collection to an array.
@@ -143,11 +157,11 @@ namespace OpenCollar.Extensions.Configuration
                 return;
             }
 
-            base.Lock.EnterWriteLock();
+            Lock.EnterWriteLock();
             try
             {
-                var entries = new KeyValuePair<int, TElement>[base.InnerCount];
-                base.InnerCopyTo(entries, 0);
+                var entries = new KeyValuePair<int, TElement>[InnerCount];
+                InnerCopyTo(entries, 0);
 
                 var list = new List<KeyValuePair<int, TElement>>(entries);
                 list.Insert(index, new KeyValuePair<int, TElement>(index, item));
@@ -160,11 +174,11 @@ namespace OpenCollar.Extensions.Configuration
                     }
                     ++n;
                 }
-                base.Replace(list);
+                Replace(list);
             }
             finally
             {
-                base.Lock.ExitWriteLock();
+                Lock.ExitWriteLock();
             }
         }
 

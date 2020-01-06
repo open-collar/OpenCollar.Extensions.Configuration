@@ -29,5 +29,11 @@ namespace OpenCollar.Extensions.Configuration
     /// <seealso cref="System.Collections.Generic.IDictionary{Type,T}" />
     public interface IConfigurationDictionary<TElement> : IDictionary<string, TElement>, INotifyCollectionChanged where TElement : IConfigurationObject
     {
+        /// <summary>
+        ///     Determines whether this dictionary contains the element specified.
+        /// </summary>
+        /// <param name="element"> The element for which to check. </param>
+        /// <returns> <see langword="true" /> if the dictionary contains the specified element; otherwise, <see langword="false" />. </returns>
+        bool Contains(TElement element);
     }
 }
