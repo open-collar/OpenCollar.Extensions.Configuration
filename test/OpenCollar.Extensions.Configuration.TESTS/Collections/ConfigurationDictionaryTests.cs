@@ -37,12 +37,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = TestValues.GetChildElement("b");
             var c = TestValues.GetChildElement("c");
 
-            x.Add("a", a);
+            x.Add(a);
 
             Assert.Single(x);
 
             x.Add("b", b);
-            x.Add("c", c);
+            x.Add(c);
 
             Assert.Equal(3, x.Count);
 
@@ -118,6 +118,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                         break;
                 }
             }
+
+            Assert.Throws<ArgumentException>(() => x.Add("z", b));
         }
 
         [Fact]
@@ -128,6 +130,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var a = TestValues.GetChildElement("a");
             var b = TestValues.GetChildElement("b");
             var c = TestValues.GetChildElement("c");
+            var d = TestValues.GetChildElement("d");
 
             x.Add("a", a);
             x.Add("b", b);
@@ -136,6 +139,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.True(x.Contains(b));
             Assert.False(x.Contains(c));
             Assert.False(x.Contains(null));
+            Assert.True(((ICollection<KeyValuePair<string, IChildElement>>)x).Contains(new KeyValuePair<string, IChildElement>("a", a)));
+            Assert.False(((ICollection<KeyValuePair<string, IChildElement>>)x).Contains(new KeyValuePair<string, IChildElement>("d", d)));
         }
 
         [Fact]
