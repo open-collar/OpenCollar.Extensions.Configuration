@@ -46,6 +46,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".version", ".version", "{EB
 		.version\minor.txt = .version\minor.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "media", "media", "{ADA32901-1130-419A-909D-DFBBC231C967}"
+	ProjectSection(SolutionItems) = preProject
+		media\opencollar-icon-16x16x32.png = media\opencollar-icon-16x16x32.png
+		media\opencollar-icon-320x320x32.png = media\opencollar-icon-320x320x32.png
+		media\opencollar-icon-32x32x32.png = media\opencollar-icon-32x32x32.png
+		media\opencollar-icon.svg = media\opencollar-icon.svg
+		media\opencollar-logo-320x132x32.png = media\opencollar-logo-320x132x32.png
+		media\opencollar-logo-320x25x32.png = media\opencollar-logo-320x25x32.png
+		media\opencollar-logo.svg = media\opencollar-logo.svg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

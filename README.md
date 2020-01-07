@@ -1,7 +1,8 @@
-![Open Collar](./docs/ApiDocs/images/opencollar-logo-320x25x32.png) 
+![Open Collar](./media/opencollar-logo-320x25x32.png) 
 # OpenCollar.Extensions.Configuration
 
-Support for automatic validation, update and strongly-typed access to configuration.
+Support for automatic validation, update and strongly-typed access to configuration with events
+allowing for changing detection and more dynamic applications.
 
 ## Set-up Developer Environment
 
