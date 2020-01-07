@@ -314,6 +314,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false));
 
             Assert.NotNull(x);
+            Assert.Equal(0, x.Count);
+
+            x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false), (IEnumerable<IChildElement>)null);
+
+            Assert.NotNull(x);
+            Assert.Equal(0, x.Count);
 
             var a = TestValues.GetChildElement("a");
             var b = TestValues.GetChildElement("b");
