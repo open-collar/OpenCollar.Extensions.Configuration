@@ -24,59 +24,34 @@ using Xunit;
 namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 {
     /// <summary>
-    ///     Tests for the <see cref="OpenCollar.Extensions.Configuration.Collections.ConfigurationCollection{T}" /> class.
+    ///     Tests for the <see cref="OpenCollar.Extensions.Configuration.Collections.ReadOnlyConfigurationCollection{T}" /> class.
     /// </summary>
-    public sealed class ConfigurationCollectionTests
+    public sealed class ReadOnlyConfigurationCollectionTests
     {
         [Fact]
         public void AddAndRetrieveTests()
         {
-            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
-
             var a = TestValues.GetChildElement("a");
             var b = TestValues.GetChildElement("b");
             var c = TestValues.GetChildElement("c");
 
-            x.Add(a);
-
-            Assert.Single(x);
-
-            x.Add(b);
-            x.Add(c);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false), a, b, c);
 
             Assert.Equal(3, x.Count);
 
-            Assert.Equal(a, x[0]);
-            Assert.Equal(b, x[1]);
-            Assert.Equal(c, x[2]);
+            Assert.Throws<NotImplementedException>(() => x.Add(new KeyValuePair<int, IChildElement>(0, a)));
+            Assert.Throws<NotImplementedException>(() => x.Add(a));
 
-            Assert.True(x.Remove(b));
-
-            Assert.Equal(2, x.Count);
-
-            Assert.Equal(a, x[0]);
-            Assert.Equal(c, x[1]);
-
-            x.Add(b);
-
-            Assert.Equal(3, x.Count);
-
-            Assert.Equal(a, x[0]);
-            Assert.Equal(c, x[1]);
-            Assert.Equal(b, x[2]);
         }
 
         [Fact]
         public void ContainsTests()
         {
-            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
-
             var a = TestValues.GetChildElement("a");
             var b = TestValues.GetChildElement("b");
             var c = TestValues.GetChildElement("c");
 
-            x.Add(a);
-            x.Add(b);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false), a, b);
 
             Assert.True(x.Contains(a));
             Assert.True(x.Contains(b));
@@ -87,15 +62,11 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         [Fact]
         public void CopyToTests()
         {
-            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
-
             var a = TestValues.GetChildElement("a");
             var b = TestValues.GetChildElement("b");
             var c = TestValues.GetChildElement("c");
 
-            x.Add(a);
-            x.Add(b);
-            x.Add(c);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false), a, b, c);
 
             var array = new IChildElement[3];
 
@@ -117,20 +88,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         [Fact]
         public void EnumeratorTests()
         {
-            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
-
             var a = TestValues.GetChildElement("a");
             var b = TestValues.GetChildElement("b");
             var c = TestValues.GetChildElement("c");
+
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false));
 
             foreach(var item in x)
             {
                 Assert.True(false);
             }
 
-            x.Add(a);
-            x.Add(b);
-            x.Add(c);
+            x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false), a, b, c);
 
             var n = 0;
             foreach(var item in (IEnumerable<IChildElement>)x)
@@ -159,49 +128,39 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         [Fact]
         public void IndexerTests()
         {
-            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
-
             var a = TestValues.GetChildElement("a");
             var b = TestValues.GetChildElement("b");
             var c = TestValues.GetChildElement("c");
 
-            x.Add(a);
-            x.Add(b);
-            x.Add(c);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false), a, b, c);
 
             Assert.Equal(a, x[0]);
             Assert.Equal(b, x[1]);
             Assert.Equal(c, x[2]);
 
-            x[0] = c;
-            x[2] = a;
-
-            Assert.Equal(c, x[0]);
-            Assert.Equal(b, x[1]);
-            Assert.Equal(a, x[2]);
+            Assert.Throws<NotImplementedException>(() => x[0] = c);
         }
 
         [Fact]
         public void IndexOfTests()
         {
-            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
-
             var a = TestValues.GetChildElement("a");
             var b = TestValues.GetChildElement("b");
             var c = TestValues.GetChildElement("c");
+
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false));
 
             Assert.True(x.IndexOf(a) < 0);
             Assert.True(x.IndexOf(b) < 0);
             Assert.True(x.IndexOf(c) < 0);
 
-            x.Add(a);
-            x.Add(b);
+            x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false), a, b);
 
             Assert.Equal(0, x.IndexOf(a));
             Assert.Equal(1, x.IndexOf(b));
             Assert.True(x.IndexOf(c) < 0);
 
-            x.Add(c);
+            x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false), a, b, c);
 
             Assert.Equal(0, x.IndexOf(a));
             Assert.Equal(1, x.IndexOf(b));
@@ -213,96 +172,33 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         [Fact]
         public void InsertTests()
         {
-            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
-
             var a = TestValues.GetChildElement("a");
             var b = TestValues.GetChildElement("b");
-            var c = TestValues.GetChildElement("c");
-            var d = TestValues.GetChildElement("d");
-            var e = TestValues.GetChildElement("e");
 
-            x.Add(a);
-            x.Add(c);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false), a);
 
-            x.Insert(1, b);
-
-            Assert.Equal(3, x.Count);
-
-            Assert.Equal(a, x[0]);
-            Assert.Equal(b, x[1]);
-            Assert.Equal(c, x[2]);
-
-            x.Insert(x.Count, d);
-
-            Assert.Equal(4, x.Count);
-            Assert.Equal(a, x[0]);
-            Assert.Equal(b, x[1]);
-            Assert.Equal(c, x[2]);
-            Assert.Equal(d, x[3]);
-
-            x.Insert(0, e);
-
-            Assert.Equal(5, x.Count);
-            Assert.Equal(e, x[0]);
-            Assert.Equal(a, x[1]);
-            Assert.Equal(b, x[2]);
-            Assert.Equal(c, x[3]);
-            Assert.Equal(d, x[4]);
-
-            Assert.Throws<ArgumentOutOfRangeException>(() => { x.Insert(-1, a); });
-            Assert.Throws<ArgumentOutOfRangeException>(() => { x.Insert(x.Count + 1, a); });
+            Assert.Throws<NotImplementedException>(() => x.Insert(1, b));
         }
 
         [Fact]
         public void IsReadOnlyTests()
         {
-            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false));
 
-            Assert.False(x.IsReadOnly);
+            Assert.True(x.IsReadOnly);
         }
 
         [Fact]
         public void RemoveTests()
         {
-            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
-
             var a = TestValues.GetChildElement("a");
             var b = TestValues.GetChildElement("b");
-            var c = TestValues.GetChildElement("c");
-            var d = TestValues.GetChildElement("d");
 
-            x.Add(a);
-            x.Add(b);
-            x.Add(c);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false), a);
 
-            Assert.True(x.Remove(b));
-            Assert.False(x.Remove(b));
-
-            Assert.Equal(2, x.Count);
-            Assert.Equal(a, x[0]);
-            Assert.Equal(c, x[1]);
-
-            Assert.True(x.Remove(0));
-
-            Assert.Equal(1, x.Count);
-            Assert.Equal(c, x[0]);
-
-            x.RemoveAt(0);
-
-            Assert.Equal(0, x.Count);
-
-            x.Add(a);
-            x.Add(b);
-            x.Add(c);
-
-            x.RemoveAt(2);
-
-            Assert.Equal(2, x.Count);
-            Assert.Equal(a, x[0]);
-            Assert.Equal(b, x[1]);
-
-            Assert.False(x.Remove(d));
-            Assert.False(x.Remove(2));
+            Assert.Throws<NotImplementedException>(() => x.Remove(b));
+            Assert.Throws<NotImplementedException>(() => x.RemoveAt(0));
+            Assert.Throws<NotImplementedException>(() => x.Remove(2));
         }
 
         /// <summary>

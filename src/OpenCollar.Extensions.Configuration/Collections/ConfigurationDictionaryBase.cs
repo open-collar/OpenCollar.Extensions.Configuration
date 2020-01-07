@@ -63,15 +63,34 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     Initializes a new instance of the <see cref="ConfigurationDictionaryBase{TKey, TElement}" /> class.
         /// </summary>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
-        public ConfigurationDictionaryBase(PropertyDef propertyDef)
+        protected ConfigurationDictionaryBase(PropertyDef propertyDef)
         {
             PropertyDef = propertyDef;
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationDictionaryBase{TKey, TElement}" /> class.
+        /// </summary>
+        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="elements">The elements with which to initialize to the collection.</param>
+        protected ConfigurationDictionaryBase(PropertyDef propertyDef, IEnumerable<KeyValuePair<TKey, TElement>> elements) : this(propertyDef)
+        {
+            PropertyDef = propertyDef;
+
+            foreach(var element in elements)
+            {
+                _items.Add(element.Key, element.Value);
+                _orderedItems.Add(element);
+            }
         }
 
         /// <summary>
         ///     Gets the number of elements contained in the <see cref="System.Collections.Generic.ICollection{T}" />.
         /// </summary>
         /// <value> The number of elements contained in the <see cref="System.Collections.Generic.ICollection{T}" />. </value>
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
         public int Count
         {
             get
@@ -97,6 +116,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     <see langword="true" /> if this object has any properties with unsaved changes; otherwise,
         ///     <see langword="false" /> .
         /// </value>
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
         public bool IsDirty
         {
             get
@@ -118,11 +140,17 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets a value indicating whether the <see cref="System.Collections.Generic.ICollection{T}" /> is read-only.
         /// </summary>
-        public abstract bool IsReadOnly { get; }
+        public abstract bool IsReadOnly
+        {
+            get;
+        }
 
         /// <summary>
         ///     Gets an <see cref="System.Collections.Generic.ICollection{T}" /> containing the keys of the <see cref="System.Collections.Generic.IDictionary{T,T}" />.
         /// </summary>
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
         public ICollection<TKey> Keys
         {
             get
@@ -142,11 +170,21 @@ namespace OpenCollar.Extensions.Configuration.Collections
             }
         }
 
-        public PropertyDef PropertyDef { get; }
+        /// <summary>
+        ///     Gets the definition of this property object.
+        /// </summary>
+        /// <value> The definition of this property object. </value>
+        public PropertyDef PropertyDef
+        {
+            get;
+        }
 
         /// <summary>
         ///     Gets an <see cref="System.Collections.Generic.ICollection{T}" /> containing the values in the <see cref="System.Collections.Generic.IDictionary{T,T}" />.
         /// </summary>
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
         public ICollection<TElement> Values
         {
             get
@@ -171,7 +209,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </summary>
         /// <value> The number of elements contained in the <see cref="System.Collections.Generic.ICollection{T}" />. </value>
         /// <remarks> Assumes that the caller already holds a read or write lock. </remarks>
-        protected int InnerCount { get { return _items.Count; } }
+        protected int InnerCount
+        {
+            get
+            {
+                return _items.Count;
+            }
+        }
 
         /// <summary>
         ///     Gets the lock object used to control concurrent access to the collection.
@@ -183,13 +227,22 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     Gets the items in the dictionary as an ordered, read-only list.
         /// </summary>
         /// <value> The items in the dictionary as an ordered, read-only list. </value>
-        protected IReadOnlyList<KeyValuePair<TKey, TElement>> OrderedItems { get { return _orderedItems; } }
+        protected IReadOnlyList<KeyValuePair<TKey, TElement>> OrderedItems
+        {
+            get
+            {
+                return _orderedItems;
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether to set values using the key first.
         /// </summary>
         /// <value> <see langword="true" /> if set value using key first; otherwise to value first, <see langword="false" />. </value>
-        protected virtual bool SetValueUsingKeyFirst { get; }
+        protected virtual bool SetValueUsingKeyFirst
+        {
+            get;
+        }
 
         /// <summary>
         ///     Gets or sets the item with the specified key.
@@ -199,6 +252,10 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <returns> The element specified by <paramref name="key" />. </returns>
         /// <exception cref="ArgumentOutOfRangeException">
         ///     <paramref name="key" /> did not identify a valid element.
+        /// </exception>
+        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
         /// </exception>
         public TElement this[TKey key]
         {
@@ -216,6 +273,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
             set
             {
                 EnforceDisposed();
+                EnforceReadOnly();
 
                 if(SetValueUsingKeyFirst)
                 {
@@ -242,9 +300,14 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     Adds an item to the <see cref="System.Collections.Generic.ICollection{T}" />.
         /// </summary>
         /// <param name="item"> The object to add to the <see cref="System.Collections.Generic.ICollection{T}" />. </param>
+        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
         public void Add(KeyValuePair<TKey, TElement> item)
         {
             EnforceDisposed();
+            EnforceReadOnly();
 
             Lock.EnterUpgradeableReadLock();
             try
@@ -275,9 +338,14 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Removes all items from the <see cref="System.Collections.Generic.ICollection{T}" />.
         /// </summary>
+        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
         public void Clear()
         {
             EnforceDisposed();
+            EnforceReadOnly();
 
             InternalClear();
         }
@@ -291,6 +359,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     <see langword="true" /> if the <see cref="System.Collections.Generic.IDictionary{T,T}" /> contains an
         ///     element with the key; otherwise, <see langword="false" />.
         /// </returns>
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
         public bool ContainsKey(TKey key)
         {
             EnforceDisposed();
@@ -332,22 +403,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Copies the elements of the <see cref="System.Collections.Generic.ICollection{T}" /> to an
-        ///     <see cref="System.Array" />, starting at a particular <see cref="System.Array" /> index.
-        /// </summary>
-        /// <param name="array">
-        ///     The one-dimensional <see cref="System.Array" /> that is the destination of the elements copied from
-        ///     <see cref="System.Collections.Generic.ICollection{T}" />. The <see cref="System.Array" /> must have
-        ///     zero-based indexing.
-        /// </param>
-        /// <param name="arrayIndex"> The zero-based index in <paramref name="array" /> at which copying begins. </param>
-        /// <remarks> Assumes the caller already holds a read or write lock. </remarks>
-        public void InnerCopyTo(KeyValuePair<TKey, TElement>[] array, int arrayIndex)
-        {
-            _orderedItems.CopyTo(array, arrayIndex);
-        }
-
-        /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
         /// <exception cref="NotImplementedException"> </exception>
@@ -372,9 +427,11 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     This method also returns <see langword="false" /> if <paramref name="key" /> was not found in the
         ///     original <see cref="System.Collections.Generic.IDictionary{T,T}" />.
         /// </returns>
+        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
         public virtual bool Remove(TKey key)
         {
             EnforceDisposed();
+            EnforceReadOnly();
 
             Lock.EnterWriteLock();
             try
@@ -415,9 +472,11 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     <see cref="System.Collections.Generic.ICollection{T}" />; otherwise, <see langword="false" />. This
         ///     method also returns <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="System.Collections.Generic.ICollection{T}" />.
         /// </returns>
+        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
         public bool Remove(KeyValuePair<TKey, TElement> item)
         {
             EnforceDisposed();
+            EnforceReadOnly();
 
             Lock.EnterWriteLock();
             try
@@ -450,9 +509,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     <see cref="System.Collections.Generic.ICollection{T}" />; otherwise, <see langword="false" />. This
         ///     method also returns <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="System.Collections.Generic.ICollection{T}" />.
         /// </returns>
+        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
         public virtual bool Remove(TElement item)
         {
             EnforceDisposed();
+            EnforceReadOnly();
+
             Lock.EnterWriteLock();
             try
             {
@@ -610,12 +672,31 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
+        ///     Copies the elements of the <see cref="System.Collections.Generic.ICollection{T}" /> to an
+        ///     <see cref="System.Array" />, starting at a particular <see cref="System.Array" /> index.
+        /// </summary>
+        /// <param name="array">
+        ///     The one-dimensional <see cref="System.Array" /> that is the destination of the elements copied from
+        ///     <see cref="System.Collections.Generic.ICollection{T}" />. The <see cref="System.Array" /> must have
+        ///     zero-based indexing.
+        /// </param>
+        /// <param name="arrayIndex"> The zero-based index in <paramref name="array" /> at which copying begins. </param>
+        /// <remarks> Assumes the caller already holds a read or write lock. </remarks>
+        protected void InnerCopyTo(KeyValuePair<TKey, TElement>[] array, int arrayIndex)
+        {
+            _orderedItems.CopyTo(array, arrayIndex);
+        }
+
+        /// <summary>
         ///     Replaces the contents of the dictionary.
         /// </summary>
         /// <param name="list"> The new contents. </param>
         /// <remarks> Assumes that a write lock is held by the caller. </remarks>
+        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
         protected void Replace(IEnumerable<KeyValuePair<TKey, TElement>> list)
         {
+            EnforceReadOnly();
+
             _orderedItems.Clear();
             _orderedItems.InsertRange(0, list);
             _items.Clear();
@@ -626,10 +707,25 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
+        ///     Enforces the read-only property.
+        /// </summary>
+        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        private void EnforceReadOnly()
+        {
+            if(IsReadOnly)
+            {
+                throw new NotImplementedException("This collection is read-only.");
+            }
+        }
+
+        /// <summary>
         ///     Removes all items from the <see cref="System.Collections.Generic.ICollection{T}" />.
         /// </summary>
+        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
         private void InternalClear()
         {
+            EnforceReadOnly();
+
             Lock.EnterWriteLock();
             try
             {

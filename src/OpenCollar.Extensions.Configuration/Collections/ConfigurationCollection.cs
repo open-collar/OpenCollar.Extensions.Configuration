@@ -45,13 +45,25 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets a value indicating whether the <see cref="System.Collections.Generic.ICollection{TElement}" /> is read-only.
         /// </summary>
         /// <value> <see langword="true" /> if this collection is read-only; otherwise, <see langword="false" />. </value>
-        public override bool IsReadOnly { get { return false; } }
+        public override bool IsReadOnly
+        {
+            get
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether to set values using the key first.
         /// </summary>
         /// <value> <see langword="true" /> if set value using key first; otherwise to value first, <see langword="false" />. </value>
-        protected override bool SetValueUsingKeyFirst { get { return false; } }
+        protected override bool SetValueUsingKeyFirst
+        {
+            get
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         ///     Gets or sets the <typeparamref name="TElement" /> at the specified index.
@@ -61,8 +73,14 @@ namespace OpenCollar.Extensions.Configuration
         /// <returns> </returns>
         public new TElement this[int index]
         {
-            get { return base[index]; }
-            set { base[index] = value; }
+            get
+            {
+                return base[index];
+            }
+            set
+            {
+                base[index] = value;
+            }
         }
 
         /// <summary>
@@ -74,9 +92,8 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Determines whether this instance contains the object.
         /// </summary>
-        /// <param name="item"> The item. </param>
-        /// <returns> <see langword="true" /> if [contains] [the specified item]; otherwise, <see langword="false" />. </returns>
-        /// <exception cref="NotImplementedException"> </exception>
+        /// <param name="item"> The item for which to check. </param>
+        /// <returns> <see langword="true" /> if the collection contains the specified item; otherwise, <see langword="false" />. </returns>
         public bool Contains(TElement item) => ContainsValue(item);
 
         /// <summary>
@@ -142,6 +159,8 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="item"> The item to insert. </param>
         public void Insert(int index, TElement item)
         {
+            EnforceDisposed();
+
             if(index < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(index), index, $"'{nameof(index)}' must be greater than or equal to zero.");

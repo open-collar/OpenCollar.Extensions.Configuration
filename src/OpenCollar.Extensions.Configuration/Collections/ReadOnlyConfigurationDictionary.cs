@@ -34,10 +34,26 @@ namespace OpenCollar.Extensions.Configuration
         {
         }
 
-        public override bool IsReadOnly => true;
 
-        IEnumerable<string> IReadOnlyDictionary<string, TElement>.Keys { get; }
+        /// <summary>
+        ///     Gets a value indicating whether the <see cref="System.Collections.Generic.ICollection{T}" /> is read-only.
+        /// </summary>
+        public override bool IsReadOnly
+        {
+            get
+            {
+                return true;
+            }
+        }
 
-        IEnumerable<TElement> IReadOnlyDictionary<string, TElement>.Values { get; }
+        IEnumerable<string> IReadOnlyDictionary<string, TElement>.Keys
+        {
+            get;
+        }
+
+        IEnumerable<TElement> IReadOnlyDictionary<string, TElement>.Values
+        {
+            get;
+        }
     }
 }
