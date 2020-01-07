@@ -30,6 +30,15 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).ConfigurationDictionaryBase(OpenCollar.Extensions.Configuration.PropertyDef)
   nameWithType: ConfigurationDictionaryBase<TKey, TElement>.ConfigurationDictionaryBase(PropertyDef)
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).ConfigurationDictionaryBase(PropertyDef)
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.#ctor(OpenCollar.Extensions.Configuration.PropertyDef,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}})
+  name: ConfigurationDictionaryBase(PropertyDef, IEnumerable<KeyValuePair<TKey, TElement>>)
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2__ctor_OpenCollar_Extensions_Configuration_PropertyDef_System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair__0__1___
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.#ctor(OpenCollar.Extensions.Configuration.PropertyDef,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}})
+  name.vb: ConfigurationDictionaryBase(PropertyDef, IEnumerable(Of KeyValuePair(Of TKey, TElement)))
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.ConfigurationDictionaryBase(OpenCollar.Extensions.Configuration.PropertyDef, System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TElement>>)
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).ConfigurationDictionaryBase(OpenCollar.Extensions.Configuration.PropertyDef, System.Collections.Generic.IEnumerable(Of System.Collections.Generic.KeyValuePair(Of TKey, TElement)))
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.ConfigurationDictionaryBase(PropertyDef, IEnumerable<KeyValuePair<TKey, TElement>>)
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).ConfigurationDictionaryBase(PropertyDef, IEnumerable(Of KeyValuePair(Of TKey, TElement)))
 - uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.#ctor*
   name: ConfigurationDictionaryBase
   href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2__ctor_
