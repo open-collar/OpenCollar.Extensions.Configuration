@@ -203,6 +203,42 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Dispose
   nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Dispose
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Dispose
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetIndexedElements(System.Collections.Generic.IEnumerable{`1})
+  name: GetIndexedElements(IEnumerable<TElement>)
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_GetIndexedElements_System_Collections_Generic_IEnumerable__1__
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetIndexedElements(System.Collections.Generic.IEnumerable{`1})
+  name.vb: GetIndexedElements(IEnumerable(Of TElement))
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.GetIndexedElements(System.Collections.Generic.IEnumerable<TElement>)
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).GetIndexedElements(System.Collections.Generic.IEnumerable(Of TElement))
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.GetIndexedElements(IEnumerable<TElement>)
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).GetIndexedElements(IEnumerable(Of TElement))
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetIndexedElements*
+  name: GetIndexedElements
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_GetIndexedElements_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetIndexedElements
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.GetIndexedElements
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).GetIndexedElements
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.GetIndexedElements
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).GetIndexedElements
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetKeyedElements(System.Collections.Generic.IEnumerable{`1})
+  name: GetKeyedElements(IEnumerable<TElement>)
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_GetKeyedElements_System_Collections_Generic_IEnumerable__1__
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetKeyedElements(System.Collections.Generic.IEnumerable{`1})
+  name.vb: GetKeyedElements(IEnumerable(Of TElement))
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.GetKeyedElements(System.Collections.Generic.IEnumerable<TElement>)
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).GetKeyedElements(System.Collections.Generic.IEnumerable(Of TElement))
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.GetKeyedElements(IEnumerable<TElement>)
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).GetKeyedElements(IEnumerable(Of TElement))
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetKeyedElements*
+  name: GetKeyedElements
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_GetKeyedElements_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetKeyedElements
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.GetKeyedElements
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).GetKeyedElements
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.GetKeyedElements
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).GetKeyedElements
 - uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.InnerCopyTo(System.Collections.Generic.KeyValuePair{`0,`1}[],System.Int32)
   name: InnerCopyTo(KeyValuePair<TKey, TElement>[], Int32)
   href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_InnerCopyTo_System_Collections_Generic_KeyValuePair__0__1____System_Int32_
