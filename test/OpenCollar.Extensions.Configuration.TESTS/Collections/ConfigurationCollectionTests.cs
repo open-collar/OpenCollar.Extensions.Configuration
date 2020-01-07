@@ -311,28 +311,34 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         [Fact]
         public void TestConstructor()
         {
-            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
+            var propertyDef = new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false);
+
+            var x = new ConfigurationCollection<IChildElement>(propertyDef);
 
             Assert.NotNull(x);
             Assert.Equal(0, x.Count);
+            Assert.Equal(propertyDef.PropertyName, x.PropertyDef.PropertyName);
 
-            x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false), (IEnumerable<IChildElement>)null);
+            x = new ConfigurationCollection<IChildElement>(propertyDef, (IEnumerable<IChildElement>)null);
 
             Assert.NotNull(x);
             Assert.Equal(0, x.Count);
+            Assert.Equal(propertyDef.PropertyName, x.PropertyDef.PropertyName);
 
             var a = TestValues.GetChildElement("a");
             var b = TestValues.GetChildElement("b");
 
-            x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false), a, b);
+            x = new ConfigurationCollection<IChildElement>(propertyDef, a, b);
 
             Assert.NotNull(x);
             Assert.Equal(2, x.Count);
+            Assert.Equal(propertyDef.PropertyName, x.PropertyDef.PropertyName);
 
-            x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false), (IEnumerable<IChildElement>)(new[] { a, b }));
+            x = new ConfigurationCollection<IChildElement>(propertyDef, (IEnumerable<IChildElement>)(new[] { a, b }));
 
             Assert.NotNull(x);
             Assert.Equal(2, x.Count);
+            Assert.Equal(propertyDef.PropertyName, x.PropertyDef.PropertyName);
         }
     }
 }
