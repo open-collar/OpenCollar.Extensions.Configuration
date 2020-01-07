@@ -162,6 +162,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Equal(a, x["a"]);
             Assert.Equal(b, x["b"]);
             Assert.Equal(c, x["c"]);
+            Assert.Throws<ArgumentOutOfRangeException>(() => x["d"]);
 
             Assert.Throws<NotImplementedException>(() => x["a"] = a);
         }
