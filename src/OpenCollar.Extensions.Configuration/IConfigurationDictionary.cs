@@ -26,7 +26,7 @@ namespace OpenCollar.Extensions.Configuration
     ///     Defines a dictionary containing configurtation items and keyed on the element name.
     /// </summary>
     /// <typeparam name="TElement"> The type of the elements contained in the dictionary. </typeparam>
-    /// <seealso cref="System.Collections.Generic.IDictionary{Type,T}" />
+    /// <seealso cref="IDictionary{Type,T}" />
     public interface IConfigurationDictionary<TElement> : IDictionary<string, TElement>, INotifyCollectionChanged where TElement : IConfigurationObject
     {
         /// <summary>

@@ -31,15 +31,15 @@ namespace OpenCollar.Extensions.Configuration
     ///     A base class that allows configuration from classes in the <see cref="Microsoft.Extensions.Configuration" />
     ///     namespace to be to be accessed through a user-defined model with strongly typed interfaces.
     /// </summary>
-    /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationObject" />
+    /// <seealso cref="IConfigurationObject" />
     /// <remarks>
     ///     <para>
     ///         For each requested model only a single instance of the model is ever constructed for a given
-    ///         <see cref="Microsoft.Extensions.Configuration.IConfigurationSection" /> or
-    ///         <see cref="Microsoft.Extensions.Configuration.IConfigurationRoot" /> .
+    ///         <see cref="IConfigurationSection" /> or
+    ///         <see cref="IConfigurationRoot" /> .
     ///     </para>
     ///     <para>
-    ///         The <see cref="System.ComponentModel.INotifyPropertyChanged" /> interface is supported allowing changes
+    ///         The <see cref="INotifyPropertyChanged" /> interface is supported allowing changes
     ///         to be detected and reported from both the underlying configuration source (through the source changed
     ///         event) and from detected changes made to properties with a setter. Only material changes are reported,
     ///         and change with no practical impact (for example assigning a new instance of a string with the same
@@ -109,7 +109,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     <see langword="true" /> if this object has any properties with unsaved changes; otherwise,
         ///     <see langword="false" /> .
         /// </value>
-        /// <exception cref="System.NotImplementedException"> </exception>
+        /// <exception cref="NotImplementedException"> </exception>
         public bool IsDirty => _propertiesByName.Values.Any(p => p.IsDirty);
 
         protected object? this[string name]

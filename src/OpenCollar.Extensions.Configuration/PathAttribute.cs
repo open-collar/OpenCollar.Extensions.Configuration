@@ -48,7 +48,7 @@ namespace OpenCollar.Extensions.Configuration
     ///     Defines an attribute used to indicate the path to the configuration value(s) underlying a class or
     ///     individual property.
     /// </summary>
-    /// <seealso cref="System.Attribute" />
+    /// <seealso cref="Attribute" />
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
     public sealed class PathAttribute : Attribute
     {

@@ -26,7 +26,7 @@ using Xunit;
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
     /// <summary>
-    ///     Tests for the <see cref="OpenCollar.Extensions.Configuration.ConfigurationReader." /> class.
+    ///     Tests for the <see cref="Configuration.ConfigurationReader." /> class.
     /// </summary>
     public class ConfigurationReaderTests
     {

@@ -25,7 +25,7 @@ namespace OpenCollar.Extensions.Configuration
     ///     An attribute that can be used to indicate that a property (especially arrays and dictionaries) should be
     ///     treated as read-only.
     /// </summary>
-    /// <seealso cref="System.Attribute" />
+    /// <seealso cref="Attribute" />
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class ReadOnlyAttribute : Attribute
     {

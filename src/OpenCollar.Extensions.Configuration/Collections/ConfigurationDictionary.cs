@@ -22,31 +22,49 @@ using OpenCollar.Extensions.Configuration.Collections;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>
-    ///     A dictionary of configuration objects, keyed on the name of the object.
-    /// </summary>
-    /// <typeparam name="TElement"> The type of the element. </typeparam>
+    /// <summary>A dictionary of configuration objects, keyed on the name of the object.</summary>
+    /// <typeparam name="TElement">The type of the element.</typeparam>
+    /// <seealso cref="ConfigurationDictionaryBase{T,T}" />
+    /// <seealso cref="IConfigurationDictionary{TElement}" />
     internal class ConfigurationDictionary<TElement> : ConfigurationDictionaryBase<string, TElement>, IConfigurationDictionary<TElement>
             where TElement : IConfigurationObject
     {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.
-        /// </summary>
-        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
-        public ConfigurationDictionary(PropertyDef propertyDef) : base(propertyDef)
+        /// <summary>Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.</summary>
+        /// <param name="propertyDef">The definition of the property defined by this object.</param>
+        /// <param name="elements">The elements with which to initialize to the collection.</param>
+        public ConfigurationDictionary(PropertyDef propertyDef, IEnumerable<TElement>? elements) : base(propertyDef, GetKeyedElements(elements))
+        {
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.</summary>
+        /// <param name="propertyDef">The definition of the property defined by this object.</param>
+        /// <param name="elements">A parameter array containing the elements with which to initialize to the collection.</param>
+        public ConfigurationDictionary(PropertyDef propertyDef, params TElement[]? elements) : base(propertyDef, GetKeyedElements(elements))
         {
         }
 
         /// <summary>
-        ///     Gets a value indicating whether the <see cref="System.Collections.Generic.ICollection{TElement}" /> is read-only.
+        ///     Gets a value indicating whether the <see cref="ICollection{TElement}" /> is read-only.
         /// </summary>
-        public override bool IsReadOnly { get { return false; } }
+        public override bool IsReadOnly
+        {
+            get
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether to set values using the key first.
         /// </summary>
         /// <value> <see langword="true" /> if set value using key first; otherwise to value first, <see langword="false" />. </value>
-        protected override bool SetValueUsingKeyFirst { get { return true; } }
+        protected override bool SetValueUsingKeyFirst
+        {
+            get
+            {
+                return true;
+            }
+        }
 
         /// <summary>
         ///     Adds the specified element to the dictionary, using the name of the object as a the key.
@@ -58,7 +76,7 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Adds an element with the provided key and value to the <see cref="System.Collections.Generic.IDictionary{TKey, TElement}" />.
+        ///     Adds an element with the provided key and value to the <see cref="IDictionary{TKey, TElement}" />.
         /// </summary>
         /// <param name="key"> The object to use as the key of the element to add. </param>
         /// <param name="value"> The object to use as the value of the element to add. </param>
@@ -104,10 +122,10 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Determines whether this instance contains the object given.
         /// </summary>
-        /// <param name="item"> The object to locate in the <see cref="System.Collections.Generic.ICollection{TElement}" />. </param>
+        /// <param name="item"> The object to locate in the <see cref="ICollection{TElement}" />. </param>
         /// <returns>
         ///     <see langword="true" /> if <paramref name="item" /> is found in the
-        ///     <see cref="System.Collections.Generic.ICollection{TElement}" />; otherwise, <see langword="false" />.
+        ///     <see cref="ICollection{TElement}" />; otherwise, <see langword="false" />.
         /// </returns>
         bool ICollection<KeyValuePair<string, TElement>>.Contains(KeyValuePair<string, TElement> item) => ContainsKey(item.Key);
     }

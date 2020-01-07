@@ -23,20 +23,29 @@ using OpenCollar.Extensions.Configuration.Collections;
 
 namespace OpenCollar.Extensions.Configuration
 {
+    /// <summary>A read-only dictionary of configuration objects, keyed on the name of the object.</summary>
+    /// <typeparam name="TElement">The type of the element.</typeparam>
+    /// <seealso cref="ConfigurationDictionaryBase{T,T}" />
+    /// <seealso cref="IConfigurationDictionary{TElement}" />
     internal sealed class ReadOnlyConfigurationDictionary<TElement> : ConfigurationDictionary<TElement>, IReadOnlyDictionary<string, TElement>
         where TElement : IConfigurationObject
     {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ReadOnlyConfigurationDictionary{TElement}" /> class.
-        /// </summary>
-        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
-        public ReadOnlyConfigurationDictionary(PropertyDef propertyDef) : base(propertyDef)
+        /// <summary>Initializes a new instance of the <see cref="ReadOnlyConfigurationDictionary{TElement}" /> class.</summary>
+        /// <param name="propertyDef">The definition of the property defined by this object.</param>
+        /// <param name="elements">The elements with which to initialize to the collection.</param>
+        public ReadOnlyConfigurationDictionary(PropertyDef propertyDef, IEnumerable<TElement>? elements) : base(propertyDef, elements)
         {
         }
 
+        /// <summary>Initializes a new instance of the <see cref="ReadOnlyConfigurationDictionary{TElement}" /> class.</summary>
+        /// <param name="propertyDef">The definition of the property defined by this object.</param>
+        /// <param name="elements">A parameter array containing the elements with which to initialize to the collection.</param>
+        public ReadOnlyConfigurationDictionary(PropertyDef propertyDef, params TElement[]? elements) : base(propertyDef, elements)
+        {
+        }
 
         /// <summary>
-        ///     Gets a value indicating whether the <see cref="System.Collections.Generic.ICollection{T}" /> is read-only.
+        ///     Gets a value indicating whether the <see cref="ICollection{T}" /> is read-only.
         /// </summary>
         public override bool IsReadOnly
         {
@@ -46,14 +55,26 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
+        /// <summary>
+        /// Gets an <see cref="ICollection{TElement}" /> containing the keys of the <see cref="IDictionary{T,T}" />.
+        /// </summary>
         IEnumerable<string> IReadOnlyDictionary<string, TElement>.Keys
         {
-            get;
+            get
+            {
+                return Keys;
+            }
         }
 
+        /// <summary>
+        /// Gets an <see cref="ICollection{TElement}" /> containing the values in the <see cref="IDictionary{T,T}" />.
+        /// </summary>
         IEnumerable<TElement> IReadOnlyDictionary<string, TElement>.Values
         {
-            get;
+            get
+            {
+                return Values;
+            }
         }
     }
 }

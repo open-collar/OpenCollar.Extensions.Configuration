@@ -24,7 +24,7 @@ using Xunit;
 namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 {
     /// <summary>
-    ///     Tests for the <see cref="OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionary{T}" /> class.
+    ///     Tests for the <see cref="Configuration.Collections.ConfigurationDictionary{T}" /> class.
     /// </summary>
     public sealed class ConfigurationDictionaryTests
     {
@@ -330,12 +330,31 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         /// <summary>
         ///     Tests for the constructor.
         /// </summary>
-        [Xunit.Fact]
+        [Fact]
         public void TestConstructor()
         {
-            var x = new ConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
+            var x = new ConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationDictionary<IChildElement>), false));
 
             Assert.NotNull(x);
+            Assert.Equal(0, x.Count);
+
+            x = new ConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationDictionary<IChildElement>), false), (IEnumerable<IChildElement>)null);
+
+            Assert.NotNull(x);
+            Assert.Equal(0, x.Count);
+
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+
+            x = new ConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationDictionary<IChildElement>), false), a, b);
+
+            Assert.NotNull(x);
+            Assert.Equal(2, x.Count);
+
+            x = new ConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationDictionary<IChildElement>), false), (IEnumerable<IChildElement>)(new[] { a, b }));
+
+            Assert.NotNull(x);
+            Assert.Equal(2, x.Count);
         }
     }
 }

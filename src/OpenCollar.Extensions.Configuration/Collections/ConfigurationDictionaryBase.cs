@@ -33,9 +33,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// </summary>
     /// <typeparam name="TKey"> The type of the key. </typeparam>
     /// <typeparam name="TElement"> The type of the element. </typeparam>
-    /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationObject" />
-    /// <seealso cref="System.Collections.Generic.IDictionary{TKey, TElement}" />
-    /// <seealso cref="System.Collections.Specialized.INotifyCollectionChanged" />
+    /// <seealso cref="IConfigurationObject" />
+    /// <seealso cref="IDictionary{TKey, TElement}" />
+    /// <seealso cref="INotifyCollectionChanged" />
     public abstract class ConfigurationDictionaryBase<TKey, TElement> : Disposable, IEnumerable, INotifyCollectionChanged, IConfigurationObject
         where TElement : IConfigurationObject
     {
@@ -85,9 +85,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Gets the number of elements contained in the <see cref="System.Collections.Generic.ICollection{T}" />.
+        ///     Gets the number of elements contained in the <see cref="ICollection{T}" />.
         /// </summary>
-        /// <value> The number of elements contained in the <see cref="System.Collections.Generic.ICollection{T}" />. </value>
+        /// <value> The number of elements contained in the <see cref="ICollection{T}" />. </value>
         /// <exception cref="ObjectDisposedException">
         ///     This method cannot be used after the object has been disposed of.
         /// </exception>
@@ -138,7 +138,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Gets a value indicating whether the <see cref="System.Collections.Generic.ICollection{T}" /> is read-only.
+        ///     Gets a value indicating whether the <see cref="ICollection{T}" /> is read-only.
         /// </summary>
         public abstract bool IsReadOnly
         {
@@ -146,7 +146,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Gets an <see cref="System.Collections.Generic.ICollection{T}" /> containing the keys of the <see cref="System.Collections.Generic.IDictionary{T,T}" />.
+        ///     Gets an <see cref="ICollection{T}" /> containing the keys of the <see cref="IDictionary{T,T}" />.
         /// </summary>
         /// <exception cref="ObjectDisposedException">
         ///     This method cannot be used after the object has been disposed of.
@@ -180,7 +180,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Gets an <see cref="System.Collections.Generic.ICollection{T}" /> containing the values in the <see cref="System.Collections.Generic.IDictionary{T,T}" />.
+        ///     Gets an <see cref="ICollection{T}" /> containing the values in the <see cref="IDictionary{T,T}" />.
         /// </summary>
         /// <exception cref="ObjectDisposedException">
         ///     This method cannot be used after the object has been disposed of.
@@ -205,9 +205,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Gets the number of elements contained in the <see cref="System.Collections.Generic.ICollection{T}" />.
+        ///     Gets the number of elements contained in the <see cref="ICollection{T}" />.
         /// </summary>
-        /// <value> The number of elements contained in the <see cref="System.Collections.Generic.ICollection{T}" />. </value>
+        /// <value> The number of elements contained in the <see cref="ICollection{T}" />. </value>
         /// <remarks> Assumes that the caller already holds a read or write lock. </remarks>
         protected int InnerCount
         {
@@ -287,7 +287,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Adds an element with the provided key and value to the <see cref="System.Collections.Generic.IDictionary{T,T}" />.
+        ///     Adds an element with the provided key and value to the <see cref="IDictionary{T,T}" />.
         /// </summary>
         /// <param name="key"> The object to use as the key of the element to add. </param>
         /// <param name="value"> The object to use as the value of the element to add. </param>
@@ -297,9 +297,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Adds an item to the <see cref="System.Collections.Generic.ICollection{T}" />.
+        ///     Adds an item to the <see cref="ICollection{T}" />.
         /// </summary>
-        /// <param name="item"> The object to add to the <see cref="System.Collections.Generic.ICollection{T}" />. </param>
+        /// <param name="item"> The object to add to the <see cref="ICollection{T}" />. </param>
         /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
         /// <exception cref="ObjectDisposedException">
         ///     This method cannot be used after the object has been disposed of.
@@ -336,7 +336,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Removes all items from the <see cref="System.Collections.Generic.ICollection{T}" />.
+        ///     Removes all items from the <see cref="ICollection{T}" />.
         /// </summary>
         /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
         /// <exception cref="ObjectDisposedException">
@@ -351,12 +351,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Determines whether the <see cref="System.Collections.Generic.IDictionary{T,T}" /> contains an element
+        ///     Determines whether the <see cref="IDictionary{T,T}" /> contains an element
         ///     with the specified key.
         /// </summary>
-        /// <param name="key"> The key to locate in the <see cref="System.Collections.Generic.IDictionary{T,T}" />. </param>
+        /// <param name="key"> The key to locate in the <see cref="IDictionary{T,T}" />. </param>
         /// <returns>
-        ///     <see langword="true" /> if the <see cref="System.Collections.Generic.IDictionary{T,T}" /> contains an
+        ///     <see langword="true" /> if the <see cref="IDictionary{T,T}" /> contains an
         ///     element with the key; otherwise, <see langword="false" />.
         /// </returns>
         /// <exception cref="ObjectDisposedException">
@@ -378,12 +378,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Copies the elements of the <see cref="System.Collections.Generic.ICollection{T}" /> to an
-        ///     <see cref="System.Array" />, starting at a particular <see cref="System.Array" /> index.
+        ///     Copies the elements of the <see cref="ICollection{T}" /> to an
+        ///     <see cref="Array" />, starting at a particular <see cref="Array" /> index.
         /// </summary>
         /// <param name="array">
-        ///     The one-dimensional <see cref="System.Array" /> that is the destination of the elements copied from
-        ///     <see cref="System.Collections.Generic.ICollection{T}" />. The <see cref="System.Array" /> must have
+        ///     The one-dimensional <see cref="Array" /> that is the destination of the elements copied from
+        ///     <see cref="ICollection{T}" />. The <see cref="Array" /> must have
         ///     zero-based indexing.
         /// </param>
         /// <param name="arrayIndex"> The zero-based index in <paramref name="array" /> at which copying begins. </param>
@@ -419,13 +419,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
         //    }
         //}
         /// <summary>
-        ///     Removes the element with the specified key from the <see cref="System.Collections.Generic.IDictionary{T,T}" />.
+        ///     Removes the element with the specified key from the <see cref="IDictionary{T,T}" />.
         /// </summary>
         /// <param name="key"> The key of the element to remove. </param>
         /// <returns>
         ///     <see langword="true" /> if the element is successfully removed; otherwise, <see langword="false" />.
         ///     This method also returns <see langword="false" /> if <paramref name="key" /> was not found in the
-        ///     original <see cref="System.Collections.Generic.IDictionary{T,T}" />.
+        ///     original <see cref="IDictionary{T,T}" />.
         /// </returns>
         /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
         public virtual bool Remove(TKey key)
@@ -464,13 +464,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
         //{
         //    EnforceDisposed();
         /// <summary>
-        ///     Removes the first occurrence of a specific object from the <see cref="System.Collections.Generic.ICollection{T}" />.
+        ///     Removes the first occurrence of a specific object from the <see cref="ICollection{T}" />.
         /// </summary>
-        /// <param name="item"> The object to remove from the <see cref="System.Collections.Generic.ICollection{T}" />. </param>
+        /// <param name="item"> The object to remove from the <see cref="ICollection{T}" />. </param>
         /// <returns>
         ///     <see langword="true" /> if <paramref name="item" /> was successfully removed from the
-        ///     <see cref="System.Collections.Generic.ICollection{T}" />; otherwise, <see langword="false" />. This
-        ///     method also returns <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="System.Collections.Generic.ICollection{T}" />.
+        ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />. This
+        ///     method also returns <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="ICollection{T}" />.
         /// </returns>
         /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
         public bool Remove(KeyValuePair<TKey, TElement> item)
@@ -501,13 +501,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Removes the first occurrence of a specific object from the <see cref="System.Collections.Generic.ICollection{T}" />.
+        ///     Removes the first occurrence of a specific object from the <see cref="ICollection{T}" />.
         /// </summary>
-        /// <param name="item"> The object to remove from the <see cref="System.Collections.Generic.ICollection{T}" />. </param>
+        /// <param name="item"> The object to remove from the <see cref="ICollection{T}" />. </param>
         /// <returns>
         ///     <see langword="true" /> if <paramref name="item" /> was successfully removed from the
-        ///     <see cref="System.Collections.Generic.ICollection{T}" />; otherwise, <see langword="false" />. This
-        ///     method also returns <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="System.Collections.Generic.ICollection{T}" />.
+        ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />. This
+        ///     method also returns <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="ICollection{T}" />.
         /// </returns>
         /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
         public virtual bool Remove(TElement item)
@@ -566,7 +566,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </param>
         /// <returns>
         ///     <see langword="true" /> if the object that implements
-        ///     <see cref="System.Collections.Generic.IDictionary{T,T}" /> contains an element with the specified key;
+        ///     <see cref="IDictionary{T,T}" /> contains an element with the specified key;
         ///     otherwise, <see langword="false" />.
         /// </returns>
         public bool TryGetValue(TKey key, out TElement value)
@@ -588,7 +588,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     Returns an enumerator that iterates through a collection.
         /// </summary>
         /// <returns>
-        ///     An <see cref="System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        ///     An <see cref="IEnumerator" /> object that can be used to iterate through the collection.
         /// </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
@@ -608,10 +608,10 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Determines whether this instance contains the object.
         /// </summary>
-        /// <param name="item"> The object to locate in the <see cref="System.Collections.Generic.ICollection{T}" />. </param>
+        /// <param name="item"> The object to locate in the <see cref="ICollection{T}" />. </param>
         /// <returns>
         ///     <see langword="true" /> if <paramref name="item" /> is found in the
-        ///     <see cref="System.Collections.Generic.ICollection{T}" />; otherwise, <see langword="false" />.
+        ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />.
         /// </returns>
         protected bool Contains(KeyValuePair<TKey, TElement> item)
         {
@@ -631,10 +631,10 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Determines whether this instance contains the object.
         /// </summary>
-        /// <param name="item"> The object to locate in the <see cref="System.Collections.Generic.ICollection{T}" />. </param>
+        /// <param name="item"> The object to locate in the <see cref="ICollection{T}" />. </param>
         /// <returns>
         ///     <see langword="true" /> if <paramref name="item" /> is found in the
-        ///     <see cref="System.Collections.Generic.ICollection{T}" />; otherwise, <see langword="false" />.
+        ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />.
         /// </returns>
         protected bool ContainsValue(TElement item)
         {
@@ -672,12 +672,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Copies the elements of the <see cref="System.Collections.Generic.ICollection{T}" /> to an
-        ///     <see cref="System.Array" />, starting at a particular <see cref="System.Array" /> index.
+        ///     Copies the elements of the <see cref="ICollection{T}" /> to an
+        ///     <see cref="Array" />, starting at a particular <see cref="Array" /> index.
         /// </summary>
         /// <param name="array">
-        ///     The one-dimensional <see cref="System.Array" /> that is the destination of the elements copied from
-        ///     <see cref="System.Collections.Generic.ICollection{T}" />. The <see cref="System.Array" /> must have
+        ///     The one-dimensional <see cref="Array" /> that is the destination of the elements copied from
+        ///     <see cref="ICollection{T}" />. The <see cref="Array" /> must have
         ///     zero-based indexing.
         /// </param>
         /// <param name="arrayIndex"> The zero-based index in <paramref name="array" /> at which copying begins. </param>
@@ -719,7 +719,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Removes all items from the <see cref="System.Collections.Generic.ICollection{T}" />.
+        ///     Removes all items from the <see cref="ICollection{T}" />.
         /// </summary>
         /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
         private void InternalClear()
@@ -922,6 +922,39 @@ namespace OpenCollar.Extensions.Configuration.Collections
             finally
             {
                 Lock.ExitUpgradeableReadLock();
+            }
+        }
+
+        /// <summary>Converts the elements from the stream given into a stream of key-value pairs.</summary>
+        /// <param name="elements">The elements to convery.</param>
+        /// <returns>A stream of key-value pairs, initialized from the sequence given, with the key derived from each elements position in the sequence.</returns>
+        protected static IEnumerable<KeyValuePair<int, TElement>> GetIndexedElements(IEnumerable<TElement>? elements)
+        {
+            if(ReferenceEquals(elements, null))
+            {
+                yield break;
+            }
+
+            var n = 0;
+            foreach(var element in elements)
+            {
+                yield return new KeyValuePair<int, TElement>(n++, element);
+            }
+        }
+
+        /// <summary>Converts the elements from the stream given into a stream of key-value pairs.</summary>
+        /// <param name="elements">The elements to convery.</param>
+        /// <returns>A stream of key-value pairs, initialized from the sequence given, with the key derived from each elements property name.</returns>
+        protected static IEnumerable<KeyValuePair<string, TElement>> GetKeyedElements(IEnumerable<TElement>? elements)
+        {
+            if(ReferenceEquals(elements, null))
+            {
+                yield break;
+            }
+
+            foreach(var element in elements)
+            {
+                yield return new KeyValuePair<string, TElement>(element.PropertyDef.PropertyName, element);
             }
         }
     }

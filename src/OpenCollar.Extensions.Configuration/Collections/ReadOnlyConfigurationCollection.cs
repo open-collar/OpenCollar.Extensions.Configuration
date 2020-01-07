@@ -24,20 +24,25 @@ using OpenCollar.Extensions.Configuration.Collections;
 
 namespace OpenCollar.Extensions.Configuration
 {
+    /// <summary>
+    /// A read-only collection of <see cref="IConfigurationObject"> configuration objects </see> that notifies when an element
+    /// is added or removed.
+    /// </summary>
+    /// <typeparam name="TElement">The type of the element.</typeparam>
     internal sealed class ReadOnlyConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IReadOnlyCollection<TElement>
-        where TElement : IConfigurationObject
+            where TElement : IConfigurationObject
     {
         /// <summary>Initializes a new instance of the <see cref="ReadOnlyConfigurationCollection{TElement}" /> class.</summary>
         /// <param name="propertyDef">The definition of the property defined by this object.</param>
         /// <param name="elements">The elements with which to initialize to the collection.</param>
-        public ReadOnlyConfigurationCollection(PropertyDef propertyDef, IEnumerable<TElement>? elements) : base(propertyDef, GetElements(elements))
+        public ReadOnlyConfigurationCollection(PropertyDef propertyDef, IEnumerable<TElement>? elements) : base(propertyDef, GetIndexedElements(elements))
         {
         }
 
         /// <summary>Initializes a new instance of the <see cref="ReadOnlyConfigurationCollection{TElement}" /> class.</summary>
         /// <param name="propertyDef">The definition of the property defined by this object.</param>
         /// <param name="elements">A parameter array containing the elements with which to initialize to the collection.</param>
-        public ReadOnlyConfigurationCollection(PropertyDef propertyDef, params TElement[]? elements) : base(propertyDef, GetElements(elements))
+        public ReadOnlyConfigurationCollection(PropertyDef propertyDef, params TElement[]? elements) : base(propertyDef, GetIndexedElements(elements))
         {
         }
 
@@ -127,25 +132,8 @@ namespace OpenCollar.Extensions.Configuration
             throw new NotImplementedException("This collection is read-only.");
         }
 
-        /// <summary>Converts the elements from the stream given into a stream of key-value pairs.</summary>
-        /// <param name="elements">The elements to convery.</param>
-        /// <returns>A stream of key-value pairs, initialized from the sequence given, with the key derived from each elements position in the sequence.</returns>
-        private static IEnumerable<KeyValuePair<int, TElement>> GetElements(IEnumerable<TElement>? elements)
-        {
-            if(ReferenceEquals(elements, null))
-            {
-                yield break;
-            }
-
-            var n = 0;
-            foreach(var element in elements)
-            {
-                yield return new KeyValuePair<int, TElement>(n++, element);
-            }
-        }
-
         /// <summary>
-        ///     Gets a value indicating whether the <see cref="System.Collections.Generic.ICollection{T}" /> is read-only.
+        ///     Gets a value indicating whether the <see cref="ICollection{T}" /> is read-only.
         /// </summary>
         public override bool IsReadOnly
         {

@@ -25,24 +25,31 @@ using OpenCollar.Extensions.Configuration.Collections;
 namespace OpenCollar.Extensions.Configuration
 {
     /// <summary>
-    ///     A collection of <see cref="IConfigurationObject"> configuration objects </see> that notifies when an element
-    ///     is added or removed.
+    /// A collection of <see cref="IConfigurationObject"> configuration objects </see> that notifies when an element
+    /// is added or removed.
     /// </summary>
-    /// <typeparam name="TElement"> The type of the element. </typeparam>
-    /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationCollection{TElement}" />
+    /// <typeparam name="TElement">The type of the element.</typeparam>
+    /// <seealso cref="ConfigurationDictionaryBase{T,T}" />
+    /// <seealso cref="IConfigurationCollection{TElement}" />
     internal class ConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IConfigurationCollection<TElement>
         where TElement : IConfigurationObject
     {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ConfigurationCollection{TElement}" /> class.
-        /// </summary>
-        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
-        public ConfigurationCollection(PropertyDef propertyDef) : base(propertyDef)
+        /// <summary>Initializes a new instance of the <see cref="ConfigurationCollection{TElement}" /> class.</summary>
+        /// <param name="propertyDef">The definition of the property defined by this object.</param>
+        /// <param name="elements">The elements with which to initialize to the collection.</param>
+        public ConfigurationCollection(PropertyDef propertyDef, IEnumerable<TElement>? elements) : base(propertyDef, GetIndexedElements(elements))
+        {
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="ConfigurationCollection{TElement}" /> class.</summary>
+        /// <param name="propertyDef">The definition of the property defined by this object.</param>
+        /// <param name="elements">A parameter array containing the elements with which to initialize to the collection.</param>
+        public ConfigurationCollection(PropertyDef propertyDef, params TElement[]? elements) : base(propertyDef, GetIndexedElements(elements))
         {
         }
 
         /// <summary>
-        ///     Gets a value indicating whether the <see cref="System.Collections.Generic.ICollection{TElement}" /> is read-only.
+        ///     Gets a value indicating whether the <see cref="ICollection{TElement}" /> is read-only.
         /// </summary>
         /// <value> <see langword="true" /> if this collection is read-only; otherwise, <see langword="false" />. </value>
         public override bool IsReadOnly
@@ -202,14 +209,14 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Removes the first occurrence of a specific object from the <see cref="System.Collections.Generic.ICollection{TElement}" />.
+        ///     Removes the first occurrence of a specific object from the <see cref="ICollection{TElement}" />.
         /// </summary>
-        /// <param name="item"> The object to remove from the <see cref="System.Collections.Generic.ICollection{TElement}" />. </param>
+        /// <param name="item"> The object to remove from the <see cref="ICollection{TElement}" />. </param>
         /// <returns>
         ///     <see langword="true" /> if <paramref name="item" /> was successfully removed from the
-        ///     <see cref="System.Collections.Generic.ICollection{TElement}" />; otherwise, <see langword="false" />.
+        ///     <see cref="ICollection{TElement}" />; otherwise, <see langword="false" />.
         ///     This method also returns <see langword="false" /> if <paramref name="item" /> is not found in the
-        ///     original <see cref="System.Collections.Generic.ICollection{TElement}" />.
+        ///     original <see cref="ICollection{TElement}" />.
         /// </returns>
         public override bool Remove(TElement item)
         {
@@ -224,13 +231,13 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Removes the element with the specified key from the <see cref="System.Collections.Generic.IDictionary{T,T}" />.
+        ///     Removes the element with the specified key from the <see cref="IDictionary{T,T}" />.
         /// </summary>
         /// <param name="index"> The zero-based index of the element to remove. </param>
         /// <returns>
         ///     <see langword="true" /> if the element is successfully removed; otherwise, <see langword="false" />.
         ///     This method also returns <see langword="false" /> if <paramref name="key" /> was not found in the
-        ///     original <see cref="System.Collections.Generic.IDictionary{T,T}" />.
+        ///     original <see cref="IDictionary{T,T}" />.
         /// </returns>
         public override bool Remove(int index)
         {

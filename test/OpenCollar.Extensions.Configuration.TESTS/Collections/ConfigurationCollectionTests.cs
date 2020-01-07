@@ -24,7 +24,7 @@ using Xunit;
 namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 {
     /// <summary>
-    ///     Tests for the <see cref="OpenCollar.Extensions.Configuration.Collections.ConfigurationCollection{T}" /> class.
+    ///     Tests for the <see cref="Configuration.Collections.ConfigurationCollection{T}" /> class.
     /// </summary>
     public sealed class ConfigurationCollectionTests
     {
@@ -308,15 +308,15 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         /// <summary>
         ///     Tests for the constructor.
         /// </summary>
-        [Xunit.Fact]
+        [Fact]
         public void TestConstructor()
         {
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false));
+            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
 
             Assert.NotNull(x);
             Assert.Equal(0, x.Count);
 
-            x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false), (IEnumerable<IChildElement>)null);
+            x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false), (IEnumerable<IChildElement>)null);
 
             Assert.NotNull(x);
             Assert.Equal(0, x.Count);
@@ -324,12 +324,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var a = TestValues.GetChildElement("a");
             var b = TestValues.GetChildElement("b");
 
-            x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false), a, b);
+            x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false), a, b);
 
             Assert.NotNull(x);
             Assert.Equal(2, x.Count);
 
-            x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false), (IEnumerable<IChildElement>)(new[] { a, b }));
+            x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false), (IEnumerable<IChildElement>)(new[] { a, b }));
 
             Assert.NotNull(x);
             Assert.Equal(2, x.Count);
