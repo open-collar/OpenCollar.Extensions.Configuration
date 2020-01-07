@@ -299,40 +299,19 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var a = TestValues.GetChildElement("a");
             var b = TestValues.GetChildElement("b");
             var c = TestValues.GetChildElement("c");
-            var d = TestValues.GetChildElement("d");
-            var e = TestValues.GetChildElement("e");
 
             x.Add("a", a);
             x.Add("b", b);
             x.Add("c", c);
 
-            var n = 0;
-            foreach(var item in x)
-            {
-                switch(n++)
-                {
-                    case 0:
-                        Assert.Equal(a, item.Value);
-                        break;
-
-                    case 1:
-                        Assert.Equal(b, item.Value);
-                        break;
-
-                    case 2:
-                        Assert.Equal(c, item.Value);
-                        break;
-
-                    default:
-                        Assert.True(false);
-                        break;
-                }
-            }
+            Assert.Equal(a, x["a"]);
+            Assert.Equal(b, x["b"]);
+            Assert.Equal(c, x["c"]);
 
             x["a"] = a;
             x["c"] = c;
 
-            n = 0;
+            var n = 0;
             foreach(var item in x)
             {
                 switch(n++)
