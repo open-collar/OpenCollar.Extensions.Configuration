@@ -151,6 +151,20 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         }
 
         [Fact]
+        public void ClearTests()
+        {
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
+            var d = TestValues.GetChildElement("d");
+            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false), a, b, c, d);
+
+            Assert.Equal(4, x.Count);
+
+            Assert.Throws<NotImplementedException>(() => x.Clear());
+        }
+
+        [Fact]
         public void IndexerTests()
         {
             var a = TestValues.GetChildElement("a");

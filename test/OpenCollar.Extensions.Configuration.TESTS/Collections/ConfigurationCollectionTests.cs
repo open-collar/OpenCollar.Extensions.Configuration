@@ -261,6 +261,29 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.False(x.IsReadOnly);
         }
 
+
+        [Fact]
+        public void ClearTests()
+        {
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
+            var d = TestValues.GetChildElement("d");
+            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false), a, b, c, d);
+
+            Assert.Equal(4, x.Count);
+
+            x.Clear();
+
+            Assert.Equal(0, x.Count);
+
+            foreach(var item in x)
+            {
+                Assert.True(false);
+            }
+
+        }
+
         [Fact]
         public void RemoveTests()
         {
