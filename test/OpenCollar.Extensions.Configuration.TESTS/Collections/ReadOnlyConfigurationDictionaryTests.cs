@@ -74,7 +74,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var c = TestValues.GetChildElement("c");
             var d = TestValues.GetChildElement("d");
 
-            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false), a, b);
+            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationDictionary<IChildElement>), false), a, b);
 
             Assert.True(x.Contains(a));
             Assert.True(x.Contains(b));
@@ -91,7 +91,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = TestValues.GetChildElement("b");
             var c = TestValues.GetChildElement("c");
 
-            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false), a, b, c);
+            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationDictionary<IChildElement>), false), a, b, c);
 
             var array = new KeyValuePair<string, IChildElement>[3];
 
@@ -117,14 +117,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = TestValues.GetChildElement("b");
             var c = TestValues.GetChildElement("c");
 
-            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
+            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationDictionary<IChildElement>), false));
 
             foreach(var item in x)
             {
                 Assert.True(false);
             }
 
-            x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false), a, b, c);
+            x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationDictionary<IChildElement>), false), a, b, c);
 
             var n = 0;
             foreach(var item in x)
@@ -160,7 +160,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var e = TestValues.GetChildElement("e");
 
 
-            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false), a, b, c);
+            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationDictionary<IChildElement>), false), a, b, c);
 
             var n = 0;
             foreach(var item in x)
@@ -189,9 +189,83 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         }
 
         [Fact]
+        public void KeysTests()
+        {
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
+
+            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationDictionary<IChildElement>), false), a, b, c);
+
+            var keys = x.Keys;
+
+            Assert.Equal(3, keys.Count);
+
+            var n = 0;
+            foreach(var key in keys)
+            {
+                switch(n++)
+                {
+                    case 0:
+                        Assert.Equal(a.PropertyDef.PropertyName, key);
+                        break;
+
+                    case 1:
+                        Assert.Equal(b.PropertyDef.PropertyName, key);
+                        break;
+
+                    case 2:
+                        Assert.Equal(c.PropertyDef.PropertyName, key);
+                        break;
+
+                    default:
+                        Assert.True(false);
+                        break;
+                }
+            }
+        }
+
+        [Fact]
+        public void ValuesTests()
+        {
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
+
+            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationDictionary<IChildElement>), false), a, b, c);
+
+            var values = x.Values;
+
+            Assert.Equal(3, values.Count);
+
+            var n = 0;
+            foreach(var value in values)
+            {
+                switch(n++)
+                {
+                    case 0:
+                        Assert.Equal(a, value);
+                        break;
+
+                    case 1:
+                        Assert.Equal(b, value);
+                        break;
+
+                    case 2:
+                        Assert.Equal(c, value);
+                        break;
+
+                    default:
+                        Assert.True(false);
+                        break;
+                }
+            }
+        }
+
+        [Fact]
         public void IsReadOnlyTests()
         {
-            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
+            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationDictionary<IChildElement>), false));
 
             Assert.True(x.IsReadOnly);
         }
@@ -203,7 +277,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = TestValues.GetChildElement("b");
             var c = TestValues.GetChildElement("c");
 
-            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false), a, b, c);
+            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationDictionary<IChildElement>), false), a, b, c);
 
             Assert.Throws<NotImplementedException>(() => x.Remove(b));
         }
@@ -236,6 +310,80 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             Assert.NotNull(x);
             Assert.Equal(2, x.Count);
+        }
+
+        [Fact]
+        public void ReadOnlyKeysTests()
+        {
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
+
+            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationDictionary<IChildElement>), false), a, b, c);
+
+            var keys = ((IReadOnlyDictionary<string, IChildElement>)x).Keys;
+
+            Assert.NotNull(keys);
+
+            var n = 0;
+            foreach(var key in keys)
+            {
+                switch(n++)
+                {
+                    case 0:
+                        Assert.Equal(a.PropertyDef.PropertyName, key);
+                        break;
+
+                    case 1:
+                        Assert.Equal(b.PropertyDef.PropertyName, key);
+                        break;
+
+                    case 2:
+                        Assert.Equal(c.PropertyDef.PropertyName, key);
+                        break;
+
+                    default:
+                        Assert.True(false);
+                        break;
+                }
+            }
+        }
+
+        [Fact]
+        public void ReadOnlyValuesTests()
+        {
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
+
+            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationDictionary<IChildElement>), false), a, b, c);
+
+            var values = ((IReadOnlyDictionary<string, IChildElement>)x).Values;
+
+            Assert.NotNull(values);
+
+            var n = 0;
+            foreach(var value in values)
+            {
+                switch(n++)
+                {
+                    case 0:
+                        Assert.Equal(a, value);
+                        break;
+
+                    case 1:
+                        Assert.Equal(b, value);
+                        break;
+
+                    case 2:
+                        Assert.Equal(c, value);
+                        break;
+
+                    default:
+                        Assert.True(false);
+                        break;
+                }
+            }
         }
     }
 }
