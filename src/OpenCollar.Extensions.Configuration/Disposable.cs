@@ -40,7 +40,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     The a flag used to track, in a thread-safe way, whether the object has been disposed of.
         /// </summary>
-        private readonly int _isDisposed = NotDisposed;
+        private int _isDisposed = NotDisposed;
 
         /// <summary>
         ///     Gets a value indicating whether this instance has been disposed of.
@@ -53,6 +53,11 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         public void Dispose()
         {
+            if(System.Threading.Interlocked.CompareExchange(ref _isDisposed, Disposed, NotDisposed) == Disposed)
+            {
+                return;
+            }
+
             Dispose(true);
         }
 

@@ -65,6 +65,10 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 }
             }
 
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.Add(a));
+            Assert.Throws<ObjectDisposedException>(() => x.Count);
+            Assert.Throws<ObjectDisposedException>(() => x[0]);
         }
 
         [Fact]
@@ -80,6 +84,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.True(x.Contains(b));
             Assert.False(x.Contains(c));
             Assert.False(x.Contains(null));
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.Contains(a));
         }
 
         [Fact]
@@ -106,6 +113,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             array = new IChildElement[2];
 
             Assert.Throws<ArgumentOutOfRangeException>(() => x.CopyTo(array, 0));
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.CopyTo(array, 0));
         }
 
         [Fact]
@@ -146,6 +156,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                         break;
                 }
             }
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => { foreach(var y in x) { }; });
         }
 
         [Fact]
@@ -162,6 +175,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Equal(c, x[2]);
 
             Assert.Throws<NotImplementedException>(() => x[0] = c);
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x[0]);
         }
 
         [Fact]
@@ -190,6 +206,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Equal(2, x.IndexOf(c));
 
             Assert.True(x.IndexOf(null) < 0);
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.IndexOf(a));
         }
 
         [Fact]
@@ -201,6 +220,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false), a);
 
             Assert.Throws<NotImplementedException>(() => x.Insert(1, b));
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.Insert(1, b));
         }
 
         [Fact]
@@ -224,6 +246,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Throws<NotImplementedException>(() => x.Remove(2));
         }
 
+        [Fact]
+        public void DisposeTests()
+        {
+            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.IndexOf(null));
+        }
+
 
         [Fact]
         public void ClearTests()
@@ -237,6 +267,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Equal(4, x.Count);
 
             Assert.Throws<NotImplementedException>(() => x.Clear());
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.Clear());
         }
 
         /// <summary>

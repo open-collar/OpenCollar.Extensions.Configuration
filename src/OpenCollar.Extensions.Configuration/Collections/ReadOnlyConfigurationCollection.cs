@@ -72,6 +72,8 @@ namespace OpenCollar.Extensions.Configuration
         /// </exception>
         public void CopyTo(TElement[] array, int arrayIndex)
         {
+            EnforceDisposed();
+
             if(arrayIndex < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, $"'{nameof(arrayIndex)}' must be at least zero.");
@@ -96,6 +98,8 @@ namespace OpenCollar.Extensions.Configuration
         /// </returns>
         public int IndexOf(TElement item)
         {
+            EnforceDisposed();
+
             var n = 0;
             foreach(var element in this)
             {
@@ -159,6 +163,11 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the enumerator for the values in this collection.
         /// </summary>
         /// <returns> The enumerator for the values in this collection. </returns>
-        public IEnumerator<TElement> GetEnumerator() => Values.GetEnumerator();
+        public IEnumerator<TElement> GetEnumerator()
+        {
+            EnforceDisposed();
+
+            return Values.GetEnumerator();
+        }
     }
 }

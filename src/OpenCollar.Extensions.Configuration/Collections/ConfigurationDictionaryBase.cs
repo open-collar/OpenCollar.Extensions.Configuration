@@ -273,6 +273,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
             set
             {
                 EnforceDisposed();
+
                 EnforceReadOnly();
 
                 if(SetValueUsingKeyFirst)
@@ -724,8 +725,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
         private void InternalClear()
         {
-            EnforceReadOnly();
-
             Lock.EnterWriteLock();
             try
             {

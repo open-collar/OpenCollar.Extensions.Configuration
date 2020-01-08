@@ -135,7 +135,11 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the enumerator for the values in this collection.
         /// </summary>
         /// <returns> The enumerator for the values in this collection. </returns>
-        public IEnumerator<TElement> GetEnumerator() => Values.GetEnumerator();
+        public IEnumerator<TElement> GetEnumerator()
+        {
+            EnforceDisposed();
+            return Values.GetEnumerator();
+        }
 
         /// <summary>
         ///     Finds the index of the first element in the collection that equals the item provided.
@@ -146,6 +150,8 @@ namespace OpenCollar.Extensions.Configuration
         /// </returns>
         public int IndexOf(TElement item)
         {
+            EnforceDisposed();
+
             var n = 0;
             foreach(var element in this)
             {

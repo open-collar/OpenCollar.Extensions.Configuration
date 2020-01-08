@@ -64,6 +64,10 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                         break;
                 }
             }
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.Add(a));
+            Assert.Throws<ObjectDisposedException>(() => x.Count);
         }
 
         [Fact]
@@ -82,6 +86,10 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.False(x.Contains(null));
             Assert.True(((ICollection<KeyValuePair<string, IChildElement>>)x).Contains(new KeyValuePair<string, IChildElement>("a", a)));
             Assert.False(((ICollection<KeyValuePair<string, IChildElement>>)x).Contains(new KeyValuePair<string, IChildElement>("d", d)));
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.Contains(a));
+            Assert.Throws<ObjectDisposedException>(() => ((ICollection<KeyValuePair<string, IChildElement>>)x).Contains(new KeyValuePair<string, IChildElement>("a", a)));
         }
 
         [Fact]
@@ -108,6 +116,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             array = new KeyValuePair<string, IChildElement>[2];
 
             Assert.Throws<ArgumentException>(() => x.CopyTo(array, 0));
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.CopyTo(array, 0));
         }
 
         [Fact]
@@ -148,6 +159,17 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                         break;
                 }
             }
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => { foreach(var y in x) { }; });
+        }
+
+        [Fact]
+        public void DisposeTests()
+        {
+            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.IndexOf(null));
         }
 
         [Fact]
@@ -162,6 +184,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Equal(4, x.Count);
 
             Assert.Throws<NotImplementedException>(() => x.Clear());
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.Clear());
         }
 
         [Fact]
@@ -179,6 +204,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Throws<ArgumentOutOfRangeException>(() => x["d"]);
 
             Assert.Throws<NotImplementedException>(() => x["a"] = a);
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x["a"]);
         }
 
         [Fact]
@@ -216,6 +244,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                         break;
                 }
             }
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.Keys);
         }
 
         [Fact]
@@ -253,6 +284,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                         break;
                 }
             }
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.Values);
         }
 
         [Fact]
@@ -273,6 +307,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationDictionary<IChildElement>), false), a, b, c);
 
             Assert.Throws<NotImplementedException>(() => x.Remove(b));
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.Remove(a));
         }
 
         /// <summary>
@@ -346,6 +383,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                         break;
                 }
             }
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => ((IReadOnlyDictionary<string, IChildElement>)x).Keys);
         }
 
         [Fact]
@@ -383,6 +423,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                         break;
                 }
             }
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => ((IReadOnlyDictionary<string, IChildElement>)x).Values);
         }
     }
 }
