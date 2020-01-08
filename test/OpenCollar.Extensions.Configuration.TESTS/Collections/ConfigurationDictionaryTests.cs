@@ -121,6 +121,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             Assert.Throws<ArgumentException>(() => x.Add("z", b));
 
+            Assert.Throws<ArgumentException>(() => x.Add("b", b));
+
             x.Dispose();
             Assert.Throws<ObjectDisposedException>(() => x.Add("a", a));
             Assert.Throws<ObjectDisposedException>(() => x.Add(a));
@@ -403,6 +405,24 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         }
 
         [Fact]
+        public void TryGetValueTests()
+        {
+
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
+            var d = TestValues.GetChildElement("d");
+
+            var x = new ConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationDictionary<IChildElement>), false), a, b, c);
+
+            Assert.True(x.TryGetValue("a", out var found));
+            Assert.Equal(a, found);
+
+            Assert.False(x.TryGetValue("d", out found));
+            Assert.Null(found);
+        }
+
+        [Fact]
         public void RemoveTests()
         {
             var x = new ConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationDictionary<IChildElement>), false));
@@ -439,6 +459,10 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                         break;
                 }
             }
+
+            x.Add("b", b);
+            Assert.True(x.Remove(new KeyValuePair<string, IChildElement>("b", b)));
+            Assert.False(x.Remove(new KeyValuePair<string, IChildElement>("b", b)));
 
             x.Dispose();
             Assert.Throws<ObjectDisposedException>(() => x.Remove(a));

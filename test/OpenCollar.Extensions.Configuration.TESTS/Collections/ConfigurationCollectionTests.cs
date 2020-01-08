@@ -199,6 +199,24 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         }
 
         [Fact]
+        public void TryGetValueTests()
+        {
+
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
+            var d = TestValues.GetChildElement("d");
+
+            var x = new ConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationDictionary<IChildElement>), false), a, b, c);
+
+            Assert.True(x.TryGetValue("a", out var found));
+            Assert.Equal(a, found);
+
+            Assert.False(x.TryGetValue("d", out found));
+            Assert.Null(found);
+        }
+
+        [Fact]
         public void IndexOfTests()
         {
             var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
