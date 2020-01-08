@@ -148,18 +148,6 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Gets a value indicating whether to set values using the key first.
-        /// </summary>
-        /// <value> <see langword="true" /> if set value using key first; otherwise to value first, <see langword="false" />. </value>
-        protected override bool SetValueUsingKeyFirst
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        /// <summary>
         ///     Gets the enumerator for the values in this collection.
         /// </summary>
         /// <returns> The enumerator for the values in this collection. </returns>

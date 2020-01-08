@@ -239,9 +239,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     Gets a value indicating whether to set values using the key first.
         /// </summary>
         /// <value> <see langword="true" /> if set value using key first; otherwise to value first, <see langword="false" />. </value>
-        protected abstract bool SetValueUsingKeyFirst
+        protected virtual bool SetValueUsingKeyFirst
         {
-            get;
+            get
+            {
+                return true;
+            }
         }
 
         /// <summary>
