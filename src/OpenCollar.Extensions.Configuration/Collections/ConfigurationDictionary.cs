@@ -55,18 +55,6 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Gets a value indicating whether to set values using the key first.
-        /// </summary>
-        /// <value> <see langword="true" /> if set value using key first; otherwise to value first, <see langword="false" />. </value>
-        protected override bool SetValueUsingKeyFirst
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        /// <summary>
         ///     Adds the specified element to the dictionary, using the name of the object as a the key.
         /// </summary>
         /// <param name="element"> The element to add to the dictionary. </param>
