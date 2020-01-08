@@ -617,29 +617,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     <see langword="true" /> if <paramref name="item" /> is found in the
         ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />.
         /// </returns>
-        protected bool Contains(KeyValuePair<TKey, TElement> item)
-        {
-            EnforceDisposed();
-
-            Lock.EnterReadLock();
-            try
-            {
-                return _items.Contains(item);
-            }
-            finally
-            {
-                Lock.ExitReadLock();
-            }
-        }
-
-        /// <summary>
-        ///     Determines whether this instance contains the object.
-        /// </summary>
-        /// <param name="item"> The object to locate in the <see cref="ICollection{T}" />. </param>
-        /// <returns>
-        ///     <see langword="true" /> if <paramref name="item" /> is found in the
-        ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />.
-        /// </returns>
         protected bool ContainsValue(TElement item)
         {
             EnforceDisposed();

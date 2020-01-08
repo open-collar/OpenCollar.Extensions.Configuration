@@ -122,6 +122,24 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         }
 
         [Fact]
+        public void IsDirtyTests()
+        {
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
+            var e = TestValues.GetChildElement("e");
+
+            var x = new ConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationDictionary<IChildElement>), false), a, b, c);
+
+            Assert.False(x.IsDirty);
+
+            x = new ConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationDictionary<IChildElement>), false), a, b, c, e);
+
+            Assert.True(x.IsDirty);
+
+        }
+
+        [Fact]
         public void UntypedEnumeratorTests()
         {
             var a = TestValues.GetChildElement("a");
