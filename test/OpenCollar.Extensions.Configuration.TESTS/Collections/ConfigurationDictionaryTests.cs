@@ -423,6 +423,30 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         }
 
         [Fact]
+        public void PropertyChangedTests()
+        {
+            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
+
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+
+            int callbackCount = 0;
+
+            x.PropertyChanged += (source, args) =>
+            {
+                ++callbackCount;
+            };
+
+            x.Add(a);
+
+            Assert.Equal(1, callbackCount);
+
+            x.Add(b);
+
+            Assert.Equal(2, callbackCount);
+        }
+
+        [Fact]
         public void IsDirtyTests()
         {
             var a = TestValues.GetChildElement("a");
