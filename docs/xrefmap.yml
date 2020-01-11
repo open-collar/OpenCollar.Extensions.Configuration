@@ -168,6 +168,23 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Count
   nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Count
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Count
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.DisableEvents
+  name: DisableEvents
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_DisableEvents
+  commentId: P:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.DisableEvents
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.DisableEvents
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).DisableEvents
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.DisableEvents
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).DisableEvents
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.DisableEvents*
+  name: DisableEvents
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_DisableEvents_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.DisableEvents
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.DisableEvents
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).DisableEvents
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.DisableEvents
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).DisableEvents
 - uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Dispose(System.Boolean)
   name: Dispose(Boolean)
   href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Dispose_System_Boolean_
@@ -342,6 +359,23 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Lock
   nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Lock
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Lock
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.OnCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)
+  name: OnCollectionChanged(NotifyCollectionChangedEventArgs)
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_OnCollectionChanged_System_Collections_Specialized_NotifyCollectionChangedEventArgs_
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.OnCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.OnCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).OnCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.OnCollectionChanged(NotifyCollectionChangedEventArgs)
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).OnCollectionChanged(NotifyCollectionChangedEventArgs)
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.OnCollectionChanged*
+  name: OnCollectionChanged
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_OnCollectionChanged_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.OnCollectionChanged
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.OnCollectionChanged
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).OnCollectionChanged
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.OnCollectionChanged
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).OnCollectionChanged
 - uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.OrderedItems
   name: OrderedItems
   href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_OrderedItems
