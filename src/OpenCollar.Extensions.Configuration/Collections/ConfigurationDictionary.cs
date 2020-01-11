@@ -18,27 +18,36 @@
  */
 
 using System.Collections.Generic;
+
 using OpenCollar.Extensions.Configuration.Collections;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>A dictionary of configuration objects, keyed on the name of the object.</summary>
-    /// <typeparam name="TElement">The type of the element.</typeparam>
+    /// <summary>
+    ///     A dictionary of configuration objects, keyed on the name of the object.
+    /// </summary>
+    /// <typeparam name="TElement"> The type of the element. </typeparam>
     /// <seealso cref="ConfigurationDictionaryBase{T,T}" />
     /// <seealso cref="IConfigurationDictionary{TElement}" />
     internal class ConfigurationDictionary<TElement> : ConfigurationDictionaryBase<string, TElement>, IConfigurationDictionary<TElement>
             where TElement : IConfigurationObject
     {
-        /// <summary>Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.</summary>
-        /// <param name="propertyDef">The definition of the property defined by this object.</param>
-        /// <param name="elements">The elements with which to initialize to the collection.</param>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.
+        /// </summary>
+        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="elements"> The elements with which to initialize to the collection. </param>
         public ConfigurationDictionary(PropertyDef propertyDef, IEnumerable<TElement>? elements) : base(propertyDef, GetKeyedElements(elements))
         {
         }
 
-        /// <summary>Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.</summary>
-        /// <param name="propertyDef">The definition of the property defined by this object.</param>
-        /// <param name="elements">A parameter array containing the elements with which to initialize to the collection.</param>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.
+        /// </summary>
+        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="elements">
+        ///     A parameter array containing the elements with which to initialize to the collection.
+        /// </param>
         public ConfigurationDictionary(PropertyDef propertyDef, params TElement[]? elements) : base(propertyDef, GetKeyedElements(elements))
         {
         }

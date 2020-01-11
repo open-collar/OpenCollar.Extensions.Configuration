@@ -34,13 +34,19 @@ namespace OpenCollar.Extensions.Configuration
         ///     <see langword="true" /> if this object has any properties with unsaved changes; otherwise,
         ///     <see langword="false" /> .
         /// </value>
-        bool IsDirty { get; }
+        bool IsDirty
+        {
+            get;
+        }
 
         /// <summary>
         ///     Gets the definition of this property object.
         /// </summary>
         /// <value> The definition of this property object. </value>
-        PropertyDef PropertyDef { get; }
+        PropertyDef PropertyDef
+        {
+            get;
+        }
 
         /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.

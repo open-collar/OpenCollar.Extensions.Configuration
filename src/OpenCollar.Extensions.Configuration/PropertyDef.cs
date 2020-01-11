@@ -78,24 +78,36 @@ namespace OpenCollar.Extensions.Configuration
         ///     <see langword="true" /> if the property is read only; otherwise, <see langword="false" /> for an
         ///     editable property.
         /// </value>
-        public bool IsReadOnly { get; }
+        public bool IsReadOnly
+        {
+            get;
+        }
 
         /// <summary>
         ///     Gets the colon-delimited path to the underlying configuration value.
         /// </summary>
         /// <value> The colon-delimited path to the underlying configuration value. </value>
-        public string Path { get; }
+        public string Path
+        {
+            get;
+        }
 
         /// <summary>
         ///     Gets the name of the property represented by this object.
         /// </summary>
         /// <value> The name of the property represented by this object. </value>
-        public string PropertyName { get; }
+        public string PropertyName
+        {
+            get;
+        }
 
         /// <summary>
         ///     Gets the type of the value held in the property.
         /// </summary>
         /// <value> The type of the value held in the property. </value>
-        public Type Type { get; }
+        public Type Type
+        {
+            get;
+        }
     }
 }

@@ -25,25 +25,31 @@ using OpenCollar.Extensions.Configuration.Collections;
 namespace OpenCollar.Extensions.Configuration
 {
     /// <summary>
-    /// A collection of <see cref="IConfigurationObject"> configuration objects </see> that notifies when an element
-    /// is added or removed.
+    ///     A collection of <see cref="IConfigurationObject"> configuration objects </see> that notifies when an element
+    ///     is added or removed.
     /// </summary>
-    /// <typeparam name="TElement">The type of the element.</typeparam>
+    /// <typeparam name="TElement"> The type of the element. </typeparam>
     /// <seealso cref="ConfigurationDictionaryBase{T,T}" />
     /// <seealso cref="IConfigurationCollection{TElement}" />
     internal class ConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IConfigurationCollection<TElement>
         where TElement : IConfigurationObject
     {
-        /// <summary>Initializes a new instance of the <see cref="ConfigurationCollection{TElement}" /> class.</summary>
-        /// <param name="propertyDef">The definition of the property defined by this object.</param>
-        /// <param name="elements">The elements with which to initialize to the collection.</param>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationCollection{TElement}" /> class.
+        /// </summary>
+        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="elements"> The elements with which to initialize to the collection. </param>
         public ConfigurationCollection(PropertyDef propertyDef, IEnumerable<TElement>? elements) : base(propertyDef, GetIndexedElements(elements))
         {
         }
 
-        /// <summary>Initializes a new instance of the <see cref="ConfigurationCollection{TElement}" /> class.</summary>
-        /// <param name="propertyDef">The definition of the property defined by this object.</param>
-        /// <param name="elements">A parameter array containing the elements with which to initialize to the collection.</param>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationCollection{TElement}" /> class.
+        /// </summary>
+        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="elements">
+        ///     A parameter array containing the elements with which to initialize to the collection.
+        /// </param>
         public ConfigurationCollection(PropertyDef propertyDef, params TElement[]? elements) : base(propertyDef, GetIndexedElements(elements))
         {
         }
@@ -222,9 +228,8 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="item"> The object to remove from the <see cref="ICollection{TElement}" />. </param>
         /// <returns>
         ///     <see langword="true" /> if <paramref name="item" /> was successfully removed from the
-        ///     <see cref="ICollection{TElement}" />; otherwise, <see langword="false" />.
-        ///     This method also returns <see langword="false" /> if <paramref name="item" /> is not found in the
-        ///     original <see cref="ICollection{TElement}" />.
+        ///     <see cref="ICollection{TElement}" />; otherwise, <see langword="false" />. This method also returns
+        ///     <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="ICollection{TElement}" />.
         /// </returns>
         public override bool Remove(TElement item)
         {

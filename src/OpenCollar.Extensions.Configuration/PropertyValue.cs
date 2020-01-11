@@ -78,13 +78,19 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the colon-delimited path to the underlying configuration value.
         /// </summary>
         /// <value> The colon-delimited path to the underlying configuration value. </value>
-        public string Path { get; }
+        public string Path
+        {
+            get;
+        }
 
         /// <summary>
         ///     Gets the name of the property represented by this object.
         /// </summary>
         /// <value> The name of the property represented by this object. </value>
-        public string PropertyName { get; }
+        public string PropertyName
+        {
+            get;
+        }
 
         /// <summary>
         ///     Gets or sets the value of the property represented by this instance.

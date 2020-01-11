@@ -19,31 +19,48 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using OpenCollar.Extensions.Configuration.Collections;
 
 namespace OpenCollar.Extensions.Configuration
 {
     /// <summary>
-    /// A read-only collection of <see cref="IConfigurationObject"> configuration objects </see> that notifies when an element
-    /// is added or removed.
+    ///     A read-only collection of <see cref="IConfigurationObject"> configuration objects </see> that notifies when
+    ///     an element is added or removed.
     /// </summary>
-    /// <typeparam name="TElement">The type of the element.</typeparam>
+    /// <typeparam name="TElement"> The type of the element. </typeparam>
     internal sealed class ReadOnlyConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IReadOnlyCollection<TElement>
             where TElement : IConfigurationObject
     {
-        /// <summary>Initializes a new instance of the <see cref="ReadOnlyConfigurationCollection{TElement}" /> class.</summary>
-        /// <param name="propertyDef">The definition of the property defined by this object.</param>
-        /// <param name="elements">The elements with which to initialize to the collection.</param>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ReadOnlyConfigurationCollection{TElement}" /> class.
+        /// </summary>
+        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="elements"> The elements with which to initialize to the collection. </param>
         public ReadOnlyConfigurationCollection(PropertyDef propertyDef, IEnumerable<TElement>? elements) : base(propertyDef, GetIndexedElements(elements))
         {
         }
 
-        /// <summary>Initializes a new instance of the <see cref="ReadOnlyConfigurationCollection{TElement}" /> class.</summary>
-        /// <param name="propertyDef">The definition of the property defined by this object.</param>
-        /// <param name="elements">A parameter array containing the elements with which to initialize to the collection.</param>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ReadOnlyConfigurationCollection{TElement}" /> class.
+        /// </summary>
+        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="elements">
+        ///     A parameter array containing the elements with which to initialize to the collection.
+        /// </param>
         public ReadOnlyConfigurationCollection(PropertyDef propertyDef, params TElement[]? elements) : base(propertyDef, GetIndexedElements(elements))
         {
+        }
+
+        /// <summary>
+        ///     Gets a value indicating whether the <see cref="ICollection{T}" /> is read-only.
+        /// </summary>
+        public override bool IsReadOnly
+        {
+            get
+            {
+                return true;
+            }
         }
 
         /// <summary>
@@ -87,6 +104,17 @@ namespace OpenCollar.Extensions.Configuration
             {
                 array[arrayIndex++] = item;
             }
+        }
+
+        /// <summary>
+        ///     Gets the enumerator for the values in this collection.
+        /// </summary>
+        /// <returns> The enumerator for the values in this collection. </returns>
+        public IEnumerator<TElement> GetEnumerator()
+        {
+            EnforceDisposed();
+
+            return Values.GetEnumerator();
         }
 
         /// <summary>
@@ -134,28 +162,6 @@ namespace OpenCollar.Extensions.Configuration
         {
             EnforceDisposed();
             throw new NotImplementedException("This collection is read-only.");
-        }
-
-        /// <summary>
-        ///     Gets a value indicating whether the <see cref="ICollection{T}" /> is read-only.
-        /// </summary>
-        public override bool IsReadOnly
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        /// <summary>
-        ///     Gets the enumerator for the values in this collection.
-        /// </summary>
-        /// <returns> The enumerator for the values in this collection. </returns>
-        public IEnumerator<TElement> GetEnumerator()
-        {
-            EnforceDisposed();
-
-            return Values.GetEnumerator();
         }
     }
 }

@@ -88,12 +88,18 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the full path or fragment of a path specified.
         /// </summary>
         /// <value> The full path or fragment of a path specified. </value>
-        internal string Path { get; }
+        internal string Path
+        {
+            get;
+        }
 
         /// <summary>
         ///     Gets the usage of the path or fragment of a path specified.
         /// </summary>
         /// <value> The usage of the path or fragment of a path specified. </value>
-        internal PathIs Usage { get; }
+        internal PathIs Usage
+        {
+            get;
+        }
     }
 }

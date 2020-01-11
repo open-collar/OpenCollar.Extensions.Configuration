@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS.Collections
@@ -72,6 +73,23 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         }
 
         [Fact]
+        public void ClearTests()
+        {
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
+            var d = TestValues.GetChildElement("d");
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false), a, b, c, d);
+
+            Assert.Equal(4, x.Count);
+
+            Assert.Throws<NotImplementedException>(() => x.Clear());
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.Clear());
+        }
+
+        [Fact]
         public void ContainsTests()
         {
             var a = TestValues.GetChildElement("a");
@@ -119,6 +137,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         }
 
         [Fact]
+        public void DisposeTests()
+        {
+            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.IndexOf(null));
+        }
+
+        [Fact]
         public void EnumeratorTests()
         {
             var a = TestValues.GetChildElement("a");
@@ -162,67 +188,6 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         }
 
         [Fact]
-        public void IsDirtyTests()
-        {
-            var a = TestValues.GetChildElement("a");
-            var b = TestValues.GetChildElement("b");
-            var c = TestValues.GetChildElement("c");
-            var e = TestValues.GetChildElement("e");
-
-            var x = new ConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationDictionary<IChildElement>), false), a, b, c);
-
-            Assert.False(x.IsDirty);
-
-            x = new ConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationDictionary<IChildElement>), false), a, b, c, e);
-
-            Assert.True(x.IsDirty);
-
-        }
-
-        [Fact]
-        public void UntypedEnumeratorTests()
-        {
-            var a = TestValues.GetChildElement("a");
-            var b = TestValues.GetChildElement("b");
-            var c = TestValues.GetChildElement("c");
-
-            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationDictionary<IChildElement>), false));
-
-            foreach(var item in (System.Collections.IEnumerable)x)
-            {
-                Assert.True(false);
-            }
-
-            x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationDictionary<IChildElement>), false), a, b, c);
-
-            var n = 0;
-            foreach(KeyValuePair<string, IChildElement> item in (System.Collections.IEnumerable)x)
-            {
-                switch(n++)
-                {
-                    case 0:
-                        Assert.Equal(a, item.Value);
-                        break;
-
-                    case 1:
-                        Assert.Equal(b, item.Value);
-                        break;
-
-                    case 2:
-                        Assert.Equal(c, item.Value);
-                        break;
-
-                    default:
-                        Assert.True(false);
-                        break;
-                }
-            }
-
-            x.Dispose();
-            Assert.Throws<ObjectDisposedException>(() => { foreach(var y in (System.Collections.IEnumerable)x) { }; });
-        }
-
-        [Fact]
         public void IndexerTests()
         {
             var a = TestValues.GetChildElement("a");
@@ -239,24 +204,6 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             x.Dispose();
             Assert.Throws<ObjectDisposedException>(() => x[0]);
-        }
-
-        [Fact]
-        public void TryGetValueTests()
-        {
-
-            var a = TestValues.GetChildElement("a");
-            var b = TestValues.GetChildElement("b");
-            var c = TestValues.GetChildElement("c");
-            var d = TestValues.GetChildElement("d");
-
-            var x = new ConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationDictionary<IChildElement>), false), a, b, c);
-
-            Assert.True(x.TryGetValue("a", out var found));
-            Assert.Equal(a, found);
-
-            Assert.False(x.TryGetValue("d", out found));
-            Assert.Null(found);
         }
 
         [Fact]
@@ -305,6 +252,23 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         }
 
         [Fact]
+        public void IsDirtyTests()
+        {
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
+            var e = TestValues.GetChildElement("e");
+
+            var x = new ConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationDictionary<IChildElement>), false), a, b, c);
+
+            Assert.False(x.IsDirty);
+
+            x = new ConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationDictionary<IChildElement>), false), a, b, c, e);
+
+            Assert.True(x.IsDirty);
+        }
+
+        [Fact]
         public void IsReadOnlyTests()
         {
             var x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationCollection<IChildElement>), false));
@@ -323,32 +287,6 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Throws<NotImplementedException>(() => x.Remove(b));
             Assert.Throws<NotImplementedException>(() => x.RemoveAt(0));
             Assert.Throws<NotImplementedException>(() => x.Remove(2));
-        }
-
-        [Fact]
-        public void DisposeTests()
-        {
-            var x = new ConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false));
-            x.Dispose();
-            Assert.Throws<ObjectDisposedException>(() => x.IndexOf(null));
-        }
-
-
-        [Fact]
-        public void ClearTests()
-        {
-            var a = TestValues.GetChildElement("a");
-            var b = TestValues.GetChildElement("b");
-            var c = TestValues.GetChildElement("c");
-            var d = TestValues.GetChildElement("d");
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationCollection<IChildElement>), false), a, b, c, d);
-
-            Assert.Equal(4, x.Count);
-
-            Assert.Throws<NotImplementedException>(() => x.Clear());
-
-            x.Dispose();
-            Assert.Throws<ObjectDisposedException>(() => x.Clear());
         }
 
         /// <summary>
@@ -385,6 +323,66 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.NotNull(x);
             Assert.Equal(2, x.Count);
             Assert.Equal(propertyDef.PropertyName, x.PropertyDef.PropertyName);
+        }
+
+        [Fact]
+        public void TryGetValueTests()
+        {
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
+            var d = TestValues.GetChildElement("d");
+
+            var x = new ConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ConfigurationDictionary<IChildElement>), false), a, b, c);
+
+            Assert.True(x.TryGetValue("a", out var found));
+            Assert.Equal(a, found);
+
+            Assert.False(x.TryGetValue("d", out found));
+            Assert.Null(found);
+        }
+
+        [Fact]
+        public void UntypedEnumeratorTests()
+        {
+            var a = TestValues.GetChildElement("a");
+            var b = TestValues.GetChildElement("b");
+            var c = TestValues.GetChildElement("c");
+
+            var x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationDictionary<IChildElement>), false));
+
+            foreach(var item in (System.Collections.IEnumerable)x)
+            {
+                Assert.True(false);
+            }
+
+            x = new ReadOnlyConfigurationDictionary<IChildElement>(new PropertyDef("x", "x", typeof(ReadOnlyConfigurationDictionary<IChildElement>), false), a, b, c);
+
+            var n = 0;
+            foreach(KeyValuePair<string, IChildElement> item in (System.Collections.IEnumerable)x)
+            {
+                switch(n++)
+                {
+                    case 0:
+                        Assert.Equal(a, item.Value);
+                        break;
+
+                    case 1:
+                        Assert.Equal(b, item.Value);
+                        break;
+
+                    case 2:
+                        Assert.Equal(c, item.Value);
+                        break;
+
+                    default:
+                        Assert.True(false);
+                        break;
+                }
+            }
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => { foreach(var y in (System.Collections.IEnumerable)x) { }; });
         }
     }
 }

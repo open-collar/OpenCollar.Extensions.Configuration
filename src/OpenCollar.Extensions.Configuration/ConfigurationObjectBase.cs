@@ -21,7 +21,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading;
 
 using Microsoft.Extensions.Configuration;
 
@@ -35,18 +34,17 @@ namespace OpenCollar.Extensions.Configuration
     /// <remarks>
     ///     <para>
     ///         For each requested model only a single instance of the model is ever constructed for a given
-    ///         <see cref="IConfigurationSection" /> or
-    ///         <see cref="IConfigurationRoot" /> .
+    ///         <see cref="IConfigurationSection" /> or <see cref="IConfigurationRoot" /> .
     ///     </para>
     ///     <para>
-    ///         The <see cref="INotifyPropertyChanged" /> interface is supported allowing changes
-    ///         to be detected and reported from both the underlying configuration source (through the source changed
+    ///         The <see cref="INotifyPropertyChanged" /> interface is supported allowing changes to be detected and
+    ///         reported from both the underlying configuration source (through the source changed
     ///         event) and from detected changes made to properties with a setter. Only material changes are reported,
     ///         and change with no practical impact (for example assigning a new instance of a string with the same
     ///         value) will not be reported.
     ///     </para>
     /// </remarks>
-    internal abstract class ConfigurationObjectBase : IConfigurationObject
+    internal abstract class ConfigurationObjectBase : Disposable, IConfigurationObject
     {
         /// <summary>
         ///     The configuration root from which to read and write values.
@@ -62,12 +60,6 @@ namespace OpenCollar.Extensions.Configuration
         ///     A dictionary of property values keyed on the path to the underlying value (case insensitive).
         /// </summary>
         private readonly Dictionary<string, PropertyValue> _propertiesByPath = new Dictionary<string, PropertyValue>(StringComparer.OrdinalIgnoreCase);
-
-        /// <summary>
-        ///     A flag used to track whether this instance has been disposed of. Any non-zero values indicates that it
-        ///     has been disposed of.
-        /// </summary>
-        private int _isDisposed;
 
         /// <summary>
         ///     Occurs when a property changes.
@@ -100,7 +92,14 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        public PropertyDef PropertyDef { get; }
+        /// <summary>
+        ///     Gets the definition of this property object.
+        /// </summary>
+        /// <value> The definition of this property object. </value>
+        public PropertyDef PropertyDef
+        {
+            get;
+        }
 
         /// <summary>
         ///     Gets a value indicating whether this object has any properties with unsaved changes.
@@ -135,23 +134,6 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            // If this instance has not already been disposed of (_isDisposed == 1) then set the flag to non-zero and dispose.
-            if(Interlocked.CompareExchange(ref _isDisposed, 0, 1) == 0)
-            {
-                // TODO: dispose managed state (managed objects). Do not change this code. Put cleanup code in
-                // Dispose(bool disposing) above.
-                Dispose(true);
-
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
-            }
-        }
-
-        /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
         public void Reload() => throw new NotImplementedException();
@@ -168,6 +150,11 @@ namespace OpenCollar.Extensions.Configuration
         /// <exception cref="AggregateException"> One or more change event handlers threw an exception. </exception>
         internal void OnPropertyChanged(PropertyValue property)
         {
+            if(IsDisposed)
+            {
+                return;
+            }
+
             var handler = PropertyChanged;
             if(ReferenceEquals(handler, null))
             {
@@ -212,7 +199,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     <see langword="true" /> to release both managed and unmanaged resources; <see langword="false" /> to
         ///     release only unmanaged resources.
         /// </param>
-        protected virtual void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if(disposing)
             {

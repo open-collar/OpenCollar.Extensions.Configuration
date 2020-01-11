@@ -22,12 +22,21 @@ namespace OpenCollar.Extensions.Configuration.TESTS
     public interface IRootElement : IConfigurationObject
     {
         // This should be a
-        IConfigurationCollection<IChildElement> ChildElements { get; }
+        IConfigurationCollection<IChildElement> ChildElements
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        int Int32PropertyA { get; }
+        int Int32PropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        int Int32PropertyB { get; set; }
+        int Int32PropertyB
+        {
+            get; set;
+        }
     }
 }
