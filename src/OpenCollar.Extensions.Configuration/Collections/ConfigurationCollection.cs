@@ -212,6 +212,8 @@ namespace OpenCollar.Extensions.Configuration
             {
                 Lock.ExitWriteLock();
             }
+
+            OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Add, item, index));
         }
 
         /// <summary>
@@ -278,12 +280,20 @@ namespace OpenCollar.Extensions.Configuration
                 return;
             }
 
-            // Everything from the removed item onwards will need to be moved back one.
-            for(var n = removedIndex; n < Count; ++n)
+            DisableEvents = true;
+            try
             {
-                var item = base[n + 1];
-                Remove(n + 1);
-                Add(new KeyValuePair<int, TElement>(n, item));
+                // Everything from the removed item onwards will need to be moved back one.
+                for(var n = removedIndex; n < Count; ++n)
+                {
+                    var item = base[n + 1];
+                    Remove(n + 1);
+                    Add(new KeyValuePair<int, TElement>(n, item));
+                }
+            }
+            finally
+            {
+                DisableEvents = false;
             }
         }
     }

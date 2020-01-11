@@ -72,7 +72,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     Initializes a new instance of the <see cref="ConfigurationDictionaryBase{TKey, TElement}" /> class.
         /// </summary>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
-        /// <param name="elements">The elements with which to initialize to the collection.</param>
+        /// <param name="elements"> The elements with which to initialize to the collection. </param>
         protected ConfigurationDictionaryBase(PropertyDef propertyDef, IEnumerable<KeyValuePair<TKey, TElement>> elements) : this(propertyDef)
         {
             PropertyDef = propertyDef;
@@ -205,6 +205,15 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
+        ///     Gets or sets a value indicating whether events are raised for changes.
+        /// </summary>
+        /// <value> <see langword="true" /> if change events are disabled; otherwise, <see langword="false" />. </value>
+        protected bool DisableEvents
+        {
+            get; set;
+        }
+
+        /// <summary>
         ///     Gets the number of elements contained in the <see cref="ICollection{T}" />.
         /// </summary>
         /// <value> The number of elements contained in the <see cref="ICollection{T}" />. </value>
@@ -313,6 +322,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
             EnforceDisposed();
             EnforceReadOnly();
 
+            NotifyCollectionChangedEventArgs? args = null;
+
             Lock.EnterUpgradeableReadLock();
             try
             {
@@ -322,8 +333,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     try
                     {
                         _orderedItems.Add(item);
-                        OnPropertyChanged(nameof(Count));
-                        return;
+                        args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item.Value);
                     }
                     finally
                     {
@@ -334,6 +344,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
             finally
             {
                 Lock.ExitUpgradeableReadLock();
+            }
+
+            if(!ReferenceEquals(args, null))
+            {
+                OnCollectionChanged(args);
+                OnPropertyChanged(nameof(Count));
+                return;
             }
 
             throw new ArgumentException("An item with the same key has already been added.", nameof(item));
@@ -352,16 +369,17 @@ namespace OpenCollar.Extensions.Configuration.Collections
             EnforceReadOnly();
 
             InternalClear();
+
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
         /// <summary>
-        ///     Determines whether the <see cref="IDictionary{T,T}" /> contains an element
-        ///     with the specified key.
+        ///     Determines whether the <see cref="IDictionary{T,T}" /> contains an element with the specified key.
         /// </summary>
         /// <param name="key"> The key to locate in the <see cref="IDictionary{T,T}" />. </param>
         /// <returns>
-        ///     <see langword="true" /> if the <see cref="IDictionary{T,T}" /> contains an
-        ///     element with the key; otherwise, <see langword="false" />.
+        ///     <see langword="true" /> if the <see cref="IDictionary{T,T}" /> contains an element with the key;
+        ///     otherwise, <see langword="false" />.
         /// </returns>
         /// <exception cref="ObjectDisposedException">
         ///     This method cannot be used after the object has been disposed of.
@@ -382,13 +400,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Copies the elements of the <see cref="ICollection{T}" /> to an
-        ///     <see cref="Array" />, starting at a particular <see cref="Array" /> index.
+        ///     Copies the elements of the <see cref="ICollection{T}" /> to an <see cref="Array" />, starting at a
+        ///     particular <see cref="Array" /> index.
         /// </summary>
         /// <param name="array">
         ///     The one-dimensional <see cref="Array" /> that is the destination of the elements copied from
-        ///     <see cref="ICollection{T}" />. The <see cref="Array" /> must have
-        ///     zero-based indexing.
+        ///     <see cref="ICollection{T}" />. The <see cref="Array" /> must have zero-based indexing.
         /// </param>
         /// <param name="arrayIndex"> The zero-based index in <paramref name="array" /> at which copying begins. </param>
         public void CopyTo(KeyValuePair<TKey, TElement>[] array, int arrayIndex)
@@ -412,16 +429,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <exception cref="NotImplementedException"> </exception>
         public void Reload() => throw new NotImplementedException();
 
-        //    Lock.EnterReadLock();
-        //    try
-        //    {
-        //        return _orderedItems.GetEnumerator();
-        //    }
-        //    finally
-        //    {
-        //        Lock.ExitReadLock();
-        //    }
-        //}
         /// <summary>
         ///     Removes the element with the specified key from the <see cref="IDictionary{T,T}" />.
         /// </summary>
@@ -437,6 +444,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
             EnforceDisposed();
             EnforceReadOnly();
 
+            NotifyCollectionChangedEventArgs? args = null;
+
             Lock.EnterWriteLock();
             try
             {
@@ -448,16 +457,22 @@ namespace OpenCollar.Extensions.Configuration.Collections
                         Debug.Assert(false, "A matching item must always be found.");
                     }
 
-                    OnPropertyChanged(nameof(Count));
-                    return true;
+                    args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, removed.Value);
                 }
-
-                return false;
             }
             finally
             {
                 Lock.ExitWriteLock();
             }
+
+            if(ReferenceEquals(args, null))
+            {
+                return false;
+            }
+
+            OnPropertyChanged(nameof(Count));
+            OnCollectionChanged(args);
+            return true;
         }
 
         ///// <summary>
@@ -473,14 +488,16 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="item"> The object to remove from the <see cref="ICollection{T}" />. </param>
         /// <returns>
         ///     <see langword="true" /> if <paramref name="item" /> was successfully removed from the
-        ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />. This
-        ///     method also returns <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="ICollection{T}" />.
+        ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />. This method also returns
+        ///     <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="ICollection{T}" />.
         /// </returns>
         /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
         public bool Remove(KeyValuePair<TKey, TElement> item)
         {
             EnforceDisposed();
             EnforceReadOnly();
+
+            NotifyCollectionChangedEventArgs? args = null;
 
             Lock.EnterWriteLock();
             try
@@ -492,16 +509,22 @@ namespace OpenCollar.Extensions.Configuration.Collections
                         Debug.Assert(false, "A matching item must always be found.");
                     }
 
-                    OnPropertyChanged(nameof(Count));
-                    return true;
+                    args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item.Value);
                 }
-
-                return false;
             }
             finally
             {
                 Lock.ExitWriteLock();
             }
+
+            if(ReferenceEquals(args, null))
+            {
+                return false;
+            }
+
+            OnPropertyChanged(nameof(Count));
+            OnCollectionChanged(args);
+            return true;
         }
 
         /// <summary>
@@ -510,14 +533,16 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="item"> The object to remove from the <see cref="ICollection{T}" />. </param>
         /// <returns>
         ///     <see langword="true" /> if <paramref name="item" /> was successfully removed from the
-        ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />. This
-        ///     method also returns <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="ICollection{T}" />.
+        ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />. This method also returns
+        ///     <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="ICollection{T}" />.
         /// </returns>
         /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
         public virtual bool Remove(TElement item)
         {
             EnforceDisposed();
             EnforceReadOnly();
+
+            NotifyCollectionChangedEventArgs? args = null;
 
             Lock.EnterWriteLock();
             try
@@ -537,21 +562,28 @@ namespace OpenCollar.Extensions.Configuration.Collections
                             if(Equals(orderedElement.Value, item))
                             {
                                 _orderedItems.RemoveAt(n);
-                                OnPropertyChanged(nameof(Count));
-                                return true;
+                                args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, removedElement, n);
+                                break;
                             }
                             ++n;
                         }
                         Debug.Assert(false, "We assume the element can be removed from both collections.");
                     }
                 }
-
-                return false;
             }
             finally
             {
                 Lock.ExitWriteLock();
             }
+
+            if(ReferenceEquals(args, null))
+            {
+                return false;
+            }
+
+            OnPropertyChanged(nameof(Count));
+            OnCollectionChanged(args);
+            return true;
         }
 
         /// <summary>
@@ -569,9 +601,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     the default value for the type of the <paramref name="value" /> parameter. This parameter is passed uninitialized.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> if the object that implements
-        ///     <see cref="IDictionary{T,T}" /> contains an element with the specified key;
-        ///     otherwise, <see langword="false" />.
+        ///     <see langword="true" /> if the object that implements <see cref="IDictionary{T,T}" /> contains an
+        ///     element with the specified key; otherwise, <see langword="false" />.
         /// </returns>
         public bool TryGetValue(TKey key, out TElement value)
         {
@@ -591,9 +622,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Returns an enumerator that iterates through a collection.
         /// </summary>
-        /// <returns>
-        ///     An <see cref="IEnumerator" /> object that can be used to iterate through the collection.
-        /// </returns>
+        /// <returns> An <see cref="IEnumerator" /> object that can be used to iterate through the collection. </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             EnforceDisposed();
@@ -610,12 +639,55 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
+        ///     Converts the elements from the stream given into a stream of key-value pairs.
+        /// </summary>
+        /// <param name="elements"> The elements to convery. </param>
+        /// <returns>
+        ///     A stream of key-value pairs, initialized from the sequence given, with the key derived from each
+        ///     elements position in the sequence.
+        /// </returns>
+        protected static IEnumerable<KeyValuePair<int, TElement>> GetIndexedElements(IEnumerable<TElement>? elements)
+        {
+            if(ReferenceEquals(elements, null))
+            {
+                yield break;
+            }
+
+            var n = 0;
+            foreach(var element in elements)
+            {
+                yield return new KeyValuePair<int, TElement>(n++, element);
+            }
+        }
+
+        /// <summary>
+        ///     Converts the elements from the stream given into a stream of key-value pairs.
+        /// </summary>
+        /// <param name="elements"> The elements to convery. </param>
+        /// <returns>
+        ///     A stream of key-value pairs, initialized from the sequence given, with the key derived from each
+        ///     elements property name.
+        /// </returns>
+        protected static IEnumerable<KeyValuePair<string, TElement>> GetKeyedElements(IEnumerable<TElement>? elements)
+        {
+            if(ReferenceEquals(elements, null))
+            {
+                yield break;
+            }
+
+            foreach(var element in elements)
+            {
+                yield return new KeyValuePair<string, TElement>(element.PropertyDef.PropertyName, element);
+            }
+        }
+
+        /// <summary>
         ///     Determines whether this instance contains the object.
         /// </summary>
         /// <param name="item"> The object to locate in the <see cref="ICollection{T}" />. </param>
         /// <returns>
-        ///     <see langword="true" /> if <paramref name="item" /> is found in the
-        ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />.
+        ///     <see langword="true" /> if <paramref name="item" /> is found in the <see cref="ICollection{T}" />;
+        ///     otherwise, <see langword="false" />.
         /// </returns>
         protected bool ContainsValue(TElement item)
         {
@@ -653,19 +725,53 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Copies the elements of the <see cref="ICollection{T}" /> to an
-        ///     <see cref="Array" />, starting at a particular <see cref="Array" /> index.
+        ///     Copies the elements of the <see cref="ICollection{T}" /> to an <see cref="Array" />, starting at a
+        ///     particular <see cref="Array" /> index.
         /// </summary>
         /// <param name="array">
         ///     The one-dimensional <see cref="Array" /> that is the destination of the elements copied from
-        ///     <see cref="ICollection{T}" />. The <see cref="Array" /> must have
-        ///     zero-based indexing.
+        ///     <see cref="ICollection{T}" />. The <see cref="Array" /> must have zero-based indexing.
         /// </param>
         /// <param name="arrayIndex"> The zero-based index in <paramref name="array" /> at which copying begins. </param>
         /// <remarks> Assumes the caller already holds a read or write lock. </remarks>
         protected void InnerCopyTo(KeyValuePair<TKey, TElement>[] array, int arrayIndex)
         {
             _orderedItems.CopyTo(array, arrayIndex);
+        }
+
+        /// <summary>
+        ///     Called when the collection has changed.
+        /// </summary>
+        /// <param name="args"> The <see cref="NotifyCollectionChangedEventArgs" /> instance defining the change. </param>
+        protected void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
+        {
+            if(DisableEvents)
+            {
+                return;
+            }
+
+            if(IsDisposed)
+            {
+                return;
+            }
+
+            var eventHandler = CollectionChanged;
+            if(ReferenceEquals(eventHandler, null))
+            {
+                return;
+            }
+
+            var callbacks = eventHandler.GetInvocationList();
+
+            if(callbacks.Length <= 0)
+            {
+                return;
+            }
+
+            foreach(var callback in callbacks)
+            {
+                callback.DynamicInvoke(this, args);
+            }
         }
 
         /// <summary>
@@ -717,33 +823,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
             }
 
             OnPropertyChanged(nameof(Count));
-        }
-
-        /// <summary>
-        ///     Called when the collection has changed.
-        /// </summary>
-        /// <param name="action"> The action that occurred. </param>
-        private void OnCollectionChanged(NotifyCollectionChangedAction action)
-        {
-            var eventHandler = CollectionChanged;
-            if(ReferenceEquals(eventHandler, null))
-            {
-                return;
-            }
-
-            var callbacks = eventHandler.GetInvocationList();
-
-            if(callbacks.Length <= 0)
-            {
-                return;
-            }
-
-            var args = new NotifyCollectionChangedEventArgs(action);
-
-            foreach(var callback in callbacks)
-            {
-                callback.DynamicInvoke(this, args);
-            }
         }
 
         /// <summary>
@@ -806,6 +885,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="value"> The new value. </param>
         private void SetValueByKey(TKey key, TElement value)
         {
+            NotifyCollectionChangedEventArgs? args = null;
+
             Lock.EnterUpgradeableReadLock();
             try
             {
@@ -822,24 +903,35 @@ namespace OpenCollar.Extensions.Configuration.Collections
                             _orderedItems[n] = new KeyValuePair<TKey, TElement>(key, value);
                             _items.Remove(existing.Key);
                             _items.Add(key, value);
+                            args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, existing, n);
                         }
                         finally
                         {
                             Lock.ExitWriteLock();
                         }
-                        return;
+                        break;
                     }
                     ++n;
                 }
 
-                _items.Add(key, value);
-                _orderedItems.Add(new KeyValuePair<TKey, TElement>(key, value));
-                OnPropertyChanged(nameof(Count));
+                if(ReferenceEquals(args, null))
+                {
+                    _items.Add(key, value);
+                    _orderedItems.Add(new KeyValuePair<TKey, TElement>(key, value));
+                }
             }
             finally
             {
                 Lock.ExitUpgradeableReadLock();
             }
+
+            System.Diagnostics.Debug.Assert(!ReferenceEquals(args, null));
+
+            if(args.Action == NotifyCollectionChangedAction.Add)
+            {
+                OnPropertyChanged(nameof(Count));
+            }
+            OnCollectionChanged(args);
         }
 
         /// <summary>
@@ -849,6 +941,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="value"> The new value. </param>
         private void SetValueByValue(TKey key, TElement value)
         {
+            NotifyCollectionChangedEventArgs? args = null;
+
             Lock.EnterUpgradeableReadLock();
             try
             {
@@ -870,6 +964,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                             if(Equals(element.Value, foundItem))
                             {
                                 _orderedItems[n] = new KeyValuePair<TKey, TElement>(key, value);
+                                args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, element.Value, n);
                                 break;
                             }
                             ++n;
@@ -887,7 +982,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     {
                         _items.Add(key, value);
                         _orderedItems.Add(new KeyValuePair<TKey, TElement>(key, value));
-                        OnPropertyChanged(nameof(Count));
+                        args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value);
                     }
                     finally
                     {
@@ -902,39 +997,14 @@ namespace OpenCollar.Extensions.Configuration.Collections
             {
                 Lock.ExitUpgradeableReadLock();
             }
-        }
 
-        /// <summary>Converts the elements from the stream given into a stream of key-value pairs.</summary>
-        /// <param name="elements">The elements to convery.</param>
-        /// <returns>A stream of key-value pairs, initialized from the sequence given, with the key derived from each elements position in the sequence.</returns>
-        protected static IEnumerable<KeyValuePair<int, TElement>> GetIndexedElements(IEnumerable<TElement>? elements)
-        {
-            if(ReferenceEquals(elements, null))
-            {
-                yield break;
-            }
+            System.Diagnostics.Debug.Assert(!ReferenceEquals(args, null));
 
-            var n = 0;
-            foreach(var element in elements)
+            if(args.Action == NotifyCollectionChangedAction.Add)
             {
-                yield return new KeyValuePair<int, TElement>(n++, element);
+                OnPropertyChanged(nameof(Count));
             }
-        }
-
-        /// <summary>Converts the elements from the stream given into a stream of key-value pairs.</summary>
-        /// <param name="elements">The elements to convery.</param>
-        /// <returns>A stream of key-value pairs, initialized from the sequence given, with the key derived from each elements property name.</returns>
-        protected static IEnumerable<KeyValuePair<string, TElement>> GetKeyedElements(IEnumerable<TElement>? elements)
-        {
-            if(ReferenceEquals(elements, null))
-            {
-                yield break;
-            }
-
-            foreach(var element in elements)
-            {
-                yield return new KeyValuePair<string, TElement>(element.PropertyDef.PropertyName, element);
-            }
+            OnCollectionChanged(args);
         }
     }
 }

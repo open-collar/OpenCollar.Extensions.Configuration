@@ -37,9 +37,16 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = TestValues.GetChildElement("b");
             var c = TestValues.GetChildElement("c");
 
+            System.Collections.Specialized.NotifyCollectionChangedAction change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
+            x.CollectionChanged += (sender, args) =>
+            {
+                change = args.Action;
+            };
+
             x.Add(a);
 
             Assert.Single(x);
+            Assert.Equal(System.Collections.Specialized.NotifyCollectionChangedAction.Add, change);
 
             x.Add("b", b);
             x.Add(c);
@@ -334,9 +341,16 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             Assert.Equal(4, x.Count);
 
+            System.Collections.Specialized.NotifyCollectionChangedAction change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
+            x.CollectionChanged += (sender, args) =>
+            {
+                change = args.Action;
+            };
+
             x.Clear();
 
             Assert.Equal(0, x.Count);
+            Assert.Equal(System.Collections.Specialized.NotifyCollectionChangedAction.Reset, change);
 
             foreach(var item in x)
             {
@@ -367,7 +381,16 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Throws<ArgumentOutOfRangeException>(() => x["d"]);
 
             x["a"] = a;
+
+            System.Collections.Specialized.NotifyCollectionChangedAction change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
+            x.CollectionChanged += (sender, args) =>
+            {
+                change = args.Action;
+            };
+
             x["c"] = c;
+
+            Assert.Equal(System.Collections.Specialized.NotifyCollectionChangedAction.Replace, change);
 
             var n = 0;
             foreach(var item in x)
@@ -521,8 +544,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             x.Add("b", b);
             x.Add("c", c);
 
+            System.Collections.Specialized.NotifyCollectionChangedAction change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
+            x.CollectionChanged += (sender, args) =>
+            {
+                change = args.Action;
+            };
+
             Assert.True(x.Remove(b));
+            Assert.Equal(System.Collections.Specialized.NotifyCollectionChangedAction.Remove, change);
+
+            change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
             Assert.False(x.Remove(b));
+            Assert.Equal((System.Collections.Specialized.NotifyCollectionChangedAction)(-1), change);
 
             Assert.Equal(2, x.Count);
 
