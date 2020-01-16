@@ -38,7 +38,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = TestValues.GetChildElement("b");
             var c = TestValues.GetChildElement("c");
 
-            System.Collections.Specialized.NotifyCollectionChangedAction change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
+            var change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
             x.CollectionChanged += (sender, args) =>
             {
                 change = args.Action;
@@ -90,7 +90,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             Assert.Equal(4, x.Count);
 
-            System.Collections.Specialized.NotifyCollectionChangedAction change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
+            var change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
             x.CollectionChanged += (sender, args) =>
             {
                 change = args.Action;
@@ -235,7 +235,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Equal(b, x[1]);
             Assert.Equal(c, x[2]);
 
-            System.Collections.Specialized.NotifyCollectionChangedAction change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
+            var change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
             x.CollectionChanged += (sender, args) =>
             {
                 change = args.Action;
@@ -301,7 +301,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             x.Add(a);
             x.Add(c);
 
-            System.Collections.Specialized.NotifyCollectionChangedAction change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
+            var change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
             x.CollectionChanged += (sender, args) =>
             {
                 change = args.Action;
@@ -374,7 +374,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var a = TestValues.GetChildElement("a");
             var b = TestValues.GetChildElement("b");
 
-            int callbackCount = 0;
+            var callbackCount = 0;
 
             x.PropertyChanged += (source, args) =>
             {
@@ -404,7 +404,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             x.Add(b);
             x.Add(c);
 
-            System.Collections.Specialized.NotifyCollectionChangedAction change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
+            var change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
             x.CollectionChanged += (sender, args) =>
             {
                 change = args.Action;

@@ -30,6 +30,51 @@ namespace OpenCollar.Extensions.Configuration
     ///     A base class that allows configuration from classes in the <see cref="Microsoft.Extensions.Configuration" />
     ///     namespace to be to be accessed through a user-defined model with strongly typed interfaces.
     /// </summary>
+    /// <typeparam name="TInterface"> The type of the configuration interface implemented. </typeparam>
+    /// <seealso cref="OpenCollar.Extensions.Configuration.Disposable" />
+    /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationObject" />
+    /// <remarks>
+    ///     <para>
+    ///         For each requested model only a single instance of the model is ever constructed for a given
+    ///         <see cref="IConfigurationSection" /> or <see cref="IConfigurationRoot" /> .
+    ///     </para>
+    ///     <para>
+    ///         The <see cref="INotifyPropertyChanged" /> interface is supported allowing changes to be detected and
+    ///         reported from both the underlying configuration source (through the source changed
+    ///         event) and from detected changes made to properties with a setter. Only material changes are reported,
+    ///         and change with no practical impact (for example assigning a new instance of a string with the same
+    ///         value) will not be reported.
+    ///     </para>
+    /// </remarks>
+    /// <seealso cref="IConfigurationObject" />
+    public abstract class ConfigurationObjectBase<TInterface> : ConfigurationObjectBase
+    {
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationObjectBase{TInterface}" /> class.
+        /// </summary>
+        /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
+        /// <param name="propertyDef">
+        ///     The definition of the property defined by this object. This can be <see lang="null" /> if this object is
+        ///     the root of the hierarchy.
+        /// </param>
+        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, PropertyDef? propertyDef) : base(configurationRoot, propertyDef)
+        {
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationObjectBase{TInterface}" /> class. This is the
+        ///     interface used when creating the root instance for the service collection.
+        /// </summary>
+        /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
+        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot) : base(configurationRoot, ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface), new ConfigurationContext()))
+        {
+        }
+    }
+
+    /// <summary>
+    ///     A base class that allows configuration from classes in the <see cref="Microsoft.Extensions.Configuration" />
+    ///     namespace to be to be accessed through a user-defined model with strongly typed interfaces.
+    /// </summary>
     /// <seealso cref="IConfigurationObject" />
     /// <remarks>
     ///     <para>
@@ -44,7 +89,7 @@ namespace OpenCollar.Extensions.Configuration
     ///         value) will not be reported.
     ///     </para>
     /// </remarks>
-    internal abstract class ConfigurationObjectBase : Disposable, IConfigurationObject
+    public abstract class ConfigurationObjectBase : Disposable, IConfigurationObject
     {
         /// <summary>
         ///     The configuration root from which to read and write values.
@@ -69,24 +114,27 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationObjectBase" /> class.
         /// </summary>
-        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
-        public ConfigurationObjectBase(PropertyDef propertyDef)
+        /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
+        /// <param name="propertyDef">
+        ///     The definition of the property defined by this object. This can be <see lang="null" /> if this object is
+        ///     the root of the hierarchy.
+        /// </param>
+        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, PropertyDef? propertyDef)
         {
             PropertyDef = propertyDef;
+            _configurationRoot = configurationRoot;
         }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationObjectBase" /> class.
         /// </summary>
         /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
-        /// <param name="propertyDefs"> A sequence containing the definitions of the properties to represent. </param>
-        internal ConfigurationObjectBase(IConfigurationRoot configurationRoot, IEnumerable<PropertyDef> propertyDefs)
+        /// <param name="childPropertyDefs"> A sequence containing the definitions of the properties to represent. </param>
+        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, IEnumerable<PropertyDef> childPropertyDefs) : this(configurationRoot, (PropertyDef?)null)
         {
-            _configurationRoot = configurationRoot;
-
-            foreach(var propertyDef in propertyDefs)
+            foreach(var childPropertyDef in childPropertyDefs)
             {
-                var property = new PropertyValue(propertyDef, this, GetValue(configurationRoot, propertyDef.Path, propertyDef.Type));
+                var property = new PropertyValue(childPropertyDef, this, GetValue(configurationRoot, childPropertyDef.Path, childPropertyDef.Type));
                 _propertiesByName.Add(property.PropertyName, property);
                 _propertiesByPath.Add(property.Path, property);
             }
@@ -96,7 +144,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the definition of this property object.
         /// </summary>
         /// <value> The definition of this property object. </value>
-        public PropertyDef PropertyDef
+        public PropertyDef? PropertyDef
         {
             get;
         }
@@ -108,7 +156,6 @@ namespace OpenCollar.Extensions.Configuration
         ///     <see langword="true" /> if this object has any properties with unsaved changes; otherwise,
         ///     <see langword="false" /> .
         /// </value>
-        /// <exception cref="NotImplementedException"> </exception>
         public bool IsDirty => _propertiesByName.Values.Any(p => p.IsDirty);
 
         protected object? this[string name]
@@ -233,6 +280,26 @@ namespace OpenCollar.Extensions.Configuration
             }
 
             return Convert.ChangeType(value, type);
+        }
+
+        /// <summary>
+        ///     Called when a property is to be changed.
+        /// </summary>
+        /// <typeparam name="T"> The type of the property. </typeparam>
+        /// <param name="field"> The field to which the value is to be assigned. </param>
+        /// <param name="value"> The value to assign. </param>
+        /// <param name="property"> The definition of the property that has changed. </param>
+        /// <remarks> Raises the <see cref="PropertyChanged" /> event if the value has changed. </remarks>
+        private void OnPropertyChanged<T>(ref T field, T value, PropertyValue property)
+        {
+            if(Equals(field, value))
+            {
+                return;
+            }
+
+            field = value;
+
+            OnPropertyChanged(property);
         }
     }
 }

@@ -38,7 +38,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = TestValues.GetChildElement("b");
             var c = TestValues.GetChildElement("c");
 
-            System.Collections.Specialized.NotifyCollectionChangedAction change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
+            var change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
             x.CollectionChanged += (sender, args) =>
             {
                 change = args.Action;
@@ -148,7 +148,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             Assert.Equal(4, x.Count);
 
-            System.Collections.Specialized.NotifyCollectionChangedAction change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
+            var change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
             x.CollectionChanged += (sender, args) =>
             {
                 change = args.Action;
@@ -299,7 +299,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             x["a"] = a;
 
-            System.Collections.Specialized.NotifyCollectionChangedAction change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
+            var change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
             x.CollectionChanged += (sender, args) =>
             {
                 change = args.Action;
@@ -410,7 +410,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var a = TestValues.GetChildElement("a");
             var b = TestValues.GetChildElement("b");
 
-            int callbackCount = 0;
+            var callbackCount = 0;
 
             x.PropertyChanged += (source, args) =>
             {
@@ -440,7 +440,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             x.Add("b", b);
             x.Add("c", c);
 
-            System.Collections.Specialized.NotifyCollectionChangedAction change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
+            var change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
             x.CollectionChanged += (sender, args) =>
             {
                 change = args.Action;

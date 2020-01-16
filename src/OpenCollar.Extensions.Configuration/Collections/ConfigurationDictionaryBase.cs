@@ -828,26 +828,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Called when a property is to be changed.
         /// </summary>
-        /// <typeparam name="T"> The type of the property. </typeparam>
-        /// <param name="field"> The field to which the value is to be assigned. </param>
-        /// <param name="value"> The value to assign. </param>
-        /// <param name="propertyName"> The name of the property that has changed. </param>
-        /// <remarks> Raises the <see cref="PropertyChanged" /> event if the value has changed. </remarks>
-        private void OnPropertyChanged<T>(ref T field, T value, string propertyName)
-        {
-            if(Equals(field, value))
-            {
-                return;
-            }
-
-            field = value;
-
-            OnPropertyChanged(propertyName);
-        }
-
-        /// <summary>
-        ///     Called when a property is to be changed.
-        /// </summary>
         /// <param name="propertyName"> The name of the property that has changed. </param>
         /// <remarks> Raises the <see cref="PropertyChanged" /> event. </remarks>
         private void OnPropertyChanged(string propertyName)

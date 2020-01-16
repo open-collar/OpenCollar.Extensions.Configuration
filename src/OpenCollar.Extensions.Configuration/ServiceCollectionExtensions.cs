@@ -72,58 +72,7 @@ namespace OpenCollar.Extensions.Configuration
             serviceCollection.Add(descriptor);
         }
 
-        /// <summary>
-        ///     Determines whether the specified type is a is configuration collection.
-        /// </summary>
-        /// <param name="type"> The type to verify. </param>
-        /// <returns> <see langword="true" /> if the type is configuration collection; otherwise, <see langword="false" />. </returns>
-        public static bool IsConfigurationCollection(Type type)
-        {
-            if(!type.IsConstructedGenericType)
-            {
-                return false;
-            }
-
-            if(type.GetGenericTypeDefinition() != typeof(IConfigurationCollection<>))
-            {
-                return false;
-            }
-
-            var arguments = type.GetGenericArguments();
-
-            if(arguments.Length != 1)
-            {
-                return false;
-            }
-
-            return typeof(IConfigurationObject).IsAssignableFrom(arguments[0]);
-        }
-
-        /// <summary>
-        ///     Creates the type of the configuration object.
-        /// </summary>
-        /// <typeparam name="TConfigurationObject">
-        ///     The type of the interface to be implemented by the configuration object to create.
-        /// </typeparam>
-        /// <param name="context"> Defines the context in which the configuration is to be constructed. </param>
-        /// <returns> An implementation of the interface specified that can be used to interact with the configuration. </returns>
-        /// <exception cref="InvalidOperationException">
-        ///     Type specifies more than one 'Path' attribute and so cannot be processed. - or - Property specifies more
-        ///     than one 'Path' attribute and so cannot be processed.
-        /// </exception>
-        private static Type GenerateConfigurationObjectType<TConfigurationObject>(ConfigurationContext context)
-            where TConfigurationObject : IConfigurationObject
-        {
-            var type = typeof(TConfigurationObject);
-            var localContext = new ConfigurationContext(context);
-
-            var propertyDefs = GetConfigurationObjectDefinition(type, localContext);
-
-            // TODO: Replace with real implementation!
-            return null; // typeof(object);
-        }
-
-        private static List<PropertyDef> GetConfigurationObjectDefinition(Type type, ConfigurationContext localContext)
+        internal static List<PropertyDef> GetConfigurationObjectDefinition(Type type, ConfigurationContext localContext)
         {
             // TODO: Circular reference detection - for this version.
 
@@ -181,6 +130,10 @@ namespace OpenCollar.Extensions.Configuration
                             break;
                     }
                 }
+                else
+                {
+                    path = string.Concat(path, string.IsNullOrWhiteSpace(path) ? string.Empty : ConfigurationContext.PathDelimiter, name);
+                }
 
                 if(typeof(IConfigurationObject).IsAssignableFrom(property.PropertyType))
                 {
@@ -196,6 +149,58 @@ namespace OpenCollar.Extensions.Configuration
             }
 
             return propertyDefs;
+        }
+
+        /// <summary>
+        ///     Creates the type of the configuration object.
+        /// </summary>
+        /// <typeparam name="TConfigurationObject">
+        ///     The type of the interface to be implemented by the configuration object to create.
+        /// </typeparam>
+        /// <param name="context"> Defines the context in which the configuration is to be constructed. </param>
+        /// <returns> An implementation of the interface specified that can be used to interact with the configuration. </returns>
+        /// <exception cref="InvalidOperationException">
+        ///     Type specifies more than one 'Path' attribute and so cannot be processed. - or - Property specifies more
+        ///     than one 'Path' attribute and so cannot be processed.
+        /// </exception>
+        private static Type GenerateConfigurationObjectType<TConfigurationObject>(ConfigurationContext context)
+            where TConfigurationObject : IConfigurationObject
+        {
+            var type = typeof(TConfigurationObject);
+            var localContext = new ConfigurationContext(context);
+
+            var propertyDefs = GetConfigurationObjectDefinition(type, localContext);
+
+            var builder = new ConfigurationObjectTypeBuilder(type, propertyDefs);
+
+            return builder.Generate();
+        }
+
+        /// <summary>
+        ///     Determines whether the specified type is a is configuration collection.
+        /// </summary>
+        /// <param name="type"> The type to verify. </param>
+        /// <returns> <see langword="true" /> if the type is configuration collection; otherwise, <see langword="false" />. </returns>
+        private static bool IsConfigurationCollection(Type type)
+        {
+            if(!type.IsConstructedGenericType)
+            {
+                return false;
+            }
+
+            if(type.GetGenericTypeDefinition() != typeof(IConfigurationCollection<>))
+            {
+                return false;
+            }
+
+            var arguments = type.GetGenericArguments();
+
+            if(arguments.Length != 1)
+            {
+                return false;
+            }
+
+            return typeof(IConfigurationObject).IsAssignableFrom(arguments[0]);
         }
     }
 }

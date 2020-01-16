@@ -31,10 +31,10 @@ namespace TestWebApp
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = (IConfigurationRoot)configuration;
         }
 
-        public IConfiguration Configuration
+        public IConfigurationRoot Configuration
         {
             get;
         }
@@ -68,6 +68,7 @@ namespace TestWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddSingleton<IConfigurationRoot>(Configuration);
             services.AddConfigurationReader<IMyConfig>();
         }
     }

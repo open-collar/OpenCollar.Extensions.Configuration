@@ -51,6 +51,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     The definition of a property of a configuration object.
     /// </summary>
+    [System.Diagnostics.DebuggerDisplay("{Path}")]
     public class PropertyDef
     {
         /// <summary>
