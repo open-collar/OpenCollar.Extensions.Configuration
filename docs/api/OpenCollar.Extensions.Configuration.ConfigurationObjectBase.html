@@ -1,0 +1,561 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ConfigurationObjectBase
+   | API Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ConfigurationObjectBase
+   | API Documentation ">
+    <meta name="generator" content="docfx 2.48.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src=".././images/opencollar-icon-48x96x32.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase">
+  
+  
+  <h1 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase" class="text-break">Class ConfigurationObjectBase
+  </h1>
+  <div class="markdown level0 summary"><p>A base class that allows configuration from classes in the <span class="xref">Microsoft.Extensions.Configuration</span>
+namespace to be to be accessed through a user-defined model with strongly typed interfaces.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><a class="xref" href="OpenCollar.Extensions.Configuration.Disposable.html">Disposable</a></div>
+    <div class="level2"><span class="xref">ConfigurationObjectBase</span></div>
+      <div class="level3"><a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationObjectBase-1.html">ConfigurationObjectBase&lt;TInterface&gt;</a></div>
+      <div class="level3"><a class="xref" href="OpenCollar.Extensions.Configuration.TEMP.TempObject.html">TempObject</a></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html">IConfigurationObject</a></div>
+    <div><span class="xref">System.IDisposable</span></div>
+    <div><span class="xref">System.ComponentModel.INotifyPropertyChanged</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="OpenCollar.Extensions.Configuration.Disposable.html#OpenCollar_Extensions_Configuration_Disposable_IsDisposed">Disposable.IsDisposed</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenCollar.Extensions.Configuration.Disposable.html#OpenCollar_Extensions_Configuration_Disposable_Dispose">Disposable.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenCollar.Extensions.Configuration.Disposable.html#OpenCollar_Extensions_Configuration_Disposable_EnforceDisposed">Disposable.EnforceDisposed()</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="OpenCollar.Extensions.Configuration.html">OpenCollar.Extensions.Configuration</a></h6>
+  <h6><strong>Assembly</strong>: OpenCollar.Extensions.Configuration.dll</h6>
+  <h5 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class ConfigurationObjectBase : Disposable, IConfigurationObject, IDisposable, INotifyPropertyChanged</code></pre>
+  </div>
+  <h5 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+    For each requested model only a single instance of the model is ever constructed for a given
+<span class="xref">Microsoft.Extensions.Configuration.IConfigurationSection</span> or <span class="xref">Microsoft.Extensions.Configuration.IConfigurationRoot</span> .
+</p>
+<p>
+    The <span class="xref">System.ComponentModel.INotifyPropertyChanged</span> interface is supported allowing changes to be detected and
+    reported from both the underlying configuration source (through the source changed
+    event) and from detected changes made to properties with a setter. Only material changes are reported,
+    and change with no practical impact (for example assigning a new instance of a string with the same
+    value) will not be reported.
+</p>
+</div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationObjectBase__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_OpenCollar_Extensions_Configuration_PropertyDef_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationObjectBase.%23ctor(Microsoft.Extensions.Configuration.IConfigurationRoot%2COpenCollar.Extensions.Configuration.PropertyDef)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/4608a3e53280865fe1e4d1b1fb9d63d830f60591/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L122">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase__ctor_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.#ctor*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_OpenCollar_Extensions_Configuration_PropertyDef_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.#ctor(Microsoft.Extensions.Configuration.IConfigurationRoot,OpenCollar.Extensions.Configuration.PropertyDef)">ConfigurationObjectBase(IConfigurationRoot, PropertyDef)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html">ConfigurationObjectBase</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, PropertyDef propertyDef)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Microsoft.Extensions.Configuration.IConfigurationRoot</span></td>
+        <td><span class="parametername">configurationRoot</span></td>
+        <td><p>The configuration root from which to read and write values.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenCollar.Extensions.Configuration.PropertyDef.html">PropertyDef</a></td>
+        <td><span class="parametername">propertyDef</span></td>
+        <td><p>The definition of the property defined by this object. This can be <see lang="null"></see> if this object is
+the root of the hierarchy.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationObjectBase__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_System_Collections_Generic_IEnumerable_OpenCollar_Extensions_Configuration_PropertyDef__.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationObjectBase.%23ctor(Microsoft.Extensions.Configuration.IConfigurationRoot%2CSystem.Collections.Generic.IEnumerable%7BOpenCollar.Extensions.Configuration.PropertyDef%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/4608a3e53280865fe1e4d1b1fb9d63d830f60591/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L133">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase__ctor_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.#ctor*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_System_Collections_Generic_IEnumerable_OpenCollar_Extensions_Configuration_PropertyDef__" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.#ctor(Microsoft.Extensions.Configuration.IConfigurationRoot,System.Collections.Generic.IEnumerable{OpenCollar.Extensions.Configuration.PropertyDef})">ConfigurationObjectBase(IConfigurationRoot, IEnumerable&lt;PropertyDef&gt;)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html">ConfigurationObjectBase</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, IEnumerable&lt;PropertyDef&gt; childPropertyDefs)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Microsoft.Extensions.Configuration.IConfigurationRoot</span></td>
+        <td><span class="parametername">configurationRoot</span></td>
+        <td><p>The configuration root from which to read and write values.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="OpenCollar.Extensions.Configuration.PropertyDef.html">PropertyDef</a>&gt;</td>
+        <td><span class="parametername">childPropertyDefs</span></td>
+        <td><p>A sequence containing the definitions of the properties to represent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationObjectBase_IsDirty.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationObjectBase.IsDirty%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/4608a3e53280865fe1e4d1b1fb9d63d830f60591/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L159">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_IsDirty_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.IsDirty*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_IsDirty" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.IsDirty">IsDirty</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this object has any properties with unsaved changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsDirty { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><span class="xref">true</span> if this object has any properties with unsaved changes; otherwise,
+<span class="xref">false</span> .</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Item_System_String_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationObjectBase.Item(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/4608a3e53280865fe1e4d1b1fb9d63d830f60591/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L161">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Item_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.Item*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Item_System_String_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.Item(System.String)">Item[String]</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected object this[string name] { get; set; }</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationObjectBase_PropertyDef.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationObjectBase.PropertyDef%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/4608a3e53280865fe1e4d1b1fb9d63d830f60591/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L147">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_PropertyDef_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.PropertyDef*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_PropertyDef" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.PropertyDef">PropertyDef</h4>
+  <div class="markdown level1 summary"><p>Gets the definition of this property object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PropertyDef PropertyDef { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenCollar.Extensions.Configuration.PropertyDef.html">PropertyDef</a></td>
+        <td><p>The definition of this property object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationObjectBase.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/4608a3e53280865fe1e4d1b1fb9d63d830f60591/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L249">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Dispose_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.Dispose*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Dispose_System_Boolean_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.Dispose(System.Boolean)">Dispose(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Releases unmanaged and - optionally - managed resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Dispose(bool disposing)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">disposing</span></td>
+        <td><p><span class="xref">true</span> to release both managed and unmanaged resources; <span class="xref">false</span> to
+release only unmanaged resources.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="OpenCollar.Extensions.Configuration.Disposable.html#OpenCollar_Extensions_Configuration_Disposable_Dispose_System_Boolean_">Disposable.Dispose(Boolean)</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationObjectBase_GetDefault_System_Type_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationObjectBase.GetDefault(System.Type)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/4608a3e53280865fe1e4d1b1fb9d63d830f60591/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L173">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_GetDefault_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.GetDefault*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_GetDefault_System_Type_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.GetDefault(System.Type)">GetDefault(Type)</h4>
+  <div class="markdown level1 summary"><p>Returns the default value for the type specified.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static object GetDefault(Type type)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type of the default value required.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><p>The default value for the type specified.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Reload.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationObjectBase.Reload%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/4608a3e53280865fe1e4d1b1fb9d63d830f60591/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L186">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Reload_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.Reload*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Reload" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.Reload">Reload()</h4>
+  <div class="markdown level1 summary"><p>Loads all of the properties from the configuration sources, overwriting any unsaved changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Reload()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Save.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationObjectBase.Save%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/4608a3e53280865fe1e4d1b1fb9d63d830f60591/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L191">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Save_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.Save*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Save" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.Save">Save()</h4>
+  <div class="markdown level1 summary"><p>Saves this current values for each property back to the configuration sources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Save()</code></pre>
+  </div>
+  <h3 id="events">Events
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationObjectBase_PropertyChanged.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationObjectBase.PropertyChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/4608a3e53280865fe1e4d1b1fb9d63d830f60591/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L112">View Source</a>
+  </span>
+  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_PropertyChanged" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.PropertyChanged">PropertyChanged</h4>
+  <div class="markdown level1 summary"><p>Occurs when a property changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event PropertyChangedEventHandler PropertyChanged</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ComponentModel.PropertyChangedEventHandler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html">IConfigurationObject</a>
+  </div>
+  <div>
+      <span class="xref">System.IDisposable</span>
+  </div>
+  <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged</span>
+  </div>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html">IConfigurationObject</a></div>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationObjectBase.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationObjectBase%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/4608a3e53280865fe1e4d1b1fb9d63d830f60591/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L92" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: BUILD_VERSION</span></div></div>
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
