@@ -34,9 +34,9 @@ namespace OpenCollar.Extensions.Configuration
         private readonly ConfigurationObjectBase _parent;
 
         /// <summary>
-        ///     The type of the value held in the property.
+        ///     The definition of the property represented by this value.
         /// </summary>
-        private readonly Type _type;
+        private readonly PropertyDef _propertyDef;
 
         /// <summary>
         ///     The current (unsaved) value held in this property.
@@ -61,9 +61,7 @@ namespace OpenCollar.Extensions.Configuration
         internal PropertyValue(PropertyDef propertyDef, ConfigurationObjectBase parent, object? value)
         {
             _parent = parent;
-            Path = propertyDef.Path;
-            PropertyName = propertyDef.PropertyName;
-            _type = propertyDef.Type;
+            _propertyDef = propertyDef;
             _originalValue = value;
             _currentValue = value;
         }
@@ -80,7 +78,10 @@ namespace OpenCollar.Extensions.Configuration
         /// <value> The colon-delimited path to the underlying configuration value. </value>
         public string Path
         {
-            get;
+            get
+            {
+                return _propertyDef.Path;
+            }
         }
 
         /// <summary>
@@ -89,7 +90,10 @@ namespace OpenCollar.Extensions.Configuration
         /// <value> The name of the property represented by this object. </value>
         public string PropertyName
         {
-            get;
+            get
+            {
+                return _propertyDef.PropertyName;
+            }
         }
 
         /// <summary>
@@ -112,12 +116,23 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
+        /// <summary>
+        ///     Reads the value of the value identified by <see cref="PropertyDef" /> from the configuration root given.
+        /// </summary>
+        /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
+        /// <returns> </returns>
         public void ReadValue(IConfigurationRoot configurationRoot)
         {
+            // TODO: Convert to hard type.
+            var value = configurationRoot[_propertyDef.Path];
+            Value = value;
+            _originalValue = value;
         }
 
         public void WriteValue(IConfigurationRoot configurationRoot)
         {
+            configurationRoot[_propertyDef.Path] = GetValueString(Value);
+            _originalValue = _currentValue;
         }
 
         /// <summary>
@@ -138,15 +153,26 @@ namespace OpenCollar.Extensions.Configuration
         {
             if(ReferenceEquals(original, current))
             {
-                return false;
+                return true;
             }
 
             if(ReferenceEquals(original, null) || ReferenceEquals(current, null))
             {
-                return true;
+                return false;
             }
 
             return original.Equals(current);
+        }
+
+        private string GetValueString(object? value)
+        {
+            if(ReferenceEquals(value, null))
+            {
+                return null;
+            }
+
+            // TODO: Customize this.
+            return value.ToString();
         }
     }
 }

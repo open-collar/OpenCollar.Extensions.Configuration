@@ -38,5 +38,17 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             get; set;
         }
+
+        // We would expect this to be implemented as a read-only property.
+        string StringPropertyA
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        string StringPropertyB
+        {
+            get; set;
+        }
     }
 }

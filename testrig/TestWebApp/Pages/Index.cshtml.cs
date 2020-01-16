@@ -29,9 +29,6 @@ namespace TestWebApp.Pages
         public IndexModel(ILogger<IndexModel> logger, IMyConfig config)
         {
             _logger = logger;
-
-            var x = config.ReadOnlyString;
-            x = config.ReadWriteString;
         }
 
         public void OnGet()

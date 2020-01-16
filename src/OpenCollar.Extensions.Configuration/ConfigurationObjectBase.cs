@@ -31,8 +31,8 @@ namespace OpenCollar.Extensions.Configuration
     ///     namespace to be to be accessed through a user-defined model with strongly typed interfaces.
     /// </summary>
     /// <typeparam name="TInterface"> The type of the configuration interface implemented. </typeparam>
-    /// <seealso cref="OpenCollar.Extensions.Configuration.Disposable" />
-    /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationObject" />
+    /// <seealso cref="Disposable" />
+    /// <seealso cref="IConfigurationObject" />
     /// <remarks>
     ///     <para>
     ///         For each requested model only a single instance of the model is ever constructed for a given
@@ -94,16 +94,19 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     The configuration root from which to read and write values.
         /// </summary>
+        [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
         private readonly IConfigurationRoot _configurationRoot;
 
         /// <summary>
         ///     A dictionary of property values keyed on the name of the property it represents (case sensitive).
         /// </summary>
+        [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
         private readonly Dictionary<string, PropertyValue> _propertiesByName = new Dictionary<string, PropertyValue>(StringComparer.Ordinal);
 
         /// <summary>
         ///     A dictionary of property values keyed on the path to the underlying value (case insensitive).
         /// </summary>
+        [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
         private readonly Dictionary<string, PropertyValue> _propertiesByPath = new Dictionary<string, PropertyValue>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
@@ -123,6 +126,12 @@ namespace OpenCollar.Extensions.Configuration
         {
             PropertyDef = propertyDef;
             _configurationRoot = configurationRoot;
+
+            foreach(var section in _configurationRoot.GetChildren())
+            {
+                var token = section.GetReloadToken();
+                token.RegisterChangeCallback(OnSectionChanged, section);
+            }
         }
 
         /// <summary>
@@ -141,6 +150,26 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets a value indicating whether this object has any properties with unsaved changes.
+        /// </summary>
+        /// <value>
+        ///     <see langword="true" /> if this object has any properties with unsaved changes; otherwise,
+        ///     <see langword="false" /> .
+        /// </value>
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
+        public bool IsDirty
+        {
+            get
+            {
+                EnforceDisposed();
+
+                return _propertiesByName.Values.Any(p => p.IsDirty);
+            }
+        }
+
+        /// <summary>
         ///     Gets the definition of this property object.
         /// </summary>
         /// <value> The definition of this property object. </value>
@@ -150,45 +179,61 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Gets a value indicating whether this object has any properties with unsaved changes.
+        ///     Gets or sets the value of the property with the specified name.
         /// </summary>
-        /// <value>
-        ///     <see langword="true" /> if this object has any properties with unsaved changes; otherwise,
-        ///     <see langword="false" /> .
-        /// </value>
-        public bool IsDirty => _propertiesByName.Values.Any(p => p.IsDirty);
-
+        /// <value> The value requested. </value>
+        /// <param name="name"> The name of the property to get or set. </param>
+        /// <returns> The value of the property requested. </returns>
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
         protected object? this[string name]
         {
             // TODO: Add validation.
-            get => _propertiesByName[name].Value;
-            set => _propertiesByName[name].Value = value;
-        }
-
-        /// <summary>
-        ///     Returns the default value for the type specified.
-        /// </summary>
-        /// <param name="type"> The type of the default value required. </param>
-        /// <returns> The default value for the type specified. </returns>
-        public static object? GetDefault(Type type)
-        {
-            if(type.IsValueType)
+            get
             {
-                return Activator.CreateInstance(type);
+                EnforceDisposed();
+                return _propertiesByName[name].Value;
             }
 
-            return null;
+            set
+            {
+                EnforceDisposed();
+                _propertiesByName[name].Value = value;
+            }
         }
 
         /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
-        public void Reload() => throw new NotImplementedException();
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
+        public void Reload()
+        {
+            EnforceDisposed();
+
+            foreach(var value in _propertiesByName.Values)
+            {
+                value.ReadValue(_configurationRoot);
+            }
+        }
 
         /// <summary>
         ///     Saves this current values for each property back to the configuration sources.
         /// </summary>
-        public void Save() => throw new NotImplementedException();
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
+        public void Save()
+        {
+            EnforceDisposed();
+
+            foreach(var value in _propertiesByName.Values)
+            {
+                value.WriteValue(_configurationRoot);
+            }
+        }
 
         /// <summary>
         ///     Called when an underlying property has been changed.
@@ -250,12 +295,24 @@ namespace OpenCollar.Extensions.Configuration
         {
             if(disposing)
             {
-                // TODO: dispose managed state (managed objects). Do not change this code. Put cleanup code in
-                // Dispose(bool disposing) above.
+                _propertiesByName.Clear();
+                _propertiesByPath.Clear();
+            }
+        }
+
+        /// <summary>
+        ///     Returns the default value for the type specified.
+        /// </summary>
+        /// <param name="type"> The type of the default value required. </param>
+        /// <returns> The default value for the type specified. </returns>
+        private static object? GetDefault(Type type)
+        {
+            if(type.IsValueType)
+            {
+                return Activator.CreateInstance(type);
             }
 
-            // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-            // TODO: set large fields to null.
+            return null;
         }
 
         /// <summary>
@@ -300,6 +357,29 @@ namespace OpenCollar.Extensions.Configuration
             field = value;
 
             OnPropertyChanged(property);
+        }
+
+        /// <summary>
+        ///     Called when a section in the configuration root has changed.
+        /// </summary>
+        /// <param name="sectionObject"> An object containing the section that has changed. </param>
+        private void OnSectionChanged(object sectionObject)
+        {
+            var section = (IConfigurationSection)sectionObject;
+            if(ReferenceEquals(section, null))
+            {
+                return;
+            }
+
+            foreach(var value in _propertiesByName.Values)
+            {
+                if(value.Path.StartsWith(section.Path))
+                {
+                    // TODO: Make this more specifc - only reload the values that might have changed.
+                    Reload();
+                    break;
+                }
+            }
         }
     }
 }

@@ -34,6 +34,9 @@ namespace OpenCollar.Extensions.Configuration
         ///     <see langword="true" /> if this object has any properties with unsaved changes; otherwise,
         ///     <see langword="false" /> .
         /// </value>
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
         bool IsDirty
         {
             get;
@@ -43,7 +46,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the definition of this property object.
         /// </summary>
         /// <value> The definition of this property object. </value>
-        PropertyDef PropertyDef
+        PropertyDef? PropertyDef
         {
             get;
         }
@@ -51,11 +54,17 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
         void Reload();
 
         /// <summary>
         ///     Saves this current values for each property back to the configuration sources.
         /// </summary>
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
         void Save();
     }
 }

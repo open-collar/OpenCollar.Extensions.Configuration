@@ -68,7 +68,7 @@ namespace TestWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddSingleton<IConfigurationRoot>(Configuration);
+            services.AddSingleton(Configuration);
             services.AddConfigurationReader<IMyConfig>();
         }
     }
