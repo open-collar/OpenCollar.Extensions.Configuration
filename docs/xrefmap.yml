@@ -1128,6 +1128,19 @@ references:
   isSpec: "True"
   fullName: OpenCollar.Extensions.Configuration.PropertyDef.Type
   nameWithType: PropertyDef.Type
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.TypeIsNullable(System.Type,System.Reflection.PropertyInfo)
+  name: TypeIsNullable(Type, PropertyInfo)
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_TypeIsNullable_System_Type_System_Reflection_PropertyInfo_
+  commentId: M:OpenCollar.Extensions.Configuration.PropertyDef.TypeIsNullable(System.Type,System.Reflection.PropertyInfo)
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.TypeIsNullable(System.Type, System.Reflection.PropertyInfo)
+  nameWithType: PropertyDef.TypeIsNullable(Type, PropertyInfo)
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.TypeIsNullable*
+  name: TypeIsNullable
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_TypeIsNullable_
+  commentId: Overload:OpenCollar.Extensions.Configuration.PropertyDef.TypeIsNullable
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.TypeIsNullable
+  nameWithType: PropertyDef.TypeIsNullable
 - uid: OpenCollar.Extensions.Configuration.PropertyDef.UnderlyingType
   name: UnderlyingType
   href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_UnderlyingType
