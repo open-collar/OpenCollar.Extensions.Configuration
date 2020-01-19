@@ -16,6 +16,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS
                     new KeyValuePair<string, string>(nameof(IRootElement.StringPropertyA), "111"),
                     new KeyValuePair<string, string>(nameof(IRootElement.StringPropertyB), "222"),
                     new KeyValuePair<string, string>(nameof(IRootElement.StringPropertyC), "222"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.BooleanPropertyA), "true"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.BooleanPropertyB), "false"),
                     new KeyValuePair<string, string>(nameof(IRootElement.Int32PropertyA), "333"),
                     new KeyValuePair<string, string>(nameof(IRootElement.Int32PropertyB), "-444"),
                     new KeyValuePair<string, string>(nameof(IRootElement.Int16PropertyA), "333"),
@@ -27,8 +29,13 @@ namespace OpenCollar.Extensions.Configuration.TESTS
                     new KeyValuePair<string, string>(nameof(IRootElement.DoublePropertyA), "555.666"),
                     new KeyValuePair<string, string>(nameof(IRootElement.DoublePropertyB), "-666.777"),
                     new KeyValuePair<string, string>(nameof(IRootElement.SinglePropertyA), "555.666"),
-                    new KeyValuePair<string, string>(nameof(IRootElement.SinglePropertyB), "-666.777")
-                }
+                    new KeyValuePair<string, string>(nameof(IRootElement.SinglePropertyB), "-666.777"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.DateTimePropertyA), "2020-01-10 18:00:30"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.DateTimePropertyB), "2019-10-01 14:30:15"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.DateTimeOffsetPropertyA), "2020-01-10 18:00:30 +03:00"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.DateTimeOffsetPropertyB), "2019-10-01 14:30:15 +03:00"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.TimeSpanPropertyA), "04:00:10"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.TimeSpanPropertyB), "00:30:30")}
             };
 
             var provider = new Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider(source);

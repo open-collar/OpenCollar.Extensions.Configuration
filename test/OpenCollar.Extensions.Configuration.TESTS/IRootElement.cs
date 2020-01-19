@@ -22,6 +22,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS
     public interface IRootElement : IConfigurationObject
     {
         // We would expect this to be implemented as a read-only property.
+        bool BooleanPropertyA
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        bool BooleanPropertyB
+        {
+            get; set;
+        }
+
+        // We would expect this to be implemented as a read-only property.
         char CharPropertyA
         {
             get;
@@ -40,6 +52,30 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         // We would expect this to be implemented as a read-only property.
+        System.DateTimeOffset DateTimeOffsetPropertyA
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        System.DateTimeOffset DateTimeOffsetPropertyB
+        {
+            get; set;
+        }
+
+        // We would expect this to be implemented as a read-only property.
+        System.DateTime DateTimePropertyA
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        System.DateTime DateTimePropertyB
+        {
+            get; set;
+        }
+
+        // We would expect this to be implemented as a read-only property.
         double DoublePropertyA
         {
             get;
@@ -52,13 +88,13 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         // We would expect this to be implemented as a read-only property.
-        int Int16PropertyA
+        short Int16PropertyA
         {
             get;
         }
 
         // We would expect this to be implemented as a read/write property.
-        int Int16PropertyB
+        short Int16PropertyB
         {
             get; set;
         }
@@ -76,13 +112,13 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         // We would expect this to be implemented as a read-only property.
-        int Int64PropertyA
+        long Int64PropertyA
         {
             get;
         }
 
         // We would expect this to be implemented as a read/write property.
-        int Int64PropertyB
+        long Int64PropertyB
         {
             get; set;
         }
@@ -125,6 +161,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
         // We would expect this to be implemented as a read/write property.
         string StringPropertyC
+        {
+            get; set;
+        }
+
+        // We would expect this to be implemented as a read-only property.
+        System.TimeSpan TimeSpanPropertyA
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        System.TimeSpan TimeSpanPropertyB
         {
             get; set;
         }
