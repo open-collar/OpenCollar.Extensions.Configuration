@@ -575,6 +575,81 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Values
   nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Values
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Values
+- uid: OpenCollar.Extensions.Configuration.ConfigurationException
+  name: ConfigurationException
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationException.html
+  commentId: T:OpenCollar.Extensions.Configuration.ConfigurationException
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationException
+  nameWithType: ConfigurationException
+- uid: OpenCollar.Extensions.Configuration.ConfigurationException.#ctor
+  name: ConfigurationException()
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationException.html#OpenCollar_Extensions_Configuration_ConfigurationException__ctor
+  commentId: M:OpenCollar.Extensions.Configuration.ConfigurationException.#ctor
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationException.ConfigurationException()
+  nameWithType: ConfigurationException.ConfigurationException()
+- uid: OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  name: ConfigurationException(SerializationInfo, StreamingContext)
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationException.html#OpenCollar_Extensions_Configuration_ConfigurationException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
+  commentId: M:OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationException.ConfigurationException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  nameWithType: ConfigurationException.ConfigurationException(SerializationInfo, StreamingContext)
+- uid: OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(System.String)
+  name: ConfigurationException(String)
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationException.html#OpenCollar_Extensions_Configuration_ConfigurationException__ctor_System_String_
+  commentId: M:OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(System.String)
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationException.ConfigurationException(System.String)
+  nameWithType: ConfigurationException.ConfigurationException(String)
+- uid: OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(System.String,System.Exception)
+  name: ConfigurationException(String, Exception)
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationException.html#OpenCollar_Extensions_Configuration_ConfigurationException__ctor_System_String_System_Exception_
+  commentId: M:OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(System.String,System.Exception)
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationException.ConfigurationException(System.String, System.Exception)
+  nameWithType: ConfigurationException.ConfigurationException(String, Exception)
+- uid: OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(System.String,System.String)
+  name: ConfigurationException(String, String)
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationException.html#OpenCollar_Extensions_Configuration_ConfigurationException__ctor_System_String_System_String_
+  commentId: M:OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(System.String,System.String)
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationException.ConfigurationException(System.String, System.String)
+  nameWithType: ConfigurationException.ConfigurationException(String, String)
+- uid: OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(System.String,System.String,System.Exception)
+  name: ConfigurationException(String, String, Exception)
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationException.html#OpenCollar_Extensions_Configuration_ConfigurationException__ctor_System_String_System_String_System_Exception_
+  commentId: M:OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(System.String,System.String,System.Exception)
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationException.ConfigurationException(System.String, System.String, System.Exception)
+  nameWithType: ConfigurationException.ConfigurationException(String, String, Exception)
+- uid: OpenCollar.Extensions.Configuration.ConfigurationException.#ctor*
+  name: ConfigurationException
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationException.html#OpenCollar_Extensions_Configuration_ConfigurationException__ctor_
+  commentId: Overload:OpenCollar.Extensions.Configuration.ConfigurationException.#ctor
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationException.ConfigurationException
+  nameWithType: ConfigurationException.ConfigurationException
+- uid: OpenCollar.Extensions.Configuration.ConfigurationException.ConfigurationPath
+  name: ConfigurationPath
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationException.html#OpenCollar_Extensions_Configuration_ConfigurationException_ConfigurationPath
+  commentId: P:OpenCollar.Extensions.Configuration.ConfigurationException.ConfigurationPath
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationException.ConfigurationPath
+  nameWithType: ConfigurationException.ConfigurationPath
+- uid: OpenCollar.Extensions.Configuration.ConfigurationException.ConfigurationPath*
+  name: ConfigurationPath
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationException.html#OpenCollar_Extensions_Configuration_ConfigurationException_ConfigurationPath_
+  commentId: Overload:OpenCollar.Extensions.Configuration.ConfigurationException.ConfigurationPath
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationException.ConfigurationPath
+  nameWithType: ConfigurationException.ConfigurationPath
+- uid: OpenCollar.Extensions.Configuration.ConfigurationException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  name: GetObjectData(SerializationInfo, StreamingContext)
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationException.html#OpenCollar_Extensions_Configuration_ConfigurationException_GetObjectData_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
+  commentId: M:OpenCollar.Extensions.Configuration.ConfigurationException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationException.GetObjectData(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  nameWithType: ConfigurationException.GetObjectData(SerializationInfo, StreamingContext)
+- uid: OpenCollar.Extensions.Configuration.ConfigurationException.GetObjectData*
+  name: GetObjectData
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationException.html#OpenCollar_Extensions_Configuration_ConfigurationException_GetObjectData_
+  commentId: Overload:OpenCollar.Extensions.Configuration.ConfigurationException.GetObjectData
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationException.GetObjectData
+  nameWithType: ConfigurationException.GetObjectData
 - uid: OpenCollar.Extensions.Configuration.ConfigurationObjectBase
   name: ConfigurationObjectBase
   href: api/OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html
@@ -724,6 +799,38 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.ConfigurationObjectBase(Of TInterface).ConfigurationObjectBase
   nameWithType: ConfigurationObjectBase<TInterface>.ConfigurationObjectBase
   nameWithType.vb: ConfigurationObjectBase(Of TInterface).ConfigurationObjectBase
+- uid: OpenCollar.Extensions.Configuration.DefaultValueAttribute
+  name: DefaultValueAttribute
+  href: api/OpenCollar.Extensions.Configuration.DefaultValueAttribute.html
+  commentId: T:OpenCollar.Extensions.Configuration.DefaultValueAttribute
+  fullName: OpenCollar.Extensions.Configuration.DefaultValueAttribute
+  nameWithType: DefaultValueAttribute
+- uid: OpenCollar.Extensions.Configuration.DefaultValueAttribute.#ctor(System.Object)
+  name: DefaultValueAttribute(Object)
+  href: api/OpenCollar.Extensions.Configuration.DefaultValueAttribute.html#OpenCollar_Extensions_Configuration_DefaultValueAttribute__ctor_System_Object_
+  commentId: M:OpenCollar.Extensions.Configuration.DefaultValueAttribute.#ctor(System.Object)
+  fullName: OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValueAttribute(System.Object)
+  nameWithType: DefaultValueAttribute.DefaultValueAttribute(Object)
+- uid: OpenCollar.Extensions.Configuration.DefaultValueAttribute.#ctor*
+  name: DefaultValueAttribute
+  href: api/OpenCollar.Extensions.Configuration.DefaultValueAttribute.html#OpenCollar_Extensions_Configuration_DefaultValueAttribute__ctor_
+  commentId: Overload:OpenCollar.Extensions.Configuration.DefaultValueAttribute.#ctor
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValueAttribute
+  nameWithType: DefaultValueAttribute.DefaultValueAttribute
+- uid: OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValue
+  name: DefaultValue
+  href: api/OpenCollar.Extensions.Configuration.DefaultValueAttribute.html#OpenCollar_Extensions_Configuration_DefaultValueAttribute_DefaultValue
+  commentId: P:OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValue
+  fullName: OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValue
+  nameWithType: DefaultValueAttribute.DefaultValue
+- uid: OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValue*
+  name: DefaultValue
+  href: api/OpenCollar.Extensions.Configuration.DefaultValueAttribute.html#OpenCollar_Extensions_Configuration_DefaultValueAttribute_DefaultValue_
+  commentId: Overload:OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValue
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValue
+  nameWithType: DefaultValueAttribute.DefaultValue
 - uid: OpenCollar.Extensions.Configuration.Disposable
   name: Disposable
   href: api/OpenCollar.Extensions.Configuration.Disposable.html
@@ -917,6 +1024,58 @@ references:
   commentId: T:OpenCollar.Extensions.Configuration.PropertyDef
   fullName: OpenCollar.Extensions.Configuration.PropertyDef
   nameWithType: PropertyDef
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.DefaultValue
+  name: DefaultValue
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_DefaultValue
+  commentId: P:OpenCollar.Extensions.Configuration.PropertyDef.DefaultValue
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.DefaultValue
+  nameWithType: PropertyDef.DefaultValue
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.DefaultValue*
+  name: DefaultValue
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_DefaultValue_
+  commentId: Overload:OpenCollar.Extensions.Configuration.PropertyDef.DefaultValue
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.DefaultValue
+  nameWithType: PropertyDef.DefaultValue
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.GetUnderlyingType(System.Type)
+  name: GetUnderlyingType(Type)
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_GetUnderlyingType_System_Type_
+  commentId: M:OpenCollar.Extensions.Configuration.PropertyDef.GetUnderlyingType(System.Type)
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.GetUnderlyingType(System.Type)
+  nameWithType: PropertyDef.GetUnderlyingType(Type)
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.GetUnderlyingType*
+  name: GetUnderlyingType
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_GetUnderlyingType_
+  commentId: Overload:OpenCollar.Extensions.Configuration.PropertyDef.GetUnderlyingType
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.GetUnderlyingType
+  nameWithType: PropertyDef.GetUnderlyingType
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.HasDefaultValue
+  name: HasDefaultValue
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_HasDefaultValue
+  commentId: P:OpenCollar.Extensions.Configuration.PropertyDef.HasDefaultValue
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.HasDefaultValue
+  nameWithType: PropertyDef.HasDefaultValue
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.HasDefaultValue*
+  name: HasDefaultValue
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_HasDefaultValue_
+  commentId: Overload:OpenCollar.Extensions.Configuration.PropertyDef.HasDefaultValue
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.HasDefaultValue
+  nameWithType: PropertyDef.HasDefaultValue
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.IsNullable
+  name: IsNullable
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_IsNullable
+  commentId: P:OpenCollar.Extensions.Configuration.PropertyDef.IsNullable
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.IsNullable
+  nameWithType: PropertyDef.IsNullable
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.IsNullable*
+  name: IsNullable
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_IsNullable_
+  commentId: Overload:OpenCollar.Extensions.Configuration.PropertyDef.IsNullable
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.IsNullable
+  nameWithType: PropertyDef.IsNullable
 - uid: OpenCollar.Extensions.Configuration.PropertyDef.IsReadOnly
   name: IsReadOnly
   href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_IsReadOnly
@@ -969,12 +1128,19 @@ references:
   isSpec: "True"
   fullName: OpenCollar.Extensions.Configuration.PropertyDef.Type
   nameWithType: PropertyDef.Type
-- uid: OpenCollar.Extensions.Configuration.ReadOnlyAttribute
-  name: ReadOnlyAttribute
-  href: api/OpenCollar.Extensions.Configuration.ReadOnlyAttribute.html
-  commentId: T:OpenCollar.Extensions.Configuration.ReadOnlyAttribute
-  fullName: OpenCollar.Extensions.Configuration.ReadOnlyAttribute
-  nameWithType: ReadOnlyAttribute
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.UnderlyingType
+  name: UnderlyingType
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_UnderlyingType
+  commentId: P:OpenCollar.Extensions.Configuration.PropertyDef.UnderlyingType
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.UnderlyingType
+  nameWithType: PropertyDef.UnderlyingType
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.UnderlyingType*
+  name: UnderlyingType
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_UnderlyingType_
+  commentId: Overload:OpenCollar.Extensions.Configuration.PropertyDef.UnderlyingType
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.UnderlyingType
+  nameWithType: PropertyDef.UnderlyingType
 - uid: OpenCollar.Extensions.Configuration.ServiceCollectionExtensions
   name: ServiceCollectionExtensions
   href: api/OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.html
@@ -1027,245 +1193,3 @@ references:
   commentId: F:OpenCollar.Extensions.Configuration.StructuralElementKind.Unknown
   fullName: OpenCollar.Extensions.Configuration.StructuralElementKind.Unknown
   nameWithType: StructuralElementKind.Unknown
-- uid: OpenCollar.Extensions.Configuration.TEMP
-  name: OpenCollar.Extensions.Configuration.TEMP
-  href: api/OpenCollar.Extensions.Configuration.TEMP.html
-  commentId: N:OpenCollar.Extensions.Configuration.TEMP
-  fullName: OpenCollar.Extensions.Configuration.TEMP
-  nameWithType: OpenCollar.Extensions.Configuration.TEMP
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject
-  name: ITempObject
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html
-  commentId: T:OpenCollar.Extensions.Configuration.TEMP.ITempObject
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject
-  nameWithType: ITempObject
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNotNullInt32Property
-  name: ReadOnlyNotNullInt32Property
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html#OpenCollar_Extensions_Configuration_TEMP_ITempObject_ReadOnlyNotNullInt32Property
-  commentId: P:OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNotNullInt32Property
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNotNullInt32Property
-  nameWithType: ITempObject.ReadOnlyNotNullInt32Property
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNotNullInt32Property*
-  name: ReadOnlyNotNullInt32Property
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html#OpenCollar_Extensions_Configuration_TEMP_ITempObject_ReadOnlyNotNullInt32Property_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNotNullInt32Property
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNotNullInt32Property
-  nameWithType: ITempObject.ReadOnlyNotNullInt32Property
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNotNullStringProperty
-  name: ReadOnlyNotNullStringProperty
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html#OpenCollar_Extensions_Configuration_TEMP_ITempObject_ReadOnlyNotNullStringProperty
-  commentId: P:OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNotNullStringProperty
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNotNullStringProperty
-  nameWithType: ITempObject.ReadOnlyNotNullStringProperty
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNotNullStringProperty*
-  name: ReadOnlyNotNullStringProperty
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html#OpenCollar_Extensions_Configuration_TEMP_ITempObject_ReadOnlyNotNullStringProperty_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNotNullStringProperty
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNotNullStringProperty
-  nameWithType: ITempObject.ReadOnlyNotNullStringProperty
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNullableInt32Property
-  name: ReadOnlyNullableInt32Property
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html#OpenCollar_Extensions_Configuration_TEMP_ITempObject_ReadOnlyNullableInt32Property
-  commentId: P:OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNullableInt32Property
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNullableInt32Property
-  nameWithType: ITempObject.ReadOnlyNullableInt32Property
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNullableInt32Property*
-  name: ReadOnlyNullableInt32Property
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html#OpenCollar_Extensions_Configuration_TEMP_ITempObject_ReadOnlyNullableInt32Property_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNullableInt32Property
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNullableInt32Property
-  nameWithType: ITempObject.ReadOnlyNullableInt32Property
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNullableStringProperty
-  name: ReadOnlyNullableStringProperty
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html#OpenCollar_Extensions_Configuration_TEMP_ITempObject_ReadOnlyNullableStringProperty
-  commentId: P:OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNullableStringProperty
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNullableStringProperty
-  nameWithType: ITempObject.ReadOnlyNullableStringProperty
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNullableStringProperty*
-  name: ReadOnlyNullableStringProperty
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html#OpenCollar_Extensions_Configuration_TEMP_ITempObject_ReadOnlyNullableStringProperty_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNullableStringProperty
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadOnlyNullableStringProperty
-  nameWithType: ITempObject.ReadOnlyNullableStringProperty
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNotNullInt32Property
-  name: ReadWriteNotNullInt32Property
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html#OpenCollar_Extensions_Configuration_TEMP_ITempObject_ReadWriteNotNullInt32Property
-  commentId: P:OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNotNullInt32Property
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNotNullInt32Property
-  nameWithType: ITempObject.ReadWriteNotNullInt32Property
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNotNullInt32Property*
-  name: ReadWriteNotNullInt32Property
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html#OpenCollar_Extensions_Configuration_TEMP_ITempObject_ReadWriteNotNullInt32Property_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNotNullInt32Property
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNotNullInt32Property
-  nameWithType: ITempObject.ReadWriteNotNullInt32Property
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNotNullStringProperty
-  name: ReadWriteNotNullStringProperty
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html#OpenCollar_Extensions_Configuration_TEMP_ITempObject_ReadWriteNotNullStringProperty
-  commentId: P:OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNotNullStringProperty
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNotNullStringProperty
-  nameWithType: ITempObject.ReadWriteNotNullStringProperty
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNotNullStringProperty*
-  name: ReadWriteNotNullStringProperty
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html#OpenCollar_Extensions_Configuration_TEMP_ITempObject_ReadWriteNotNullStringProperty_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNotNullStringProperty
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNotNullStringProperty
-  nameWithType: ITempObject.ReadWriteNotNullStringProperty
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNullableInt32Property
-  name: ReadWriteNullableInt32Property
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html#OpenCollar_Extensions_Configuration_TEMP_ITempObject_ReadWriteNullableInt32Property
-  commentId: P:OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNullableInt32Property
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNullableInt32Property
-  nameWithType: ITempObject.ReadWriteNullableInt32Property
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNullableInt32Property*
-  name: ReadWriteNullableInt32Property
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html#OpenCollar_Extensions_Configuration_TEMP_ITempObject_ReadWriteNullableInt32Property_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNullableInt32Property
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNullableInt32Property
-  nameWithType: ITempObject.ReadWriteNullableInt32Property
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNullableStringProperty
-  name: ReadWriteNullableStringProperty
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html#OpenCollar_Extensions_Configuration_TEMP_ITempObject_ReadWriteNullableStringProperty
-  commentId: P:OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNullableStringProperty
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNullableStringProperty
-  nameWithType: ITempObject.ReadWriteNullableStringProperty
-- uid: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNullableStringProperty*
-  name: ReadWriteNullableStringProperty
-  href: api/OpenCollar.Extensions.Configuration.TEMP.ITempObject.html#OpenCollar_Extensions_Configuration_TEMP_ITempObject_ReadWriteNullableStringProperty_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNullableStringProperty
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.ITempObject.ReadWriteNullableStringProperty
-  nameWithType: ITempObject.ReadWriteNullableStringProperty
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject
-  name: TempObject
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html
-  commentId: T:OpenCollar.Extensions.Configuration.TEMP.TempObject
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject
-  nameWithType: TempObject
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.#ctor(Microsoft.Extensions.Configuration.IConfigurationRoot,System.Collections.Generic.IEnumerable{OpenCollar.Extensions.Configuration.PropertyDef})
-  name: TempObject(IConfigurationRoot, IEnumerable<PropertyDef>)
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_System_Collections_Generic_IEnumerable_OpenCollar_Extensions_Configuration_PropertyDef__
-  commentId: M:OpenCollar.Extensions.Configuration.TEMP.TempObject.#ctor(Microsoft.Extensions.Configuration.IConfigurationRoot,System.Collections.Generic.IEnumerable{OpenCollar.Extensions.Configuration.PropertyDef})
-  name.vb: TempObject(IConfigurationRoot, IEnumerable(Of PropertyDef))
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.TempObject(Microsoft.Extensions.Configuration.IConfigurationRoot, System.Collections.Generic.IEnumerable<OpenCollar.Extensions.Configuration.PropertyDef>)
-  fullName.vb: OpenCollar.Extensions.Configuration.TEMP.TempObject.TempObject(Microsoft.Extensions.Configuration.IConfigurationRoot, System.Collections.Generic.IEnumerable(Of OpenCollar.Extensions.Configuration.PropertyDef))
-  nameWithType: TempObject.TempObject(IConfigurationRoot, IEnumerable<PropertyDef>)
-  nameWithType.vb: TempObject.TempObject(IConfigurationRoot, IEnumerable(Of PropertyDef))
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.#ctor*
-  name: TempObject
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject__ctor_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.TempObject.#ctor
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.TempObject
-  nameWithType: TempObject.TempObject
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNotNullInt32Property
-  name: ReadOnlyNotNullInt32Property
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject_ReadOnlyNotNullInt32Property
-  commentId: P:OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNotNullInt32Property
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNotNullInt32Property
-  nameWithType: TempObject.ReadOnlyNotNullInt32Property
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNotNullInt32Property*
-  name: ReadOnlyNotNullInt32Property
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject_ReadOnlyNotNullInt32Property_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNotNullInt32Property
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNotNullInt32Property
-  nameWithType: TempObject.ReadOnlyNotNullInt32Property
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNotNullStringProperty
-  name: ReadOnlyNotNullStringProperty
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject_ReadOnlyNotNullStringProperty
-  commentId: P:OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNotNullStringProperty
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNotNullStringProperty
-  nameWithType: TempObject.ReadOnlyNotNullStringProperty
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNotNullStringProperty*
-  name: ReadOnlyNotNullStringProperty
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject_ReadOnlyNotNullStringProperty_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNotNullStringProperty
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNotNullStringProperty
-  nameWithType: TempObject.ReadOnlyNotNullStringProperty
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNullableInt32Property
-  name: ReadOnlyNullableInt32Property
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject_ReadOnlyNullableInt32Property
-  commentId: P:OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNullableInt32Property
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNullableInt32Property
-  nameWithType: TempObject.ReadOnlyNullableInt32Property
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNullableInt32Property*
-  name: ReadOnlyNullableInt32Property
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject_ReadOnlyNullableInt32Property_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNullableInt32Property
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNullableInt32Property
-  nameWithType: TempObject.ReadOnlyNullableInt32Property
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNullableStringProperty
-  name: ReadOnlyNullableStringProperty
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject_ReadOnlyNullableStringProperty
-  commentId: P:OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNullableStringProperty
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNullableStringProperty
-  nameWithType: TempObject.ReadOnlyNullableStringProperty
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNullableStringProperty*
-  name: ReadOnlyNullableStringProperty
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject_ReadOnlyNullableStringProperty_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNullableStringProperty
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadOnlyNullableStringProperty
-  nameWithType: TempObject.ReadOnlyNullableStringProperty
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNotNullInt32Property
-  name: ReadWriteNotNullInt32Property
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject_ReadWriteNotNullInt32Property
-  commentId: P:OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNotNullInt32Property
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNotNullInt32Property
-  nameWithType: TempObject.ReadWriteNotNullInt32Property
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNotNullInt32Property*
-  name: ReadWriteNotNullInt32Property
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject_ReadWriteNotNullInt32Property_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNotNullInt32Property
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNotNullInt32Property
-  nameWithType: TempObject.ReadWriteNotNullInt32Property
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNotNullStringProperty
-  name: ReadWriteNotNullStringProperty
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject_ReadWriteNotNullStringProperty
-  commentId: P:OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNotNullStringProperty
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNotNullStringProperty
-  nameWithType: TempObject.ReadWriteNotNullStringProperty
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNotNullStringProperty*
-  name: ReadWriteNotNullStringProperty
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject_ReadWriteNotNullStringProperty_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNotNullStringProperty
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNotNullStringProperty
-  nameWithType: TempObject.ReadWriteNotNullStringProperty
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNullableInt32Property
-  name: ReadWriteNullableInt32Property
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject_ReadWriteNullableInt32Property
-  commentId: P:OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNullableInt32Property
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNullableInt32Property
-  nameWithType: TempObject.ReadWriteNullableInt32Property
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNullableInt32Property*
-  name: ReadWriteNullableInt32Property
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject_ReadWriteNullableInt32Property_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNullableInt32Property
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNullableInt32Property
-  nameWithType: TempObject.ReadWriteNullableInt32Property
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNullableStringProperty
-  name: ReadWriteNullableStringProperty
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject_ReadWriteNullableStringProperty
-  commentId: P:OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNullableStringProperty
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNullableStringProperty
-  nameWithType: TempObject.ReadWriteNullableStringProperty
-- uid: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNullableStringProperty*
-  name: ReadWriteNullableStringProperty
-  href: api/OpenCollar.Extensions.Configuration.TEMP.TempObject.html#OpenCollar_Extensions_Configuration_TEMP_TempObject_ReadWriteNullableStringProperty_
-  commentId: Overload:OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNullableStringProperty
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.TEMP.TempObject.ReadWriteNullableStringProperty
-  nameWithType: TempObject.ReadWriteNullableStringProperty
