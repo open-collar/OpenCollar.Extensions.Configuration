@@ -76,6 +76,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         // We would expect this to be implemented as a read-only property.
+        decimal DecimalPropertyA
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        decimal DecimalPropertyB
+        {
+            get; set;
+        }
+
+        // We would expect this to be implemented as a read-only property.
         double DoublePropertyA
         {
             get;
@@ -155,6 +167,19 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
         // We would expect this to be implemented as a read/write property.
         float SinglePropertyB
+        {
+            get; set;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        float SinglePropertyNoDefault
+        {
+            get; set;
+        }
+
+        // We would expect this to be implemented as a read-only property.
+        [DefaultValue((float)123.456)]
+        float? SinglePropertyWithDefault
         {
             get; set;
         }

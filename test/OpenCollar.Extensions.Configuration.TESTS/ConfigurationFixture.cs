@@ -30,6 +30,10 @@ namespace OpenCollar.Extensions.Configuration.TESTS
                     new KeyValuePair<string, string>(nameof(IRootElement.DoublePropertyB), "-666.777"),
                     new KeyValuePair<string, string>(nameof(IRootElement.SinglePropertyA), "555.666"),
                     new KeyValuePair<string, string>(nameof(IRootElement.SinglePropertyB), "-666.777"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.SinglePropertyWithDefault), "555.666"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.SinglePropertyNoDefault), "-666.777"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.DecimalPropertyA), "555.666"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.DecimalPropertyB), "-666.777"),
                     new KeyValuePair<string, string>(nameof(IRootElement.DateTimePropertyA), "2020-01-10 18:00:30"),
                     new KeyValuePair<string, string>(nameof(IRootElement.DateTimePropertyB), "2019-10-01 14:30:15"),
                     new KeyValuePair<string, string>(nameof(IRootElement.DateTimeOffsetPropertyA), "2020-01-10 18:00:30 +03:00"),
@@ -41,10 +45,10 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             };
 
             var provider = new Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider(source);
-            var ConfigurationRoot = new Microsoft.Extensions.Configuration.ConfigurationRoot(new[] { provider });
+            ConfigurationRoot = new Microsoft.Extensions.Configuration.ConfigurationRoot(new[] { provider });
 
-            Microsoft.Extensions.DependencyInjection.IServiceCollection servicesCollection = new ServiceCollection();
-            servicesCollection.AddSingleton<Microsoft.Extensions.Configuration.IConfigurationRoot>(ConfigurationRoot);
+            IServiceCollection servicesCollection = new ServiceCollection();
+            servicesCollection.AddSingleton(ConfigurationRoot);
             servicesCollection.AddConfigurationReader<IRootElement>();
 
             Services = servicesCollection.BuildServiceProvider();

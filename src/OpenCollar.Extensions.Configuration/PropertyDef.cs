@@ -67,6 +67,7 @@ namespace OpenCollar.Extensions.Configuration
         internal PropertyDef(string path, Type interfaceType, PropertyInfo propertyInfo, object? defaultValue) : this(path, interfaceType, propertyInfo)
         {
             HasDefaultValue = true;
+            DefaultValue = defaultValue;
         }
 
         /// <summary>
@@ -173,7 +174,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <returns> </returns>
         public static Type GetUnderlyingType(Type type)
         {
-            if(type.IsConstructedGenericType && (type.GetGenericTypeDefinition() == typeof(Nullable)))
+            if(type.IsConstructedGenericType && (type.GetGenericTypeDefinition() == typeof(Nullable<>)))
             {
                 type = type.GetGenericArguments()[0];
             }
@@ -211,11 +212,14 @@ namespace OpenCollar.Extensions.Configuration
                 context.ConstructorArguments.Count == 1 &&
                 context.ConstructorArguments[0].ArgumentType == typeof(byte))
             {
-                return (byte)context.ConstructorArguments[0].Value == 2;
+                if((byte)context.ConstructorArguments[0].Value == 2)
+                {
+                    return true;
+                }
             }
 
             // Couldn't find a suitable attribute
-            return false;
+            return property.PropertyType.IsConstructedGenericType && (property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>));
         }
     }
 }

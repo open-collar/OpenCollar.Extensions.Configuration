@@ -147,14 +147,14 @@ namespace OpenCollar.Extensions.Configuration
 
                 object? defaultValue = null;
                 var defaultValueAttributes = property.GetCustomAttributes(typeof(DefaultValueAttribute), true);
-                if(!ReferenceEquals(defaultValueAttributes, null) && (defaultValueAttributes.Length > 0))
+                if(ReferenceEquals(defaultValueAttributes, null) || (defaultValueAttributes.Length <= 0))
                 {
-                    defaultValue = ((DefaultValueAttribute)defaultValueAttributes[0]).DefaultValue;
-                    propertyDefs.Add(new PropertyDef(path, type, property, defaultValue));
+                    propertyDefs.Add(new PropertyDef(path, type, property));
                 }
                 else
                 {
-                    propertyDefs.Add(new PropertyDef(path, type, property, !property.CanWrite));
+                    defaultValue = ((DefaultValueAttribute)defaultValueAttributes[0]).DefaultValue;
+                    propertyDefs.Add(new PropertyDef(path, type, property, defaultValue));
                 }
             }
 

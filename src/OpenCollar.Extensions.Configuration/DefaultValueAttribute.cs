@@ -37,6 +37,7 @@ namespace OpenCollar.Extensions.Configuration
         /// </param>
         public DefaultValueAttribute(object? defaultValue)
         {
+            DefaultValue = defaultValue;
         }
 
         /// <summary>

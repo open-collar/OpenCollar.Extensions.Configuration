@@ -75,6 +75,19 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         [Fact]
+        public void TestProperties_Decimal()
+        {
+            var x = _configurationFixture.RootElement;
+
+            Assert.Equal((decimal)555.666, x.DecimalPropertyA);
+            Assert.Equal((decimal)-666.777, x.DecimalPropertyB);
+            x.DecimalPropertyB = (decimal)-1111.2222;
+            x.Save();
+            x.Reload();
+            Assert.Equal((decimal)-1111.2222, x.DecimalPropertyB);
+        }
+
+        [Fact]
         public void TestProperties_Double()
         {
             var x = _configurationFixture.RootElement;
@@ -139,6 +152,19 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             x.Save();
             x.Reload();
             Assert.Equal((long)-1111, x.Int64PropertyB);
+        }
+
+        [Fact]
+        public void TestProperties_Nulls()
+        {
+            var x = _configurationFixture.RootElement;
+
+            _configurationFixture.ConfigurationRoot[nameof(IRootElement.SinglePropertyWithDefault)] = null;
+            x.Reload();
+            Assert.Equal((float?)123.456, x.SinglePropertyWithDefault);
+
+            _configurationFixture.ConfigurationRoot[nameof(IRootElement.SinglePropertyNoDefault)] = null;
+            Assert.Throws<ConfigurationException>(() => x.Reload());
         }
 
         [Fact]

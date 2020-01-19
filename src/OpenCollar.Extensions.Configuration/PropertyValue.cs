@@ -195,22 +195,22 @@ namespace OpenCollar.Extensions.Configuration
 
                 if(type == typeof(System.Decimal))
                 {
-                    return ((System.Decimal)value).ToString("D", System.Globalization.CultureInfo.InvariantCulture);
+                    return ((System.Decimal)value).ToString("G", System.Globalization.CultureInfo.InvariantCulture);
                 }
 
-                if(type == typeof(System.DateTime))
+                if(type == typeof(DateTime))
                 {
-                    return ((System.DateTime)value).ToString("O", System.Globalization.CultureInfo.InvariantCulture);
+                    return ((DateTime)value).ToString("O", System.Globalization.CultureInfo.InvariantCulture);
                 }
 
-                if(type == typeof(System.DateTimeOffset))
+                if(type == typeof(DateTimeOffset))
                 {
-                    return ((System.DateTimeOffset)value).ToString("O", System.Globalization.CultureInfo.InvariantCulture);
+                    return ((DateTimeOffset)value).ToString("O", System.Globalization.CultureInfo.InvariantCulture);
                 }
 
-                if(type == typeof(System.TimeSpan))
+                if(type == typeof(TimeSpan))
                 {
-                    return ((System.TimeSpan)value).ToString("c", System.Globalization.CultureInfo.InvariantCulture);
+                    return ((TimeSpan)value).ToString("c", System.Globalization.CultureInfo.InvariantCulture);
                 }
 
                 if(type == typeof(System.Boolean))
@@ -223,9 +223,17 @@ namespace OpenCollar.Extensions.Configuration
             }
             set
             {
-                if(ReferenceEquals(value, null) && !_propertyDef.IsNullable)
+                if(ReferenceEquals(value, null))
                 {
-                    throw new ConfigurationException(_propertyDef.Path, $"Null value cannot be assigned to configuration path: '{_propertyDef.Path}'.");
+                    if(_propertyDef.IsNullable)
+                    {
+                        Value = _propertyDef.DefaultValue;
+                        return;
+                    }
+                    else
+                    {
+                        throw new ConfigurationException(_propertyDef.Path, $"Null value cannot be assigned to configuration path: '{_propertyDef.Path}'.");
+                    }
                 }
 
                 var type = _propertyDef.UnderlyingType;
@@ -252,7 +260,14 @@ namespace OpenCollar.Extensions.Configuration
 
             lock(_lock)
             {
-                StringValue = value;
+                if(ReferenceEquals(value, null) && _propertyDef.IsNullable)
+                {
+                    Value = _propertyDef.DefaultValue;
+                }
+                else
+                {
+                    StringValue = value;
+                }
                 Saved();
             }
         }
@@ -308,9 +323,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="value"> The string to parse. </param>
         /// <param name="type"> The type of the property. </param>
         /// <returns> The string parsed as the type of this property. </returns>
-        /// <exception cref="OpenCollar.Extensions.Configuration.ConfigurationException">
-        ///     Value could not be converted.
-        /// </exception>
+        /// <exception cref="ConfigurationException"> Value could not be converted. </exception>
         private object? ParseValue(string value, Type type)
         {
             if(type.IsEnum)
@@ -395,7 +408,7 @@ namespace OpenCollar.Extensions.Configuration
                 throw new ConfigurationException(_propertyDef.Path, $"Value could not be parsed as an 'Decimal'; configuration path: '{_propertyDef.Path}'; value: '{value}'.");
             }
 
-            if(type == typeof(System.DateTime))
+            if(type == typeof(DateTime))
             {
                 if(System.DateTime.TryParse(value, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out var parsed))
                 {
@@ -404,7 +417,7 @@ namespace OpenCollar.Extensions.Configuration
                 throw new ConfigurationException(_propertyDef.Path, $"Value could not be parsed as an 'DateTime'; configuration path: '{_propertyDef.Path}'; value: '{value}'.");
             }
 
-            if(type == typeof(System.DateTimeOffset))
+            if(type == typeof(DateTimeOffset))
             {
                 if(System.DateTimeOffset.TryParse(value, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out var parsed))
                 {
@@ -413,7 +426,7 @@ namespace OpenCollar.Extensions.Configuration
                 throw new ConfigurationException(_propertyDef.Path, $"Value could not be parsed as an 'DateTimeOffset'; configuration path: '{_propertyDef.Path}'; value: '{value}'.");
             }
 
-            if(type == typeof(System.TimeSpan))
+            if(type == typeof(TimeSpan))
             {
                 if(System.TimeSpan.TryParse(value, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
                 {
