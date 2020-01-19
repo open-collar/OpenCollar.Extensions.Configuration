@@ -21,6 +21,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 {
     public interface IRootElement : IConfigurationObject
     {
+        // We would expect this to be implemented as a read-only property.
+        char CharPropertyA
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        char CharPropertyB
+        {
+            get; set;
+        }
+
         // TODO: THIS SHOULD NOT BE NULLABLE
         IConfigurationCollection<IChildElement>? ChildElements
         {
@@ -40,6 +52,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         // We would expect this to be implemented as a read-only property.
+        int Int16PropertyA
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        int Int16PropertyB
+        {
+            get; set;
+        }
+
+        // We would expect this to be implemented as a read-only property.
         int Int32PropertyA
         {
             get;
@@ -47,6 +71,42 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
         // We would expect this to be implemented as a read/write property.
         int Int32PropertyB
+        {
+            get; set;
+        }
+
+        // We would expect this to be implemented as a read-only property.
+        int Int64PropertyA
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        int Int64PropertyB
+        {
+            get; set;
+        }
+
+        // We would expect this to be implemented as a read-only property.
+        sbyte SBytePropertyA
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        sbyte SBytePropertyB
+        {
+            get; set;
+        }
+
+        // We would expect this to be implemented as a read-only property.
+        float SinglePropertyA
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        float SinglePropertyB
         {
             get; set;
         }

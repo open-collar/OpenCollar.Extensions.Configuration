@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OpenCollar.Extensions.Configuration.TESTS
+﻿namespace OpenCollar.Extensions.Configuration.TESTS
 {
     internal class DisposableMock : Disposable
     {

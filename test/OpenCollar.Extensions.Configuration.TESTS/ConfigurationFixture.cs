@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
@@ -13,13 +11,23 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             {
                 InitialData = new[]
                 {
+                    new KeyValuePair<string, string>(nameof(IRootElement.CharPropertyA), "a"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.CharPropertyB), "B"),
                     new KeyValuePair<string, string>(nameof(IRootElement.StringPropertyA), "111"),
                     new KeyValuePair<string, string>(nameof(IRootElement.StringPropertyB), "222"),
                     new KeyValuePair<string, string>(nameof(IRootElement.StringPropertyC), "222"),
                     new KeyValuePair<string, string>(nameof(IRootElement.Int32PropertyA), "333"),
                     new KeyValuePair<string, string>(nameof(IRootElement.Int32PropertyB), "-444"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.Int16PropertyA), "333"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.Int16PropertyB), "-444"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.SBytePropertyA), "99"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.SBytePropertyB), "-100"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.Int64PropertyA), "333"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.Int64PropertyB), "-444"),
                     new KeyValuePair<string, string>(nameof(IRootElement.DoublePropertyA), "555.666"),
-                    new KeyValuePair<string, string>(nameof(IRootElement.DoublePropertyB), "-666.777")
+                    new KeyValuePair<string, string>(nameof(IRootElement.DoublePropertyB), "-666.777"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.SinglePropertyA), "555.666"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.SinglePropertyB), "-666.777")
                 }
             };
 
