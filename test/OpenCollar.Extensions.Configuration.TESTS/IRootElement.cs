@@ -21,10 +21,22 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 {
     public interface IRootElement : IConfigurationObject
     {
-        // This should be a
-        IConfigurationCollection<IChildElement> ChildElements
+        // TODO: THIS SHOULD NOT BE NULLABLE
+        IConfigurationCollection<IChildElement>? ChildElements
         {
             get;
+        }
+
+        // We would expect this to be implemented as a read-only property.
+        double DoublePropertyA
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        double DoublePropertyB
+        {
+            get; set;
         }
 
         // We would expect this to be implemented as a read-only property.
@@ -47,6 +59,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
         // We would expect this to be implemented as a read/write property.
         string StringPropertyB
+        {
+            get; set;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        string StringPropertyC
         {
             get; set;
         }

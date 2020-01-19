@@ -150,11 +150,11 @@ namespace OpenCollar.Extensions.Configuration
                 if(!ReferenceEquals(defaultValueAttributes, null) && (defaultValueAttributes.Length > 0))
                 {
                     defaultValue = ((DefaultValueAttribute)defaultValueAttributes[0]).DefaultValue;
-                    propertyDefs.Add(new PropertyDef(path, name, property.PropertyType, !property.CanWrite, defaultValue));
+                    propertyDefs.Add(new PropertyDef(path, type, property, defaultValue));
                 }
                 else
                 {
-                    propertyDefs.Add(new PropertyDef(path, name, property.PropertyType, !property.CanWrite));
+                    propertyDefs.Add(new PropertyDef(path, type, property, !property.CanWrite));
                 }
             }
 

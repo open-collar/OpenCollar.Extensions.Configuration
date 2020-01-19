@@ -18,6 +18,9 @@
  */
 
 using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reflection;
 
 namespace OpenCollar.Extensions.Configuration
 {
@@ -58,14 +61,10 @@ namespace OpenCollar.Extensions.Configuration
         ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
         /// </summary>
         /// <param name="path"> The colon-delimited path to the underlying configuration value. </param>
-        /// <param name="propertyName"> The name of the property represented by this object. </param>
-        /// <param name="type"> The type of the value held in the property. </param>
-        /// <param name="isReadOnly">
-        ///     If set to <see langword="true" /> the property is read-only; otherwise, <see langword="false" />
-        ///     indicates that the property is editable.
-        /// </param>
+        /// <param name="interfaceType"> The type of the interface from which the property is taken. </param>
+        /// <param name="propertyInfo"> The definition of the property. </param>
         /// <param name="defaultValue"> The default value. </param>
-        internal PropertyDef(string path, string propertyName, Type type, bool isReadOnly, object? defaultValue) : this(path, propertyName, type, isReadOnly)
+        internal PropertyDef(string path, Type interfaceType, PropertyInfo propertyInfo, object? defaultValue) : this(path, interfaceType, propertyInfo)
         {
             HasDefaultValue = true;
         }
@@ -74,21 +73,16 @@ namespace OpenCollar.Extensions.Configuration
         ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
         /// </summary>
         /// <param name="path"> The colon-delimited path to the underlying configuration value. </param>
-        /// <param name="propertyName"> The name of the property represented by this object. </param>
-        /// <param name="type"> The type of the value held in the property. </param>
-        /// <param name="isReadOnly">
-        ///     If set to <see langword="true" /> the property is read-only; otherwise, <see langword="false" />
-        ///     indicates that the property is editable.
-        /// </param>
-        internal PropertyDef(string path, string propertyName, Type type, bool isReadOnly)
+        /// <param name="interfaceType"> The type of the interface from which the property is taken. </param>
+        /// <param name="propertyInfo"> The definition of the property. </param>
+        internal PropertyDef(string path, Type interfaceType, PropertyInfo propertyInfo)
         {
             Path = path;
-            PropertyName = propertyName;
-            Type = type;
-            UnderlyingType = GetUnderlyingType(type);
-            IsNullable = TypeIsNullable(type);
-            IsReadOnly = isReadOnly;
-            HasDefaultValue = false;
+            PropertyName = propertyInfo.Name;
+            Type = propertyInfo.PropertyType;
+            UnderlyingType = GetUnderlyingType(propertyInfo.PropertyType);
+            IsNullable = TypeIsNullable(interfaceType, propertyInfo);
+            IsReadOnly = !propertyInfo.CanWrite;
         }
 
         /// <summary>
@@ -179,7 +173,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <returns> </returns>
         public static Type GetUnderlyingType(Type type)
         {
-            if(TypeIsNullable(type))
+            if(type.IsConstructedGenericType && (type.GetGenericTypeDefinition() == typeof(Nullable)))
             {
                 type = type.GetGenericArguments()[0];
             }
@@ -187,11 +181,41 @@ namespace OpenCollar.Extensions.Configuration
             return type;
         }
 
-        /// <summary>
-        ///     Determines whether the specified type is nullable.
-        /// </summary>
-        /// <param name="type"> The type to analyze. </param>
-        /// <returns> <see langword="true" /> if the specified type is nullable; otherwise, <see langword="false" />. </returns>
-        private static bool TypeIsNullable(Type type) => type.IsConstructedGenericType && (type.GetGenericTypeDefinition() == typeof(Nullable));
+        public static bool TypeIsNullable(Type enclosingType, PropertyInfo property)
+        {
+            if(!enclosingType.GetProperties(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).Contains(property))
+                throw new ArgumentException("enclosingType must be the type which defines property");
+
+            var nullable = property.CustomAttributes
+                .FirstOrDefault(x => x.AttributeType.FullName == "System.Runtime.CompilerServices.NullableAttribute");
+            if(nullable != null && nullable.ConstructorArguments.Count == 1)
+            {
+                var attributeArgument = nullable.ConstructorArguments[0];
+                if(attributeArgument.ArgumentType == typeof(byte[]))
+                {
+                    var args = (ReadOnlyCollection<CustomAttributeTypedArgument>)attributeArgument.Value;
+                    if(args.Count > 0 && args[0].ArgumentType == typeof(byte))
+                    {
+                        return (byte)args[0].Value == 2;
+                    }
+                }
+                else if(attributeArgument.ArgumentType == typeof(byte))
+                {
+                    return (byte)attributeArgument.Value == 2;
+                }
+            }
+
+            var context = enclosingType.CustomAttributes
+                .FirstOrDefault(x => x.AttributeType.FullName == "System.Runtime.CompilerServices.NullableContextAttribute");
+            if(context != null &&
+                context.ConstructorArguments.Count == 1 &&
+                context.ConstructorArguments[0].ArgumentType == typeof(byte))
+            {
+                return (byte)context.ConstructorArguments[0].Value == 2;
+            }
+
+            // Couldn't find a suitable attribute
+            return false;
+        }
     }
 }

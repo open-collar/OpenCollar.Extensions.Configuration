@@ -68,6 +68,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
         protected ConfigurationObjectBase(IConfigurationRoot configurationRoot) : base(configurationRoot, ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface), new ConfigurationContext()))
         {
+            Reload();
         }
     }
 
@@ -143,7 +144,7 @@ namespace OpenCollar.Extensions.Configuration
         {
             foreach(var childPropertyDef in childPropertyDefs)
             {
-                var property = new PropertyValue(childPropertyDef, this, GetValue(configurationRoot, childPropertyDef.Path, childPropertyDef.Type));
+                var property = new PropertyValue(childPropertyDef, this);
                 _propertiesByName.Add(property.PropertyName, property);
                 _propertiesByPath.Add(property.Path, property);
             }
@@ -300,45 +301,6 @@ namespace OpenCollar.Extensions.Configuration
                 _propertiesByName.Clear();
                 _propertiesByPath.Clear();
             }
-        }
-
-        /// <summary>
-        ///     Returns the default value for the type specified.
-        /// </summary>
-        /// <param name="type"> The type of the default value required. </param>
-        /// <returns> The default value for the type specified. </returns>
-        private static object? GetDefault(Type type)
-        {
-            if(type.IsValueType)
-            {
-                return Activator.CreateInstance(type);
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        ///     Gets the value for the path given, converted to the type specified.
-        /// </summary>
-        /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
-        /// <param name="path"> The path to the configuration value required. </param>
-        /// <param name="type"> The type to which the configuration value must be cast. </param>
-        /// <returns> The configuration value requested, cast to the type specified. </returns>
-        private object? GetValue(IConfigurationRoot configurationRoot, string path, Type type)
-        {
-            var value = configurationRoot[path];
-
-            if(ReferenceEquals(value, null))
-            {
-                return null;
-            }
-
-            if((type == typeof(string)) && (value.Length <= 0))
-            {
-                return GetDefault(type);
-            }
-
-            return Convert.ChangeType(value, type);
         }
 
         /// <summary>

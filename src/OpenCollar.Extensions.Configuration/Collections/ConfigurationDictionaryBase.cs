@@ -567,7 +567,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
                             }
                             ++n;
                         }
-                        Debug.Assert(false, "We assume the element can be removed from both collections.");
                     }
                 }
             }

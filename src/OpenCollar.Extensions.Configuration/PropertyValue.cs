@@ -64,13 +64,10 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <param name="propertyDef"> The definition of the property to represent. </param>
         /// <param name="parent"> The parent configuration object for which this object represents a property. </param>
-        /// <param name="value"> The current value held in this property. </param>
-        internal PropertyValue(PropertyDef propertyDef, ConfigurationObjectBase parent, object? value)
+        internal PropertyValue(PropertyDef propertyDef, ConfigurationObjectBase parent)
         {
             _parent = parent;
             _propertyDef = propertyDef;
-            _originalValue = value;
-            _currentValue = value;
         }
 
         /// <summary>

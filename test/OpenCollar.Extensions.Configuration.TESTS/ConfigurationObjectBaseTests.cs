@@ -6,49 +6,64 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
-    public class ConfigurationObjectBaseTests
+    public class ConfigurationObjectBaseTests : IClassFixture<ConfigurationFixture>
     {
+        private ConfigurationFixture _configurationFixture;
+
+        public ConfigurationObjectBaseTests(ConfigurationFixture configurationFixture)
+        {
+            _configurationFixture = configurationFixture;
+        }
+
         [Fact]
         public void TestConstructors()
         {
-            var source = new Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource()
-            {
-                InitialData = new[]
-                {
-                    new KeyValuePair<string, string>("StringPropertyA", "111"),
-                    new KeyValuePair<string, string>("StringPropertyB", "222"),
-                    new KeyValuePair<string, string>("Int32PropertyA", "333"),
-                    new KeyValuePair<string, string>("Int32PropertyB", "444")
-                }
-            };
-
-            var provider = new Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider(source);
-            var configurationRoot = new Microsoft.Extensions.Configuration.ConfigurationRoot(new[] { provider });
-
-            IServiceCollection servicesCollection = new ServiceCollection();
-            servicesCollection.AddSingleton<Microsoft.Extensions.Configuration.IConfigurationRoot>(configurationRoot);
-            servicesCollection.AddConfigurationReader<IRootElement>();
-
-            var services = servicesCollection.BuildServiceProvider();
-
-            var x = services.GetService<IRootElement>();
+            var x = _configurationFixture.RootElement;
 
             Assert.NotNull(x);
             Assert.Null(x.PropertyDef);
+        }
+
+        [Fact]
+        public void TestProperties_Double()
+        {
+            var x = _configurationFixture.RootElement;
+
+            Assert.Equal(555.666, x.DoublePropertyA);
+            Assert.Equal(-666.777, x.DoublePropertyB);
+        }
+
+        [Fact]
+        public void TestProperties_Int32()
+        {
+            var x = _configurationFixture.RootElement;
+
+            Assert.Equal(333, x.Int32PropertyA);
+            Assert.Equal(-444, x.Int32PropertyB);
+        }
+
+        [Fact]
+        public void TestProperties_String()
+        {
+            var x = _configurationFixture.RootElement;
 
             Assert.Equal("111", x.StringPropertyA);
             Assert.Equal("222", x.StringPropertyB);
-            Assert.Equal(333, x.Int32PropertyA);
-            Assert.Equal(444, x.Int32PropertyB);
+        }
+
+        [Fact]
+        public void TestPropertyEventsAndDirtyFlag()
+        {
+            var x = _configurationFixture.RootElement;
 
             Assert.False(x.IsDirty);
             string changedProperty = null;
             x.PropertyChanged += (source, args) => { changedProperty = args.PropertyName; };
-            x.StringPropertyB = "SOMETHING ELSE";
+            x.StringPropertyC = "SOMETHING ELSE";
             Assert.NotNull(changedProperty);
-            Assert.Equal(nameof(IRootElement.StringPropertyB), changedProperty);
+            Assert.Equal(nameof(IRootElement.StringPropertyC), changedProperty);
             Assert.True(x.IsDirty);
-            Assert.Equal("SOMETHING ELSE", x.StringPropertyB);
+            Assert.Equal("SOMETHING ELSE", x.StringPropertyC);
 
             x.Save();
 
