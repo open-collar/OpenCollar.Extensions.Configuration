@@ -64,12 +64,63 @@ namespace OpenCollar.Extensions.Configuration
         ///     If set to <see langword="true" /> the property is read-only; otherwise, <see langword="false" />
         ///     indicates that the property is editable.
         /// </param>
+        /// <param name="defaultValue"> The default value. </param>
+        internal PropertyDef(string path, string propertyName, Type type, bool isReadOnly, object? defaultValue) : this(path, propertyName, type, isReadOnly)
+        {
+            HasDefaultValue = true;
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
+        /// </summary>
+        /// <param name="path"> The colon-delimited path to the underlying configuration value. </param>
+        /// <param name="propertyName"> The name of the property represented by this object. </param>
+        /// <param name="type"> The type of the value held in the property. </param>
+        /// <param name="isReadOnly">
+        ///     If set to <see langword="true" /> the property is read-only; otherwise, <see langword="false" />
+        ///     indicates that the property is editable.
+        /// </param>
         internal PropertyDef(string path, string propertyName, Type type, bool isReadOnly)
         {
             Path = path;
             PropertyName = propertyName;
             Type = type;
+            UnderlyingType = GetUnderlyingType(type);
+            IsNullable = TypeIsNullable(type);
             IsReadOnly = isReadOnly;
+            HasDefaultValue = false;
+        }
+
+        /// <summary>
+        ///     Gets or sets the default value.
+        /// </summary>
+        /// <value> The default value. Can be <see langword="null" />. </value>
+        public object? DefaultValue
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets a value indicating whether the property represented by this instance has default a value.
+        /// </summary>
+        /// <value>
+        ///     <see langword="true" /> if the property represented by this instance has default a value; otherwise, <see langword="false" />.
+        /// </value>
+        public bool HasDefaultValue
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets a value indicating whether the value of the property represented by this instance can be <see langword="null" />.
+        /// </summary>
+        /// <value>
+        ///     <see langword="true" /> if the value of the property represented by this instance is nullable;
+        ///     otherwise, <see langword="false" />.
+        /// </value>
+        public bool IsNullable
+        {
+            get;
         }
 
         /// <summary>
@@ -110,5 +161,37 @@ namespace OpenCollar.Extensions.Configuration
         {
             get;
         }
+
+        /// <summary>
+        ///     Gets the basic type represented by the type of the property (for example by <see cref="int?" /> would
+        ///     have an underlying type of <see cref="int" />).
+        /// </summary>
+        /// <returns> The basic type represented by the type given. </returns>
+        public Type UnderlyingType
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the basic type represented by the type given.
+        /// </summary>
+        /// <param name="type"> The type for which to find the underlying type. </param>
+        /// <returns> </returns>
+        public static Type GetUnderlyingType(Type type)
+        {
+            if(TypeIsNullable(type))
+            {
+                type = type.GetGenericArguments()[0];
+            }
+
+            return type;
+        }
+
+        /// <summary>
+        ///     Determines whether the specified type is nullable.
+        /// </summary>
+        /// <param name="type"> The type to analyze. </param>
+        /// <returns> <see langword="true" /> if the specified type is nullable; otherwise, <see langword="false" />. </returns>
+        private static bool TypeIsNullable(Type type) => type.IsConstructedGenericType && (type.GetGenericTypeDefinition() == typeof(Nullable));
     }
 }

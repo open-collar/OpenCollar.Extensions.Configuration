@@ -193,12 +193,14 @@ namespace OpenCollar.Extensions.Configuration
             get
             {
                 EnforceDisposed();
+
                 return _propertiesByName[name].Value;
             }
 
             set
             {
                 EnforceDisposed();
+
                 _propertiesByName[name].Value = value;
             }
         }

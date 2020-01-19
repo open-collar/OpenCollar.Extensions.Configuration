@@ -145,7 +145,17 @@ namespace OpenCollar.Extensions.Configuration
                     // The property represents another level in the tree.
                 }
 
-                propertyDefs.Add(new PropertyDef(path, name, property.PropertyType, !property.CanWrite));
+                object? defaultValue = null;
+                var defaultValueAttributes = property.GetCustomAttributes(typeof(DefaultValueAttribute), true);
+                if(!ReferenceEquals(defaultValueAttributes, null) && (defaultValueAttributes.Length > 0))
+                {
+                    defaultValue = ((DefaultValueAttribute)defaultValueAttributes[0]).DefaultValue;
+                    propertyDefs.Add(new PropertyDef(path, name, property.PropertyType, !property.CanWrite, defaultValue));
+                }
+                else
+                {
+                    propertyDefs.Add(new PropertyDef(path, name, property.PropertyType, !property.CanWrite));
+                }
             }
 
             return propertyDefs;
