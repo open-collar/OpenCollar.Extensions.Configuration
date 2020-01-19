@@ -616,19 +616,6 @@ references:
   isSpec: "True"
   fullName: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.Dispose
   nameWithType: ConfigurationObjectBase.Dispose
-- uid: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.GetDefault(System.Type)
-  name: GetDefault(Type)
-  href: api/OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_GetDefault_System_Type_
-  commentId: M:OpenCollar.Extensions.Configuration.ConfigurationObjectBase.GetDefault(System.Type)
-  fullName: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.GetDefault(System.Type)
-  nameWithType: ConfigurationObjectBase.GetDefault(Type)
-- uid: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.GetDefault*
-  name: GetDefault
-  href: api/OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_GetDefault_
-  commentId: Overload:OpenCollar.Extensions.Configuration.ConfigurationObjectBase.GetDefault
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.GetDefault
-  nameWithType: ConfigurationObjectBase.GetDefault
 - uid: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.IsDirty
   name: IsDirty
   href: api/OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_IsDirty
