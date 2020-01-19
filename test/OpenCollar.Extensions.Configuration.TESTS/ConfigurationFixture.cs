@@ -35,7 +35,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS
                     new KeyValuePair<string, string>(nameof(IRootElement.DateTimeOffsetPropertyA), "2020-01-10 18:00:30 +03:00"),
                     new KeyValuePair<string, string>(nameof(IRootElement.DateTimeOffsetPropertyB), "2019-10-01 14:30:15 +03:00"),
                     new KeyValuePair<string, string>(nameof(IRootElement.TimeSpanPropertyA), "04:00:10"),
-                    new KeyValuePair<string, string>(nameof(IRootElement.TimeSpanPropertyB), "00:30:30")}
+                    new KeyValuePair<string, string>(nameof(IRootElement.TimeSpanPropertyB), "00:30:30"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.EnumPropertyA), "Public"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.EnumPropertyB), "Instance")}
             };
 
             var provider = new Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider(source);

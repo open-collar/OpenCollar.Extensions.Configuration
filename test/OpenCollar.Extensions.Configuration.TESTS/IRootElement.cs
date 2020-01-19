@@ -88,6 +88,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         // We would expect this to be implemented as a read-only property.
+        System.Reflection.BindingFlags EnumPropertyA
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        System.Reflection.BindingFlags EnumPropertyB
+        {
+            get; set;
+        }
+
+        // We would expect this to be implemented as a read-only property.
         short Int16PropertyA
         {
             get;

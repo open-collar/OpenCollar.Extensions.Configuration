@@ -88,6 +88,19 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         [Fact]
+        public void TestProperties_Enum()
+        {
+            var x = _configurationFixture.RootElement;
+
+            Assert.Equal(System.Reflection.BindingFlags.Public, x.EnumPropertyA);
+            Assert.Equal(System.Reflection.BindingFlags.Instance, x.EnumPropertyB);
+            x.EnumPropertyB = System.Reflection.BindingFlags.NonPublic;
+            x.Save();
+            x.Reload();
+            Assert.Equal(System.Reflection.BindingFlags.NonPublic, x.EnumPropertyB);
+        }
+
+        [Fact]
         public void TestProperties_Int16()
         {
             var x = _configurationFixture.RootElement;

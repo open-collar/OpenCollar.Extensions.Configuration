@@ -253,7 +253,7 @@ namespace OpenCollar.Extensions.Configuration
             lock(_lock)
             {
                 StringValue = value;
-                _originalValue = _currentValue;
+                Saved();
             }
         }
 
@@ -266,7 +266,7 @@ namespace OpenCollar.Extensions.Configuration
             lock(_lock)
             {
                 configurationRoot[_propertyDef.Path] = StringValue;
-                _originalValue = _currentValue;
+                Saved();
             }
         }
 
