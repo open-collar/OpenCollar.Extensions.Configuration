@@ -51,6 +51,13 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             get;
         }
 
+        // We would expect this to be implemented as a read/write property.
+        [Path(PathIs.Root, "CustomRoot")]
+        string CustomProperty
+        {
+            get; set;
+        }
+
         // We would expect this to be implemented as a read-only property.
         System.DateTimeOffset DateTimeOffsetPropertyA
         {

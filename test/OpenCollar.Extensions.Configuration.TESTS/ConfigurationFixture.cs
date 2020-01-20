@@ -41,7 +41,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS
                     new KeyValuePair<string, string>(nameof(IRootElement.TimeSpanPropertyA), "04:00:10"),
                     new KeyValuePair<string, string>(nameof(IRootElement.TimeSpanPropertyB), "00:30:30"),
                     new KeyValuePair<string, string>(nameof(IRootElement.EnumPropertyA), "Public"),
-                    new KeyValuePair<string, string>(nameof(IRootElement.EnumPropertyB), "Instance")}
+                    new KeyValuePair<string, string>(nameof(IRootElement.EnumPropertyB), "Instance"),
+                    new KeyValuePair<string, string>("CustomRoot", "XX_XX")}
             };
 
             var provider = new Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider(source);

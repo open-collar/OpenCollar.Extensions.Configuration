@@ -168,6 +168,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         [Fact]
+        public void TestProperties_PathAttribute()
+        {
+            var x = _configurationFixture.RootElement;
+
+            Assert.Equal("XX_XX", x.CustomProperty);
+        }
+
+        [Fact]
         public void TestProperties_SByte()
         {
             var x = _configurationFixture.RootElement;
