@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using Microsoft.Extensions.Configuration;
 
 namespace OpenCollar.Extensions.Configuration.Collections
 {
@@ -36,7 +37,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="IConfigurationObject" />
     /// <seealso cref="IDictionary{TKey, TElement}" />
     /// <seealso cref="INotifyCollectionChanged" />
-    public abstract class ConfigurationDictionaryBase<TKey, TElement> : Disposable, IEnumerable, INotifyCollectionChanged, IConfigurationObject
+    internal abstract class ConfigurationDictionaryBase<TKey, TElement> : Disposable, IEnumerable, INotifyCollectionChanged, IConfigurationObject
         where TElement : IConfigurationObject
     {
         /// <summary>
@@ -63,9 +64,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     Initializes a new instance of the <see cref="ConfigurationDictionaryBase{TKey, TElement}" /> class.
         /// </summary>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
-        protected ConfigurationDictionaryBase(PropertyDef propertyDef)
+        /// <param name="configurationRoot">
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </param>
+        protected ConfigurationDictionaryBase(PropertyDef propertyDef, IConfigurationRoot configurationRoot)
         {
             PropertyDef = propertyDef;
+            ConfigurationRoot = configurationRoot;
         }
 
         /// <summary>
@@ -73,7 +78,10 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </summary>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
         /// <param name="elements"> The elements with which to initialize to the collection. </param>
-        protected ConfigurationDictionaryBase(PropertyDef propertyDef, IEnumerable<KeyValuePair<TKey, TElement>> elements) : this(propertyDef)
+        /// <param name="configurationRoot">
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </param>
+        protected ConfigurationDictionaryBase(PropertyDef propertyDef, IConfigurationRoot configurationRoot, IEnumerable<KeyValuePair<TKey, TElement>> elements) : this(propertyDef, configurationRoot)
         {
             PropertyDef = propertyDef;
 
@@ -202,6 +210,17 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     Lock.ExitReadLock();
                 }
             }
+        }
+
+        /// <summary>
+        ///     Gets the configuration root service from which values are read or to which all values will be written.
+        /// </summary>
+        /// <value>
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </value>
+        internal IConfigurationRoot ConfigurationRoot
+        {
+            get;
         }
 
         /// <summary>
@@ -424,10 +443,89 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
+        ///     Recursively deletes all of the properties from the configuration sources.
+        /// </summary>
+        /// <exception cref="NotImplementedException"> </exception>
+        public void Delete() => throw new NotImplementedException();
+
+        /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
         /// <exception cref="NotImplementedException"> </exception>
-        public void Reload() => throw new NotImplementedException();
+        public void Reload()
+        {
+            // Iterate across all of the elements in the path and then delete those not in the dictionary, and then
+            // insert those that have been added.
+            var section = ConfigurationRoot.GetSection(PropertyDef.Path);
+            var existingValues = section.GetChildren().Select(s => new KeyValuePair<TKey, IConfigurationSection>(ConvertStringToKey(s.Key), s)).ToList();
+            var updatedValues = new List<KeyValuePair<TKey, TElement>>();
+            foreach(var pair in existingValues)
+            {
+                TElement value;
+                if(_items.TryGetValue(pair.Key, out value))
+                {
+                    // If necessary update the existing value.
+                    switch(PropertyDef.ImplementationKind)
+                    {
+                        case ImplementationKind.ConfigurationCollection:
+                        case ImplementationKind.ConfigurationDictionary:
+                        case ImplementationKind.ConfigurationObject:
+                            ((IConfigurationObject)value).Reload();
+                            break;
+
+                        default:
+                            value = (TElement)PropertyDef.ConvertStringToValue(pair.Value.Value);
+                            break;
+                    }
+                }
+                else
+                {
+                    // If the value is a configuration object of some sort then create or reuse the existing value;
+                    switch(PropertyDef.ImplementationKind)
+                    {
+                        case ImplementationKind.ConfigurationCollection:
+                        case ImplementationKind.ConfigurationDictionary:
+                            value = (TElement)Activator.CreateInstance(PropertyDef.ImplementationType, PropertyDef, ConfigurationRoot);
+                            break;
+
+                        case ImplementationKind.ConfigurationObject:
+                            value = (TElement)Activator.CreateInstance(PropertyDef.ImplementationType, ConfigurationRoot);
+
+                            break;
+
+                        default:
+                            value = (TElement)PropertyDef.ConvertStringToValue(pair.Value.Value);
+                            break;
+                    }
+
+                    if(ReferenceEquals(value, null) && !PropertyDef.IsNullable)
+                    {
+                        throw new ConfigurationException(PropertyDef.Path, $"No value specified for configuration path: '{PropertyDef.Path}:{pair.Key}'.");
+                    }
+
+                    if(ReferenceEquals(value, null) && PropertyDef.IsNullable)
+                    {
+                        value = (TElement)PropertyDef.DefaultValue;
+                    }
+                }
+
+                // Add/update the value in the updated values list.
+                updatedValues.Add(new KeyValuePair<TKey, TElement>(pair.Key, value));
+            }
+
+            Lock.EnterWriteLock();
+            try
+            {
+                Replace(updatedValues);
+            }
+            finally
+            {
+                Lock.ExitWriteLock();
+            }
+
+            OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
+            OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Add, updatedValues.Select(p => p.Value).ToList()));
+        }
 
         /// <summary>
         ///     Removes the element with the specified key from the <see cref="IDictionary{T,T}" />.
@@ -588,8 +686,10 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Saves this current values for each property back to the configuration sources.
         /// </summary>
-        /// <exception cref="NotImplementedException"> </exception>
-        public void Save() => throw new NotImplementedException();
+        public void Save()
+        {
+            var values = _orderedItems.Select(p => p.Value);
+        }
 
         /// <summary>
         ///     Gets the value associated with the specified key.
@@ -636,6 +736,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 Lock.ExitReadLock();
             }
         }
+
+        /// <summary>
+        ///     Converts the string given to the key.
+        /// </summary>
+        /// <param name="key"> The key to convert, as a string. </param>
+        /// <returns> Returns the key converted to the correct type. </returns>
+        internal abstract TKey ConvertStringToKey(string key);
 
         /// <summary>
         ///     Converts the elements from the stream given into a stream of key-value pairs.

@@ -18,7 +18,7 @@
  */
 
 using System.Collections.Generic;
-
+using Microsoft.Extensions.Configuration;
 using OpenCollar.Extensions.Configuration.Collections;
 
 namespace OpenCollar.Extensions.Configuration
@@ -37,7 +37,7 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
         /// <param name="elements"> The elements with which to initialize to the collection. </param>
-        public ReadOnlyConfigurationDictionary(PropertyDef propertyDef, IEnumerable<TElement>? elements) : base(propertyDef, elements)
+        public ReadOnlyConfigurationDictionary(PropertyDef propertyDef, IConfigurationRoot configurationRoot, IEnumerable<TElement>? elements) : base(propertyDef, configurationRoot, elements)
         {
         }
 
@@ -48,7 +48,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="elements">
         ///     A parameter array containing the elements with which to initialize to the collection.
         /// </param>
-        public ReadOnlyConfigurationDictionary(PropertyDef propertyDef, params TElement[]? elements) : base(propertyDef, elements)
+        public ReadOnlyConfigurationDictionary(PropertyDef propertyDef, IConfigurationRoot configurationRoot, params TElement[]? elements) : base(propertyDef, configurationRoot, elements)
         {
         }
 
@@ -83,6 +83,16 @@ namespace OpenCollar.Extensions.Configuration
             {
                 return Values;
             }
+        }
+
+        /// <summary>
+        ///     Converts the string given to the key.
+        /// </summary>
+        /// <param name="key"> The key to convert, as a string. </param>
+        /// <returns> Returns the key converted to the correct type. </returns>
+        internal override string ConvertStringToKey(string key)
+        {
+            return key;
         }
     }
 }

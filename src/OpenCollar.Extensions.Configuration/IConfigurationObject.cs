@@ -52,6 +52,14 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Recursively deletes all of the properties from the configuration sources.
+        /// </summary>
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
+        void Delete();
+
+        /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
         /// <exception cref="ObjectDisposedException">

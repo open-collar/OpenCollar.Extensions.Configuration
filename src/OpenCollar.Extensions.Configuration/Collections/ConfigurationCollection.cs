@@ -19,7 +19,7 @@
 
 using System;
 using System.Collections.Generic;
-
+using Microsoft.Extensions.Configuration;
 using OpenCollar.Extensions.Configuration.Collections;
 
 namespace OpenCollar.Extensions.Configuration
@@ -38,8 +38,11 @@ namespace OpenCollar.Extensions.Configuration
         ///     Initializes a new instance of the <see cref="ConfigurationCollection{TElement}" /> class.
         /// </summary>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="configurationRoot">
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </param>
         /// <param name="elements"> The elements with which to initialize to the collection. </param>
-        public ConfigurationCollection(PropertyDef propertyDef, IEnumerable<TElement>? elements) : base(propertyDef, GetIndexedElements(elements))
+        public ConfigurationCollection(PropertyDef propertyDef, IConfigurationRoot configurationRoot, IEnumerable<TElement>? elements) : base(propertyDef, configurationRoot, GetIndexedElements(elements))
         {
         }
 
@@ -47,10 +50,13 @@ namespace OpenCollar.Extensions.Configuration
         ///     Initializes a new instance of the <see cref="ConfigurationCollection{TElement}" /> class.
         /// </summary>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="configurationRoot">
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </param>
         /// <param name="elements">
         ///     A parameter array containing the elements with which to initialize to the collection.
         /// </param>
-        public ConfigurationCollection(PropertyDef propertyDef, params TElement[]? elements) : base(propertyDef, GetIndexedElements(elements))
+        public ConfigurationCollection(PropertyDef propertyDef, IConfigurationRoot configurationRoot, params TElement[]? elements) : base(propertyDef, configurationRoot, GetIndexedElements(elements))
         {
         }
 
@@ -271,6 +277,16 @@ namespace OpenCollar.Extensions.Configuration
         {
             base.Remove(index);
             Reindex(index);
+        }
+
+        /// <summary>
+        ///     Converts the string given to the key.
+        /// </summary>
+        /// <param name="key"> The key to convert, as a string. </param>
+        /// <returns> Returns the key converted to the correct type. </returns>
+        internal override int ConvertStringToKey(string key)
+        {
+            return int.Parse(key, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture);
         }
 
         /// <summary>

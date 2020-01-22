@@ -46,7 +46,13 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         // TODO: THIS SHOULD NOT BE NULLABLE
-        IConfigurationCollection<IChildElement>? ChildElements
+        IConfigurationDictionary<IChildElement> ChildCollection
+        {
+            get;
+        }
+
+        // TODO: THIS SHOULD NOT BE NULLABLE
+        IConfigurationCollection<IChildElement> ChildDictionary
         {
             get;
         }

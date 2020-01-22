@@ -140,108 +140,22 @@ namespace OpenCollar.Extensions.Configuration
         {
             get
             {
-                var value = _currentValue;
-                if(ReferenceEquals(value, null))
-                {
-                    return null;
-                }
-
-                var type = _propertyDef.UnderlyingType;
-
-                if(type.IsEnum)
-                {
-                    return Enum.GetName(type, value);
-                }
-
-                if(type == typeof(string))
-                {
-                    return (string)value;
-                }
-
-                if(type == typeof(System.Char))
-                {
-                    return new string(((System.Char)value), 1);
-                }
-
-                if(type == typeof(System.Int16))
-                {
-                    return ((System.Int16)value).ToString("D", System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                if(type == typeof(System.SByte))
-                {
-                    return ((System.SByte)value).ToString("D", System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                if(type == typeof(System.Int32))
-                {
-                    return ((System.Int32)value).ToString("D", System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                if(type == typeof(System.Int64))
-                {
-                    return ((System.Int64)value).ToString("D", System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                if(type == typeof(System.Single))
-                {
-                    return ((System.Single)value).ToString("G9", System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                if(type == typeof(System.Double))
-                {
-                    return ((System.Double)value).ToString("G17", System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                if(type == typeof(System.Decimal))
-                {
-                    return ((System.Decimal)value).ToString("G", System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                if(type == typeof(DateTime))
-                {
-                    return ((DateTime)value).ToString("O", System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                if(type == typeof(DateTimeOffset))
-                {
-                    return ((DateTimeOffset)value).ToString("O", System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                if(type == typeof(TimeSpan))
-                {
-                    return ((TimeSpan)value).ToString("c", System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                if(type == typeof(System.Boolean))
-                {
-                    return ((System.Boolean)value).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                // For anything else, let's hope that "ToString" is good enough.
-                return value.ToString();
+                return _propertyDef.ConvertValueToString(_currentValue);
             }
             set
             {
-                if(ReferenceEquals(value, null))
-                {
-                    if(_propertyDef.IsNullable)
-                    {
-                        Value = _propertyDef.DefaultValue;
-                        return;
-                    }
-                    else
-                    {
-                        throw new ConfigurationException(_propertyDef.Path, $"Null value cannot be assigned to configuration path: '{_propertyDef.Path}'.");
-                    }
-                }
-
-                var type = _propertyDef.UnderlyingType;
-
-                var parsedValue = ParseValue(value, type);
-
-                Value = parsedValue;
+                Value = _propertyDef.ConvertStringToValue(value);
             }
+        }
+
+        /// <summary>
+        ///     Reads the value of the value identified by <see cref="PropertyDef" /> from the configuration root given.
+        /// </summary>
+        /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
+        /// <returns> </returns>
+        public void DeleteValue(IConfigurationRoot configurationRoot)
+        {
+            configurationRoot[_propertyDef.Path] = null;
         }
 
         /// <summary>
@@ -251,22 +165,56 @@ namespace OpenCollar.Extensions.Configuration
         /// <returns> </returns>
         public void ReadValue(IConfigurationRoot configurationRoot)
         {
-            var value = configurationRoot[_propertyDef.Path];
-
-            if(ReferenceEquals(value, null) && !_propertyDef.IsNullable)
-            {
-                throw new ConfigurationException(_propertyDef.Path, $"No value could be found for configuration path: '{_propertyDef.Path}'.");
-            }
-
             lock(_lock)
             {
-                if(ReferenceEquals(value, null) && _propertyDef.IsNullable)
+                // If the value is a configuration object of some sort then create or reuse the existing value;
+                IConfigurationObject? configurationObject;
+                switch(_propertyDef.ImplementationKind)
                 {
-                    Value = _propertyDef.DefaultValue;
-                }
-                else
-                {
-                    StringValue = value;
+                    case ImplementationKind.ConfigurationCollection:
+                    case ImplementationKind.ConfigurationDictionary:
+                        configurationObject = (_currentValue ?? _originalValue) as IConfigurationObject;
+                        if(ReferenceEquals(configurationObject, null) || (configurationObject.GetType() != _propertyDef.ImplementationType))
+                        {
+                            Value = Activator.CreateInstance(_propertyDef.ImplementationType, _propertyDef, configurationRoot);
+                        }
+                        else
+                        {
+                            configurationObject.Reload();
+                            Value = configurationObject;
+                        }
+                        break;
+
+                    case ImplementationKind.ConfigurationObject:
+                        configurationObject = (_currentValue ?? _originalValue) as IConfigurationObject;
+                        if(ReferenceEquals(configurationObject, null) || (configurationObject.GetType() != _propertyDef.ImplementationType))
+                        {
+                            Value = Activator.CreateInstance(_propertyDef.ImplementationType, configurationRoot);
+                        }
+                        else
+                        {
+                            configurationObject.Reload();
+                            Value = configurationObject;
+                        }
+                        break;
+
+                    default:
+                        var value = configurationRoot[_propertyDef.Path];
+
+                        if(ReferenceEquals(value, null) && !_propertyDef.IsNullable)
+                        {
+                            throw new ConfigurationException(_propertyDef.Path, $"No value could be found for configuration path: '{_propertyDef.Path}'.");
+                        }
+
+                        if(ReferenceEquals(value, null) && _propertyDef.IsNullable)
+                        {
+                            Value = _propertyDef.DefaultValue;
+                        }
+                        else
+                        {
+                            StringValue = value;
+                        }
+                        break;
                 }
                 Saved();
             }
@@ -280,7 +228,33 @@ namespace OpenCollar.Extensions.Configuration
         {
             lock(_lock)
             {
-                configurationRoot[_propertyDef.Path] = StringValue;
+                switch(_propertyDef.ImplementationKind)
+                {
+                    case ImplementationKind.ConfigurationCollection:
+                    case ImplementationKind.ConfigurationDictionary:
+                    case ImplementationKind.ConfigurationObject:
+                        if(!ReferenceEquals(_originalValue, null) && ReferenceEquals(_currentValue, null))
+                        {
+                            // The value (and all it's sub nodes) has been deleted.
+                            ((IConfigurationObject)_originalValue).Delete();
+                        }
+                        else
+                        {
+                            if(!ReferenceEquals(_currentValue, null))
+                            {
+                                ((IConfigurationObject)_currentValue).Save();
+                            }
+                            else
+                            {
+                                // TODO: Make sure all mention of the value has been deleted.
+                            }
+                        }
+                        break;
+
+                    default:
+                        configurationRoot[_propertyDef.Path] = StringValue;
+                        break;
+                }
                 Saved();
             }
         }
@@ -314,137 +288,13 @@ namespace OpenCollar.Extensions.Configuration
                 return false;
             }
 
+            var configurationObject = current as IConfigurationObject;
+            if(!ReferenceEquals(configurationObject, null) && configurationObject.IsDirty)
+            {
+                return true;
+            }
+
             return original.Equals(current);
-        }
-
-        /// <summary>
-        ///     Parses a string value into the type defined by the property definition.
-        /// </summary>
-        /// <param name="value"> The string to parse. </param>
-        /// <param name="type"> The type of the property. </param>
-        /// <returns> The string parsed as the type of this property. </returns>
-        /// <exception cref="ConfigurationException"> Value could not be converted. </exception>
-        private object? ParseValue(string value, Type type)
-        {
-            if(type.IsEnum)
-            {
-                return Enum.Parse(type, value);
-            }
-
-            if(type == typeof(string))
-            {
-                return value;
-            }
-
-            if(type == typeof(System.Char))
-            {
-                if(value.Length != 1)
-                {
-                    throw new ConfigurationException(_propertyDef.Path, $"Value could not be treated as a 'char'; configuration path: '{_propertyDef.Path}'; value: '{value}'.");
-                }
-                return value[0];
-            }
-
-            if(type == typeof(System.Int16))
-            {
-                if(System.Int16.TryParse(value, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
-                {
-                    return parsed;
-                }
-                throw new ConfigurationException(_propertyDef.Path, $"Value could not be parsed as an 'Int16'; configuration path: '{_propertyDef.Path}'; value: '{value}'.");
-            }
-
-            if(type == typeof(System.SByte))
-            {
-                if(System.SByte.TryParse(value, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
-                {
-                    return parsed;
-                }
-                throw new ConfigurationException(_propertyDef.Path, $"Value could not be parsed as an 'SByte'; configuration path: '{_propertyDef.Path}'; value: '{value}'.");
-            }
-
-            if(type == typeof(System.Int32))
-            {
-                if(System.Int32.TryParse(value, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var int32Value))
-                {
-                    return int32Value;
-                }
-                throw new ConfigurationException(_propertyDef.Path, $"Value could not be parsed as an 'Int32'; configuration path: '{_propertyDef.Path}'; value: '{value}'.");
-            }
-
-            if(type == typeof(System.Int64))
-            {
-                if(System.Int64.TryParse(value, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var int64Value))
-                {
-                    return int64Value;
-                }
-                throw new ConfigurationException(_propertyDef.Path, $"Value could not be parsed as an 'Int64'; configuration path: '{_propertyDef.Path}'; value: '{value}'.");
-            }
-
-            if(type == typeof(System.Single))
-            {
-                if(System.Single.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
-                {
-                    return parsed;
-                }
-                throw new ConfigurationException(_propertyDef.Path, $"Value could not be parsed as an 'Single'; configuration path: '{_propertyDef.Path}'; value: '{value}'.");
-            }
-
-            if(type == typeof(System.Double))
-            {
-                if(System.Double.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
-                {
-                    return parsed;
-                }
-                throw new ConfigurationException(_propertyDef.Path, $"Value could not be parsed as an 'Double'; configuration path: '{_propertyDef.Path}'; value: '{value}'.");
-            }
-
-            if(type == typeof(System.Decimal))
-            {
-                if(System.Decimal.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
-                {
-                    return parsed;
-                }
-                throw new ConfigurationException(_propertyDef.Path, $"Value could not be parsed as an 'Decimal'; configuration path: '{_propertyDef.Path}'; value: '{value}'.");
-            }
-
-            if(type == typeof(DateTime))
-            {
-                if(System.DateTime.TryParse(value, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out var parsed))
-                {
-                    return parsed;
-                }
-                throw new ConfigurationException(_propertyDef.Path, $"Value could not be parsed as an 'DateTime'; configuration path: '{_propertyDef.Path}'; value: '{value}'.");
-            }
-
-            if(type == typeof(DateTimeOffset))
-            {
-                if(System.DateTimeOffset.TryParse(value, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out var parsed))
-                {
-                    return parsed;
-                }
-                throw new ConfigurationException(_propertyDef.Path, $"Value could not be parsed as an 'DateTimeOffset'; configuration path: '{_propertyDef.Path}'; value: '{value}'.");
-            }
-
-            if(type == typeof(TimeSpan))
-            {
-                if(System.TimeSpan.TryParse(value, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
-                {
-                    return parsed;
-                }
-                throw new ConfigurationException(_propertyDef.Path, $"Value could not be parsed as an 'TimeSpan'; configuration path: '{_propertyDef.Path}'; value: '{value}'.");
-            }
-
-            if(type == typeof(System.Boolean))
-            {
-                if(System.Boolean.TryParse(value, out var parsed))
-                {
-                    return parsed;
-                }
-                throw new ConfigurationException(_propertyDef.Path, $"Value could not be parsed as an 'Boolean'; configuration path: '{_propertyDef.Path}'; value: '{value}'.");
-            }
-
-            return Convert.ChangeType(value, _propertyDef.Type);
         }
     }
 }

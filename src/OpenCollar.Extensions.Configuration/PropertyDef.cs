@@ -52,6 +52,37 @@ namespace OpenCollar.Extensions.Configuration
     }
 
     /// <summary>
+    ///     Defines the way in which the value returned by a property is implemented.
+    /// </summary>
+    internal enum ImplementationKind
+    {
+        /// <summary>
+        ///     The implementation is unknown or undefined.
+        /// </summary>
+        Unknown = 0,
+
+        /// <summary>
+        ///     The implementation is the naive type (i.e. nothing special is required).
+        /// </summary>
+        Naive,
+
+        /// <summary>
+        ///     The implementation is derived from <see cref="ConfigurationObjectBase{TInterface}" />.
+        /// </summary>
+        ConfigurationObject,
+
+        /// <summary>
+        ///     The implementation is derived from <see cref="ConfigurationCollection{TInterface}" />.
+        /// </summary>
+        ConfigurationCollection,
+
+        /// <summary>
+        ///     The implementation is derived from <see cref="ConfigurationDictionary{TInterface}" />.
+        /// </summary>
+        ConfigurationDictionary
+    }
+
+    /// <summary>
     ///     The definition of a property of a configuration object.
     /// </summary>
     [System.Diagnostics.DebuggerDisplay("{Path}")]
@@ -64,7 +95,8 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="interfaceType"> The type of the interface from which the property is taken. </param>
         /// <param name="propertyInfo"> The definition of the property. </param>
         /// <param name="defaultValue"> The default value. </param>
-        internal PropertyDef(string path, Type interfaceType, PropertyInfo propertyInfo, object? defaultValue) : this(path, interfaceType, propertyInfo)
+        /// <param name="context"> The context in which the property is being defined. </param>
+        internal PropertyDef(string path, Type interfaceType, PropertyInfo propertyInfo, object? defaultValue, ConfigurationContext context) : this(path, interfaceType, propertyInfo, context)
         {
             HasDefaultValue = true;
             DefaultValue = defaultValue;
@@ -76,14 +108,58 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="path"> The colon-delimited path to the underlying configuration value. </param>
         /// <param name="interfaceType"> The type of the interface from which the property is taken. </param>
         /// <param name="propertyInfo"> The definition of the property. </param>
-        internal PropertyDef(string path, Type interfaceType, PropertyInfo propertyInfo)
+        /// <param name="context"> The context in which the property is being defined. </param>
+        internal PropertyDef(string path, Type interfaceType, PropertyInfo propertyInfo, ConfigurationContext context)
         {
             Path = path;
             PropertyName = propertyInfo.Name;
             Type = propertyInfo.PropertyType;
             UnderlyingType = GetUnderlyingType(propertyInfo.PropertyType);
-            IsNullable = TypeIsNullable(interfaceType, propertyInfo);
+            IsNullable = PropertyIsNullable(interfaceType, propertyInfo);
             IsReadOnly = !propertyInfo.CanWrite;
+            ImplementationKind = GetImplementationKind(UnderlyingType);
+
+            Type elementType;
+
+            switch(ImplementationKind)
+            {
+                case ImplementationKind.ConfigurationObject:
+                    elementType = Type.GetGenericArguments()[0];
+                    ImplementationType = ServiceCollectionExtensions.GenerateConfigurationObjectType(elementType, context);
+                    ElementType = null;
+                    break;
+
+                case ImplementationKind.ConfigurationCollection:
+                    elementType = Type.GetGenericArguments()[0];
+                    if(IsReadOnly)
+                    {
+                        ImplementationType = typeof(ReadOnlyConfigurationCollection<>).MakeGenericType(new[] { elementType });
+                    }
+                    else
+                    {
+                        ImplementationType = typeof(ConfigurationCollection<>).MakeGenericType(new[] { elementType });
+                    }
+                    ElementType = elementType;
+                    break;
+
+                case ImplementationKind.ConfigurationDictionary:
+                    elementType = Type.GetGenericArguments()[0];
+                    if(IsReadOnly)
+                    {
+                        ImplementationType = typeof(ReadOnlyConfigurationDictionary<>).MakeGenericType(new[] { elementType });
+                    }
+                    else
+                    {
+                        ImplementationType = typeof(ConfigurationDictionary<>).MakeGenericType(new[] { elementType });
+                    }
+                    ElementType = elementType;
+                    break;
+
+                default:
+                    ImplementationType = null;
+                    ElementType = null;
+                    break;
+            }
         }
 
         /// <summary>
@@ -96,12 +172,28 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets the type of the elements in an array or dictionary.
+        /// </summary>
+        public Type? ElementType
+        {
+            get;
+        }
+
+        /// <summary>
         ///     Gets a value indicating whether the property represented by this instance has default a value.
         /// </summary>
         /// <value>
         ///     <see langword="true" /> if the property represented by this instance has default a value; otherwise, <see langword="false" />.
         /// </value>
         public bool HasDefaultValue
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the type to use if generating an instance of the property represented.
+        /// </summary>
+        public Type? ImplementationType
         {
             get;
         }
@@ -168,6 +260,15 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets the kind of the implementation required for the value returned by the property defined.
+        /// </summary>
+        /// <value> The kind of the implementation required for the value returned by the property defined. </value>
+        internal ImplementationKind ImplementationKind
+        {
+            get;
+        }
+
+        /// <summary>
         ///     Gets the basic type represented by the type given.
         /// </summary>
         /// <param name="type"> The type for which to find the underlying type. </param>
@@ -182,20 +283,28 @@ namespace OpenCollar.Extensions.Configuration
             return type;
         }
 
-        public static bool TypeIsNullable(Type enclosingType, PropertyInfo property)
+        /// <summary>
+        ///     Determines whether a property can be set to <see langword="null" />.
+        /// </summary>
+        /// <param name="implementingType"> Type of the object to which the property belongs. </param>
+        /// <param name="property"> The definition of the property to examine. </param>
+        /// <returns> </returns>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="implementingType" /> must be the type which defines property.
+        /// </exception>
+        public static bool PropertyIsNullable(Type implementingType, PropertyInfo property)
         {
-            if(!enclosingType.GetProperties(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).Contains(property))
-                throw new ArgumentException("enclosingType must be the type which defines property");
+            if(!implementingType.GetProperties(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).Contains(property))
+                throw new ArgumentException("'enclosingType' must be the type which defines property.");
 
-            var nullable = property.CustomAttributes
-                .FirstOrDefault(x => x.AttributeType.FullName == "System.Runtime.CompilerServices.NullableAttribute");
-            if(nullable != null && nullable.ConstructorArguments.Count == 1)
+            var nullable = property.CustomAttributes.FirstOrDefault(x => x.AttributeType.FullName == @"System.Runtime.CompilerServices.NullableAttribute");
+            if(!ReferenceEquals(nullable, null) && (nullable.ConstructorArguments.Count == 1))
             {
                 var attributeArgument = nullable.ConstructorArguments[0];
                 if(attributeArgument.ArgumentType == typeof(byte[]))
                 {
                     var args = (ReadOnlyCollection<CustomAttributeTypedArgument>)attributeArgument.Value;
-                    if(args.Count > 0 && args[0].ArgumentType == typeof(byte))
+                    if((args.Count > 0) && (args[0].ArgumentType == typeof(byte)))
                     {
                         return (byte)args[0].Value == 2;
                     }
@@ -206,11 +315,10 @@ namespace OpenCollar.Extensions.Configuration
                 }
             }
 
-            var context = enclosingType.CustomAttributes
-                .FirstOrDefault(x => x.AttributeType.FullName == "System.Runtime.CompilerServices.NullableContextAttribute");
-            if(context != null &&
-                context.ConstructorArguments.Count == 1 &&
-                context.ConstructorArguments[0].ArgumentType == typeof(byte))
+            var context = implementingType.CustomAttributes.FirstOrDefault(x => x.AttributeType.FullName == "System.Runtime.CompilerServices.NullableContextAttribute");
+            if(!ReferenceEquals(context, null) &&
+                (context.ConstructorArguments.Count == 1) &&
+                (context.ConstructorArguments[0].ArgumentType == typeof(byte)))
             {
                 if((byte)context.ConstructorArguments[0].Value == 2)
                 {
@@ -220,6 +328,316 @@ namespace OpenCollar.Extensions.Configuration
 
             // Couldn't find a suitable attribute
             return property.PropertyType.IsConstructedGenericType && (property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>));
+        }
+
+        /// <summary>
+        ///     Parses a string value into the type defined by the property definition.
+        /// </summary>
+        /// <param name="stringRepresentation"> The string to parse. </param>
+        /// <returns> The string parsed as the type of this property. </returns>
+        /// <exception cref="ConfigurationException"> Value could not be converted. </exception>
+        internal object? ConvertStringToValue(string? stringRepresentation)
+        {
+            if(ReferenceEquals(stringRepresentation, null))
+            {
+                if(IsNullable)
+                {
+                    return DefaultValue;
+                }
+                else
+                {
+                    throw new ConfigurationException(Path, $"Null value cannot be assigned to configuration path: '{Path}'.");
+                }
+            }
+
+            var type = UnderlyingType;
+
+            if(type.IsEnum)
+            {
+                return Enum.Parse(type, stringRepresentation);
+            }
+
+            if(type == typeof(string))
+            {
+                return stringRepresentation;
+            }
+
+            if(type == typeof(char))
+            {
+                if(stringRepresentation.Length != 1)
+                {
+                    throw new ConfigurationException(Path, $"Value could not be treated as a 'char'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+                }
+                return stringRepresentation[0];
+            }
+
+            if(type == typeof(short))
+            {
+                if(short.TryParse(stringRepresentation, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                {
+                    return parsed;
+                }
+                throw new ConfigurationException(Path, $"Value could not be parsed as an 'Int16'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+            }
+
+            if(type == typeof(sbyte))
+            {
+                if(sbyte.TryParse(stringRepresentation, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                {
+                    return parsed;
+                }
+                throw new ConfigurationException(Path, $"Value could not be parsed as an 'SByte'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+            }
+
+            if(type == typeof(int))
+            {
+                if(int.TryParse(stringRepresentation, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var int32Value))
+                {
+                    return int32Value;
+                }
+                throw new ConfigurationException(Path, $"Value could not be parsed as an 'Int32'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+            }
+
+            if(type == typeof(long))
+            {
+                if(long.TryParse(stringRepresentation, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var int64Value))
+                {
+                    return int64Value;
+                }
+                throw new ConfigurationException(Path, $"Value could not be parsed as an 'Int64'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+            }
+
+            if(type == typeof(float))
+            {
+                if(float.TryParse(stringRepresentation, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                {
+                    return parsed;
+                }
+                throw new ConfigurationException(Path, $"Value could not be parsed as an 'Single'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+            }
+
+            if(type == typeof(double))
+            {
+                if(double.TryParse(stringRepresentation, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                {
+                    return parsed;
+                }
+                throw new ConfigurationException(Path, $"Value could not be parsed as an 'Double'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+            }
+
+            if(type == typeof(decimal))
+            {
+                if(decimal.TryParse(stringRepresentation, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                {
+                    return parsed;
+                }
+                throw new ConfigurationException(Path, $"Value could not be parsed as an 'Decimal'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+            }
+
+            if(type == typeof(DateTime))
+            {
+                if(System.DateTime.TryParse(stringRepresentation, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out var parsed))
+                {
+                    return parsed;
+                }
+                throw new ConfigurationException(Path, $"Value could not be parsed as an 'DateTime'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+            }
+
+            if(type == typeof(DateTimeOffset))
+            {
+                if(System.DateTimeOffset.TryParse(stringRepresentation, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out var parsed))
+                {
+                    return parsed;
+                }
+                throw new ConfigurationException(Path, $"Value could not be parsed as an 'DateTimeOffset'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+            }
+
+            if(type == typeof(TimeSpan))
+            {
+                if(System.TimeSpan.TryParse(stringRepresentation, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                {
+                    return parsed;
+                }
+                throw new ConfigurationException(Path, $"Value could not be parsed as an 'TimeSpan'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+            }
+
+            if(type == typeof(bool))
+            {
+                if(bool.TryParse(stringRepresentation, out var parsed))
+                {
+                    return parsed;
+                }
+                throw new ConfigurationException(Path, $"Value could not be parsed as an 'Boolean'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+            }
+
+            return Convert.ChangeType(stringRepresentation, Type);
+        }
+
+        /// <summary>
+        ///     Given a value that can be assigned to the property represented, returns a string equalivalent.
+        /// </summary>
+        /// <param name="value"> The value. </param>
+        /// <returns> The string equivalent of the value given. </returns>
+        internal string? ConvertValueToString(object? value)
+        {
+            if(ReferenceEquals(value, null))
+            {
+                return null;
+            }
+
+            var type = UnderlyingType;
+
+            if(type.IsEnum)
+            {
+                return Enum.GetName(type, value);
+            }
+
+            if(type == typeof(string))
+            {
+                return (string)value;
+            }
+
+            if(type == typeof(char))
+            {
+                return new string(((char)value), 1);
+            }
+
+            if(type == typeof(short))
+            {
+                return ((short)value).ToString("D", System.Globalization.CultureInfo.InvariantCulture);
+            }
+
+            if(type == typeof(sbyte))
+            {
+                return ((sbyte)value).ToString("D", System.Globalization.CultureInfo.InvariantCulture);
+            }
+
+            if(type == typeof(int))
+            {
+                return ((int)value).ToString("D", System.Globalization.CultureInfo.InvariantCulture);
+            }
+
+            if(type == typeof(long))
+            {
+                return ((long)value).ToString("D", System.Globalization.CultureInfo.InvariantCulture);
+            }
+
+            if(type == typeof(float))
+            {
+                return ((float)value).ToString("G9", System.Globalization.CultureInfo.InvariantCulture);
+            }
+
+            if(type == typeof(double))
+            {
+                return ((double)value).ToString("G17", System.Globalization.CultureInfo.InvariantCulture);
+            }
+
+            if(type == typeof(decimal))
+            {
+                return ((decimal)value).ToString("G", System.Globalization.CultureInfo.InvariantCulture);
+            }
+
+            if(type == typeof(DateTime))
+            {
+                return ((DateTime)value).ToString("O", System.Globalization.CultureInfo.InvariantCulture);
+            }
+
+            if(type == typeof(DateTimeOffset))
+            {
+                return ((DateTimeOffset)value).ToString("O", System.Globalization.CultureInfo.InvariantCulture);
+            }
+
+            if(type == typeof(TimeSpan))
+            {
+                return ((TimeSpan)value).ToString("c", System.Globalization.CultureInfo.InvariantCulture);
+            }
+
+            if(type == typeof(bool))
+            {
+                return ((bool)value).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            }
+
+            // For anything else, let's hope that "ToString" is good enough.
+            return value.ToString();
+        }
+
+        /// <summary>
+        ///     Gets the kind of the implementation required for the type given.
+        /// </summary>
+        /// <param name="type"> The type for which the implementation kind is required. </param>
+        /// <returns> </returns>
+        private static ImplementationKind GetImplementationKind(Type type)
+        {
+            if(IsConfigurationDictionary(type))
+            {
+                return ImplementationKind.ConfigurationDictionary;
+            }
+
+            if(IsConfigurationCollection(type))
+            {
+                return ImplementationKind.ConfigurationCollection;
+            }
+
+            if(typeof(IConfigurationObject).IsAssignableFrom(type))
+            {
+                return ImplementationKind.ConfigurationObject;
+            }
+
+            return ImplementationKind.Naive;
+        }
+
+        /// <summary>
+        ///     Determines whether the specified type is a is configuration collection.
+        /// </summary>
+        /// <param name="type"> The type to verify. </param>
+        /// <returns> <see langword="true" /> if the type is configuration collection; otherwise, <see langword="false" />. </returns>
+        private static bool IsConfigurationCollection(Type type)
+        {
+            if(!type.IsConstructedGenericType)
+            {
+                return false;
+            }
+
+            if(type.GetGenericTypeDefinition() != typeof(IConfigurationCollection<>))
+            {
+                return false;
+            }
+
+            var arguments = type.GetGenericArguments();
+
+            if(arguments.Length != 1)
+            {
+                return false;
+            }
+
+            return typeof(IConfigurationObject).IsAssignableFrom(arguments[0]);
+        }
+
+        /// <summary>
+        ///     Determines whether the specified type is a is configuration dictionary.
+        /// </summary>
+        /// <param name="type"> The type to verify. </param>
+        /// <returns> <see langword="true" /> if the type is configuration dictionary; otherwise, <see langword="false" />. </returns>
+        private static bool IsConfigurationDictionary(Type type)
+        {
+            if(!type.IsConstructedGenericType)
+            {
+                return false;
+            }
+
+            if(type.GetGenericTypeDefinition() != typeof(IConfigurationDictionary<>))
+            {
+                return false;
+            }
+
+            var arguments = type.GetGenericArguments();
+
+            if(arguments.Length != 1)
+            {
+                return false;
+            }
+
+            return typeof(IConfigurationObject).IsAssignableFrom(arguments[0]);
         }
     }
 }

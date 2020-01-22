@@ -18,7 +18,7 @@
  */
 
 using System.Collections.Generic;
-
+using Microsoft.Extensions.Configuration;
 using OpenCollar.Extensions.Configuration.Collections;
 
 namespace OpenCollar.Extensions.Configuration
@@ -36,8 +36,11 @@ namespace OpenCollar.Extensions.Configuration
         ///     Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.
         /// </summary>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="configurationRoot">
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </param>
         /// <param name="elements"> The elements with which to initialize to the collection. </param>
-        public ConfigurationDictionary(PropertyDef propertyDef, IEnumerable<TElement>? elements) : base(propertyDef, GetKeyedElements(elements))
+        public ConfigurationDictionary(PropertyDef propertyDef, IConfigurationRoot configurationRoot, IEnumerable<TElement>? elements) : base(propertyDef, configurationRoot, GetKeyedElements(elements))
         {
         }
 
@@ -45,10 +48,13 @@ namespace OpenCollar.Extensions.Configuration
         ///     Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.
         /// </summary>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="configurationRoot">
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </param>
         /// <param name="elements">
         ///     A parameter array containing the elements with which to initialize to the collection.
         /// </param>
-        public ConfigurationDictionary(PropertyDef propertyDef, params TElement[]? elements) : base(propertyDef, GetKeyedElements(elements))
+        public ConfigurationDictionary(PropertyDef propertyDef, IConfigurationRoot configurationRoot, params TElement[]? elements) : base(propertyDef, configurationRoot, GetKeyedElements(elements))
         {
         }
 
@@ -125,5 +131,15 @@ namespace OpenCollar.Extensions.Configuration
         ///     <see cref="ICollection{TElement}" />; otherwise, <see langword="false" />.
         /// </returns>
         bool ICollection<KeyValuePair<string, TElement>>.Contains(KeyValuePair<string, TElement> item) => ContainsKey(item.Key);
+
+        /// <summary>
+        ///     Converts the string given to the key.
+        /// </summary>
+        /// <param name="key"> The key to convert, as a string. </param>
+        /// <returns> Returns the key converted to the correct type. </returns>
+        internal override string ConvertStringToKey(string key)
+        {
+            return key;
+        }
     }
 }

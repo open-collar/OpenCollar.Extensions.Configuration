@@ -57,7 +57,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     The definition of the property defined by this object. This can be <see lang="null" /> if this object is
         ///     the root of the hierarchy.
         /// </param>
-        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, PropertyDef? propertyDef) : base(configurationRoot, propertyDef)
+        protected ConfigurationObjectBase(PropertyDef? propertyDef, IConfigurationRoot configurationRoot) : base(propertyDef, configurationRoot)
         {
         }
 
@@ -66,7 +66,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     interface used when creating the root instance for the service collection.
         /// </summary>
         /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
-        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot) : base(configurationRoot, ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface), new ConfigurationContext()))
+        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot) : base(ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface), new ConfigurationContext()), configurationRoot)
         {
             Reload();
         }
@@ -123,7 +123,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     The definition of the property defined by this object. This can be <see lang="null" /> if this object is
         ///     the root of the hierarchy.
         /// </param>
-        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, PropertyDef? propertyDef)
+        protected ConfigurationObjectBase(PropertyDef? propertyDef, IConfigurationRoot configurationRoot)
         {
             PropertyDef = propertyDef;
             _configurationRoot = configurationRoot;
@@ -140,7 +140,7 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
         /// <param name="childPropertyDefs"> A sequence containing the definitions of the properties to represent. </param>
-        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, IEnumerable<PropertyDef> childPropertyDefs) : this(configurationRoot, (PropertyDef?)null)
+        protected ConfigurationObjectBase(IEnumerable<PropertyDef> childPropertyDefs, IConfigurationRoot configurationRoot) : this((PropertyDef?)null, configurationRoot)
         {
             foreach(var childPropertyDef in childPropertyDefs)
             {
@@ -180,6 +180,20 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets the configuration root service from which values are read or to which all values will be written.
+        /// </summary>
+        /// <value>
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </value>
+        internal IConfigurationRoot ConfigurationRoot
+        {
+            get
+            {
+                return _configurationRoot;
+            }
+        }
+
+        /// <summary>
         ///     Gets or sets the value of the property with the specified name.
         /// </summary>
         /// <value> The value requested. </value>
@@ -203,6 +217,22 @@ namespace OpenCollar.Extensions.Configuration
                 EnforceDisposed();
 
                 _propertiesByName[name].Value = value;
+            }
+        }
+
+        /// <summary>
+        ///     Recursively deletes all of the properties from the configuration sources.
+        /// </summary>
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
+        public void Delete()
+        {
+            EnforceDisposed();
+
+            foreach(var value in _propertiesByName.Values)
+            {
+                value.DeleteValue(_configurationRoot);
             }
         }
 

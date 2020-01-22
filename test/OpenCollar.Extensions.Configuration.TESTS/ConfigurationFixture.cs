@@ -42,7 +42,20 @@ namespace OpenCollar.Extensions.Configuration.TESTS
                     new KeyValuePair<string, string>(nameof(IRootElement.TimeSpanPropertyB), "00:30:30"),
                     new KeyValuePair<string, string>(nameof(IRootElement.EnumPropertyA), "Public"),
                     new KeyValuePair<string, string>(nameof(IRootElement.EnumPropertyB), "Instance"),
-                    new KeyValuePair<string, string>("CustomRoot", "XX_XX")}
+                    new KeyValuePair<string, string>("CustomRoot", "XX_XX"),
+                    new KeyValuePair<string, string>("ChildDictionary:Item1:Name", "Item_1"),
+                    new KeyValuePair<string, string>("ChildDictionary:Item1:Value", "1"),
+                    new KeyValuePair<string, string>("ChildDictionary:Item2:Name", "Item_2"),
+                    new KeyValuePair<string, string>("ChildDictionary:Item2:Value", "2"),
+                    new KeyValuePair<string, string>("ChildDictionary:Item3:Name", "Item_3"),
+                    new KeyValuePair<string, string>("ChildDictionary:Item3:Value", "3"),
+                    new KeyValuePair<string, string>("ChildCollection:1:Name", "Item_1"),
+                    new KeyValuePair<string, string>("ChildCollection:1:Value", "1"),
+                    new KeyValuePair<string, string>("ChildCollection:2:Name", "Item_2"),
+                    new KeyValuePair<string, string>("ChildCollection:2:Value", "2"),
+                    new KeyValuePair<string, string>("ChildCollection:3:Name", "Item_3"),
+                    new KeyValuePair<string, string>("ChildCollection:3:Value", "3")
+                }
             };
 
             var provider = new Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider(source);
