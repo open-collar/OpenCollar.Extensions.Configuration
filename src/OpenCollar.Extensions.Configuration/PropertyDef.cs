@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License along with
  * OpenCollar.Extensions.Configuration.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright © 2019 Jonathan Evans (jevans@open-collar.org.uk).
+ * Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
 using System;
@@ -328,6 +328,33 @@ namespace OpenCollar.Extensions.Configuration
 
             // Couldn't find a suitable attribute
             return property.PropertyType.IsConstructedGenericType && (property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>));
+        }
+
+        /// <summary>
+        ///     Determines whether the current value is the same as the original value.
+        /// </summary>
+        /// <param name="original"> The original value. </param>
+        /// <param name="current"> The current value. </param>
+        /// <returns> <see langword="true" /> if the values are the same; otherwise, <see langword="false" />. </returns>
+        internal bool AreEqual(object? original, object? current)
+        {
+            if(ReferenceEquals(original, current))
+            {
+                return true;
+            }
+
+            if(ReferenceEquals(original, null) || ReferenceEquals(current, null))
+            {
+                return false;
+            }
+
+            var configurationObject = current as IConfigurationObject;
+            if(!ReferenceEquals(configurationObject, null) && configurationObject.IsDirty)
+            {
+                return true;
+            }
+
+            return original.Equals(current);
         }
 
         /// <summary>

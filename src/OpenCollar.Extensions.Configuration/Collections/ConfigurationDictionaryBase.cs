@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License along with
  * OpenCollar.Extensions.Configuration.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright © 2019 Jonathan Evans (jevans@open-collar.org.uk).
+ * Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
 using System;
@@ -37,28 +37,22 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="IConfigurationObject" />
     /// <seealso cref="IDictionary{TKey, TElement}" />
     /// <seealso cref="INotifyCollectionChanged" />
-    internal abstract class ConfigurationDictionaryBase<TKey, TElement> : Disposable, IEnumerable, INotifyCollectionChanged, IConfigurationObject
-        where TElement : IConfigurationObject
+    internal abstract class ConfigurationDictionaryBase<TKey, TElement> : NotifyPropertyChanged, IEnumerable, IConfigurationObject, IValueChanged
     {
-        /// <summary>
-        ///     A thread-safe dictionary containing the elements of the dictionary recorded against the keys supplied.
-        /// </summary>
-        private readonly Dictionary<TKey, TElement> _items = new Dictionary<TKey, TElement>();
-
         /// <summary>
         ///     An ordered list of the elements in the collection.
         /// </summary>
-        private readonly List<KeyValuePair<TKey, TElement>> _orderedItems = new List<KeyValuePair<TKey, TElement>>();
+        private readonly List<KeyValuePair<TKey, Element<TKey, TElement>>> _orderedItems = new List<KeyValuePair<TKey, Element<TKey, TElement>>>();
+
+        /// <summary>
+        ///     A thread-safe dictionary containing the elements of the dictionary recorded against the keys supplied.
+        /// </summary>
+        private readonly Dictionary<TKey, Element<TKey, TElement>> _valuesByKey = new Dictionary<TKey, Element<TKey, TElement>>();
 
         /// <summary>
         ///     Occurs when the collection changes.
         /// </summary>
         public event NotifyCollectionChangedEventHandler? CollectionChanged;
-
-        /// <summary>
-        ///     Occurs when a property value changes.
-        /// </summary>
-        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationDictionaryBase{TKey, TElement}" /> class.
@@ -81,13 +75,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
-        protected ConfigurationDictionaryBase(PropertyDef propertyDef, IConfigurationRoot configurationRoot, IEnumerable<KeyValuePair<TKey, TElement>> elements) : this(propertyDef, configurationRoot)
+        protected ConfigurationDictionaryBase(PropertyDef propertyDef, IConfigurationRoot configurationRoot, IEnumerable<KeyValuePair<TKey, Element<TKey, TElement>>> elements) : this(propertyDef, configurationRoot)
         {
             PropertyDef = propertyDef;
 
             foreach(var element in elements)
             {
-                _items.Add(element.Key, element.Value);
+                _valuesByKey.Add(element.Key, element.Value);
                 _orderedItems.Add(element);
             }
         }
@@ -108,7 +102,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 Lock.EnterReadLock();
                 try
                 {
-                    return _items.Count;
+                    return _valuesByKey.Count;
                 }
                 finally
                 {
@@ -136,7 +130,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 Lock.EnterReadLock();
                 try
                 {
-                    return _items.Values.Any(i => i.IsDirty);
+                    return _valuesByKey.Values.Any(i => i.IsDirty);
                 }
                 finally
                 {
@@ -203,7 +197,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 try
                 {
                     // Use the order items to ensure the values are in the correct order.
-                    return _orderedItems.Select(v => v.Value).ToArray();
+                    return _orderedItems.Select(v => (TElement)v.Value.Value).ToArray();
                 }
                 finally
                 {
@@ -241,7 +235,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         {
             get
             {
-                return _items.Count;
+                return _valuesByKey.Count;
             }
         }
 
@@ -255,7 +249,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     Gets the items in the dictionary as an ordered, read-only list.
         /// </summary>
         /// <value> The items in the dictionary as an ordered, read-only list. </value>
-        protected IReadOnlyList<KeyValuePair<TKey, TElement>> OrderedItems
+        protected IReadOnlyList<KeyValuePair<TKey, Element<TKey, TElement>>> OrderedItems
         {
             get
             {
@@ -294,9 +288,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
             {
                 EnforceDisposed();
 
-                if(_items.TryGetValue(key, out var value))
+                if(_valuesByKey.TryGetValue(key, out var value))
                 {
-                    return value;
+                    return (TElement)value.Value;
                 }
 
                 throw new ArgumentOutOfRangeException(nameof(key), $"'{nameof(key)}' did not identify a valid element.");
@@ -316,63 +310,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     SetValueByValue(key, value);
                 }
             }
-        }
-
-        /// <summary>
-        ///     Adds an element with the provided key and value to the <see cref="IDictionary{T,T}" />.
-        /// </summary>
-        /// <param name="key"> The object to use as the key of the element to add. </param>
-        /// <param name="value"> The object to use as the value of the element to add. </param>
-        public virtual void Add(TKey key, TElement value)
-        {
-            Add(new KeyValuePair<TKey, TElement>(key, value));
-        }
-
-        /// <summary>
-        ///     Adds an item to the <see cref="ICollection{T}" />.
-        /// </summary>
-        /// <param name="item"> The object to add to the <see cref="ICollection{T}" />. </param>
-        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
-        /// <exception cref="ObjectDisposedException">
-        ///     This method cannot be used after the object has been disposed of.
-        /// </exception>
-        public void Add(KeyValuePair<TKey, TElement> item)
-        {
-            EnforceDisposed();
-            EnforceReadOnly();
-
-            NotifyCollectionChangedEventArgs? args = null;
-
-            Lock.EnterUpgradeableReadLock();
-            try
-            {
-                if(_items.TryAdd(item.Key, item.Value))
-                {
-                    Lock.EnterWriteLock();
-                    try
-                    {
-                        _orderedItems.Add(item);
-                        args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item.Value);
-                    }
-                    finally
-                    {
-                        Lock.ExitWriteLock();
-                    }
-                }
-            }
-            finally
-            {
-                Lock.ExitUpgradeableReadLock();
-            }
-
-            if(!ReferenceEquals(args, null))
-            {
-                OnCollectionChanged(args);
-                OnPropertyChanged(nameof(Count));
-                return;
-            }
-
-            throw new ArgumentException("An item with the same key has already been added.", nameof(item));
         }
 
         /// <summary>
@@ -410,7 +347,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
             Lock.EnterReadLock();
             try
             {
-                return _items.ContainsKey(key);
+                return _valuesByKey.ContainsKey(key);
             }
             finally
             {
@@ -427,14 +364,14 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     <see cref="ICollection{T}" />. The <see cref="Array" /> must have zero-based indexing.
         /// </param>
         /// <param name="arrayIndex"> The zero-based index in <paramref name="array" /> at which copying begins. </param>
-        public void CopyTo(KeyValuePair<TKey, TElement>[] array, int arrayIndex)
+        public void CopyTo(TElement[] array, int arrayIndex)
         {
             EnforceDisposed();
 
             Lock.EnterReadLock();
             try
             {
-                _orderedItems.CopyTo(array, arrayIndex);
+                Values.CopyTo(array, arrayIndex);
             }
             finally
             {
@@ -451,18 +388,17 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
-        /// <exception cref="NotImplementedException"> </exception>
         public void Reload()
         {
             // Iterate across all of the elements in the path and then delete those not in the dictionary, and then
             // insert those that have been added.
             var section = ConfigurationRoot.GetSection(PropertyDef.Path);
             var existingValues = section.GetChildren().Select(s => new KeyValuePair<TKey, IConfigurationSection>(ConvertStringToKey(s.Key), s)).ToList();
-            var updatedValues = new List<KeyValuePair<TKey, TElement>>();
+            var updatedValues = new List<KeyValuePair<TKey, Element<TKey, TElement>>>();
             foreach(var pair in existingValues)
             {
-                TElement value;
-                if(_items.TryGetValue(pair.Key, out value))
+                Element<TKey, TElement> value;
+                if(_valuesByKey.TryGetValue(pair.Key, out value))
                 {
                     // If necessary update the existing value.
                     switch(PropertyDef.ImplementationKind)
@@ -470,11 +406,11 @@ namespace OpenCollar.Extensions.Configuration.Collections
                         case ImplementationKind.ConfigurationCollection:
                         case ImplementationKind.ConfigurationDictionary:
                         case ImplementationKind.ConfigurationObject:
-                            ((IConfigurationObject)value).Reload();
+                            ((IConfigurationObject)value.Value).Reload();
                             break;
 
                         default:
-                            value = (TElement)PropertyDef.ConvertStringToValue(pair.Value.Value);
+                            value = new Element<TKey, TElement>(PropertyDef, this, pair.Key, (TElement)PropertyDef.ConvertStringToValue(pair.Value.Value));
                             break;
                     }
                 }
@@ -485,16 +421,16 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     {
                         case ImplementationKind.ConfigurationCollection:
                         case ImplementationKind.ConfigurationDictionary:
-                            value = (TElement)Activator.CreateInstance(PropertyDef.ImplementationType, PropertyDef, ConfigurationRoot);
+                            value = new Element<TKey, TElement>(PropertyDef, this, pair.Key, (TElement)Activator.CreateInstance(PropertyDef.ImplementationType, PropertyDef, ConfigurationRoot));
                             break;
 
                         case ImplementationKind.ConfigurationObject:
-                            value = (TElement)Activator.CreateInstance(PropertyDef.ImplementationType, ConfigurationRoot);
+                            value = new Element<TKey, TElement>(PropertyDef, this, pair.Key, (TElement)Activator.CreateInstance(PropertyDef.ImplementationType, ConfigurationRoot));
 
                             break;
 
                         default:
-                            value = (TElement)PropertyDef.ConvertStringToValue(pair.Value.Value);
+                            value = new Element<TKey, TElement>(PropertyDef, this, pair.Key, (TElement)PropertyDef.ConvertStringToValue(pair.Value.Value));
                             break;
                     }
 
@@ -505,12 +441,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
 
                     if(ReferenceEquals(value, null) && PropertyDef.IsNullable)
                     {
-                        value = (TElement)PropertyDef.DefaultValue;
+                        value = new Element<TKey, TElement>(PropertyDef, this, pair.Key, (TElement)PropertyDef.DefaultValue);
                     }
                 }
 
                 // Add/update the value in the updated values list.
-                updatedValues.Add(new KeyValuePair<TKey, TElement>(pair.Key, value));
+                updatedValues.Add(new KeyValuePair<TKey, Element<TKey, TElement>>(pair.Key, value));
             }
 
             Lock.EnterWriteLock();
@@ -547,7 +483,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
             Lock.EnterWriteLock();
             try
             {
-                if(_items.Remove(key))
+                if(_valuesByKey.Remove(key))
                 {
                     var removed = _orderedItems.First(i => i.Key.Equals(key));
                     if(!_orderedItems.Remove(removed))
@@ -590,7 +526,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="ICollection{T}" />.
         /// </returns>
         /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
-        public bool Remove(KeyValuePair<TKey, TElement> item)
+        public bool Remove(TKey key, TElement item)
         {
             EnforceDisposed();
             EnforceReadOnly();
@@ -600,14 +536,15 @@ namespace OpenCollar.Extensions.Configuration.Collections
             Lock.EnterWriteLock();
             try
             {
-                if(_items.Remove(item.Key, out var removed))
+                if(_valuesByKey.Remove(key, out var removed))
                 {
-                    if(!_orderedItems.Remove(item))
+                    var element = _orderedItems.First(e => Equals(e.Key, key));
+                    if(!_orderedItems.Remove(element))
                     {
                         Debug.Assert(false, "A matching item must always be found.");
                     }
 
-                    args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item.Value);
+                    args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item);
                 }
             }
             finally
@@ -645,11 +582,11 @@ namespace OpenCollar.Extensions.Configuration.Collections
             Lock.EnterWriteLock();
             try
             {
-                foreach(var element in _items.ToArray())
+                foreach(var element in _valuesByKey.ToArray())
                 {
                     if(Equals(element.Value, item))
                     {
-                        if(!_items.Remove(element.Key, out var removedElement))
+                        if(!_valuesByKey.Remove(element.Key, out var removedElement))
                         {
                             Debug.Assert(false, "We assume the element can be removed if it can be found.");
                         }
@@ -710,7 +647,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
             Lock.EnterReadLock();
             try
             {
-                return _items.TryGetValue(key, out value);
+                if(_valuesByKey.TryGetValue(key, out var item))
+                {
+                    value = (TElement)item.Value;
+                    return true;
+                }
+                value = default;
+                return false;
             }
             finally
             {
@@ -737,6 +680,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
             }
         }
 
+        void IValueChanged.OnValueChanged(ValueBase value) => throw new NotImplementedException();
+
         /// <summary>
         ///     Converts the string given to the key.
         /// </summary>
@@ -744,47 +689,59 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <returns> Returns the key converted to the correct type. </returns>
         internal abstract TKey ConvertStringToKey(string key);
 
-        /// <summary>
-        ///     Converts the elements from the stream given into a stream of key-value pairs.
-        /// </summary>
-        /// <param name="elements"> The elements to convery. </param>
-        /// <returns>
-        ///     A stream of key-value pairs, initialized from the sequence given, with the key derived from each
-        ///     elements position in the sequence.
-        /// </returns>
-        protected static IEnumerable<KeyValuePair<int, TElement>> GetIndexedElements(IEnumerable<TElement>? elements)
-        {
-            if(ReferenceEquals(elements, null))
-            {
-                yield break;
-            }
+        internal void OnElementValueChanged<TKey, TValue>(Element<TKey, TValue> element) => throw new NotImplementedException();
 
-            var n = 0;
-            foreach(var element in elements)
-            {
-                yield return new KeyValuePair<int, TElement>(n++, element);
-            }
-        }
+        internal void OnValueChanged<TKey, TValue>(Element<TKey, TValue> element) => throw new NotImplementedException();
 
         /// <summary>
-        ///     Converts the elements from the stream given into a stream of key-value pairs.
+        ///     Adds an item to the <see cref="ICollection{T}" />.
         /// </summary>
-        /// <param name="elements"> The elements to convery. </param>
-        /// <returns>
-        ///     A stream of key-value pairs, initialized from the sequence given, with the key derived from each
-        ///     elements property name.
-        /// </returns>
-        protected static IEnumerable<KeyValuePair<string, TElement>> GetKeyedElements(IEnumerable<TElement>? elements)
+        /// <param name="item"> The object to add to the <see cref="ICollection{T}" />. </param>
+        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        /// <exception cref="ObjectDisposedException">
+        ///     This method cannot be used after the object has been disposed of.
+        /// </exception>
+        protected void Add(TKey key, TElement value)
         {
-            if(ReferenceEquals(elements, null))
+            EnforceDisposed();
+            EnforceReadOnly();
+
+            NotifyCollectionChangedEventArgs? args = null;
+
+            var element = new Element<TKey, TElement>(PropertyDef, this, key, value);
+
+            var item = new KeyValuePair<TKey, Element<TKey, TElement>>(key, element);
+
+            Lock.EnterUpgradeableReadLock();
+            try
             {
-                yield break;
+                if(_valuesByKey.TryAdd(item.Key, element))
+                {
+                    Lock.EnterWriteLock();
+                    try
+                    {
+                        _orderedItems.Add(item);
+                        args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item.Value);
+                    }
+                    finally
+                    {
+                        Lock.ExitWriteLock();
+                    }
+                }
+            }
+            finally
+            {
+                Lock.ExitUpgradeableReadLock();
             }
 
-            foreach(var element in elements)
+            if(!ReferenceEquals(args, null))
             {
-                yield return new KeyValuePair<string, TElement>(element.PropertyDef.PropertyName, element);
+                OnCollectionChanged(args);
+                OnPropertyChanged(nameof(Count));
+                return;
             }
+
+            throw new ArgumentException("An item with the same key has already been added.", nameof(item));
         }
 
         /// <summary>
@@ -840,7 +797,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </param>
         /// <param name="arrayIndex"> The zero-based index in <paramref name="array" /> at which copying begins. </param>
         /// <remarks> Assumes the caller already holds a read or write lock. </remarks>
-        protected void InnerCopyTo(KeyValuePair<TKey, TElement>[] array, int arrayIndex)
+        protected void InnerCopyTo(KeyValuePair<TKey, Element<TKey, TElement>>[] array, int arrayIndex)
         {
             _orderedItems.CopyTo(array, arrayIndex);
         }
@@ -886,16 +843,16 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="list"> The new contents. </param>
         /// <remarks> Assumes that a write lock is held by the caller. </remarks>
         /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
-        protected void Replace(IEnumerable<KeyValuePair<TKey, TElement>> list)
+        protected void Replace(IEnumerable<KeyValuePair<TKey, Element<TKey, TElement>>> list)
         {
             EnforceReadOnly();
 
             _orderedItems.Clear();
             _orderedItems.InsertRange(0, list);
-            _items.Clear();
+            _valuesByKey.Clear();
             foreach(var item in list)
             {
-                _items.Add(item.Key, item.Value);
+                _valuesByKey.Add(item.Key, item.Value);
             }
         }
 
@@ -920,7 +877,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
             Lock.EnterWriteLock();
             try
             {
-                _items.Clear();
+                _valuesByKey.Clear();
                 _orderedItems.Clear();
             }
             finally
@@ -929,39 +886,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
             }
 
             OnPropertyChanged(nameof(Count));
-        }
-
-        /// <summary>
-        ///     Called when a property is to be changed.
-        /// </summary>
-        /// <param name="propertyName"> The name of the property that has changed. </param>
-        /// <remarks> Raises the <see cref="PropertyChanged" /> event. </remarks>
-        private void OnPropertyChanged(string propertyName)
-        {
-            if(IsDisposed)
-            {
-                return;
-            }
-
-            var eventHandler = PropertyChanged;
-            if(ReferenceEquals(eventHandler, null))
-            {
-                return;
-            }
-
-            var callbacks = eventHandler.GetInvocationList();
-
-            if(callbacks.Length <= 0)
-            {
-                return;
-            }
-
-            var args = new PropertyChangedEventArgs(propertyName);
-
-            foreach(var callback in callbacks)
-            {
-                callback.DynamicInvoke(this, args);
-            }
         }
 
         /// <summary>
@@ -976,34 +900,42 @@ namespace OpenCollar.Extensions.Configuration.Collections
             Lock.EnterUpgradeableReadLock();
             try
             {
-                _items[key] = value;
-                var n = 0;
-                foreach(var element in _orderedItems)
+                if(_valuesByKey.TryGetValue(key, out var element))
                 {
-                    if(Equals(element.Value, value))
+                    var n = 0;
+                    foreach(var item in _orderedItems)
                     {
-                        Lock.EnterWriteLock();
-                        try
+                        if(Equals(item.Value, value))
                         {
-                            var existing = _orderedItems[n];
-                            _orderedItems[n] = new KeyValuePair<TKey, TElement>(key, value);
-                            _items.Remove(existing.Key);
-                            _items.Add(key, value);
-                            args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, existing, n);
+                            Lock.EnterWriteLock();
+                            try
+                            {
+                                var existing = _orderedItems[n];
+                                _orderedItems[n] = new KeyValuePair<TKey, Element<TKey, TElement>>(key, element);
+                                _valuesByKey.Remove(existing.Key);
+                                _valuesByKey.Add(key, existing);
+                                element.Value = value;
+                                args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, existing, n);
+                            }
+                            finally
+                            {
+                                Lock.ExitWriteLock();
+                            }
+                            break;
                         }
-                        finally
-                        {
-                            Lock.ExitWriteLock();
-                        }
-                        break;
+                        ++n;
                     }
-                    ++n;
+                }
+                else
+                {
+                    element = new Element<TKey, TElement>(PropertyDef, this, key, value);
+                    _valuesByKey.Add(key, element);
                 }
 
                 if(ReferenceEquals(args, null))
                 {
-                    _items.Add(key, value);
-                    _orderedItems.Add(new KeyValuePair<TKey, TElement>(key, value));
+                    _valuesByKey.Add(key, value);
+                    _orderedItems.Add(new KeyValuePair<TKey, Element<TKey, TElement>>(key, value));
                 }
             }
             finally
@@ -1032,9 +964,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
             Lock.EnterUpgradeableReadLock();
             try
             {
-                if(_items.ContainsKey(key))
+                if(_valuesByKey.ContainsKey(key))
                 {
-                    var foundItem = _items[key];
+                    var foundItem = _valuesByKey[key];
                     if(Equals(value, foundItem))
                     {
                         return;
@@ -1043,13 +975,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     Lock.EnterWriteLock();
                     try
                     {
-                        _items[key] = value;
+                        _valuesByKey[key] = value;
                         var n = 0;
                         foreach(var element in _orderedItems)
                         {
                             if(Equals(element.Value, foundItem))
                             {
-                                _orderedItems[n] = new KeyValuePair<TKey, TElement>(key, value);
+                                _orderedItems[n] = new KeyValuePair<TKey, Element<TKey, TElement>>(key, value);
                                 args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, element.Value, n);
                                 break;
                             }
@@ -1066,8 +998,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     Lock.EnterWriteLock();
                     try
                     {
-                        _items.Add(key, value);
-                        _orderedItems.Add(new KeyValuePair<TKey, TElement>(key, value));
+                        _valuesByKey.Add(key, value);
+                        _orderedItems.Add(new KeyValuePair<TKey, Element<TKey, TElement>>(key, value));
                         args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value);
                     }
                     finally
@@ -1077,7 +1009,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 }
 
                 // TODO: add change detection and notification.
-                Debug.Assert(_orderedItems.Count == _items.Count);
+                Debug.Assert(_orderedItems.Count == _valuesByKey.Count);
             }
             finally
             {

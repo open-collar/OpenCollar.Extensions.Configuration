@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License along with
  * OpenCollar.Extensions.Configuration.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright © 2019 Jonathan Evans (jevans@open-collar.org.uk).
+ * Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
 using System;
@@ -90,7 +90,7 @@ namespace OpenCollar.Extensions.Configuration
     ///         value) will not be reported.
     ///     </para>
     /// </remarks>
-    public abstract class ConfigurationObjectBase : Disposable, IConfigurationObject
+    public abstract class ConfigurationObjectBase : NotifyPropertyChanged, IConfigurationObject, IValueChanged
     {
         /// <summary>
         ///     The configuration root from which to read and write values.
@@ -109,11 +109,6 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
         private readonly Dictionary<string, PropertyValue> _propertiesByPath = new Dictionary<string, PropertyValue>(StringComparer.OrdinalIgnoreCase);
-
-        /// <summary>
-        ///     Occurs when a property changes.
-        /// </summary>
-        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationObjectBase" /> class.
@@ -268,54 +263,7 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        /// <summary>
-        ///     Called when an underlying property has been changed.
-        /// </summary>
-        /// <param name="property"> The object representing the property that has changed. </param>
-        /// <exception cref="AggregateException"> One or more change event handlers threw an exception. </exception>
-        internal void OnPropertyChanged(PropertyValue property)
-        {
-            if(IsDisposed)
-            {
-                return;
-            }
-
-            var handler = PropertyChanged;
-            if(ReferenceEquals(handler, null))
-            {
-                // No-one's listening, do nothing more.
-                return;
-            }
-
-            var callbacks = handler.GetInvocationList();
-
-            if(callbacks.Length <= 0)
-            {
-                // No-one's listening, do nothing more.
-                return;
-            }
-
-            var args = new PropertyChangedEventArgs(property.PropertyName);
-
-            var exceptions = new List<Exception>();
-
-            foreach(var callback in callbacks)
-            {
-                try
-                {
-                    callback.DynamicInvoke(this, args);
-                }
-                catch(Exception ex)
-                {
-                    exceptions.Add(ex);
-                }
-            }
-
-            if(exceptions.Count > 0)
-            {
-                throw new AggregateException("One or more change event handlers threw an exception.", exceptions);
-            }
-        }
+        void IValueChanged.OnValueChanged(ValueBase value) => throw new NotImplementedException();
 
         /// <summary>
         ///     Releases unmanaged and - optionally - managed resources.
@@ -331,26 +279,6 @@ namespace OpenCollar.Extensions.Configuration
                 _propertiesByName.Clear();
                 _propertiesByPath.Clear();
             }
-        }
-
-        /// <summary>
-        ///     Called when a property is to be changed.
-        /// </summary>
-        /// <typeparam name="T"> The type of the property. </typeparam>
-        /// <param name="field"> The field to which the value is to be assigned. </param>
-        /// <param name="value"> The value to assign. </param>
-        /// <param name="property"> The definition of the property that has changed. </param>
-        /// <remarks> Raises the <see cref="PropertyChanged" /> event if the value has changed. </remarks>
-        private void OnPropertyChanged<T>(ref T field, T value, PropertyValue property)
-        {
-            if(Equals(field, value))
-            {
-                return;
-            }
-
-            field = value;
-
-            OnPropertyChanged(property);
         }
 
         /// <summary>
