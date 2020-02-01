@@ -29,8 +29,7 @@ namespace OpenCollar.Extensions.Configuration
     ///     an element is added or removed.
     /// </summary>
     /// <typeparam name="TElement"> The type of the element. </typeparam>
-    internal sealed class ReadOnlyConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IReadOnlyCollection<TElement>
-            where TElement : IConfigurationObject
+    internal sealed class ReadOnlyConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IReadOnlyCollection<TElement>, IConfigurationCollection<TElement>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ReadOnlyConfigurationCollection{TElement}" /> class.
@@ -66,6 +65,24 @@ namespace OpenCollar.Extensions.Configuration
             get
             {
                 return true;
+            }
+        }
+
+        /// <summary>
+        ///     Gets or sets the <see cref="TElement" /> at the specified index.
+        /// </summary>
+        /// <value> The <see cref="TElement" />. </value>
+        /// <param name="index"> The index. </param>
+        /// <returns> </returns>
+        TElement IList<TElement>.this[int index]
+        {
+            get
+            {
+                return base[index].Value;
+            }
+            set
+            {
+                base[index].Value = value;
             }
         }
 

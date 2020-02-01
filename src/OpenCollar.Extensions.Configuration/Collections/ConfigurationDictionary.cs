@@ -18,6 +18,7 @@
  */
 
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Configuration;
 using OpenCollar.Extensions.Configuration.Collections;
 
@@ -30,7 +31,6 @@ namespace OpenCollar.Extensions.Configuration
     /// <seealso cref="ConfigurationDictionaryBase{T,T}" />
     /// <seealso cref="IConfigurationDictionary{TElement}" />
     internal class ConfigurationDictionary<TElement> : ConfigurationDictionaryBase<string, TElement>, IConfigurationDictionary<TElement>
-            where TElement : IConfigurationObject
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.
@@ -40,7 +40,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
         /// <param name="elements"> The elements with which to initialize to the collection. </param>
-        public ConfigurationDictionary(PropertyDef propertyDef, IConfigurationRoot configurationRoot, IEnumerable<TElement>? elements) : base(propertyDef, configurationRoot, GetKeyedElements(elements))
+        public ConfigurationDictionary(PropertyDef propertyDef, IConfigurationRoot configurationRoot, IEnumerable<KeyValuePair<string, TElement>>? elements) : base(propertyDef, configurationRoot, elements)
         {
         }
 
@@ -54,7 +54,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="elements">
         ///     A parameter array containing the elements with which to initialize to the collection.
         /// </param>
-        public ConfigurationDictionary(PropertyDef propertyDef, IConfigurationRoot configurationRoot, params TElement[]? elements) : base(propertyDef, configurationRoot, GetKeyedElements(elements))
+        public ConfigurationDictionary(PropertyDef propertyDef, IConfigurationRoot configurationRoot, params KeyValuePair<string, TElement>[]? elements) : base(propertyDef, configurationRoot, elements)
         {
         }
 
@@ -70,31 +70,38 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Adds the specified element to the dictionary, using the name of the object as a the key.
+        ///     Gets or sets the element with the specified key.
         /// </summary>
-        /// <param name="element"> The element to add to the dictionary. </param>
-        public void Add(TElement element)
+        /// <value> The specified element. </value>
+        /// <param name="key"> The key identifying the element required. </param>
+        /// <returns> </returns>
+        TElement IDictionary<string, TElement>.this[string key]
         {
-            Add(element.PropertyDef.PropertyName, element);
+            get
+            {
+                return base[key].Value;
+            }
+            set
+            {
+                base[key].Value = value;
+            }
         }
 
         /// <summary>
-        ///     Adds an element with the provided key and value to the <see cref="IDictionary{TKey, TElement}" />.
+        ///     Adds the specified element to the dictionary, using the name of the object as a the key.
         /// </summary>
-        /// <param name="key"> The object to use as the key of the element to add. </param>
-        /// <param name="value"> The object to use as the value of the element to add. </param>
-        /// <exception cref="System.ArgumentException">
-        ///     The <paramref name="key" /> provided does not match the name of the element given.
-        /// </exception>
-        public override void Add(string key, TElement value)
+        /// <param name="key"> The key identifying the value to add.. </param>
+        /// <param name="element"> The element to add to the dictionary. </param>
+        public void Add(string key, TElement element)
         {
-            if(!Equals(key, value.PropertyDef.PropertyName))
-            {
-                throw new System.ArgumentException($"The '{nameof(key)}' provided does not match the name of the element given.", nameof(value));
-            }
-
-            base.Add(key, value);
+            base.Add(key, element);
         }
+
+        /// <summary>
+        ///     Adds an item to the <see cref="T:System.Collections.Generic.ICollection{T}" />.
+        /// </summary>
+        /// <param name="item"> The object to add to the <see cref="T:System.Collections.Generic.ICollection{T}" />. </param>
+        public void Add(KeyValuePair<string, TElement> item) => base.Add(item.Key, item.Value);
 
         /// <summary>
         ///     Determines whether this instance contains the object.
@@ -102,6 +109,31 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="element"> The element for which to check. </param>
         /// <returns> <see langword="true" /> if the dictionary contains the specified element; otherwise, <see langword="false" />. </returns>
         public bool Contains(TElement element) => ContainsValue(element);
+
+        /// <summary>
+        ///     Copies the elements of the <see cref="System.Collections.Generic.ICollection{T}" /> to an
+        ///     <see cref="System.Array" />, starting at a particular <see cref="System.Array" /> index.
+        /// </summary>
+        /// <param name="array">
+        ///     The one-dimensional <see cref="System.Array" /> that is the destination of the elements copied from
+        ///     <see cref="System.Collections.Generic.ICollection{T}" />. The <see cref="System.Array" /> must have
+        ///     zero-based indexing.
+        /// </param>
+        /// <param name="arrayIndex"> The zero-based index in <paramref name="array" /> at which copying begins. </param>
+        public void CopyTo(KeyValuePair<string, TElement>[] array, int arrayIndex)
+        {
+            EnforceDisposed();
+
+            Lock.EnterReadLock();
+            try
+            {
+                OrderedItems.Select(e => new KeyValuePair<string, TElement>(e.Key, e.Value)).ToArray().CopyTo(array, arrayIndex);
+            }
+            finally
+            {
+                Lock.ExitReadLock();
+            }
+        }
 
         /// <summary>
         ///     Returns an enumerator that iterates through the collection.
@@ -114,13 +146,34 @@ namespace OpenCollar.Extensions.Configuration
             Lock.EnterReadLock();
             try
             {
-                return OrderedItems.GetEnumerator();
+                return OrderedItems.Select(e => new KeyValuePair<string, TElement>(e.Key, e.Value)).GetEnumerator();
             }
             finally
             {
                 Lock.ExitReadLock();
             }
         }
+
+        /// <summary>
+        ///     Removes the first occurrence of a specific object from the <see cref="System.Collections.Generic.ICollection{T}" />.
+        /// </summary>
+        /// <param name="item"> The object to remove from the <see cref="System.Collections.Generic.ICollection{T}" />. </param>
+        /// <returns>
+        ///     <see langword="true" /> if <paramref name="item" /> was successfully removed from the
+        ///     <see cref="System.Collections.Generic.ICollection{T}" />; otherwise, <see langword="false" />. This
+        ///     method also returns <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="System.Collections.Generic.ICollection{T}" />.
+        /// </returns>
+        public bool Remove(KeyValuePair<string, TElement> item)
+        {
+            return base.Remove(item.Key);
+        }
+
+        /// <summary>
+        ///     Adds the specified item to the collection, using the key specified.
+        /// </summary>
+        /// <param name="key"> The key used to identify the item to add. Must be unique. </param>
+        /// <param name="value"> The value to assign to the value. </param>
+        void IDictionary<string, TElement>.Add(string key, TElement value) => base.Add(key, value);
 
         /// <summary>
         ///     Determines whether this instance contains the object given.

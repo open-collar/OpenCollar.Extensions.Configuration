@@ -27,14 +27,14 @@ namespace OpenCollar.Extensions.Configuration
     ///     A class used to represent a property on an interface and its location in the configuration model.
     /// </summary>
     [System.Diagnostics.DebuggerDisplay("{Path,nq}=\"{StringValue}\"")]
-    internal sealed class PropertyValue : ValueBase
+    internal sealed class PropertyValue<TValue> : ValueBase<ConfigurationObjectBase, TValue>, IPropertyValue
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="PropertyValue" /> class.
+        ///     Initializes a new instance of the <see cref="PropertyValue{TValue}" /> class.
         /// </summary>
         /// <param name="propertyDef"> The definition of the property to represent. </param>
         /// <param name="parent"> The parent configuration object for which this object represents a property. </param>
-        internal PropertyValue(PropertyDef propertyDef, ConfigurationObjectBase parent) : base(propertyDef, parent)
+        public PropertyValue(PropertyDef propertyDef, ConfigurationObjectBase parent) : base(propertyDef, parent, default)
         {
         }
 

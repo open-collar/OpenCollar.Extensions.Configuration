@@ -17,23 +17,20 @@
  * Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
-using System.Collections.Generic;
-using System.Collections.Specialized;
-
 namespace OpenCollar.Extensions.Configuration
 {
     /// <summary>
-    ///     Defines a dictionary containing configurtation items and keyed on the element name.
+    ///     The non-generic interface of a <see cref="PropertyValue{TValue}" /> object.S
     /// </summary>
-    /// <typeparam name="TElement"> The type of the elements contained in the dictionary. </typeparam>
-    /// <seealso cref="IDictionary{Type,T}" />
-    public interface IConfigurationDictionary<TElement> : IDictionary<string, TElement>, INotifyCollectionChanged
+    internal interface IPropertyValue
     {
         /// <summary>
-        ///     Determines whether this dictionary contains the element specified.
+        ///     Gets the name of the property represented by this object.
         /// </summary>
-        /// <param name="element"> The element for which to check. </param>
-        /// <returns> <see langword="true" /> if the dictionary contains the specified element; otherwise, <see langword="false" />. </returns>
-        bool Contains(TElement element);
+        /// <value> The name of the property represented by this object. </value>
+        string PropertyName
+        {
+            get;
+        }
     }
 }

@@ -93,6 +93,11 @@ namespace OpenCollar.Extensions.Configuration
     public abstract class ConfigurationObjectBase : NotifyPropertyChanged, IConfigurationObject, IValueChanged
     {
         /// <summary>
+        ///     The constructed types for properties.
+        /// </summary>
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<Type, Type> _propertyTypes = new System.Collections.Concurrent.ConcurrentDictionary<Type, Type>();
+
+        /// <summary>
         ///     The configuration root from which to read and write values.
         /// </summary>
         [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -102,13 +107,13 @@ namespace OpenCollar.Extensions.Configuration
         ///     A dictionary of property values keyed on the name of the property it represents (case sensitive).
         /// </summary>
         [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
-        private readonly Dictionary<string, PropertyValue> _propertiesByName = new Dictionary<string, PropertyValue>(StringComparer.Ordinal);
+        private readonly Dictionary<string, IValue> _propertiesByName = new Dictionary<string, IValue>(StringComparer.Ordinal);
 
         /// <summary>
         ///     A dictionary of property values keyed on the path to the underlying value (case insensitive).
         /// </summary>
         [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
-        private readonly Dictionary<string, PropertyValue> _propertiesByPath = new Dictionary<string, PropertyValue>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, IValue> _propertiesByPath = new Dictionary<string, IValue>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationObjectBase" /> class.
@@ -139,8 +144,9 @@ namespace OpenCollar.Extensions.Configuration
         {
             foreach(var childPropertyDef in childPropertyDefs)
             {
-                var property = new PropertyValue(childPropertyDef, this);
-                _propertiesByName.Add(property.PropertyName, property);
+                var type = _propertyTypes.GetOrAdd(childPropertyDef.Type, t => typeof(PropertyValue<>).MakeGenericType(t));
+                var property = (IValue)Activator.CreateInstance(type, childPropertyDef, (ConfigurationObjectBase)this);
+                _propertiesByName.Add(childPropertyDef.PropertyName, property);
                 _propertiesByPath.Add(property.Path, property);
             }
         }
@@ -263,7 +269,10 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        void IValueChanged.OnValueChanged(ValueBase value) => throw new NotImplementedException();
+        void IValueChanged.OnValueChanged(IValue value)
+        {
+            base.OnPropertyChanged(((IPropertyValue)value).PropertyName);
+        }
 
         /// <summary>
         ///     Releases unmanaged and - optionally - managed resources.

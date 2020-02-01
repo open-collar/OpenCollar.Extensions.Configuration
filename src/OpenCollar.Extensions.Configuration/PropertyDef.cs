@@ -124,13 +124,13 @@ namespace OpenCollar.Extensions.Configuration
             switch(ImplementationKind)
             {
                 case ImplementationKind.ConfigurationObject:
-                    elementType = Type.GetGenericArguments()[0];
+                    elementType = UnderlyingType;
                     ImplementationType = ServiceCollectionExtensions.GenerateConfigurationObjectType(elementType, context);
                     ElementType = null;
                     break;
 
                 case ImplementationKind.ConfigurationCollection:
-                    elementType = Type.GetGenericArguments()[0];
+                    elementType = UnderlyingType.GenericTypeArguments.First();
                     if(IsReadOnly)
                     {
                         ImplementationType = typeof(ReadOnlyConfigurationCollection<>).MakeGenericType(new[] { elementType });
@@ -143,7 +143,7 @@ namespace OpenCollar.Extensions.Configuration
                     break;
 
                 case ImplementationKind.ConfigurationDictionary:
-                    elementType = Type.GetGenericArguments()[0];
+                    elementType = UnderlyingType.GenericTypeArguments.First();
                     if(IsReadOnly)
                     {
                         ImplementationType = typeof(ReadOnlyConfigurationDictionary<>).MakeGenericType(new[] { elementType });

@@ -48,7 +48,6 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             Assert.Equal(3, x.Count);
 
-            Assert.Throws<NotImplementedException>(() => x.Add(new KeyValuePair<int, IChildElement>(0, a)));
             Assert.Throws<NotImplementedException>(() => x.Add(a));
 
             var n = 0;
@@ -210,11 +209,11 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             var x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
 
-            Assert.Equal(a, x[0]);
-            Assert.Equal(b, x[1]);
-            Assert.Equal(c, x[2]);
+            Assert.Equal(a, x[0].Value);
+            Assert.Equal(b, x[1].Value);
+            Assert.Equal(c, x[2].Value);
 
-            Assert.Throws<NotImplementedException>(() => x[0] = c);
+            Assert.Throws<NotImplementedException>(() => x[0].Value = c);
 
             x.Dispose();
             Assert.Throws<ObjectDisposedException>(() => x[0]);

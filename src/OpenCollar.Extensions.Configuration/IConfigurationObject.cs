@@ -46,7 +46,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the definition of this property object.
         /// </summary>
         /// <value> The definition of this property object. </value>
-        PropertyDef? PropertyDef
+        PropertyDef PropertyDef
         {
             get;
         }

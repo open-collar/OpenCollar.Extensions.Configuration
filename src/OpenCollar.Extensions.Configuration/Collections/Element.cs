@@ -23,7 +23,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     ///     A class used to represent a property on an interface and its location in the configuration model.
     /// </summary>
     [System.Diagnostics.DebuggerDisplay("{Path,nq}=\"{StringValue}\"")]
-    internal sealed class Element<TKey, TValue> : ValueBase
+    internal sealed class Element<TKey, TValue> : ValueBase<ConfigurationDictionaryBase<TKey, TValue>, TValue>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="Element{TKey,TValue}" /> class.

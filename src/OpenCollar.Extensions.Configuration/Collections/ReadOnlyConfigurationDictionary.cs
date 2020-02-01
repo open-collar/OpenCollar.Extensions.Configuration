@@ -29,31 +29,36 @@ namespace OpenCollar.Extensions.Configuration
     /// <typeparam name="TElement"> The type of the element. </typeparam>
     /// <seealso cref="ConfigurationDictionaryBase{T,T}" />
     /// <seealso cref="IConfigurationDictionary{TElement}" />
-    internal sealed class ReadOnlyConfigurationDictionary<TElement> : ConfigurationDictionary<TElement>, IReadOnlyDictionary<string, TElement>
-        where TElement : IConfigurationObject
+    internal sealed class ReadOnlyConfigurationDictionary<TElement> : ConfigurationDictionary<TElement>, IReadOnlyDictionary<string, TElement>, IConfigurationDictionary<TElement>
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ReadOnlyConfigurationDictionary{TElement}" /> class.
+        ///     Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.
         /// </summary>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="configurationRoot">
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </param>
         /// <param name="elements"> The elements with which to initialize to the collection. </param>
-        public ReadOnlyConfigurationDictionary(PropertyDef propertyDef, IConfigurationRoot configurationRoot, IEnumerable<TElement>? elements) : base(propertyDef, configurationRoot, elements)
+        public ReadOnlyConfigurationDictionary(PropertyDef propertyDef, IConfigurationRoot configurationRoot, IEnumerable<KeyValuePair<string, TElement>>? elements) : base(propertyDef, configurationRoot, elements)
         {
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ReadOnlyConfigurationDictionary{TElement}" /> class.
+        ///     Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.
         /// </summary>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="configurationRoot">
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </param>
         /// <param name="elements">
         ///     A parameter array containing the elements with which to initialize to the collection.
         /// </param>
-        public ReadOnlyConfigurationDictionary(PropertyDef propertyDef, IConfigurationRoot configurationRoot, params TElement[]? elements) : base(propertyDef, configurationRoot, elements)
+        public ReadOnlyConfigurationDictionary(PropertyDef propertyDef, IConfigurationRoot configurationRoot, params KeyValuePair<string, TElement>[]? elements) : base(propertyDef, configurationRoot, elements)
         {
         }
 
         /// <summary>
-        ///     Gets a value indicating whether the <see cref="ICollection{T}" /> is read-only.
+        ///     Gets a value indicating whether the <see cref="ICollection{TElement}" /> is read-only.
         /// </summary>
         public override bool IsReadOnly
         {
@@ -84,6 +89,14 @@ namespace OpenCollar.Extensions.Configuration
                 return Values;
             }
         }
+
+        /// <summary>
+        ///     Gets the element with the specified key.
+        /// </summary>
+        /// <value> The element requested. </value>
+        /// <param name="key"> The key identify the element. </param>
+        /// <returns> The value of the element specified </returns>
+        TElement IReadOnlyDictionary<string, TElement>.this[string key] { get { return base[key].Value; } }
 
         /// <summary>
         ///     Converts the string given to the key.

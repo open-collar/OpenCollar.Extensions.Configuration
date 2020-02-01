@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Configuration;
 using OpenCollar.Extensions.Configuration.Collections;
 
@@ -32,7 +33,6 @@ namespace OpenCollar.Extensions.Configuration
     /// <seealso cref="ConfigurationDictionaryBase{T,T}" />
     /// <seealso cref="IConfigurationCollection{TElement}" />
     internal class ConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IConfigurationCollection<TElement>
-        where TElement : IConfigurationObject
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationCollection{TElement}" /> class.
@@ -94,11 +94,11 @@ namespace OpenCollar.Extensions.Configuration
         {
             get
             {
-                return base[index];
+                return base[index].Value;
             }
             set
             {
-                base[index] = value;
+                base[index].Value = value;
             }
         }
 
@@ -204,17 +204,17 @@ namespace OpenCollar.Extensions.Configuration
             Lock.EnterWriteLock();
             try
             {
-                var entries = new KeyValuePair<int, TElement>[InnerCount];
+                var entries = new KeyValuePair<int, Element<int, TElement>>[InnerCount];
                 InnerCopyTo(entries, 0);
 
-                var list = new List<KeyValuePair<int, TElement>>(entries);
-                list.Insert(index, new KeyValuePair<int, TElement>(index, item));
+                var list = new List<Element<int, TElement>>(entries.Select(k => k.Value));
+                list.Insert(index, new Element<int, TElement>(base.PropertyDef, this, index, item));
                 var n = 0;
                 foreach(var element in list.ToArray())
                 {
                     if(n > index)
                     {
-                        list[n] = new KeyValuePair<int, TElement>(n, element.Value);
+                        list[n] = element;
                     }
                     ++n;
                 }
@@ -309,7 +309,7 @@ namespace OpenCollar.Extensions.Configuration
                 {
                     var item = base[n + 1];
                     Remove(n + 1);
-                    Add(new KeyValuePair<int, TElement>(n, item));
+                    Add(item.Value);
                 }
             }
             finally

@@ -9,6 +9,6 @@
         ///     Called when a value has changed.
         /// </summary>
         /// <param name="value"> The value that has changed. </param>
-        void OnValueChanged(ValueBase value);
+        void OnValueChanged(IValue value);
     }
 }
