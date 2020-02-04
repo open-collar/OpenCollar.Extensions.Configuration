@@ -87,6 +87,13 @@
   <div class="markdown level0 remarks"></div>
     <h3 id="classes">Classes
   </h3>
+      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationCollection-1.html">ConfigurationCollection&lt;TElement&gt;</a></h4>
+      <section><p>A collection of <a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html">IConfigurationObject</a> that notifies when an element
+is added or removed.</p>
+</section>
+      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationDictionary-1.html">ConfigurationDictionary&lt;TElement&gt;</a></h4>
+      <section><p>A dictionary of configuration objects, keyed on the name of the object.</p>
+</section>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationException.html">ConfigurationException</a></h4>
       <section><p>An exception thrown when an error occurs during the reading or writing of configuration.</p>
 </section>
@@ -105,6 +112,13 @@ configuration root.</p>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.Disposable.html">Disposable</a></h4>
       <section><p>A base class for disposable objects.</p>
 </section>
+      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.Implementation.html">Implementation</a></h4>
+      <section><p>The details of the implementation of a property or element.</p>
+</section>
+      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.NotifyPropertyChanged.html">NotifyPropertyChanged</a></h4>
+      <section><p>A base class providing an implementation of the <span class="xref">System.ComponentModel.INotifyPropertyChanged</span> interface (and the
+<span class="xref">System.IDisposable</span> interface.</p>
+</section>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.PathAttribute.html">PathAttribute</a></h4>
       <section><p>Defines an attribute used to indicate the path to the configuration value(s) underlying a class or
 individual property.</p>
@@ -112,8 +126,18 @@ individual property.</p>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.PropertyDef.html">PropertyDef</a></h4>
       <section><p>The definition of a property of a configuration object.</p>
 </section>
+      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.ReadOnlyConfigurationCollection-1.html">ReadOnlyConfigurationCollection&lt;TElement&gt;</a></h4>
+      <section><p>A read-only collection of <a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html">IConfigurationObject</a> that notifies when
+an element is added or removed.</p>
+</section>
+      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.ReadOnlyConfigurationDictionary-1.html">ReadOnlyConfigurationDictionary&lt;TElement&gt;</a></h4>
+      <section><p>A read-only dictionary of configuration objects, keyed on the name of the object.</p>
+</section>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.html">ServiceCollectionExtensions</a></h4>
       <section><p>Extensions to the <span class="xref">Microsoft.Extensions.DependencyInjection.IServiceCollection</span> type allowing configuration objects to be registered.</p>
+</section>
+      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.ValueBase-2.html">ValueBase&lt;TParent, TValue&gt;</a></h4>
+      <section><p>A class used to represent a property on an interface and its location in the configuration model.</p>
 </section>
     <h3 id="interfaces">Interfaces
   </h3>
@@ -126,14 +150,23 @@ individual property.</p>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html">IConfigurationObject</a></h4>
       <section><p>The interface from which all configuration objects are derived.</p>
 </section>
+      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationParent.html">IConfigurationParent</a></h4>
+      <section><p>The interface common to all objects that can be parents to others.</p>
+</section>
+      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.IValue.html">IValue</a></h4>
+      <section><p>The interface internally exposed by value objects.</p>
+</section>
+      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.IValueChanged.html">IValueChanged</a></h4>
+      <section><p>The interface used internally to allow values to call back to their parents to signal that a value has changed.</p>
+</section>
     <h3 id="enums">Enums
   </h3>
+      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.ImplementationKind.html">ImplementationKind</a></h4>
+      <section><p>Defines the way in which the value returned by a property is implemented.</p>
+</section>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.PathIs.html">PathIs</a></h4>
       <section><p>An enumeration of the ways in which the string supplied to the <a class="xref" href="OpenCollar.Extensions.Configuration.PathAttribute.html">PathAttribute</a>
 attribute can be used to create a full path.</p>
-</section>
-      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.StructuralElementKind.html">StructuralElementKind</a></h4>
-      <section><p>Specifies the ways in which a property can be used to represent structural elements.</p>
 </section>
 </article>
           </div>
@@ -159,7 +192,7 @@ attribute can be used to create a full path.</p>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.84</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.87</span></div></div>
             
           </div>
         </div>
