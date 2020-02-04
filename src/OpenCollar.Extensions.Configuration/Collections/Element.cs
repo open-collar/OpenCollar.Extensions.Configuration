@@ -69,7 +69,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 return Key.ToString();
             }
 
-            return ConfigurationContext.GetPath(_parent.GetPath(), Key.ToString());
+            return PathHelper.GetPath(_parent.GetPath(), Key.ToString());
         }
     }
 }

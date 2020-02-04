@@ -64,7 +64,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="propertyInfo"> The definition of the property. </param>
         /// <param name="defaultValue"> The default value. </param>
         /// <param name="context"> The context in which the property is being defined. </param>
-        internal PropertyDef(Type interfaceType, PropertyInfo propertyInfo, object? defaultValue, ConfigurationContext context) : this(interfaceType, propertyInfo, context)
+        internal PropertyDef(Type interfaceType, PropertyInfo propertyInfo, object? defaultValue) : this(interfaceType, propertyInfo)
         {
             HasDefaultValue = true;
             DefaultValue = defaultValue;
@@ -76,7 +76,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="interfaceType"> The type of the interface from which the property is taken. </param>
         /// <param name="propertyInfo"> The definition of the property. </param>
         /// <param name="context"> The context in which the property is being defined. </param>
-        internal PropertyDef(Type interfaceType, PropertyInfo propertyInfo, ConfigurationContext context)
+        internal PropertyDef(Type interfaceType, PropertyInfo propertyInfo)
         {
             PropertyName = propertyInfo.Name;
             Type = propertyInfo.PropertyType;
@@ -104,17 +104,16 @@ namespace OpenCollar.Extensions.Configuration
                 PathSection = PropertyName;
             }
 
-            Implementation = new Implementation(UnderlyingType, IsReadOnly, context);
+            Implementation = new Implementation(UnderlyingType, IsReadOnly);
             switch(Implementation.ImplementationKind)
             {
                 case ImplementationKind.ConfigurationCollection:
                 case ImplementationKind.ConfigurationDictionary:
-                    ElementImplementation = new Implementation(Implementation.Type, IsReadOnly, context);
+                    ElementImplementation = new Implementation(Implementation.Type, IsReadOnly);
                     break;
 
                 case ImplementationKind.ConfigurationObject:
-                    var childContext = new ConfigurationContext(context, PropertyName);
-                    ElementImplementation = new Implementation(Implementation.Type, IsReadOnly, childContext);
+                    ElementImplementation = new Implementation(Implementation.Type, IsReadOnly);
                     break;
             }
         }
@@ -303,7 +302,7 @@ namespace OpenCollar.Extensions.Configuration
             switch(PathModifier)
             {
                 case PathIs.Suffix:
-                    return ConfigurationContext.GetPath(parent.GetPath(), PathSection);
+                    return PathHelper.GetPath(parent.GetPath(), PathSection);
             }
 
             return PathSection;

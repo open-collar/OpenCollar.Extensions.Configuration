@@ -63,9 +63,7 @@ namespace OpenCollar.Extensions.Configuration
                 return;
             }
 
-            var context = new ConfigurationContext();
-
-            var implementationType = GenerateConfigurationObjectType<TConfigurationObject>(context);
+            var implementationType = GenerateConfigurationObjectType<TConfigurationObject>();
 
             var descriptor = new ServiceDescriptor(serviceType, implementationType, ServiceLifetime.Singleton);
 
@@ -78,18 +76,17 @@ namespace OpenCollar.Extensions.Configuration
         /// <typeparam name="TConfigurationObject">
         ///     The type of the interface to be implemented by the configuration object to create.
         /// </typeparam>
-        /// <param name="context"> Defines the context in which the configuration is to be constructed. </param>
         /// <returns> An implementation of the interface specified that can be used to interact with the configuration. </returns>
         /// <exception cref="InvalidOperationException">
         ///     Type specifies more than one 'Path' attribute and so cannot be processed. - or - Property specifies more
         ///     than one 'Path' attribute and so cannot be processed.
         /// </exception>
-        internal static Type GenerateConfigurationObjectType<TConfigurationObject>(ConfigurationContext context)
+        internal static Type GenerateConfigurationObjectType<TConfigurationObject>()
             where TConfigurationObject : IConfigurationObject
         {
             var type = typeof(TConfigurationObject);
 
-            return GenerateConfigurationObjectType(type, context);
+            return GenerateConfigurationObjectType(type);
         }
 
         /// <summary>
@@ -102,18 +99,24 @@ namespace OpenCollar.Extensions.Configuration
         ///     Type specifies more than one 'Path' attribute and so cannot be processed. - or - Property specifies more
         ///     than one 'Path' attribute and so cannot be processed.
         /// </exception>
-        internal static Type GenerateConfigurationObjectType(Type type, ConfigurationContext context)
+        internal static Type GenerateConfigurationObjectType(Type type)
         {
-            var localContext = new ConfigurationContext(context);
-
-            var propertyDefs = GetConfigurationObjectDefinition(type, localContext);
+            var propertyDefs = GetConfigurationObjectDefinition(type);
 
             var builder = new ConfigurationObjectTypeBuilder(type, propertyDefs);
 
             return builder.Generate();
         }
 
-        internal static List<PropertyDef> GetConfigurationObjectDefinition(Type type, ConfigurationContext localContext)
+        /// <summary>
+        ///     Gets the configuration object definition.
+        /// </summary>
+        /// <param name="type"> The type of the object to define. </param>
+        /// <returns> A list of the property definitions for the type specified. </returns>
+        /// <exception cref="InvalidOperationException">
+        ///     Type '{type.Namespace}.{type.Name}' specifies more than one 'Path' attribute and so cannot be processed.
+        /// </exception>
+        internal static List<PropertyDef> GetConfigurationObjectDefinition(Type type)
         {
             // TODO: Circular reference detection - for this version.
 
@@ -125,8 +128,6 @@ namespace OpenCollar.Extensions.Configuration
                     throw new InvalidOperationException(
                         $"Type '{type.Namespace}.{type.Name}' specifies more than one 'Path' attribute and so cannot be processed.");
                 }
-
-                localContext.ApplyPathAttribute((PathAttribute)pathAttributes[0]);
             }
 
             var propertyDefs = new List<PropertyDef>();
@@ -141,12 +142,12 @@ namespace OpenCollar.Extensions.Configuration
                 var defaultValueAttributes = property.GetCustomAttributes(typeof(DefaultValueAttribute), true);
                 if(ReferenceEquals(defaultValueAttributes, null) || (defaultValueAttributes.Length <= 0))
                 {
-                    propertyDefs.Add(new PropertyDef(type, property, localContext));
+                    propertyDefs.Add(new PropertyDef(type, property));
                 }
                 else
                 {
                     var defaultValue = ((DefaultValueAttribute)defaultValueAttributes[0]).DefaultValue;
-                    propertyDefs.Add(new PropertyDef(type, property, defaultValue, localContext));
+                    propertyDefs.Add(new PropertyDef(type, property, defaultValue));
                 }
             }
 

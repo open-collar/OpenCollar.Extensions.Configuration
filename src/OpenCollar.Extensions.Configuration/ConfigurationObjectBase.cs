@@ -162,9 +162,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the configuration root service from which values are read or to which all values will be written.
         /// </summary>
-        /// <value>
-        ///     The configuration root service from which values are read or to which all values will be written.
-        /// </value>
+        /// <value> The configuration root service from which values are read or to which all values will be written. </value>
         internal IConfigurationRoot ConfigurationRoot
         {
             get
@@ -385,7 +383,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, IConfigurationParent parent) : base(ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface), new ConfigurationContext()), configurationRoot, parent)
+        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, IConfigurationParent parent) : base(ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface)), configurationRoot, parent)
         {
             SuspendPropertyChangedEvents = true;
             try
@@ -398,6 +396,10 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
+        /// <summary>
+        ///     Gets the type of the interface implemented by this object.
+        /// </summary>
+        /// <value> The type of the interface implemented by this object. </value>
         protected override Type InterfaceType => typeof(TInterface);
     }
 }

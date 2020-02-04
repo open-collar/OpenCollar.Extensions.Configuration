@@ -46,8 +46,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="isReadOnly">
         ///     If set to <see langword="true" /> the property or collection is treated as a read-only.
         /// </param>
-        /// <param name="context"> The context in which the configuration is being analysed. </param>
-        internal Implementation(Type underlyingType, bool isReadOnly, ConfigurationContext context)
+        internal Implementation(Type underlyingType, bool isReadOnly)
         {
             ImplementationKind = GetImplementationKind(underlyingType);
 
@@ -56,7 +55,7 @@ namespace OpenCollar.Extensions.Configuration
             switch(ImplementationKind)
             {
                 case ImplementationKind.ConfigurationObject:
-                    ImplementationType = ServiceCollectionExtensions.GenerateConfigurationObjectType(underlyingType, context);
+                    ImplementationType = ServiceCollectionExtensions.GenerateConfigurationObjectType(underlyingType);
                     Type = underlyingType;
                     break;
 
