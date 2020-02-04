@@ -37,12 +37,26 @@ namespace OpenCollar.Extensions.Configuration
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
+        ///     Gets or sets a value indicating whether property changed events are fired.
+        /// </summary>
+        /// <value> <see langword="true" /> if property changed events are suspended; otherwise, <see langword="false" />. </value>
+        protected bool SuspendPropertyChangedEvents
+        {
+            get; set;
+        }
+
+        /// <summary>
         ///     Called when an underlying property has been changed.
         /// </summary>
         /// <param name="propertyName"> The name of the property that has changed. </param>
         /// <exception cref="AggregateException"> One or more change event handlers threw an exception. </exception>
         protected void OnPropertyChanged(string propertyName)
         {
+            if(SuspendPropertyChangedEvents)
+            {
+                return;
+            }
+
             if(IsDisposed)
             {
                 return;

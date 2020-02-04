@@ -25,7 +25,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     The interface from which all configuration objects are derived.
     /// </summary>
-    public interface IConfigurationObject : IDisposable, INotifyPropertyChanged
+    public interface IConfigurationObject : IDisposable, INotifyPropertyChanged, IConfigurationParent
     {
         /// <summary>
         ///     Gets a value indicating whether this object has any properties with unsaved changes.

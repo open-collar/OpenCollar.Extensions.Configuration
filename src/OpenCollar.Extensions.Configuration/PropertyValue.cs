@@ -26,8 +26,8 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     A class used to represent a property on an interface and its location in the configuration model.
     /// </summary>
-    [System.Diagnostics.DebuggerDisplay("{Path,nq}=\"{StringValue}\"")]
-    internal sealed class PropertyValue<TValue> : ValueBase<ConfigurationObjectBase, TValue>, IPropertyValue
+    [System.Diagnostics.DebuggerDisplay("{PropertyName,nq}={StringValue}")]
+    internal sealed class PropertyValue<TValue> : ValueBase<ConfigurationObjectBase, TValue>, IPropertyValue, IConfigurationParent
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="PropertyValue{TValue}" /> class.
@@ -36,6 +36,18 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="parent"> The parent configuration object for which this object represents a property. </param>
         public PropertyValue(PropertyDef propertyDef, ConfigurationObjectBase parent) : base(propertyDef, parent, default)
         {
+        }
+
+        /// <summary>
+        ///     Gets a value indicating whether this container is read-only.
+        /// </summary>
+        /// <value> <see langword="true" /> if this container is read-only; otherwise, <see langword="false" />. </value>
+        public bool IsReadOnly
+        {
+            get
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -51,9 +63,12 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Gets the full path for this value.
+        ///     Gets the path to this configuration object.
         /// </summary>
-        /// <returns> The full path for this value </returns>
-        protected override string GetPath() => _propertyDef.Path;
+        /// <returns> A string containing the path to this configuration object. </returns>
+        public override string GetPath()
+        {
+            return _propertyDef.GetPath(_parent);
+        }
     }
 }

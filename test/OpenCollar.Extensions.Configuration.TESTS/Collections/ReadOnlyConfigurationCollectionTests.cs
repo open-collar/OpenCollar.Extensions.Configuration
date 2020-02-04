@@ -44,7 +44,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = testContext.GetChildElement("b");
             var c = testContext.GetChildElement("c");
 
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
 
             Assert.Equal(3, x.Count);
 
@@ -87,7 +87,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = testContext.GetChildElement("b");
             var c = testContext.GetChildElement("c");
             var d = testContext.GetChildElement("d");
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c, d);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c, d);
 
             Assert.Equal(4, x.Count);
 
@@ -105,7 +105,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = testContext.GetChildElement("b");
             var c = testContext.GetChildElement("c");
 
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot, a, b);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a, b);
 
             Assert.True(x.Contains(a));
             Assert.True(x.Contains(b));
@@ -124,7 +124,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = testContext.GetChildElement("b");
             var c = testContext.GetChildElement("c");
 
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
 
             var array = new IChildElement[3];
 
@@ -150,7 +150,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         public void DisposeTests()
         {
             var testContext = _propertyTestData.GetContext();
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
             x.Dispose();
             Assert.Throws<ObjectDisposedException>(() => x.IndexOf(null));
         }
@@ -163,14 +163,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = testContext.GetChildElement("b");
             var c = testContext.GetChildElement("c");
 
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
 
             foreach(var item in x)
             {
                 Assert.True(false);
             }
 
-            x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
+            x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
 
             var n = 0;
             foreach(var item in (IEnumerable<IChildElement>)x)
@@ -207,7 +207,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = testContext.GetChildElement("b");
             var c = testContext.GetChildElement("c");
 
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
 
             Assert.Equal(a, x[0].Value);
             Assert.Equal(b, x[1].Value);
@@ -227,19 +227,19 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = testContext.GetChildElement("b");
             var c = testContext.GetChildElement("c");
 
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
 
             Assert.True(x.IndexOf(a) < 0);
             Assert.True(x.IndexOf(b) < 0);
             Assert.True(x.IndexOf(c) < 0);
 
-            x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot, a, b);
+            x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a, b);
 
             Assert.Equal(0, x.IndexOf(a));
             Assert.Equal(1, x.IndexOf(b));
             Assert.True(x.IndexOf(c) < 0);
 
-            x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
+            x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
 
             Assert.Equal(0, x.IndexOf(a));
             Assert.Equal(1, x.IndexOf(b));
@@ -258,7 +258,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
 
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot, a);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a);
 
             Assert.Throws<NotImplementedException>(() => x.Insert(1, b));
 
@@ -275,11 +275,11 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var c = testContext.GetChildElement("c");
             var e = testContext.GetChildElement("e");
 
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
 
             Assert.False(x.IsDirty);
 
-            x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c, e);
+            x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c, e);
 
             Assert.True(x.IsDirty);
         }
@@ -288,7 +288,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         public void IsReadOnlyTests()
         {
             var testContext = _propertyTestData.GetContext();
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
 
             Assert.True(x.IsReadOnly);
         }
@@ -300,7 +300,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
 
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot, a);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a);
 
             Assert.Throws<NotImplementedException>(() => x.Remove(b));
             Assert.Throws<NotImplementedException>(() => x.RemoveAt(0));
@@ -314,15 +314,15 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         public void TestConstructor()
         {
             var testContext = _propertyTestData.GetContext();
-            var propertyDef = testContext.PropertyDef;
+            var propertyDef = testContext.ReadOnlyChildConfigurationCollectionPropertyDef;
 
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(propertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(null, propertyDef, testContext.Configuration.ConfigurationRoot);
 
             Assert.NotNull(x);
             Assert.Equal(0, x.Count);
             Assert.Equal(propertyDef.PropertyName, x.PropertyDef.PropertyName);
 
-            x = new ReadOnlyConfigurationCollection<IChildElement>(propertyDef, testContext.Configuration.ConfigurationRoot, (IEnumerable<IChildElement>)null);
+            x = new ReadOnlyConfigurationCollection<IChildElement>(null, propertyDef, testContext.Configuration.ConfigurationRoot, (IEnumerable<IChildElement>)null);
 
             Assert.NotNull(x);
             Assert.Equal(0, x.Count);
@@ -331,13 +331,13 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
 
-            x = new ReadOnlyConfigurationCollection<IChildElement>(propertyDef, testContext.Configuration.ConfigurationRoot, a, b);
+            x = new ReadOnlyConfigurationCollection<IChildElement>(null, propertyDef, testContext.Configuration.ConfigurationRoot, a, b);
 
             Assert.NotNull(x);
             Assert.Equal(2, x.Count);
             Assert.Equal(propertyDef.PropertyName, x.PropertyDef.PropertyName);
 
-            x = new ReadOnlyConfigurationCollection<IChildElement>(propertyDef, testContext.Configuration.ConfigurationRoot, (IEnumerable<IChildElement>)(new[] { a, b }));
+            x = new ReadOnlyConfigurationCollection<IChildElement>(null, propertyDef, testContext.Configuration.ConfigurationRoot, (IEnumerable<IChildElement>)(new[] { a, b }));
 
             Assert.NotNull(x);
             Assert.Equal(2, x.Count);
@@ -353,10 +353,10 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var c = testContext.GetChildElement("c");
             var d = testContext.GetChildElement("d");
 
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
 
             Assert.True(x.TryGetValue(1, out var found));
-            Assert.Equal(a, found);
+            Assert.Equal(b, found);
 
             Assert.False(x.TryGetValue(5, out found));
             Assert.Null(found);
@@ -370,30 +370,30 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = testContext.GetChildElement("b");
             var c = testContext.GetChildElement("c");
 
-            var x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
 
             foreach(var item in (System.Collections.IEnumerable)x)
             {
                 Assert.True(false);
             }
 
-            x = new ReadOnlyConfigurationCollection<IChildElement>(testContext.PropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
+            x = new ReadOnlyConfigurationCollection<IChildElement>(null, testContext.ReadOnlyChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
 
             var n = 0;
-            foreach(KeyValuePair<string, IChildElement> item in (System.Collections.IEnumerable)x)
+            foreach(IChildElement item in (System.Collections.IEnumerable)x)
             {
                 switch(n++)
                 {
                     case 0:
-                        Assert.Equal(a, item.Value);
+                        Assert.Equal(a, item);
                         break;
 
                     case 1:
-                        Assert.Equal(b, item.Value);
+                        Assert.Equal(b, item);
                         break;
 
                     case 2:
-                        Assert.Equal(c, item.Value);
+                        Assert.Equal(c, item);
                         break;
 
                     default:

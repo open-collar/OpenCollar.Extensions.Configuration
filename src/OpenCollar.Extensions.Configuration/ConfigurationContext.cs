@@ -22,6 +22,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     Defines the context in which the configuration object is being constructed.
     /// </summary>
+    [System.Diagnostics.DebuggerDisplay("Context: {Path,nq}")]
     internal sealed class ConfigurationContext
     {
         /// <summary>
@@ -46,10 +47,62 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationContext" /> class.
+        /// </summary>
+        /// <param name="context"> The existing context from which to initialize. </param>
+        /// <param name="childPath"> The child path to append to the existing path. </param>
+        public ConfigurationContext(ConfigurationContext context, string childPath)
+        {
+            Path = string.Concat(context.Path, PathDelimiter, childPath);
+        }
+
+        /// <summary>
         ///     Gets or sets the path.
         /// </summary>
         /// <value> The path. </value>
         public string Path { get; private set; } = string.Empty;
+
+        /// <summary>
+        ///     Returns the sections of a path concatentated into a fully delimited path.
+        /// </summary>
+        /// <param name="sections">
+        ///     The sections of the path to generate. <see langword="null" /> or zero-length sections are ignored.
+        /// </param>
+        /// <returns>
+        ///     A string containing the sections of path given, delimited using <see cref="PathDelimiter" />. Will be an
+        ///     empty string if no valid sections are supplied.
+        /// </returns>
+        public static string GetPath(params string[] sections)
+        {
+            if(ReferenceEquals(sections, null))
+            {
+                return string.Empty;
+            }
+
+            if(sections.Length <= 0)
+            {
+                return string.Empty;
+            }
+
+            var builder = new System.Text.StringBuilder();
+
+            foreach(var section in sections)
+            {
+                if(string.IsNullOrWhiteSpace(section))
+                {
+                    continue;
+                }
+
+                if(builder.Length > 0)
+                {
+                    builder.Append(PathDelimiter);
+                }
+
+                builder.Append(section);
+            }
+
+            return builder.ToString();
+        }
 
         /// <summary>
         ///     Applies the path attribute to modify the current context.

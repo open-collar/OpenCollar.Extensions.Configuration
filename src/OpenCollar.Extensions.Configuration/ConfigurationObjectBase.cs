@@ -30,8 +30,6 @@ namespace OpenCollar.Extensions.Configuration
     ///     A base class that allows configuration from classes in the <see cref="Microsoft.Extensions.Configuration" />
     ///     namespace to be to be accessed through a user-defined model with strongly typed interfaces.
     /// </summary>
-    /// <typeparam name="TInterface"> The type of the configuration interface implemented. </typeparam>
-    /// <seealso cref="Disposable" />
     /// <seealso cref="IConfigurationObject" />
     /// <remarks>
     ///     <para>
@@ -46,50 +44,7 @@ namespace OpenCollar.Extensions.Configuration
     ///         value) will not be reported.
     ///     </para>
     /// </remarks>
-    /// <seealso cref="IConfigurationObject" />
-    public abstract class ConfigurationObjectBase<TInterface> : ConfigurationObjectBase
-    {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ConfigurationObjectBase{TInterface}" /> class.
-        /// </summary>
-        /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
-        /// <param name="propertyDef">
-        ///     The definition of the property defined by this object. This can be <see lang="null" /> if this object is
-        ///     the root of the hierarchy.
-        /// </param>
-        protected ConfigurationObjectBase(PropertyDef? propertyDef, IConfigurationRoot configurationRoot) : base(propertyDef, configurationRoot)
-        {
-        }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ConfigurationObjectBase{TInterface}" /> class. This is the
-        ///     interface used when creating the root instance for the service collection.
-        /// </summary>
-        /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
-        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot) : base(ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface), new ConfigurationContext()), configurationRoot)
-        {
-            Reload();
-        }
-    }
-
-    /// <summary>
-    ///     A base class that allows configuration from classes in the <see cref="Microsoft.Extensions.Configuration" />
-    ///     namespace to be to be accessed through a user-defined model with strongly typed interfaces.
-    /// </summary>
-    /// <seealso cref="IConfigurationObject" />
-    /// <remarks>
-    ///     <para>
-    ///         For each requested model only a single instance of the model is ever constructed for a given
-    ///         <see cref="IConfigurationSection" /> or <see cref="IConfigurationRoot" /> .
-    ///     </para>
-    ///     <para>
-    ///         The <see cref="INotifyPropertyChanged" /> interface is supported allowing changes to be detected and
-    ///         reported from both the underlying configuration source (through the source changed
-    ///         event) and from detected changes made to properties with a setter. Only material changes are reported,
-    ///         and change with no practical impact (for example assigning a new instance of a string with the same
-    ///         value) will not be reported.
-    ///     </para>
-    /// </remarks>
+    [System.Diagnostics.DebuggerDisplay("{ToString(),nq}")]
     public abstract class ConfigurationObjectBase : NotifyPropertyChanged, IConfigurationObject, IValueChanged
     {
         /// <summary>
@@ -116,6 +71,11 @@ namespace OpenCollar.Extensions.Configuration
         private readonly Dictionary<string, IValue> _propertiesByPath = new Dictionary<string, IValue>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
+        ///     The object that is the parent of this one, or <see langword="null" /> if this is the root.
+        /// </summary>
+        private IConfigurationParent? _parent;
+
+        /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationObjectBase" /> class.
         /// </summary>
         /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
@@ -123,8 +83,12 @@ namespace OpenCollar.Extensions.Configuration
         ///     The definition of the property defined by this object. This can be <see lang="null" /> if this object is
         ///     the root of the hierarchy.
         /// </param>
-        protected ConfigurationObjectBase(PropertyDef? propertyDef, IConfigurationRoot configurationRoot)
+        /// <param name="parent">
+        ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
+        /// </param>
+        protected ConfigurationObjectBase(PropertyDef? propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent)
         {
+            _parent = parent;
             PropertyDef = propertyDef;
             _configurationRoot = configurationRoot;
 
@@ -140,12 +104,15 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
         /// <param name="childPropertyDefs"> A sequence containing the definitions of the properties to represent. </param>
-        protected ConfigurationObjectBase(IEnumerable<PropertyDef> childPropertyDefs, IConfigurationRoot configurationRoot) : this((PropertyDef?)null, configurationRoot)
+        /// <param name="parent">
+        ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
+        /// </param>
+        protected ConfigurationObjectBase(IEnumerable<PropertyDef> childPropertyDefs, IConfigurationRoot configurationRoot, IConfigurationParent parent) : this((PropertyDef?)null, configurationRoot, parent)
         {
             foreach(var childPropertyDef in childPropertyDefs)
             {
                 var type = _propertyTypes.GetOrAdd(childPropertyDef.Type, t => typeof(PropertyValue<>).MakeGenericType(t));
-                var property = (IValue)Activator.CreateInstance(type, childPropertyDef, (ConfigurationObjectBase)this);
+                var property = (IValue)Activator.CreateInstance(type, childPropertyDef, (IConfigurationParent)this);
                 _propertiesByName.Add(childPropertyDef.PropertyName, property);
                 _propertiesByPath.Add(property.Path, property);
             }
@@ -172,6 +139,18 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets a value indicating whether this container is read-only.
+        /// </summary>
+        /// <value> <see langword="true" /> if this container is read-only; otherwise, <see langword="false" />. </value>
+        public bool IsReadOnly
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         ///     Gets the definition of this property object.
         /// </summary>
         /// <value> The definition of this property object. </value>
@@ -192,6 +171,15 @@ namespace OpenCollar.Extensions.Configuration
             {
                 return _configurationRoot;
             }
+        }
+
+        /// <summary>
+        ///     Gets the type of the interface implemented by this object.
+        /// </summary>
+        /// <value> The type of the interface implemented by this object. </value>
+        protected abstract Type InterfaceType
+        {
+            get;
         }
 
         /// <summary>
@@ -238,6 +226,24 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets the path to this configuration object.
+        /// </summary>
+        /// <returns> A string containing the path to this configuration object. </returns>
+        public string GetPath()
+        {
+            if(ReferenceEquals(PropertyDef, null))
+            {
+                if(!ReferenceEquals(_parent, null))
+                {
+                    return _parent.GetPath();
+                }
+                return string.Empty;
+            }
+
+            return PropertyDef.GetPath(_parent);
+        }
+
+        /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
         /// <exception cref="ObjectDisposedException">
@@ -269,9 +275,28 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        void IValueChanged.OnValueChanged(IValue value)
+        /// <summary>
+        ///     Converts to string.
+        /// </summary>
+        /// <returns> A <see cref="System.String" /> that represents this instance. </returns>
+        public override string ToString()
         {
-            base.OnPropertyChanged(((IPropertyValue)value).PropertyName);
+            if(ReferenceEquals(PropertyDef, null))
+            {
+                return $"ConfigurationObjectBase<{InterfaceType.FullName}>";
+            }
+
+            return $"ConfigurationObjectBase<{InterfaceType.FullName}>: {PropertyDef.PropertyName}";
+        }
+
+        /// <summary>
+        ///     Called when a value has changed.
+        /// </summary>
+        /// <param name="oldValue"> The old value. </param>
+        /// <param name="newValue"> The new value. </param>
+        void IValueChanged.OnValueChanged(IValue oldValue, IValue newValue)
+        {
+            OnPropertyChanged(((IPropertyValue)newValue).PropertyName);
         }
 
         /// <summary>
@@ -312,5 +337,67 @@ namespace OpenCollar.Extensions.Configuration
                 }
             }
         }
+    }
+
+    /// <summary>
+    ///     A base class that allows configuration from classes in the <see cref="Microsoft.Extensions.Configuration" />
+    ///     namespace to be to be accessed through a user-defined model with strongly typed interfaces.
+    /// </summary>
+    /// <typeparam name="TInterface"> The type of the configuration interface implemented. </typeparam>
+    /// <seealso cref="Disposable" />
+    /// <seealso cref="IConfigurationObject" />
+    /// <remarks>
+    ///     <para>
+    ///         For each requested model only a single instance of the model is ever constructed for a given
+    ///         <see cref="IConfigurationSection" /> or <see cref="IConfigurationRoot" /> .
+    ///     </para>
+    ///     <para>
+    ///         The <see cref="INotifyPropertyChanged" /> interface is supported allowing changes to be detected and
+    ///         reported from both the underlying configuration source (through the source changed
+    ///         event) and from detected changes made to properties with a setter. Only material changes are reported,
+    ///         and change with no practical impact (for example assigning a new instance of a string with the same
+    ///         value) will not be reported.
+    ///     </para>
+    /// </remarks>
+    /// <seealso cref="IConfigurationObject" />
+    public abstract class ConfigurationObjectBase<TInterface> : ConfigurationObjectBase
+    {
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationObjectBase{TInterface}" /> class.
+        /// </summary>
+        /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
+        /// <param name="propertyDef">
+        ///     The definition of the property defined by this object. This can be <see lang="null" /> if this object is
+        ///     the root of the hierarchy.
+        /// </param>
+        /// <param name="parent">
+        ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
+        /// </param>
+        protected ConfigurationObjectBase(PropertyDef? propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent) : base(propertyDef, configurationRoot, parent)
+        {
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationObjectBase{TInterface}" /> class. This is the
+        ///     interface used when creating the root instance for the service collection.
+        /// </summary>
+        /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
+        /// <param name="parent">
+        ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
+        /// </param>
+        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, IConfigurationParent parent) : base(ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface), new ConfigurationContext()), configurationRoot, parent)
+        {
+            SuspendPropertyChangedEvents = true;
+            try
+            {
+                Reload();
+            }
+            finally
+            {
+                SuspendPropertyChangedEvents = false;
+            }
+        }
+
+        protected override Type InterfaceType => typeof(TInterface);
     }
 }

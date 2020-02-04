@@ -24,7 +24,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     The interface internally exposed by value objects.
     /// </summary>
-    internal interface IValue
+    public interface IValue
     {
         /// <summary>
         ///     Gets a value indicating whether this property has unsaved changes.

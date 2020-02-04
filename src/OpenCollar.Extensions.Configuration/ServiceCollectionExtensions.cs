@@ -138,54 +138,15 @@ namespace OpenCollar.Extensions.Configuration
                     continue;
                 }
 
-                var path = localContext.Path;
-                var name = property.Name;
-
-                pathAttributes = property.GetCustomAttributes(typeof(PathAttribute), true);
-                if(!ReferenceEquals(pathAttributes, null) && (pathAttributes.Length > 0))
-                {
-                    if(pathAttributes.Length > 1)
-                    {
-                        throw new InvalidOperationException(
-                            $"Property '{type.Namespace}.{type.Name}.{name}' specifies more than one 'Path' attribute and so cannot be processed.");
-                    }
-
-                    var pathAttribute = ((PathAttribute)pathAttributes[0]);
-
-                    switch(pathAttribute.Usage)
-                    {
-                        case PathIs.Root:
-                            path = pathAttribute.Path;
-                            break;
-
-                        case PathIs.Suffix:
-                            if(string.IsNullOrWhiteSpace(path))
-                            {
-                                path = pathAttribute.Path;
-                            }
-                            else
-                            {
-                                path = string.Concat(path, ConfigurationContext.PathDelimiter, pathAttribute.Path);
-                            }
-
-                            break;
-                    }
-                }
-                else
-                {
-                    path = string.Concat(path, string.IsNullOrWhiteSpace(path) ? string.Empty : ConfigurationContext.PathDelimiter, name);
-                }
-
-                object? defaultValue = null;
                 var defaultValueAttributes = property.GetCustomAttributes(typeof(DefaultValueAttribute), true);
                 if(ReferenceEquals(defaultValueAttributes, null) || (defaultValueAttributes.Length <= 0))
                 {
-                    propertyDefs.Add(new PropertyDef(path, type, property, localContext));
+                    propertyDefs.Add(new PropertyDef(type, property, localContext));
                 }
                 else
                 {
-                    defaultValue = ((DefaultValueAttribute)defaultValueAttributes[0]).DefaultValue;
-                    propertyDefs.Add(new PropertyDef(path, type, property, defaultValue, localContext));
+                    var defaultValue = ((DefaultValueAttribute)defaultValueAttributes[0]).DefaultValue;
+                    propertyDefs.Add(new PropertyDef(type, property, defaultValue, localContext));
                 }
             }
 

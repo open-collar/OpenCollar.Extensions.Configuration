@@ -32,23 +32,30 @@ namespace OpenCollar.Extensions.Configuration
     /// <typeparam name="TElement"> The type of the element. </typeparam>
     /// <seealso cref="ConfigurationDictionaryBase{T,T}" />
     /// <seealso cref="IConfigurationCollection{TElement}" />
-    internal class ConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IConfigurationCollection<TElement>
+    [System.Diagnostics.DebuggerDisplay("ConfigurationCollection[{Count}]")]
+    public class ConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IConfigurationCollection<TElement>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationCollection{TElement}" /> class.
         /// </summary>
+        /// <param name="parent">
+        ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
+        /// </param>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
         /// <param name="elements"> The elements with which to initialize to the collection. </param>
-        public ConfigurationCollection(PropertyDef propertyDef, IConfigurationRoot configurationRoot, IEnumerable<TElement>? elements) : base(propertyDef, configurationRoot, GetIndexedElements(elements))
+        public ConfigurationCollection(IConfigurationParent? parent, PropertyDef propertyDef, IConfigurationRoot configurationRoot, IEnumerable<TElement>? elements) : base(parent, propertyDef, configurationRoot, GetIndexedElements(elements))
         {
         }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationCollection{TElement}" /> class.
         /// </summary>
+        /// <param name="parent">
+        ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
+        /// </param>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
@@ -56,7 +63,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="elements">
         ///     A parameter array containing the elements with which to initialize to the collection.
         /// </param>
-        public ConfigurationCollection(PropertyDef propertyDef, IConfigurationRoot configurationRoot, params TElement[]? elements) : base(propertyDef, configurationRoot, GetIndexedElements(elements))
+        public ConfigurationCollection(IConfigurationParent? parent, PropertyDef propertyDef, IConfigurationRoot configurationRoot, params TElement[]? elements) : base(parent, propertyDef, configurationRoot, GetIndexedElements(elements))
         {
         }
 
@@ -201,6 +208,8 @@ namespace OpenCollar.Extensions.Configuration
                 return;
             }
 
+            var n = 0;
+            var events = new List<System.Collections.Specialized.NotifyCollectionChangedEventArgs>();
             Lock.EnterWriteLock();
             try
             {
@@ -208,13 +217,14 @@ namespace OpenCollar.Extensions.Configuration
                 InnerCopyTo(entries, 0);
 
                 var list = new List<Element<int, TElement>>(entries.Select(k => k.Value));
-                list.Insert(index, new Element<int, TElement>(base.PropertyDef, this, index, item));
-                var n = 0;
+                list.Insert(index, new Element<int, TElement>(PropertyDef, this, index, item));
+                events.Add(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Add, item, index));
                 foreach(var element in list.ToArray())
                 {
                     if(n > index)
                     {
-                        list[n] = element;
+                        list[n].Key = n;
+                        events.Add(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Move, list[n], n, n - 1));
                     }
                     ++n;
                 }
@@ -225,7 +235,10 @@ namespace OpenCollar.Extensions.Configuration
                 Lock.ExitWriteLock();
             }
 
-            OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Add, item, index));
+            foreach(var args in events)
+            {
+                OnCollectionChanged(args);
+            }
         }
 
         /// <summary>
@@ -277,6 +290,17 @@ namespace OpenCollar.Extensions.Configuration
         {
             base.Remove(index);
             Reindex(index);
+        }
+
+        /// <summary>
+        ///     Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>
+        ///     An <see cref="System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return ((System.Collections.IEnumerable)Values).GetEnumerator();
         }
 
         /// <summary>

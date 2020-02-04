@@ -27,7 +27,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     Specifies the ways in which a property can be used to represent structural elements.
     /// </summary>
-    public enum StructuralElementKind
+    internal enum StructuralElementKind
     {
         /// <summary>
         ///     The kind of structural element is unknown or undefined. Use of this value will usually result in an
@@ -52,51 +52,19 @@ namespace OpenCollar.Extensions.Configuration
     }
 
     /// <summary>
-    ///     Defines the way in which the value returned by a property is implemented.
-    /// </summary>
-    internal enum ImplementationKind
-    {
-        /// <summary>
-        ///     The implementation is unknown or undefined.
-        /// </summary>
-        Unknown = 0,
-
-        /// <summary>
-        ///     The implementation is the naive type (i.e. nothing special is required).
-        /// </summary>
-        Naive,
-
-        /// <summary>
-        ///     The implementation is derived from <see cref="ConfigurationObjectBase{TInterface}" />.
-        /// </summary>
-        ConfigurationObject,
-
-        /// <summary>
-        ///     The implementation is derived from <see cref="ConfigurationCollection{TInterface}" />.
-        /// </summary>
-        ConfigurationCollection,
-
-        /// <summary>
-        ///     The implementation is derived from <see cref="ConfigurationDictionary{TInterface}" />.
-        /// </summary>
-        ConfigurationDictionary
-    }
-
-    /// <summary>
     ///     The definition of a property of a configuration object.
     /// </summary>
-    [System.Diagnostics.DebuggerDisplay("{Path}")]
+    [System.Diagnostics.DebuggerDisplay("{PropertyName}")]
     public class PropertyDef
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
         /// </summary>
-        /// <param name="path"> The colon-delimited path to the underlying configuration value. </param>
         /// <param name="interfaceType"> The type of the interface from which the property is taken. </param>
         /// <param name="propertyInfo"> The definition of the property. </param>
         /// <param name="defaultValue"> The default value. </param>
         /// <param name="context"> The context in which the property is being defined. </param>
-        internal PropertyDef(string path, Type interfaceType, PropertyInfo propertyInfo, object? defaultValue, ConfigurationContext context) : this(path, interfaceType, propertyInfo, context)
+        internal PropertyDef(Type interfaceType, PropertyInfo propertyInfo, object? defaultValue, ConfigurationContext context) : this(interfaceType, propertyInfo, context)
         {
             HasDefaultValue = true;
             DefaultValue = defaultValue;
@@ -105,59 +73,48 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
         /// </summary>
-        /// <param name="path"> The colon-delimited path to the underlying configuration value. </param>
         /// <param name="interfaceType"> The type of the interface from which the property is taken. </param>
         /// <param name="propertyInfo"> The definition of the property. </param>
         /// <param name="context"> The context in which the property is being defined. </param>
-        internal PropertyDef(string path, Type interfaceType, PropertyInfo propertyInfo, ConfigurationContext context)
+        internal PropertyDef(Type interfaceType, PropertyInfo propertyInfo, ConfigurationContext context)
         {
-            Path = path;
             PropertyName = propertyInfo.Name;
             Type = propertyInfo.PropertyType;
             UnderlyingType = GetUnderlyingType(propertyInfo.PropertyType);
             IsNullable = PropertyIsNullable(interfaceType, propertyInfo);
             IsReadOnly = !propertyInfo.CanWrite;
-            ImplementationKind = GetImplementationKind(UnderlyingType);
 
-            Type elementType;
-
-            switch(ImplementationKind)
+            var pathAttributes = propertyInfo.GetCustomAttributes(typeof(PathAttribute), true);
+            if(!ReferenceEquals(pathAttributes, null) && (pathAttributes.Length > 0))
             {
-                case ImplementationKind.ConfigurationObject:
-                    elementType = UnderlyingType;
-                    ImplementationType = ServiceCollectionExtensions.GenerateConfigurationObjectType(elementType, context);
-                    ElementType = null;
-                    break;
+                if(pathAttributes.Length > 1)
+                {
+                    throw new InvalidOperationException(
+                        $"Property '{Type.Namespace}.{Type.Name}.{PropertyName}' specifies more than one 'Path' attribute and so cannot be processed.");
+                }
 
+                var pathAttribute = ((PathAttribute)pathAttributes[0]);
+
+                PathSection = pathAttribute.Path;
+                PathModifier = pathAttribute.Usage;
+            }
+            else
+            {
+                PathModifier = PathIs.Suffix;
+                PathSection = PropertyName;
+            }
+
+            Implementation = new Implementation(UnderlyingType, IsReadOnly, context);
+            switch(Implementation.ImplementationKind)
+            {
                 case ImplementationKind.ConfigurationCollection:
-                    elementType = UnderlyingType.GenericTypeArguments.First();
-                    if(IsReadOnly)
-                    {
-                        ImplementationType = typeof(ReadOnlyConfigurationCollection<>).MakeGenericType(new[] { elementType });
-                    }
-                    else
-                    {
-                        ImplementationType = typeof(ConfigurationCollection<>).MakeGenericType(new[] { elementType });
-                    }
-                    ElementType = elementType;
-                    break;
-
                 case ImplementationKind.ConfigurationDictionary:
-                    elementType = UnderlyingType.GenericTypeArguments.First();
-                    if(IsReadOnly)
-                    {
-                        ImplementationType = typeof(ReadOnlyConfigurationDictionary<>).MakeGenericType(new[] { elementType });
-                    }
-                    else
-                    {
-                        ImplementationType = typeof(ConfigurationDictionary<>).MakeGenericType(new[] { elementType });
-                    }
-                    ElementType = elementType;
+                    ElementImplementation = new Implementation(Implementation.Type, IsReadOnly, context);
                     break;
 
-                default:
-                    ImplementationType = null;
-                    ElementType = null;
+                case ImplementationKind.ConfigurationObject:
+                    var childContext = new ConfigurationContext(context, PropertyName);
+                    ElementImplementation = new Implementation(Implementation.Type, IsReadOnly, childContext);
                     break;
             }
         }
@@ -172,9 +129,10 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Gets the type of the elements in an array or dictionary.
+        ///     Gets the details of the specific implementation of this property.
         /// </summary>
-        public Type? ElementType
+        /// <value> The details of the specific implementation of this property. </value>
+        public Implementation? ElementImplementation
         {
             get;
         }
@@ -191,9 +149,10 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Gets the type to use if generating an instance of the property represented.
+        ///     Gets the details of the specific implementation of this property.
         /// </summary>
-        public Type? ImplementationType
+        /// <value> The details of the specific implementation of this property. </value>
+        public Implementation Implementation
         {
             get;
         }
@@ -223,10 +182,19 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Gets the colon-delimited path to the underlying configuration value.
+        ///     Gets the path modifier.
         /// </summary>
-        /// <value> The colon-delimited path to the underlying configuration value. </value>
-        public string Path
+        /// <value> The path modifier. </value>
+        public PathIs PathModifier
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the path section.
+        /// </summary>
+        /// <value> The path section. </value>
+        public string PathSection
         {
             get;
         }
@@ -255,15 +223,6 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <returns> The basic type represented by the type given. </returns>
         public Type UnderlyingType
-        {
-            get;
-        }
-
-        /// <summary>
-        ///     Gets the kind of the implementation required for the value returned by the property defined.
-        /// </summary>
-        /// <value> The kind of the implementation required for the value returned by the property defined. </value>
-        internal ImplementationKind ImplementationKind
         {
             get;
         }
@@ -331,6 +290,26 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets the path to this configuration object.
+        /// </summary>
+        /// <returns> A string containing the path to this configuration object. </returns>
+        public string GetPath(IConfigurationParent? parent)
+        {
+            if(ReferenceEquals(parent, null))
+            {
+                return PropertyName;
+            }
+
+            switch(PathModifier)
+            {
+                case PathIs.Suffix:
+                    return ConfigurationContext.GetPath(parent.GetPath(), PathSection);
+            }
+
+            return PathSection;
+        }
+
+        /// <summary>
         ///     Determines whether the current value is the same as the original value.
         /// </summary>
         /// <param name="original"> The original value. </param>
@@ -360,10 +339,11 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Parses a string value into the type defined by the property definition.
         /// </summary>
+        /// <param name="path"> The path to the value being converted (used in error messages). </param>
         /// <param name="stringRepresentation"> The string to parse. </param>
         /// <returns> The string parsed as the type of this property. </returns>
         /// <exception cref="ConfigurationException"> Value could not be converted. </exception>
-        internal object? ConvertStringToValue(string? stringRepresentation)
+        internal object? ConvertStringToValue(string path, string? stringRepresentation)
         {
             if(ReferenceEquals(stringRepresentation, null))
             {
@@ -373,7 +353,7 @@ namespace OpenCollar.Extensions.Configuration
                 }
                 else
                 {
-                    throw new ConfigurationException(Path, $"Null value cannot be assigned to configuration path: '{Path}'.");
+                    throw new ConfigurationException(path, $"Null value cannot be assigned to configuration path: '{path}'.");
                 }
             }
 
@@ -393,7 +373,7 @@ namespace OpenCollar.Extensions.Configuration
             {
                 if(stringRepresentation.Length != 1)
                 {
-                    throw new ConfigurationException(Path, $"Value could not be treated as a 'char'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+                    throw new ConfigurationException(path, $"Value could not be treated as a 'char'; configuration path: '{path}'; value: '{stringRepresentation}'.");
                 }
                 return stringRepresentation[0];
             }
@@ -404,7 +384,7 @@ namespace OpenCollar.Extensions.Configuration
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(Path, $"Value could not be parsed as an 'Int16'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+                throw new ConfigurationException(path, $"Value could not be parsed as an 'Int16'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(sbyte))
@@ -413,7 +393,7 @@ namespace OpenCollar.Extensions.Configuration
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(Path, $"Value could not be parsed as an 'SByte'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+                throw new ConfigurationException(path, $"Value could not be parsed as an 'SByte'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(int))
@@ -422,7 +402,7 @@ namespace OpenCollar.Extensions.Configuration
                 {
                     return int32Value;
                 }
-                throw new ConfigurationException(Path, $"Value could not be parsed as an 'Int32'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+                throw new ConfigurationException(path, $"Value could not be parsed as an 'Int32'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(long))
@@ -431,7 +411,7 @@ namespace OpenCollar.Extensions.Configuration
                 {
                     return int64Value;
                 }
-                throw new ConfigurationException(Path, $"Value could not be parsed as an 'Int64'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+                throw new ConfigurationException(path, $"Value could not be parsed as an 'Int64'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(float))
@@ -440,7 +420,7 @@ namespace OpenCollar.Extensions.Configuration
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(Path, $"Value could not be parsed as an 'Single'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+                throw new ConfigurationException(path, $"Value could not be parsed as an 'Single'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(double))
@@ -449,7 +429,7 @@ namespace OpenCollar.Extensions.Configuration
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(Path, $"Value could not be parsed as an 'Double'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+                throw new ConfigurationException(path, $"Value could not be parsed as an 'Double'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(decimal))
@@ -458,34 +438,34 @@ namespace OpenCollar.Extensions.Configuration
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(Path, $"Value could not be parsed as an 'Decimal'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+                throw new ConfigurationException(path, $"Value could not be parsed as an 'Decimal'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(DateTime))
             {
-                if(System.DateTime.TryParse(stringRepresentation, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out var parsed))
+                if(DateTime.TryParse(stringRepresentation, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out var parsed))
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(Path, $"Value could not be parsed as an 'DateTime'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+                throw new ConfigurationException(path, $"Value could not be parsed as an 'DateTime'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(DateTimeOffset))
             {
-                if(System.DateTimeOffset.TryParse(stringRepresentation, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out var parsed))
+                if(DateTimeOffset.TryParse(stringRepresentation, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out var parsed))
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(Path, $"Value could not be parsed as an 'DateTimeOffset'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+                throw new ConfigurationException(path, $"Value could not be parsed as an 'DateTimeOffset'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(TimeSpan))
             {
-                if(System.TimeSpan.TryParse(stringRepresentation, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                if(TimeSpan.TryParse(stringRepresentation, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(Path, $"Value could not be parsed as an 'TimeSpan'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+                throw new ConfigurationException(path, $"Value could not be parsed as an 'TimeSpan'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(bool))
@@ -494,7 +474,7 @@ namespace OpenCollar.Extensions.Configuration
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(Path, $"Value could not be parsed as an 'Boolean'; configuration path: '{Path}'; value: '{stringRepresentation}'.");
+                throw new ConfigurationException(path, $"Value could not be parsed as an 'Boolean'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             return Convert.ChangeType(stringRepresentation, Type);
@@ -586,85 +566,6 @@ namespace OpenCollar.Extensions.Configuration
 
             // For anything else, let's hope that "ToString" is good enough.
             return value.ToString();
-        }
-
-        /// <summary>
-        ///     Gets the kind of the implementation required for the type given.
-        /// </summary>
-        /// <param name="type"> The type for which the implementation kind is required. </param>
-        /// <returns> </returns>
-        private static ImplementationKind GetImplementationKind(Type type)
-        {
-            if(IsConfigurationDictionary(type))
-            {
-                return ImplementationKind.ConfigurationDictionary;
-            }
-
-            if(IsConfigurationCollection(type))
-            {
-                return ImplementationKind.ConfigurationCollection;
-            }
-
-            if(typeof(IConfigurationObject).IsAssignableFrom(type))
-            {
-                return ImplementationKind.ConfigurationObject;
-            }
-
-            return ImplementationKind.Naive;
-        }
-
-        /// <summary>
-        ///     Determines whether the specified type is a is configuration collection.
-        /// </summary>
-        /// <param name="type"> The type to verify. </param>
-        /// <returns> <see langword="true" /> if the type is configuration collection; otherwise, <see langword="false" />. </returns>
-        private static bool IsConfigurationCollection(Type type)
-        {
-            if(!type.IsConstructedGenericType)
-            {
-                return false;
-            }
-
-            if(type.GetGenericTypeDefinition() != typeof(IConfigurationCollection<>))
-            {
-                return false;
-            }
-
-            var arguments = type.GetGenericArguments();
-
-            if(arguments.Length != 1)
-            {
-                return false;
-            }
-
-            return typeof(IConfigurationObject).IsAssignableFrom(arguments[0]);
-        }
-
-        /// <summary>
-        ///     Determines whether the specified type is a is configuration dictionary.
-        /// </summary>
-        /// <param name="type"> The type to verify. </param>
-        /// <returns> <see langword="true" /> if the type is configuration dictionary; otherwise, <see langword="false" />. </returns>
-        private static bool IsConfigurationDictionary(Type type)
-        {
-            if(!type.IsConstructedGenericType)
-            {
-                return false;
-            }
-
-            if(type.GetGenericTypeDefinition() != typeof(IConfigurationDictionary<>))
-            {
-                return false;
-            }
-
-            var arguments = type.GetGenericArguments();
-
-            if(arguments.Length != 1)
-            {
-                return false;
-            }
-
-            return typeof(IConfigurationObject).IsAssignableFrom(arguments[0]);
         }
     }
 }

@@ -30,23 +30,30 @@ namespace OpenCollar.Extensions.Configuration
     /// <typeparam name="TElement"> The type of the element. </typeparam>
     /// <seealso cref="ConfigurationDictionaryBase{T,T}" />
     /// <seealso cref="IConfigurationDictionary{TElement}" />
-    internal class ConfigurationDictionary<TElement> : ConfigurationDictionaryBase<string, TElement>, IConfigurationDictionary<TElement>
+    [System.Diagnostics.DebuggerDisplay("ConfigurationDictionary[{Count}]")]
+    public class ConfigurationDictionary<TElement> : ConfigurationDictionaryBase<string, TElement>, IConfigurationDictionary<TElement>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.
         /// </summary>
+        /// <param name="parent">
+        ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
+        /// </param>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
         /// <param name="elements"> The elements with which to initialize to the collection. </param>
-        public ConfigurationDictionary(PropertyDef propertyDef, IConfigurationRoot configurationRoot, IEnumerable<KeyValuePair<string, TElement>>? elements) : base(propertyDef, configurationRoot, elements)
+        public ConfigurationDictionary(IConfigurationParent? parent, PropertyDef propertyDef, IConfigurationRoot configurationRoot, IEnumerable<KeyValuePair<string, TElement>>? elements) : base(parent, propertyDef, configurationRoot, elements)
         {
         }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.
         /// </summary>
+        /// <param name="parent">
+        ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
+        /// </param>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
@@ -54,7 +61,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="elements">
         ///     A parameter array containing the elements with which to initialize to the collection.
         /// </param>
-        public ConfigurationDictionary(PropertyDef propertyDef, IConfigurationRoot configurationRoot, params KeyValuePair<string, TElement>[]? elements) : base(propertyDef, configurationRoot, elements)
+        public ConfigurationDictionary(IConfigurationParent? parent, PropertyDef propertyDef, IConfigurationRoot configurationRoot, params KeyValuePair<string, TElement>[]? elements) : base(parent, propertyDef, configurationRoot, elements)
         {
         }
 
@@ -184,6 +191,19 @@ namespace OpenCollar.Extensions.Configuration
         ///     <see cref="ICollection{TElement}" />; otherwise, <see langword="false" />.
         /// </returns>
         bool ICollection<KeyValuePair<string, TElement>>.Contains(KeyValuePair<string, TElement> item) => ContainsKey(item.Key);
+
+        /// <summary>
+        ///     Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>
+        ///     An <see cref="System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            EnforceDisposed();
+
+            return ((System.Collections.IEnumerable)base.OrderedItems.Select(e => new KeyValuePair<string, TElement>(e.Key, e.Value))).GetEnumerator();
+        }
 
         /// <summary>
         ///     Converts the string given to the key.

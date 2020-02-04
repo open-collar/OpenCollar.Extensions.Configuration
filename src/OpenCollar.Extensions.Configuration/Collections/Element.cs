@@ -22,8 +22,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <summary>
     ///     A class used to represent a property on an interface and its location in the configuration model.
     /// </summary>
-    [System.Diagnostics.DebuggerDisplay("{Path,nq}=\"{StringValue}\"")]
-    internal sealed class Element<TKey, TValue> : ValueBase<ConfigurationDictionaryBase<TKey, TValue>, TValue>
+    [System.Diagnostics.DebuggerDisplay("{Key,nq}=\"{StringValue}\"")]
+    public sealed class Element<TKey, TValue> : ValueBase<ConfigurationDictionaryBase<TKey, TValue>, TValue>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="Element{TKey,TValue}" /> class.
@@ -55,12 +55,21 @@ namespace OpenCollar.Extensions.Configuration.Collections
         public TKey Key
         {
             get;
+            internal set;
         }
 
         /// <summary>
-        ///     Gets the full path for this value.
+        ///     Gets the path to this configuration object.
         /// </summary>
-        /// <returns> The full path for this value </returns>
-        protected override string GetPath() => _propertyDef.Path + ConfigurationContext.PathDelimiter + Key;
+        /// <returns> A string containing the path to this configuration object. </returns>
+        public override string GetPath()
+        {
+            if(ReferenceEquals(_parent, null))
+            {
+                return Key.ToString();
+            }
+
+            return ConfigurationContext.GetPath(_parent.GetPath(), Key.ToString());
+        }
     }
 }

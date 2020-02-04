@@ -39,7 +39,7 @@ namespace OpenCollar.Extensions.Configuration
         Root,
 
         /// <summary>
-        ///     The path is treated as a suffix to be applied (as part of colon delited list) to the existing path context.
+        ///     The path is treated as a suffix to be applied (as part of colon delimited list) to the existing path context.
         /// </summary>
         Suffix
     }

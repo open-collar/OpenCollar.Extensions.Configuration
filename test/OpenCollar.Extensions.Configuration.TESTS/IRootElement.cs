@@ -46,15 +46,15 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         // TODO: THIS SHOULD NOT BE NULLABLE
-        IConfigurationDictionary<IChildElement> ChildCollection
+        IConfigurationCollection<IChildElement> ChildCollection
         {
-            get;
+            get; set;
         }
 
         // TODO: THIS SHOULD NOT BE NULLABLE
-        IConfigurationCollection<IChildElement> ChildDictionary
+        IConfigurationDictionary<IChildElement> ChildDictionary
         {
-            get;
+            get; set;
         }
 
         // We would expect this to be implemented as a read/write property.
@@ -158,6 +158,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         long Int64PropertyB
         {
             get; set;
+        }
+
+        // TODO: THIS SHOULD NOT BE NULLABLE
+        IConfigurationCollection<IChildElement> ReadOnlyChildCollection
+        {
+            get;
+        }
+
+        // TODO: THIS SHOULD NOT BE NULLABLE
+        IConfigurationDictionary<IChildElement> ReadOnlyChildDictionary
+        {
+            get;
         }
 
         // We would expect this to be implemented as a read-only property.

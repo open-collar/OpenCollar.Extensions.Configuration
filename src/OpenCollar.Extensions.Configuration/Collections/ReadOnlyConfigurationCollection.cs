@@ -29,23 +29,30 @@ namespace OpenCollar.Extensions.Configuration
     ///     an element is added or removed.
     /// </summary>
     /// <typeparam name="TElement"> The type of the element. </typeparam>
-    internal sealed class ReadOnlyConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IReadOnlyCollection<TElement>, IConfigurationCollection<TElement>
+    [System.Diagnostics.DebuggerDisplay("ReadOnlyConfigurationCollection[{Count}]")]
+    public sealed class ReadOnlyConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IReadOnlyCollection<TElement>, IConfigurationCollection<TElement>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ReadOnlyConfigurationCollection{TElement}" /> class.
         /// </summary>
+        /// <param name="parent">
+        ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
+        /// </param>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
         /// <param name="elements"> The elements with which to initialize to the collection. </param>
-        public ReadOnlyConfigurationCollection(PropertyDef propertyDef, IConfigurationRoot configurationRoot, IEnumerable<TElement>? elements) : base(propertyDef, configurationRoot, GetIndexedElements(elements))
+        public ReadOnlyConfigurationCollection(IConfigurationParent? parent, PropertyDef propertyDef, IConfigurationRoot configurationRoot, IEnumerable<TElement>? elements) : base(parent, propertyDef, configurationRoot, GetIndexedElements(elements))
         {
         }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ReadOnlyConfigurationCollection{TElement}" /> class.
         /// </summary>
+        /// <param name="parent">
+        ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
+        /// </param>
         /// <param name="propertyDef"> The definition of the property defined by this object. </param>
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
@@ -53,7 +60,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="elements">
         ///     A parameter array containing the elements with which to initialize to the collection.
         /// </param>
-        public ReadOnlyConfigurationCollection(PropertyDef propertyDef, IConfigurationRoot configurationRoot, params TElement[]? elements) : base(propertyDef, configurationRoot, GetIndexedElements(elements))
+        public ReadOnlyConfigurationCollection(IConfigurationParent? parent, PropertyDef propertyDef, IConfigurationRoot configurationRoot, params TElement[]? elements) : base(parent, propertyDef, configurationRoot, GetIndexedElements(elements))
         {
         }
 
@@ -185,6 +192,17 @@ namespace OpenCollar.Extensions.Configuration
         {
             EnforceDisposed();
             throw new NotImplementedException("This collection is read-only.");
+        }
+
+        /// <summary>
+        ///     Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>
+        ///     An <see cref="System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return ((System.Collections.IEnumerable)Values).GetEnumerator();
         }
 
         /// <summary>

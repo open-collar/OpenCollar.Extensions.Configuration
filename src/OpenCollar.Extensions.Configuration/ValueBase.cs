@@ -31,7 +31,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </typeparam>
     /// <typeparam name="TValue"> The type of the contained value. </typeparam>
     [System.Diagnostics.DebuggerDisplay("{Path,nq}=\"{StringValue}\"")]
-    internal abstract class ValueBase<TParent, TValue> : IValue where TParent : IValueChanged
+    public abstract class ValueBase<TParent, TValue> : IValue where TParent : IValueChanged, IConfigurationParent
     {
         /// <summary>
         ///     The parent for which this object represents a value.
@@ -59,6 +59,11 @@ namespace OpenCollar.Extensions.Configuration
         private TValue _currentValue;
 
         /// <summary>
+        ///     A flag that indicates whether or not the current value has been saved.
+        /// </summary>
+        private bool _isSaved;
+
+        /// <summary>
         ///     The original (saved) value of the property.
         /// </summary>
         private TValue _originalValue;
@@ -68,12 +73,14 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <param name="propertyDef"> The definition of the property to represent. </param>
         /// <param name="parent"> The parent configuration object for which this object represents a property. </param>
+        /// <param name="value"> The initial value to assign. </param>
         internal ValueBase(PropertyDef propertyDef, TParent parent, TValue value)
         {
             _parent = parent;
             _propertyDef = propertyDef;
             _currentValue = value;
             _originalValue = value;
+            _isSaved = false;
         }
 
         /// <summary>
@@ -86,7 +93,18 @@ namespace OpenCollar.Extensions.Configuration
             {
                 lock(_lock)
                 {
-                    return !_propertyDef.AreEqual(_originalValue, _currentValue);
+                    if(!_isSaved || !_propertyDef.AreEqual(_originalValue, _currentValue))
+                    {
+                        return true;
+                    }
+
+                    var configObj = _currentValue as IConfigurationObject;
+                    if(!ReferenceEquals(configObj, null))
+                    {
+                        // If the value is a configuration object then we should return its dirty state.
+                        return configObj.IsDirty;
+                    }
+                    return false;
                 }
             }
         }
@@ -119,11 +137,17 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets or sets the value represented by this instance.
         /// </summary>
         /// <value> The value of the property. </value>
+        /// <exception cref="NotImplementedException"> This value is read-only. </exception>
         public TValue Value
         {
             get => _currentValue;
             set
             {
+                if(_parent.IsReadOnly)
+                {
+                    throw new NotImplementedException("This value is read-only.");
+                }
+
                 lock(_lock)
                 {
                     if(_propertyDef.AreEqual(_originalValue, value))
@@ -134,7 +158,7 @@ namespace OpenCollar.Extensions.Configuration
                     _currentValue = value;
                 }
 
-                _parent.OnValueChanged(this);
+                _parent.OnValueChanged(this, this);
             }
         }
 
@@ -202,7 +226,7 @@ namespace OpenCollar.Extensions.Configuration
             }
             set
             {
-                Value = (TValue)_propertyDef.ConvertStringToValue(value);
+                Value = (TValue)_propertyDef.ConvertStringToValue(Path, value);
             }
         }
 
@@ -216,6 +240,12 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets the full path for this value.
+        /// </summary>
+        /// <returns> The full path for this value </returns>
+        public abstract string GetPath();
+
+        /// <summary>
         ///     Reads the value of the value identified by <see cref="PropertyDef" /> from the configuration root given.
         /// </summary>
         /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
@@ -225,14 +255,14 @@ namespace OpenCollar.Extensions.Configuration
             {
                 // If the value is a configuration object of some sort then create or reuse the existing value;
                 IConfigurationObject? configurationObject;
-                switch(_propertyDef.ImplementationKind)
+                switch(_propertyDef.Implementation.ImplementationKind)
                 {
                     case ImplementationKind.ConfigurationCollection:
                     case ImplementationKind.ConfigurationDictionary:
                         configurationObject = (_currentValue ?? _originalValue) as IConfigurationObject;
-                        if(ReferenceEquals(configurationObject, null) || (configurationObject.GetType() != _propertyDef.ImplementationType))
+                        if(ReferenceEquals(configurationObject, null) || (configurationObject.GetType() != _propertyDef.Implementation.ImplementationType))
                         {
-                            Value = (TValue)Activator.CreateInstance(_propertyDef.ImplementationType, _propertyDef, configurationRoot);
+                            Value = (TValue)Activator.CreateInstance(_propertyDef.Implementation.ImplementationType, (IConfigurationParent)this, _propertyDef, configurationRoot);
                         }
                         else
                         {
@@ -243,9 +273,9 @@ namespace OpenCollar.Extensions.Configuration
 
                     case ImplementationKind.ConfigurationObject:
                         configurationObject = (_currentValue ?? _originalValue) as IConfigurationObject;
-                        if(ReferenceEquals(configurationObject, null) || (configurationObject.GetType() != _propertyDef.ImplementationType))
+                        if(ReferenceEquals(configurationObject, null) || (configurationObject.GetType() != _propertyDef.Implementation.ImplementationType))
                         {
-                            Value = (TValue)Activator.CreateInstance(_propertyDef.ImplementationType, configurationRoot);
+                            Value = (TValue)Activator.CreateInstance(_propertyDef.Implementation.ImplementationType, _propertyDef, (IConfigurationParent)this, configurationRoot);
                         }
                         else
                         {
@@ -255,11 +285,12 @@ namespace OpenCollar.Extensions.Configuration
                         break;
 
                     default:
-                        var value = configurationRoot[GetPath()];
+                        var path = GetPath();
+                        var value = configurationRoot[path];
 
                         if(ReferenceEquals(value, null) && !_propertyDef.IsNullable)
                         {
-                            throw new ConfigurationException(GetPath(), $"No value could be found for configuration path: '{GetPath()}'.");
+                            throw new ConfigurationException(path, $"No value could be found for configuration path: '{path}'.");
                         }
 
                         if(ReferenceEquals(value, null) && _propertyDef.IsNullable)
@@ -284,7 +315,7 @@ namespace OpenCollar.Extensions.Configuration
         {
             lock(_lock)
             {
-                switch(_propertyDef.ImplementationKind)
+                switch(_propertyDef.Implementation.ImplementationKind)
                 {
                     case ImplementationKind.ConfigurationCollection:
                     case ImplementationKind.ConfigurationDictionary:
@@ -340,14 +371,9 @@ namespace OpenCollar.Extensions.Configuration
         {
             lock(_lock)
             {
+                _isSaved = true;
                 _originalValue = _currentValue;
             }
         }
-
-        /// <summary>
-        ///     Gets the full path for this value.
-        /// </summary>
-        /// <returns> The full path for this value </returns>
-        protected abstract string GetPath();
     }
 }

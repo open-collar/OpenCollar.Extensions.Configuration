@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 {
-    internal interface IDummyInterface
+    public interface IDummyInterface
     {
         IRootElement a
         {
@@ -37,22 +37,46 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         {
             var context = new ConfigurationContext();
 
-            PropertyDef = new PropertyDef("PATH", typeof(IRootElement), typeof(IRootElement).GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).First(), context);
+            BooleanPropertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty("BooleanPropertyA", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public), context);
+            ChildConfigurationDictionaryPropertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty("ChildDictionary", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public), context);
+            ChildConfigurationCollectionPropertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty("ChildCollection", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public), context);
+            ReadOnlyChildConfigurationDictionaryPropertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty("ReadOnlyChildDictionary", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public), context);
+            ReadOnlyChildConfigurationCollectionPropertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty("ReadOnlyChildCollection", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public), context);
 
             Data = new[] {
-            GetConfigurationObject("x:a", "a", false),
-            GetConfigurationObject("x:b", "b", false),
-            GetConfigurationObject("x:c", "c", false),
-            GetConfigurationObject("x:d", "d", false),
-            GetConfigurationObject("x:e", "e", true)};
+            GetConfigurationObject("a", false),
+            GetConfigurationObject("b", false),
+            GetConfigurationObject("c", false),
+            GetConfigurationObject("d", false),
+            GetConfigurationObject("e", true)};
         }
 
-        private IChildElement[] Data
+        public PropertyDef ChildConfigurationCollectionPropertyDef
         {
             get;
         }
 
-        private PropertyDef PropertyDef
+        public PropertyDef ChildConfigurationDictionaryPropertyDef
+        {
+            get;
+        }
+
+        public PropertyDef ReadOnlyChildConfigurationCollectionPropertyDef
+        {
+            get;
+        }
+
+        public PropertyDef ReadOnlyChildConfigurationDictionaryPropertyDef
+        {
+            get;
+        }
+
+        private PropertyDef BooleanPropertyDef
+        {
+            get;
+        }
+
+        private IChildElement[] Data
         {
             get;
         }
@@ -62,12 +86,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             return new TestDataContext(this);
         }
 
-        private IChildElement GetConfigurationObject(string path, string name, bool isDirty)
+        private IChildElement GetConfigurationObject(string name, bool isDirty)
         {
             var context = new ConfigurationContext();
 
             var mock = new Moq.Mock<IChildElement>();
-            mock.Setup(x => x.PropertyDef).Returns(new PropertyDef(path, typeof(IDummyInterface), typeof(IDummyInterface).GetProperty(name, System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public), context));
+            mock.Setup(x => x.PropertyDef).Returns(new PropertyDef(typeof(IDummyInterface), typeof(IDummyInterface).GetProperty(name, System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public), context));
             mock.Setup(x => x.IsDirty).Returns(isDirty);
             return mock.Object;
         }
@@ -82,7 +106,11 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             {
                 _propertyTestData = propertyTestData;
 
-                PropertyDef = propertyTestData.PropertyDef;
+                BooleanPropertyDef = propertyTestData.BooleanPropertyDef;
+                ChildConfigurationCollectionPropertyDef = propertyTestData.ChildConfigurationCollectionPropertyDef;
+                ChildConfigurationDictionaryPropertyDef = propertyTestData.ChildConfigurationDictionaryPropertyDef;
+                ReadOnlyChildConfigurationCollectionPropertyDef = propertyTestData.ReadOnlyChildConfigurationCollectionPropertyDef;
+                ReadOnlyChildConfigurationDictionaryPropertyDef = propertyTestData.ReadOnlyChildConfigurationDictionaryPropertyDef;
 
                 ChildDictionary = new Dictionary<string, IChildElement>()
             {
@@ -94,6 +122,21 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             };
 
                 _configurationFixture = new ConfigurationFixture();
+            }
+
+            public PropertyDef BooleanPropertyDef
+            {
+                get;
+            }
+
+            public PropertyDef ChildConfigurationCollectionPropertyDef
+            {
+                get;
+            }
+
+            public PropertyDef ChildConfigurationDictionaryPropertyDef
+            {
+                get;
             }
 
             public Dictionary<string, IChildElement> ChildDictionary
@@ -109,7 +152,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 }
             }
 
-            public PropertyDef PropertyDef
+            public PropertyDef ReadOnlyChildConfigurationCollectionPropertyDef
+            {
+                get;
+            }
+
+            public PropertyDef ReadOnlyChildConfigurationDictionaryPropertyDef
             {
                 get;
             }
@@ -119,9 +167,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 return ChildDictionary[name];
             }
 
-            public IChildElement GetConfigurationObject(string path, string name, bool isDirty)
+            public IChildElement GetConfigurationObject(string name, bool isDirty)
             {
-                return _propertyTestData.GetConfigurationObject(path, name, isDirty);
+                return _propertyTestData.GetConfigurationObject(name, isDirty);
             }
         }
     }
