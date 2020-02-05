@@ -106,17 +106,20 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="field"> The field to which the value is to be assigned. </param>
         /// <param name="value"> The value to assign. </param>
         /// <param name="propertyName"> The name of the property that has changed. </param>
+        /// <returns> <see langword="true" /> if the property has changed; otherwise, <see langword="false" /> </returns>
         /// <remarks> Raises the <see cref="PropertyChanged" /> event if the value has changed. </remarks>
-        protected void OnPropertyChanged<T>(ref T field, T value, string propertyName)
+        protected bool OnPropertyChanged<T>(string propertyName, ref T field, T value)
         {
             if(Equals(field, value))
             {
-                return;
+                return false;
             }
 
             field = value;
 
             OnPropertyChanged(propertyName);
+
+            return true;
         }
     }
 }

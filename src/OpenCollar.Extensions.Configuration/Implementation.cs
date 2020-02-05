@@ -165,10 +165,7 @@ namespace OpenCollar.Extensions.Configuration
 
             var arguments = type.GetGenericArguments();
 
-            if(arguments.Length != 1)
-            {
-                return false;
-            }
+            System.Diagnostics.Debug.Assert(arguments.Length == 1);
 
             return typeof(IConfigurationObject).IsAssignableFrom(arguments[0]);
         }
@@ -192,10 +189,7 @@ namespace OpenCollar.Extensions.Configuration
 
             var arguments = type.GetGenericArguments();
 
-            if(arguments.Length != 1)
-            {
-                return false;
-            }
+            System.Diagnostics.Debug.Assert(arguments.Length == 1);
 
             return typeof(IConfigurationObject).IsAssignableFrom(arguments[0]);
         }
