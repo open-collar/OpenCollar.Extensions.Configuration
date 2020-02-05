@@ -313,6 +313,13 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             x["a"].Value = a;
 
+            var z = (IDictionary<string, IChildElement>)x;
+            Assert.Equal(a, z["a"]);
+            Assert.Equal(b, z["b"]);
+            Assert.Equal(c, z["c"]);
+            Assert.Throws<ArgumentOutOfRangeException>(() => z["d"]);
+            z["a"] = a;
+
             var change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
             x.CollectionChanged += (sender, args) =>
             {

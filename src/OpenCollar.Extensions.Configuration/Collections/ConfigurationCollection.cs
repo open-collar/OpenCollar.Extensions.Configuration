@@ -80,18 +80,6 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Gets a value indicating whether to set values using the key first.
-        /// </summary>
-        /// <value> <see langword="true" /> if set value using key first; otherwise to value first, <see langword="false" />. </value>
-        protected override bool SetValueUsingKeyFirst
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
         ///     Gets or sets the <typeparamref name="TElement" /> at the specified index.
         /// </summary>
         /// <value> The <typeparamref name="TElement" /> at the index specified. </value>
