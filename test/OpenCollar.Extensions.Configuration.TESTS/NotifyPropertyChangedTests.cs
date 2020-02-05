@@ -8,6 +8,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 {
     public sealed class NotifyPropertyChangedTests
     {
+        [Fact]
         public void TestPropertyChanged()
         {
             var x = new NotifyPropertyChangedMock();
@@ -25,6 +26,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.Equal(nameof(NotifyPropertyChangedMock.IntPropertyA), eventArgs.PropertyName);
         }
 
+        [Fact]
         public void TestPropertyChangedNoChange()
         {
             var x = new NotifyPropertyChangedMock();
@@ -43,6 +45,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.Null(eventArgs);
         }
 
+        [Fact]
         public void TestPropertyChangedSuspended()
         {
             var x = new NotifyPropertyChangedMock();
