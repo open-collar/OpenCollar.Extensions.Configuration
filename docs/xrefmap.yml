@@ -1856,15 +1856,15 @@ references:
   isSpec: "True"
   fullName: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.OnPropertyChanged
   nameWithType: NotifyPropertyChanged.OnPropertyChanged
-- uid: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.OnPropertyChanged``1(``0@,``0,System.String)
-  name: OnPropertyChanged<T>(ref T, T, String)
-  href: api/OpenCollar.Extensions.Configuration.NotifyPropertyChanged.html#OpenCollar_Extensions_Configuration_NotifyPropertyChanged_OnPropertyChanged__1___0____0_System_String_
-  commentId: M:OpenCollar.Extensions.Configuration.NotifyPropertyChanged.OnPropertyChanged``1(``0@,``0,System.String)
-  name.vb: OnPropertyChanged(Of T)(ByRef T, T, String)
-  fullName: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.OnPropertyChanged<T>(ref T, T, System.String)
-  fullName.vb: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.OnPropertyChanged(Of T)(ByRef T, T, System.String)
-  nameWithType: NotifyPropertyChanged.OnPropertyChanged<T>(ref T, T, String)
-  nameWithType.vb: NotifyPropertyChanged.OnPropertyChanged(Of T)(ByRef T, T, String)
+- uid: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.OnPropertyChanged``1(System.String,``0@,``0)
+  name: OnPropertyChanged<T>(String, ref T, T)
+  href: api/OpenCollar.Extensions.Configuration.NotifyPropertyChanged.html#OpenCollar_Extensions_Configuration_NotifyPropertyChanged_OnPropertyChanged__1_System_String___0____0_
+  commentId: M:OpenCollar.Extensions.Configuration.NotifyPropertyChanged.OnPropertyChanged``1(System.String,``0@,``0)
+  name.vb: OnPropertyChanged(Of T)(String, ByRef T, T)
+  fullName: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.OnPropertyChanged<T>(System.String, ref T, T)
+  fullName.vb: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.OnPropertyChanged(Of T)(System.String, ByRef T, T)
+  nameWithType: NotifyPropertyChanged.OnPropertyChanged<T>(String, ref T, T)
+  nameWithType.vb: NotifyPropertyChanged.OnPropertyChanged(Of T)(String, ByRef T, T)
 - uid: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.PropertyChanged
   name: PropertyChanged
   href: api/OpenCollar.Extensions.Configuration.NotifyPropertyChanged.html#OpenCollar_Extensions_Configuration_NotifyPropertyChanged_PropertyChanged
