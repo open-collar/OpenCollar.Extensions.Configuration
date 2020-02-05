@@ -27,6 +27,19 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         [Fact]
+        public void TestPropertyChangedException()
+        {
+            var x = new NotifyPropertyChangedMock();
+
+            x.PropertyChanged += (sender, args) =>
+            {
+                throw new Exception("TEST");
+            };
+
+            Assert.Throws<AggregateException>(() => { x.IntPropertyA = 88; });
+        }
+
+        [Fact]
         public void TestPropertyChangedNoChange()
         {
             var x = new NotifyPropertyChangedMock();

@@ -71,11 +71,7 @@ namespace OpenCollar.Extensions.Configuration
 
             var callbacks = handler.GetInvocationList();
 
-            if(callbacks.Length <= 0)
-            {
-                // No-one's listening, do nothing more.
-                return;
-            }
+            System.Diagnostics.Debug.Assert(callbacks.Length > 0);
 
             var args = new PropertyChangedEventArgs(propertyName);
 
