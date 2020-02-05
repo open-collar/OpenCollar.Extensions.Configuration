@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OpenCollar.Extensions.Configuration
+﻿namespace OpenCollar.Extensions.Configuration
 {
     /// <summary>
     ///     The interface common to all objects that can be parents to others.

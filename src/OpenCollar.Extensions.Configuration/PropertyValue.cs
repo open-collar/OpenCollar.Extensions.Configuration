@@ -17,10 +17,6 @@
  * Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
-using System;
-
-using Microsoft.Extensions.Configuration;
-
 namespace OpenCollar.Extensions.Configuration
 {
     /// <summary>
