@@ -215,6 +215,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             Assert.Throws<NotImplementedException>(() => x[0].Value = c);
 
+            var z = (IList<IChildElement>)x;
+            Assert.Equal(a, z[0]);
+            Assert.Equal(b, z[1]);
+            Assert.Equal(c, z[2]);
+            Assert.Throws<ArgumentOutOfRangeException>(() => z[5]);
+
             x.Dispose();
             Assert.Throws<ObjectDisposedException>(() => x[0]);
         }
