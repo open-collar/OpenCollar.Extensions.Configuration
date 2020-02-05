@@ -24,6 +24,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             Assert.NotNull(eventArgs);
             Assert.Equal(nameof(NotifyPropertyChangedMock.IntPropertyA), eventArgs.PropertyName);
+            Assert.True(x.LastPropertyAssignmentWasChange);
+
+            eventArgs = null;
+
+            x.IntPropertyA = 88;
+
+            Assert.Null(eventArgs);
+            Assert.False(x.LastPropertyAssignmentWasChange);
         }
 
         [Fact]

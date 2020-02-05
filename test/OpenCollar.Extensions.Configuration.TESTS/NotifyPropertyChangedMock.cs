@@ -16,8 +16,13 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             }
             set
             {
-                OnPropertyChanged(nameof(IntPropertyA), ref _propertyA, value);
+                LastPropertyAssignmentWasChange = OnPropertyChanged(nameof(IntPropertyA), ref _propertyA, value);
             }
+        }
+
+        public bool LastPropertyAssignmentWasChange
+        {
+            get; set;
         }
 
         /// <summary>
