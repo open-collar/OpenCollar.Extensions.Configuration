@@ -858,23 +858,6 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.ConfigurationCollection(Of TElement).RemoveAt
   nameWithType: ConfigurationCollection<TElement>.RemoveAt
   nameWithType.vb: ConfigurationCollection(Of TElement).RemoveAt
-- uid: OpenCollar.Extensions.Configuration.ConfigurationCollection`1.SetValueUsingKeyFirst
-  name: SetValueUsingKeyFirst
-  href: api/OpenCollar.Extensions.Configuration.ConfigurationCollection-1.html#OpenCollar_Extensions_Configuration_ConfigurationCollection_1_SetValueUsingKeyFirst
-  commentId: P:OpenCollar.Extensions.Configuration.ConfigurationCollection`1.SetValueUsingKeyFirst
-  fullName: OpenCollar.Extensions.Configuration.ConfigurationCollection<TElement>.SetValueUsingKeyFirst
-  fullName.vb: OpenCollar.Extensions.Configuration.ConfigurationCollection(Of TElement).SetValueUsingKeyFirst
-  nameWithType: ConfigurationCollection<TElement>.SetValueUsingKeyFirst
-  nameWithType.vb: ConfigurationCollection(Of TElement).SetValueUsingKeyFirst
-- uid: OpenCollar.Extensions.Configuration.ConfigurationCollection`1.SetValueUsingKeyFirst*
-  name: SetValueUsingKeyFirst
-  href: api/OpenCollar.Extensions.Configuration.ConfigurationCollection-1.html#OpenCollar_Extensions_Configuration_ConfigurationCollection_1_SetValueUsingKeyFirst_
-  commentId: Overload:OpenCollar.Extensions.Configuration.ConfigurationCollection`1.SetValueUsingKeyFirst
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.ConfigurationCollection<TElement>.SetValueUsingKeyFirst
-  fullName.vb: OpenCollar.Extensions.Configuration.ConfigurationCollection(Of TElement).SetValueUsingKeyFirst
-  nameWithType: ConfigurationCollection<TElement>.SetValueUsingKeyFirst
-  nameWithType.vb: ConfigurationCollection(Of TElement).SetValueUsingKeyFirst
 - uid: OpenCollar.Extensions.Configuration.ConfigurationCollection`1.System#Collections#IEnumerable#GetEnumerator
   name: IEnumerable.GetEnumerator()
   href: api/OpenCollar.Extensions.Configuration.ConfigurationCollection-1.html#OpenCollar_Extensions_Configuration_ConfigurationCollection_1_System_Collections_IEnumerable_GetEnumerator
