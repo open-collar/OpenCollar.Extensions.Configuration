@@ -93,7 +93,12 @@ namespace OpenCollar.Extensions.Configuration
             {
                 lock(_lock)
                 {
-                    if(!_isSaved || !_propertyDef.AreEqual(_originalValue, _currentValue))
+                    if(!_propertyDef.AreEqual(_originalValue, _currentValue))
+                    {
+                        return true;
+                    }
+
+                    if(!_isSaved && !_propertyDef.AreEqual(_originalValue, default(TValue)))
                     {
                         return true;
                     }
@@ -104,6 +109,7 @@ namespace OpenCollar.Extensions.Configuration
                         // If the value is a configuration object then we should return its dirty state.
                         return configObj.IsDirty;
                     }
+
                     return false;
                 }
             }
