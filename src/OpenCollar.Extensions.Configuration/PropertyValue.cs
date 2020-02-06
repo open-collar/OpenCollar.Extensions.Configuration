@@ -42,7 +42,7 @@ namespace OpenCollar.Extensions.Configuration
         {
             get
             {
-                return false;
+                return _propertyDef.IsReadOnly;
             }
         }
 

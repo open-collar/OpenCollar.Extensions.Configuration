@@ -22,6 +22,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
                 Assert.False(x.IsDirty);
                 Assert.Equal(parent, x.Parent);
                 Assert.Equal(propertyName, x.PropertyName);
+                Assert.True(x.IsReadOnly);
             }
         }
     }
