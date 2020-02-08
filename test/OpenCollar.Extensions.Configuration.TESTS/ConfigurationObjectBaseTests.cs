@@ -281,5 +281,26 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             Assert.False(x.IsDirty);
         }
+
+        [Fact]
+        public void TestSave()
+        {
+            var fixture = new ConfigurationFixture();
+
+            var valuesBefore = fixture.ConfigurationRoot.GetChildren().Where(s => !ReferenceEquals(s.Value, null)).Select(s => s.Path);
+
+            var x = fixture.RootElement;
+
+            x.BooleanPropertyB = true;
+            x.CharPropertyB = '!';
+            var child = x.ChildCollection.AddNew();
+            child.Name = "ABABAB";
+
+            x.Save();
+
+            Assert.Equal("true", fixture.ConfigurationRoot["BooleanPropertyB"]);
+            Assert.Equal("!", fixture.ConfigurationRoot["CharPropertyB"]);
+            Assert.Equal("ABABAB", fixture.ConfigurationRoot["ChildCollection:0:Name"]);
+        }
     }
 }

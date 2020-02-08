@@ -140,6 +140,18 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets the definition of the property represented by this value.
+        /// </summary>
+        /// <value> The definition of the property represented by this value. </value>
+        public PropertyDef PropertyDef
+        {
+            get
+            {
+                return _propertyDef;
+            }
+        }
+
+        /// <summary>
         ///     Gets or sets the value represented by this instance.
         /// </summary>
         /// <value> The value of the property. </value>
@@ -292,7 +304,7 @@ namespace OpenCollar.Extensions.Configuration
                         configurationObject = (_currentValue ?? _originalValue) as IConfigurationObject;
                         if(ReferenceEquals(configurationObject, null) || (configurationObject.GetType() != _propertyDef.Implementation.ImplementationType))
                         {
-                            Value = (TValue)Activator.CreateInstance(_propertyDef.Implementation.ImplementationType, _propertyDef, (IConfigurationParent)this, configurationRoot);
+                            Value = (TValue)Activator.CreateInstance(_propertyDef.Implementation.ImplementationType, _propertyDef, (IConfigurationParent)this, configurationRoot, true);
                         }
                         else
                         {

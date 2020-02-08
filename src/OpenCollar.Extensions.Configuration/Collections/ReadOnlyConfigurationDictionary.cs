@@ -125,7 +125,7 @@ namespace OpenCollar.Extensions.Configuration
         {
             EnforceDisposed();
 
-            return ((System.Collections.IEnumerable)base.OrderedItems.Select(e => new KeyValuePair<string, TElement>(e.Key, e.Value))).GetEnumerator();
+            return ((System.Collections.IEnumerable)OrderedItems.Select(e => new KeyValuePair<string, TElement>(e.Key, e.Value))).GetEnumerator();
         }
 
         /// <summary>

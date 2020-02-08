@@ -169,6 +169,18 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets the property values of the object.
+        /// </summary>
+        /// <value> The property values of the object. </value>
+        protected IEnumerable<IValue> Values
+        {
+            get
+            {
+                return _propertiesByName.Values;
+            }
+        }
+
+        /// <summary>
         ///     Gets or sets the value of the property with the specified name.
         /// </summary>
         /// <value> The value requested. </value>
@@ -371,12 +383,28 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, IConfigurationParent parent) : base(ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface)), configurationRoot, parent)
+        /// <param name="noInitialization">
+        ///     If set to <see langword="true" /> the object will be not be initialization from the configuration store.
+        /// </param>
+        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, IConfigurationParent parent, bool noInitialization) : base(ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface)), configurationRoot, parent)
         {
             SuspendPropertyChangedEvents = true;
             try
             {
-                Reload();
+                if(noInitialization)
+                {
+                    foreach(var value in Values)
+                    {
+                        if(value.PropertyDef.HasDefaultValue)
+                        {
+                            value.Value = value.PropertyDef.DefaultValue;
+                        }
+                    }
+                }
+                else
+                {
+                    Reload();
+                }
             }
             finally
             {

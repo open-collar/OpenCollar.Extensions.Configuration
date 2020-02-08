@@ -183,6 +183,13 @@ namespace OpenCollar.Extensions.Configuration
         void IDictionary<string, TElement>.Add(string key, TElement value) => base.Add(key, value);
 
         /// <summary>
+        ///     Adds a new value with the key specified, returning the new value.
+        /// </summary>
+        /// <param name="key"> The key identifying the value to add. </param>
+        /// <returns> The newly added value. </returns>
+        TElement IConfigurationDictionary<TElement>.AddNew(string key) => AddNew(key);
+
+        /// <summary>
         ///     Determines whether this instance contains the object given.
         /// </summary>
         /// <param name="item"> The object to locate in the <see cref="ICollection{TElement}" />. </param>
@@ -202,7 +209,7 @@ namespace OpenCollar.Extensions.Configuration
         {
             EnforceDisposed();
 
-            return ((System.Collections.IEnumerable)base.OrderedItems.Select(e => new KeyValuePair<string, TElement>(e.Key, e.Value))).GetEnumerator();
+            return ((System.Collections.IEnumerable)OrderedItems.Select(e => new KeyValuePair<string, TElement>(e.Key, e.Value))).GetEnumerator();
         }
 
         /// <summary>

@@ -104,6 +104,12 @@ namespace OpenCollar.Extensions.Configuration
         public void Add(TElement item) => Add(Count, item);
 
         /// <summary>
+        ///     Adds a new value with the key specified, returning the new value.
+        /// </summary>
+        /// <returns> The newly added element. </returns>
+        public TElement AddNew() => AddNew(Count);
+
+        /// <summary>
         ///     Determines whether this instance contains the object.
         /// </summary>
         /// <param name="item"> The item for which to check. </param>

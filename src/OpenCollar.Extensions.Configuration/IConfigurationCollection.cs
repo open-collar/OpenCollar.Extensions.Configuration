@@ -30,5 +30,10 @@ namespace OpenCollar.Extensions.Configuration
     /// </typeparam>
     public interface IConfigurationCollection<TElement> : IList<TElement>, IEnumerable<TElement>, INotifyCollectionChanged
     {
+        /// <summary>
+        ///     Adds a new value with the key specified, returning the new value.
+        /// </summary>
+        /// <returns> The newly added element. </returns>
+        TElement AddNew();
     }
 }

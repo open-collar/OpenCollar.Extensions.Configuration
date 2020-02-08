@@ -464,7 +464,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                             break;
 
                         case ImplementationKind.ConfigurationObject:
-                            value = new Element<TKey, TElement>(PropertyDef, this, pair.Key, (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, ConfigurationRoot, (IConfigurationParent?)this));
+                            value = new Element<TKey, TElement>(PropertyDef, this, pair.Key, (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, ConfigurationRoot, (IConfigurationParent?)this, false));
 
                             break;
 
@@ -764,17 +764,29 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </summary>
         /// <param name="key"> The key used to identify the item to add. Must be unique. </param>
         /// <param name="value"> The value to assign to the value. </param>
-        /// <exception cref="ArgumentException">
-        ///     An item with the same key has already been added: {key}. - value
-        /// </exception>
+        /// <exception cref="ArgumentException"> An item with the same key has already been added. </exception>
         /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
         /// <exception cref="ObjectDisposedException">
         ///     This method cannot be used after the object has been disposed of.
         /// </exception>
+        /// <exception cref="TypeMismatchException"> Expected object of different type. </exception>
         protected void Add(TKey key, TElement value)
         {
             EnforceDisposed();
             EnforceReadOnly();
+
+            if(PropertyDef.ElementImplementation.ImplementationKind != ImplementationKind.Naive)
+            {
+                if(!ReferenceEquals(value, null))
+                {
+                    if(value.GetType() != PropertyDef.ElementImplementation.ImplementationType)
+                    {
+                        throw new TypeMismatchException($"Expected object of type {PropertyDef.ElementImplementation.ImplementationType.FullName}.", GetPath());
+                    }
+
+                    // TODO: Check for parent?
+                }
+            }
 
             NotifyCollectionChangedEventArgs? args = null;
 
@@ -810,6 +822,36 @@ namespace OpenCollar.Extensions.Configuration.Collections
             }
 
             throw new ArgumentException($"An item with the same key has already been added: {key}.", nameof(value));
+        }
+
+        /// <summary>
+        ///     Adds a new value with the key specified, returning the new value.
+        /// </summary>
+        /// <param name="key"> The key identifying the value to add. </param>
+        /// <returns> The newly added value. </returns>
+        protected TElement AddNew(TKey key)
+        {
+            TElement value;
+
+            switch(PropertyDef.ElementImplementation.ImplementationKind)
+            {
+                case ImplementationKind.ConfigurationCollection:
+                case ImplementationKind.ConfigurationDictionary:
+                    value = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, (IConfigurationParent?)this, PropertyDef, ConfigurationRoot);
+                    break;
+
+                case ImplementationKind.ConfigurationObject:
+                    value = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, ConfigurationRoot, (IConfigurationParent?)this, true);
+                    break;
+
+                default:
+                    value = (TElement)(Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType));
+                    break;
+            }
+
+            Add(key, value);
+
+            return value;
         }
 
         /// <summary>

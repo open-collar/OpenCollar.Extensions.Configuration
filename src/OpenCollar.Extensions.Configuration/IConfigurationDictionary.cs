@@ -30,6 +30,13 @@ namespace OpenCollar.Extensions.Configuration
     public interface IConfigurationDictionary<TElement> : IDictionary<string, TElement>, INotifyCollectionChanged
     {
         /// <summary>
+        ///     Adds a new value with the key specified, returning the new value.
+        /// </summary>
+        /// <param name="key"> The key identifying the value to add. </param>
+        /// <returns> The newly added element. </returns>
+        TElement AddNew(string key);
+
+        /// <summary>
         ///     Determines whether this dictionary contains the element specified.
         /// </summary>
         /// <param name="element"> The element for which to check. </param>
