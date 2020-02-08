@@ -160,18 +160,6 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Gets the configuration root service from which values are read or to which all values will be written.
-        /// </summary>
-        /// <value> The configuration root service from which values are read or to which all values will be written. </value>
-        internal IConfigurationRoot ConfigurationRoot
-        {
-            get
-            {
-                return _configurationRoot;
-            }
-        }
-
-        /// <summary>
         ///     Gets the type of the interface implemented by this object.
         /// </summary>
         /// <value> The type of the interface implemented by this object. </value>

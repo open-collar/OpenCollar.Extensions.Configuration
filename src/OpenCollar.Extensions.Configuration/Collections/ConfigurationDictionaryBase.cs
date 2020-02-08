@@ -228,7 +228,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the configuration root service from which values are read or to which all values will be written.
         /// </summary>
-        /// <value> The configuration root service from which values are read or to which all values will be written. </value>
+        /// <value>
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </value>
         internal IConfigurationRoot ConfigurationRoot
         {
             get;
@@ -393,7 +395,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     Recursively deletes all of the properties from the configuration sources.
         /// </summary>
         /// <exception cref="NotImplementedException"> </exception>
-        public void Delete() => throw new NotImplementedException();
+        public void Delete()
+        {
+            foreach(var element in _orderedItems)
+            {
+                element.DeleteValue(ConfigurationRoot);
+            }
+        }
 
         /// <summary>
         ///     Gets the path to this configuration object.

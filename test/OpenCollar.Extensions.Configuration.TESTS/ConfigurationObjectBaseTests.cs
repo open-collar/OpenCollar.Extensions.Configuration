@@ -18,6 +18,7 @@
  */
 
 using Xunit;
+using System.Linq;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
@@ -37,6 +38,25 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             Assert.NotNull(x);
             Assert.Null(x.PropertyDef);
+        }
+
+        [Fact]
+        public void TestDelete()
+        {
+            var fixture = new ConfigurationFixture();
+
+            var valuesBefore = fixture.ConfigurationRoot.GetChildren().Where(s => !ReferenceEquals(s.Value, null)).Select(s => s.Path);
+
+            var x = fixture.RootElement;
+
+            x.Delete();
+
+            var valuesAfter = fixture.ConfigurationRoot.GetChildren().ToDictionary(s => s.Path);
+
+            foreach(var path in valuesBefore)
+            {
+                Assert.Null(valuesAfter[path].Value);
+            }
         }
 
         [Fact]

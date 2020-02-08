@@ -242,7 +242,18 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
         public void DeleteValue(IConfigurationRoot configurationRoot)
         {
-            configurationRoot[GetPath()] = null;
+            if(_propertyDef.Implementation.ImplementationKind == ImplementationKind.Naive)
+            {
+                configurationRoot[GetPath()] = null;
+            }
+            else
+            {
+                var value = _currentValue as IConfigurationObject;
+                if(!ReferenceEquals(value, null))
+                {
+                    value.Delete();
+                }
+            }
         }
 
         /// <summary>
