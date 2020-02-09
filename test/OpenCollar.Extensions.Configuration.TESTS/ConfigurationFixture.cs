@@ -18,6 +18,7 @@
  */
 
 using System.Collections.Generic;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace OpenCollar.Extensions.Configuration.TESTS

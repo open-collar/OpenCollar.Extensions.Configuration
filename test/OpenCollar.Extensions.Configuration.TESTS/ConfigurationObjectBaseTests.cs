@@ -17,8 +17,11 @@
  * Copyright © 2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
-using Xunit;
 using System.Linq;
+
+using Microsoft.Extensions.Configuration;
+
+using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
@@ -38,6 +41,24 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             Assert.NotNull(x);
             Assert.Null(x.PropertyDef);
+
+            Assert.Throws<System.Reflection.TargetInvocationException>(() =>
+            {
+                var y = System.Activator.CreateInstance(x.GetType(), (IConfigurationRoot)null, (IConfigurationParent)null);
+            });
+
+            try
+            {
+                var y = System.Activator.CreateInstance(x.GetType(), (IConfigurationRoot)null, (IConfigurationParent)null);
+            }
+            catch(System.Reflection.TargetInvocationException ex)
+            {
+                Assert.IsType<System.ArgumentNullException>(ex.InnerException);
+            }
+            catch(System.Exception ex)
+            {
+                Assert.True(false);
+            }
         }
 
         [Fact]

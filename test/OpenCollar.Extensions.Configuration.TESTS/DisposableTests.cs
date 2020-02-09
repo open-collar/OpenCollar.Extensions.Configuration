@@ -18,6 +18,7 @@
  */
 
 using System;
+
 using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS

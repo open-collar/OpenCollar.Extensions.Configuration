@@ -19,7 +19,9 @@
 
 using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.Extensions.Configuration;
+
 using OpenCollar.Extensions.Configuration.Collections;
 
 namespace OpenCollar.Extensions.Configuration

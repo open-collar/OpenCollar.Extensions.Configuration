@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OpenCollar.Extensions.Configuration.TESTS.Collections;
+﻿using OpenCollar.Extensions.Configuration.TESTS.Collections;
+
 using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS

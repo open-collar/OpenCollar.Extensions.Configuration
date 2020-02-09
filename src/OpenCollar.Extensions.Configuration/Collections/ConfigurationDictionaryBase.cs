@@ -24,6 +24,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+
 using Microsoft.Extensions.Configuration;
 
 namespace OpenCollar.Extensions.Configuration.Collections
