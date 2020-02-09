@@ -36,7 +36,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="IConfigurationObject" />
     /// <seealso cref="IDictionary{TKey, TElement}" />
     /// <seealso cref="INotifyCollectionChanged" />
-    [System.Diagnostics.DebuggerDisplay("ConfigurationDictionaryBase[{Count}] ({GetPath()})")]
+    [DebuggerDisplay("ConfigurationDictionaryBase[{Count}] ({GetPath()})")]
     public abstract class ConfigurationDictionaryBase<TKey, TElement> : NotifyPropertyChanged, IEnumerable, IConfigurationObject, IValueChanged, IConfigurationChild
     {
         /// <summary>
@@ -517,8 +517,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 Interlocked.Decrement(ref _suspendReadOnly);
             }
 
-            OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-            OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, updatedValues.Select(p => p.Value).ToList()));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, updatedValues.Select(p => p.Value).ToList()));
         }
 
         /// <summary>

@@ -30,7 +30,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var x = new TypeMismatchException();
 
             Assert.NotNull(x);
-            Assert.Equal($"Exception of type '{typeof(OpenCollar.Extensions.Configuration.TypeMismatchException).FullName}' was thrown.", x.Message);
+            Assert.Equal($"Exception of type '{typeof(TypeMismatchException).FullName}' was thrown.", x.Message);
             Assert.Null(x.InnerException);
             Assert.Null(x.ConfigurationPath);
         }

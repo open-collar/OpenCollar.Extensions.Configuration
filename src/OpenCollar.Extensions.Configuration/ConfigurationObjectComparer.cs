@@ -8,7 +8,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     A comparer for objects that implement interfaces derived from <see cref="IConfigurationObject" />.
     /// </summary>
-    /// <seealso cref="System.Collections.Generic.IEqualityComparer{T}" />
+    /// <seealso cref="IEqualityComparer{T}" />
     public class ConfigurationObjectComparer : IEqualityComparer<IConfigurationObject>
     {
         /// <summary>

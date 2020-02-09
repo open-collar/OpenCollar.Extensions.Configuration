@@ -30,7 +30,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var x = new ConfigurationException();
 
             Assert.NotNull(x);
-            Assert.Equal($"Exception of type '{typeof(OpenCollar.Extensions.Configuration.ConfigurationException).FullName}' was thrown.", x.Message);
+            Assert.Equal($"Exception of type '{typeof(ConfigurationException).FullName}' was thrown.", x.Message);
             Assert.Null(x.InnerException);
             Assert.Null(x.ConfigurationPath);
         }

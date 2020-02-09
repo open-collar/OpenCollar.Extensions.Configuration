@@ -86,16 +86,27 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="configurationRoot" /> is <see langword="null" />. </exception>
         protected ConfigurationObjectBase(PropertyDef? propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent)
         {
+            if(ReferenceEquals(configurationRoot, null))
+            {
+                throw new ArgumentNullException(nameof(configurationRoot), "'configurationRoot' is null.");
+            }
+
             _parent = parent;
             PropertyDef = propertyDef;
             _configurationRoot = configurationRoot;
 
-            foreach(var section in _configurationRoot.GetChildren())
+            var children = _configurationRoot.GetChildren();
+
+            if(!ReferenceEquals(children, null))
             {
-                var token = section.GetReloadToken();
-                token.RegisterChangeCallback(OnSectionChanged, section);
+                foreach(var section in children)
+                {
+                    var token = section.GetReloadToken();
+                    token.RegisterChangeCallback(OnSectionChanged, section);
+                }
             }
         }
 
@@ -285,7 +296,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Converts to string.
         /// </summary>
-        /// <returns> A <see cref="System.String" /> that represents this instance. </returns>
+        /// <returns> A <see cref="string" /> that represents this instance. </returns>
         public override string ToString()
         {
             if(ReferenceEquals(PropertyDef, null))

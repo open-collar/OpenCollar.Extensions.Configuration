@@ -129,12 +129,12 @@ namespace OpenCollar.Extensions.Configuration
         public bool Contains(TElement element) => ContainsValue(element);
 
         /// <summary>
-        ///     Copies the elements of the <see cref="System.Collections.Generic.ICollection{T}" /> to an
+        ///     Copies the elements of the <see cref="ICollection{T}" /> to an
         ///     <see cref="System.Array" />, starting at a particular <see cref="System.Array" /> index.
         /// </summary>
         /// <param name="array">
         ///     The one-dimensional <see cref="System.Array" /> that is the destination of the elements copied from
-        ///     <see cref="System.Collections.Generic.ICollection{T}" />. The <see cref="System.Array" /> must have
+        ///     <see cref="ICollection{T}" />. The <see cref="System.Array" /> must have
         ///     zero-based indexing.
         /// </param>
         /// <param name="arrayIndex"> The zero-based index in <paramref name="array" /> at which copying begins. </param>
@@ -173,13 +173,13 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Removes the first occurrence of a specific object from the <see cref="System.Collections.Generic.ICollection{T}" />.
+        ///     Removes the first occurrence of a specific object from the <see cref="ICollection{T}" />.
         /// </summary>
-        /// <param name="item"> The object to remove from the <see cref="System.Collections.Generic.ICollection{T}" />. </param>
+        /// <param name="item"> The object to remove from the <see cref="ICollection{T}" />. </param>
         /// <returns>
         ///     <see langword="true" /> if <paramref name="item" /> was successfully removed from the
-        ///     <see cref="System.Collections.Generic.ICollection{T}" />; otherwise, <see langword="false" />. This
-        ///     method also returns <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="System.Collections.Generic.ICollection{T}" />.
+        ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />. This
+        ///     method also returns <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="ICollection{T}" />.
         /// </returns>
         public bool Remove(KeyValuePair<string, TElement> item)
         {

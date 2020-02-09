@@ -31,7 +31,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             Assert.Throws<System.ArgumentNullException>(() =>
             {
-                var x = new OpenCollar.Extensions.Configuration.Collections.Element<string, string>(def, null, "TEST") { Value = "TESTVALUE" };
+                var x = new Configuration.Collections.Element<string, string>(def, null, "TEST") { Value = "TESTVALUE" };
             });
         }
 
@@ -44,7 +44,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
                 var def = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.ChildDictionary), System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance));
 
-                var x = new OpenCollar.Extensions.Configuration.Collections.Element<string, IChildElement>(def, (OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<string, IChildElement>)parentObject.ChildDictionary, "TEST");
+                var x = new Configuration.Collections.Element<string, IChildElement>(def, (Configuration.Collections.ConfigurationDictionaryBase<string, IChildElement>)parentObject.ChildDictionary, "TEST");
 
                 Assert.NotNull(x);
                 Assert.Equal("TEST", x.Key);
