@@ -49,7 +49,7 @@ namespace OpenCollar.Extensions.Configuration
     ///     individual property.
     /// </summary>
     /// <seealso cref="Attribute" />
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public sealed class PathAttribute : Attribute
     {
         /// <summary>

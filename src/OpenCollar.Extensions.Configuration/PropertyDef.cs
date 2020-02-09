@@ -75,7 +75,6 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <param name="interfaceType"> The type of the interface from which the property is taken. </param>
         /// <param name="propertyInfo"> The definition of the property. </param>
-        /// <param name="context"> The context in which the property is being defined. </param>
         internal PropertyDef(Type interfaceType, PropertyInfo propertyInfo)
         {
             PropertyInfo = propertyInfo;
@@ -88,12 +87,6 @@ namespace OpenCollar.Extensions.Configuration
             var pathAttributes = propertyInfo.GetCustomAttributes(typeof(PathAttribute), true);
             if(!ReferenceEquals(pathAttributes, null) && (pathAttributes.Length > 0))
             {
-                if(pathAttributes.Length > 1)
-                {
-                    throw new InvalidOperationException(
-                        $"Property '{Type.Namespace}.{Type.Name}.{PropertyName}' specifies more than one 'Path' attribute and so cannot be processed.");
-                }
-
                 var pathAttribute = ((PathAttribute)pathAttributes[0]);
 
                 PathSection = pathAttribute.Path;
