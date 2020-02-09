@@ -120,16 +120,6 @@ namespace OpenCollar.Extensions.Configuration
         {
             // TODO: Circular reference detection - for this version.
 
-            var pathAttributes = type.GetCustomAttributes(typeof(PathAttribute), true);
-            if(!ReferenceEquals(pathAttributes, null) && (pathAttributes.Length > 0))
-            {
-                if(pathAttributes.Length > 1)
-                {
-                    throw new InvalidOperationException(
-                        $"Type '{type.Namespace}.{type.Name}' specifies more than one 'Path' attribute and so cannot be processed.");
-                }
-            }
-
             var propertyDefs = new List<PropertyDef>();
 
             foreach(var property in type.GetProperties(BindingFlags.Instance | BindingFlags.Public))

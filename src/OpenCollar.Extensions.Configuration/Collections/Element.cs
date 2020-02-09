@@ -75,11 +75,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <returns> A string containing the path to this configuration object. </returns>
         public override string GetPath()
         {
-            if(ReferenceEquals(_parent, null))
-            {
-                return Key.ToString();
-            }
-
             return PathHelper.GetPath(_parent.GetPath(), Key.ToString());
         }
     }
