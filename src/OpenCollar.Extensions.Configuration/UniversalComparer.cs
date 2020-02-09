@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OpenCollar.Extensions.Configuration
+﻿namespace OpenCollar.Extensions.Configuration
 {
     /// <summary>
     ///     Support for comparison.
