@@ -26,17 +26,13 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         [Fact]
         public void TestWithoutParent()
         {
-            using(var fixture = new ConfigurationFixture())
-            {
-                const string propertyName = "StringPropertyA";
-                var def = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(propertyName, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance));
-                var parent = new ConfigurationDictionary<string>(null, def, fixture.ConfigurationRoot, null);
-                var x = new OpenCollar.Extensions.Configuration.Collections.Element<string, string>(def, null, "TEST", "TESTVALUE");
+            const string propertyName = "StringPropertyA";
+            var def = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(propertyName, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance));
 
-                Assert.NotNull(x);
-                Assert.Equal("TEST", x.Key);
-                Assert.Equal("TEST", x.GetPath());
-            }
+            Assert.Throws<System.ArgumentNullException>(() =>
+            {
+                var x = new OpenCollar.Extensions.Configuration.Collections.Element<string, string>(def, null, "TEST") { Value = "TESTVALUE" };
+            });
         }
 
         [Fact]
@@ -44,14 +40,15 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         {
             using(var fixture = new ConfigurationFixture())
             {
-                const string propertyName = "StringPropertyA";
-                var def = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(propertyName, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance));
-                var parent = new ConfigurationDictionary<string>(null, def, fixture.ConfigurationRoot, null);
-                var x = new OpenCollar.Extensions.Configuration.Collections.Element<string, string>(def, parent, "TEST", "TESTVALUE");
+                var parentObject = fixture.RootElement;
+
+                var def = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.ChildDictionary), System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance));
+
+                var x = new OpenCollar.Extensions.Configuration.Collections.Element<string, IChildElement>(def, (OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<string, IChildElement>)parentObject.ChildDictionary, "TEST");
 
                 Assert.NotNull(x);
                 Assert.Equal("TEST", x.Key);
-                Assert.Equal("StringPropertyA:TEST", x.GetPath());
+                Assert.Equal("ChildDictionary:TEST", x.GetPath());
             }
         }
     }

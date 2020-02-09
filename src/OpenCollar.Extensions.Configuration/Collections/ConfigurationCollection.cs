@@ -32,7 +32,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <typeparam name="TElement"> The type of the element. </typeparam>
     /// <seealso cref="ConfigurationDictionaryBase{T,T}" />
     /// <seealso cref="IConfigurationCollection{TElement}" />
-    [System.Diagnostics.DebuggerDisplay("ConfigurationCollection[{Count}]")]
+    [System.Diagnostics.DebuggerDisplay("ConfigurationCollection[{Count}] ({GetPath()})")]
     public class ConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IConfigurationCollection<TElement>
     {
         /// <summary>
@@ -71,7 +71,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets a value indicating whether the <see cref="ICollection{TElement}" /> is read-only.
         /// </summary>
         /// <value> <see langword="true" /> if this collection is read-only; otherwise, <see langword="false" />. </value>
-        public override bool IsReadOnly
+        protected override bool InnerIsReadOnly
         {
             get
             {
@@ -102,6 +102,17 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <param name="item"> The item to add. </param>
         public void Add(TElement item) => Add(Count, item);
+
+        /// <summary>
+        ///     Adds a new value with the key specified, copying the properties and elements from the value give,
+        ///     returning the new value.
+        /// </summary>
+        /// <param name="value"> The value to copy. </param>
+        /// <returns> The newly added element. </returns>
+        /// <remarks>
+        ///     Used to add objects and collections that have been constructed externally using alternate implementations.
+        /// </remarks>
+        public TElement AddCopy(TElement value) => AddCopy(Count, value);
 
         /// <summary>
         ///     Adds a new value with the key specified, returning the new value.
@@ -168,7 +179,7 @@ namespace OpenCollar.Extensions.Configuration
             var n = 0;
             foreach(var element in this)
             {
-                if(Equals(element, item))
+                if(UniversalComparer.Equals(element, item))
                 {
                     return n;
                 }
@@ -186,6 +197,17 @@ namespace OpenCollar.Extensions.Configuration
         public void Insert(int index, TElement item)
         {
             EnforceDisposed();
+
+            if(PropertyDef.ElementImplementation.ImplementationKind != ImplementationKind.Naive)
+            {
+                if(!ReferenceEquals(item, null))
+                {
+                    if(PropertyDef.ElementImplementation.ImplementationType != item.GetType())
+                    {
+                        throw new TypeMismatchException($"Expected object of type {PropertyDef.ElementImplementation.ImplementationType.FullName}.", GetPath());
+                    }
+                }
+            }
 
             if(index < 0)
             {
@@ -211,7 +233,15 @@ namespace OpenCollar.Extensions.Configuration
                 InnerCopyTo(entries, 0);
 
                 var list = new List<Element<int, TElement>>(entries.Select(k => k.Value));
-                list.Insert(index, new Element<int, TElement>(PropertyDef, this, index, item));
+                DisableCollectionChangedEvents = true;
+                try
+                {
+                    list.Insert(index, new Element<int, TElement>(PropertyDef, this, index) { Value = item });
+                }
+                finally
+                {
+                    DisableCollectionChangedEvents = false;
+                }
                 events.Add(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Add, item, index));
                 foreach(var element in list.ToArray())
                 {
@@ -236,6 +266,62 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Inserts an iten at the specified index.
+        /// </summary>
+        /// <param name="index"> The zero-based index of the location at which the item should be inserted. </param>
+        /// <param name="item"> The item to insert. </param>
+        public TElement InsertCopy(int index, TElement item)
+        {
+            TElement copy;
+
+            switch(PropertyDef.ElementImplementation.ImplementationKind)
+            {
+                case ImplementationKind.ConfigurationCollection:
+                    if(ReferenceEquals(item, null))
+                    {
+                        copy = default;
+                    }
+                    else
+                    {
+                        copy = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, this, PropertyDef, ConfigurationRoot, item);
+                    }
+                    break;
+
+                case ImplementationKind.ConfigurationDictionary:
+                    if(ReferenceEquals(item, null))
+                    {
+                        copy = default;
+                    }
+                    else
+                    {
+                        copy = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, this, PropertyDef, ConfigurationRoot, item);
+                    }
+                    break;
+
+                case ImplementationKind.ConfigurationObject:
+                    if(ReferenceEquals(item, null))
+                    {
+                        copy = default;
+                    }
+                    else
+                    {
+                        var clone = Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, ConfigurationRoot, this);
+                        ((ConfigurationObjectBase<TElement>)clone).Clone(item);
+                        copy = (TElement)clone;
+                    }
+                    break;
+
+                default:
+                    copy = item;
+                    break;
+            }
+
+            Insert(index, copy);
+
+            return copy;
+        }
+
+        /// <summary>
         ///     Removes the first occurrence of a specific object from the <see cref="ICollection{TElement}" />.
         /// </summary>
         /// <param name="item"> The object to remove from the <see cref="ICollection{TElement}" />. </param>
@@ -249,8 +335,7 @@ namespace OpenCollar.Extensions.Configuration
             var index = IndexOf(item);
             if(index >= 0)
             {
-                Remove(index);
-                return true;
+                return Remove(index);
             }
 
             return false;
@@ -269,7 +354,7 @@ namespace OpenCollar.Extensions.Configuration
         {
             if(base.Remove(index))
             {
-                Reindex(index);
+                Reindex(index, (n, e) => n);
                 return true;
             }
 
@@ -283,7 +368,7 @@ namespace OpenCollar.Extensions.Configuration
         public void RemoveAt(int index)
         {
             base.Remove(index);
-            Reindex(index);
+            Reindex(index, (n, e) => n);
         }
 
         /// <summary>
@@ -305,35 +390,6 @@ namespace OpenCollar.Extensions.Configuration
         internal override int ConvertStringToKey(string key)
         {
             return int.Parse(key, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture);
-        }
-
-        /// <summary>
-        ///     Reindexes the items after the specified index after removing an item.
-        /// </summary>
-        /// <param name="removedIndex"> Index of the removed item. </param>
-        private void Reindex(int removedIndex)
-        {
-            if(removedIndex >= Count)
-            {
-                // The last item was removed, we don't need to do anything.
-                return;
-            }
-
-            DisableEvents = true;
-            try
-            {
-                // Everything from the removed item onwards will need to be moved back one.
-                for(var n = removedIndex; n < Count; ++n)
-                {
-                    var item = base[n + 1];
-                    Remove(n + 1);
-                    Add(item.Value);
-                }
-            }
-            finally
-            {
-                DisableEvents = false;
-            }
         }
     }
 }

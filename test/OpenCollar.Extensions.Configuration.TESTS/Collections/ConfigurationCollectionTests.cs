@@ -52,37 +52,37 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 change = args.Action;
             };
 
-            x.Add(a);
+            x.AddCopy(a);
 
             Assert.Single(x);
             Assert.Equal(System.Collections.Specialized.NotifyCollectionChangedAction.Add, change);
 
-            x.Add(b);
-            x.Add(c);
+            x.AddCopy(b);
+            x.AddCopy(c);
 
             Assert.Equal(3, x.Count);
 
-            Assert.Equal(a, x[0]);
-            Assert.Equal(b, x[1]);
-            Assert.Equal(c, x[2]);
+            Assert.Equal(a, x[0], ConfigurationObjectComparer.Instance);
+            Assert.Equal(b, x[1], ConfigurationObjectComparer.Instance);
+            Assert.Equal(c, x[2], ConfigurationObjectComparer.Instance);
 
             Assert.True(x.Remove(b));
 
             Assert.Equal(2, x.Count);
 
-            Assert.Equal(a, x[0]);
-            Assert.Equal(c, x[1]);
+            Assert.Equal(a, x[0], ConfigurationObjectComparer.Instance);
+            Assert.Equal(c, x[1], ConfigurationObjectComparer.Instance);
 
-            x.Add(b);
+            x.AddCopy(b);
 
             Assert.Equal(3, x.Count);
 
-            Assert.Equal(a, x[0]);
-            Assert.Equal(c, x[1]);
-            Assert.Equal(b, x[2]);
+            Assert.Equal(a, x[0], ConfigurationObjectComparer.Instance);
+            Assert.Equal(c, x[1], ConfigurationObjectComparer.Instance);
+            Assert.Equal(b, x[2], ConfigurationObjectComparer.Instance);
 
             x.Dispose();
-            Assert.Throws<ObjectDisposedException>(() => x.Add(a));
+            Assert.Throws<ObjectDisposedException>(() => x.AddCopy(a));
             Assert.Throws<ObjectDisposedException>(() => x.Count);
             Assert.Throws<ObjectDisposedException>(() => x[0]);
         }
@@ -130,13 +130,13 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = testContext.GetChildElement("b");
             var c = testContext.GetChildElement("c");
 
-            x.Add(a);
-            x.Add(b);
+            x.AddCopy(a);
+            x.AddCopy(b);
 
-            Assert.Contains(a, x);
-            Assert.Contains(b, x);
-            Assert.DoesNotContain(c, x);
-            Assert.DoesNotContain(null, x);
+            Assert.Contains(a, x, OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.Instance);
+            Assert.Contains(b, x, OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.Instance);
+            Assert.DoesNotContain(c, x, OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.Instance);
+            Assert.DoesNotContain(null, x, OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.Instance);
 
             x.Dispose();
             Assert.Throws<ObjectDisposedException>(() => x.Contains(a));
@@ -152,17 +152,17 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = testContext.GetChildElement("b");
             var c = testContext.GetChildElement("c");
 
-            x.Add(a);
-            x.Add(b);
-            x.Add(c);
+            x.AddCopy(a);
+            x.AddCopy(b);
+            x.AddCopy(c);
 
             var array = new IChildElement[3];
 
             x.CopyTo(array, 0);
 
-            Assert.Equal(a, array[0]);
-            Assert.Equal(b, array[1]);
-            Assert.Equal(c, array[2]);
+            Assert.Equal(a, array[0], ConfigurationObjectComparer.Instance);
+            Assert.Equal(b, array[1], ConfigurationObjectComparer.Instance);
+            Assert.Equal(c, array[2], ConfigurationObjectComparer.Instance);
 
             Assert.Throws<ArgumentOutOfRangeException>(() => x.CopyTo(array, 1));
 
@@ -200,9 +200,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 Assert.True(false);
             }
 
-            x.Add(a);
-            x.Add(b);
-            x.Add(c);
+            x.AddCopy(a);
+            x.AddCopy(b);
+            x.AddCopy(c);
 
             var n = 0;
             foreach(var item in (IEnumerable<IChildElement>)x)
@@ -210,15 +210,15 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 switch(n++)
                 {
                     case 0:
-                        Assert.Equal(a, item);
+                        Assert.Equal(a, item, OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.Instance);
                         break;
 
                     case 1:
-                        Assert.Equal(b, item);
+                        Assert.Equal(b, item, OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.Instance);
                         break;
 
                     case 2:
-                        Assert.Equal(c, item);
+                        Assert.Equal(c, item, OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.Instance);
                         break;
 
                     default:
@@ -241,13 +241,13 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = testContext.GetChildElement("b");
             var c = testContext.GetChildElement("c");
 
-            x.Add(a);
-            x.Add(b);
-            x.Add(c);
+            x.AddCopy(a);
+            x.AddCopy(b);
+            x.AddCopy(c);
 
-            Assert.Equal(a, x[0]);
-            Assert.Equal(b, x[1]);
-            Assert.Equal(c, x[2]);
+            Assert.Equal(a, x[0], ConfigurationObjectComparer.Instance);
+            Assert.Equal(b, x[1], ConfigurationObjectComparer.Instance);
+            Assert.Equal(c, x[2], ConfigurationObjectComparer.Instance);
 
             var change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
             x.CollectionChanged += (sender, args) =>
@@ -261,9 +261,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             x[2] = a;
 
-            Assert.Equal(c, x[0]);
-            Assert.Equal(b, x[1]);
-            Assert.Equal(a, x[2]);
+            Assert.Equal(c, x[0], ConfigurationObjectComparer.Instance);
+            Assert.Equal(b, x[1], ConfigurationObjectComparer.Instance);
+            Assert.Equal(a, x[2], ConfigurationObjectComparer.Instance);
 
             x.Dispose();
             Assert.Throws<ObjectDisposedException>(() => x[0]);
@@ -283,14 +283,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.True(x.IndexOf(b) < 0);
             Assert.True(x.IndexOf(c) < 0);
 
-            x.Add(a);
-            x.Add(b);
+            x.AddCopy(a);
+            x.AddCopy(b);
 
             Assert.Equal(0, x.IndexOf(a));
             Assert.Equal(1, x.IndexOf(b));
             Assert.True(x.IndexOf(c) < 0);
 
-            x.Add(c);
+            x.AddCopy(c);
 
             Assert.Equal(0, x.IndexOf(a));
             Assert.Equal(1, x.IndexOf(b));
@@ -314,8 +314,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var d = testContext.GetChildElement("d");
             var e = testContext.GetChildElement("e");
 
-            x.Add(a);
-            x.Add(c);
+            x.AddCopy(a);
+            x.AddCopy(c);
 
             var changes = new List<System.Collections.Specialized.NotifyCollectionChangedAction>();
             x.CollectionChanged += (sender, args) =>
@@ -323,7 +323,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 changes.Add(args.Action);
             };
 
-            x.Insert(1, b);
+            x.InsertCopy(1, b);
 
             Assert.Equal(2, changes.Count);
             Assert.Equal(System.Collections.Specialized.NotifyCollectionChangedAction.Add, changes[0]);
@@ -331,32 +331,32 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             Assert.Equal(3, x.Count);
 
-            Assert.Equal(a, x[0]);
-            Assert.Equal(b, x[1]);
-            Assert.Equal(c, x[2]);
+            Assert.Equal(a, x[0], ConfigurationObjectComparer.Instance);
+            Assert.Equal(b, x[1], ConfigurationObjectComparer.Instance);
+            Assert.Equal(c, x[2], ConfigurationObjectComparer.Instance);
 
-            x.Insert(x.Count, d);
+            x.InsertCopy(x.Count, d);
 
             Assert.Equal(4, x.Count);
-            Assert.Equal(a, x[0]);
-            Assert.Equal(b, x[1]);
-            Assert.Equal(c, x[2]);
-            Assert.Equal(d, x[3]);
+            Assert.Equal(a, x[0], ConfigurationObjectComparer.Instance);
+            Assert.Equal(b, x[1], ConfigurationObjectComparer.Instance);
+            Assert.Equal(c, x[2], ConfigurationObjectComparer.Instance);
+            Assert.Equal(d, x[3], ConfigurationObjectComparer.Instance);
 
-            x.Insert(0, e);
+            x.InsertCopy(0, e);
 
             Assert.Equal(5, x.Count);
-            Assert.Equal(e, x[0]);
-            Assert.Equal(a, x[1]);
-            Assert.Equal(b, x[2]);
-            Assert.Equal(c, x[3]);
-            Assert.Equal(d, x[4]);
+            Assert.Equal(e, x[0], ConfigurationObjectComparer.Instance);
+            Assert.Equal(a, x[1], ConfigurationObjectComparer.Instance);
+            Assert.Equal(b, x[2], ConfigurationObjectComparer.Instance);
+            Assert.Equal(c, x[3], ConfigurationObjectComparer.Instance);
+            Assert.Equal(d, x[4], ConfigurationObjectComparer.Instance);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => { x.Insert(-1, a); });
-            Assert.Throws<ArgumentOutOfRangeException>(() => { x.Insert(x.Count + 1, a); });
+            Assert.Throws<ArgumentOutOfRangeException>(() => { x.InsertCopy(-1, a); });
+            Assert.Throws<ArgumentOutOfRangeException>(() => { x.InsertCopy(x.Count + 1, a); });
 
             x.Dispose();
-            Assert.Throws<ObjectDisposedException>(() => x.Insert(1, b));
+            Assert.Throws<ObjectDisposedException>(() => x.InsertCopy(1, b));
         }
 
         [Fact]
@@ -372,7 +372,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             Assert.False(x.IsDirty);
 
-            x.Add(e);
+            x.AddCopy(e);
 
             Assert.True(x.IsDirty);
         }
@@ -403,11 +403,11 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 ++callbackCount;
             };
 
-            x.Add(a);
+            x.AddCopy(a);
 
             Assert.Equal(1, callbackCount);
 
-            x.Add(b);
+            x.AddCopy(b);
 
             Assert.Equal(2, callbackCount);
         }
@@ -423,9 +423,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var c = testContext.GetChildElement("c");
             var d = testContext.GetChildElement("d");
 
-            x.Add(a);
-            x.Add(b);
-            x.Add(c);
+            x.AddCopy(a);
+            x.AddCopy(b);
+            x.AddCopy(c);
 
             var change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
             x.CollectionChanged += (sender, args) =>
@@ -441,27 +441,27 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Equal((System.Collections.Specialized.NotifyCollectionChangedAction)(-1), change);
 
             Assert.Equal(2, x.Count);
-            Assert.Equal(a, x[0]);
-            Assert.Equal(c, x[1]);
+            Assert.Equal(a, x[0], ConfigurationObjectComparer.Instance);
+            Assert.Equal(c, x[1], ConfigurationObjectComparer.Instance);
 
             Assert.True(x.Remove(0));
 
             Assert.Equal(1, x.Count);
-            Assert.Equal(c, x[0]);
+            Assert.Equal(c, x[0], ConfigurationObjectComparer.Instance);
 
             x.RemoveAt(0);
 
             Assert.Equal(0, x.Count);
 
-            x.Add(a);
-            x.Add(b);
-            x.Add(c);
+            x.AddCopy(a);
+            x.AddCopy(b);
+            x.AddCopy(c);
 
             x.RemoveAt(2);
 
             Assert.Equal(2, x.Count);
-            Assert.Equal(a, x[0]);
-            Assert.Equal(b, x[1]);
+            Assert.Equal(a, x[0], ConfigurationObjectComparer.Instance);
+            Assert.Equal(b, x[1], ConfigurationObjectComparer.Instance);
 
             Assert.False(x.Remove(d));
             Assert.False(x.Remove(2));
@@ -531,15 +531,15 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 switch(n++)
                 {
                     case 0:
-                        Assert.Equal(a, item);
+                        Assert.Equal(a, item, ConfigurationObjectComparer.Instance);
                         break;
 
                     case 1:
-                        Assert.Equal(b, item);
+                        Assert.Equal(b, item, ConfigurationObjectComparer.Instance);
                         break;
 
                     case 2:
-                        Assert.Equal(c, item);
+                        Assert.Equal(c, item, ConfigurationObjectComparer.Instance);
                         break;
 
                     default:

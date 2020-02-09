@@ -68,12 +68,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS
                     new KeyValuePair<string, string>("ChildDictionary:Item2:Value", "2"),
                     new KeyValuePair<string, string>("ChildDictionary:Item3:Name", "Item_3"),
                     new KeyValuePair<string, string>("ChildDictionary:Item3:Value", "3"),
+                    new KeyValuePair<string, string>("ChildCollection:0:Name", "Item_0"),
+                    new KeyValuePair<string, string>("ChildCollection:0:Value", "0"),
                     new KeyValuePair<string, string>("ChildCollection:1:Name", "Item_1"),
                     new KeyValuePair<string, string>("ChildCollection:1:Value", "1"),
                     new KeyValuePair<string, string>("ChildCollection:2:Name", "Item_2"),
-                    new KeyValuePair<string, string>("ChildCollection:2:Value", "2"),
-                    new KeyValuePair<string, string>("ChildCollection:3:Name", "Item_3"),
-                    new KeyValuePair<string, string>("ChildCollection:3:Value", "3")
+                    new KeyValuePair<string, string>("ChildCollection:2:Value", "2")
                 }
             };
 
@@ -87,6 +87,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Services = servicesCollection.BuildServiceProvider();
 
             RootElement = Services.GetService<IRootElement>();
+            RootElement.Load();  // TODO: Make this automatic - lazy evaluation?
         }
 
         public Microsoft.Extensions.Configuration.IConfigurationRoot ConfigurationRoot

@@ -30,7 +30,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <typeparam name="TElement"> The type of the element. </typeparam>
     /// <seealso cref="ConfigurationDictionaryBase{T,T}" />
     /// <seealso cref="IConfigurationDictionary{TElement}" />
-    [System.Diagnostics.DebuggerDisplay("ReadOnlyConfigurationDictionary[{Count}]")]
+    [System.Diagnostics.DebuggerDisplay("ReadOnlyConfigurationDictionary[{Count}] ({GetPath()})")]
     public sealed class ReadOnlyConfigurationDictionary<TElement> : ConfigurationDictionary<TElement>, IReadOnlyDictionary<string, TElement>, IConfigurationDictionary<TElement>
     {
         /// Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class. </summary> <param
@@ -75,17 +75,6 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Gets a value indicating whether the <see cref="ICollection{TElement}" /> is read-only.
-        /// </summary>
-        public override bool IsReadOnly
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        /// <summary>
         ///     Gets an <see cref="ICollection{TElement}" /> containing the keys of the <see cref="IDictionary{T,T}" />.
         /// </summary>
         IEnumerable<string> IReadOnlyDictionary<string, TElement>.Keys
@@ -104,6 +93,17 @@ namespace OpenCollar.Extensions.Configuration
             get
             {
                 return Values;
+            }
+        }
+
+        /// <summary>
+        ///     Gets a value indicating whether the <see cref="ICollection{TElement}" /> is read-only.
+        /// </summary>
+        protected override bool InnerIsReadOnly
+        {
+            get
+            {
+                return true;
             }
         }
 

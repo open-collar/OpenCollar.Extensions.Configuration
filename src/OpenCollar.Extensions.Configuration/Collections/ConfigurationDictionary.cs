@@ -30,7 +30,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <typeparam name="TElement"> The type of the element. </typeparam>
     /// <seealso cref="ConfigurationDictionaryBase{T,T}" />
     /// <seealso cref="IConfigurationDictionary{TElement}" />
-    [System.Diagnostics.DebuggerDisplay("ConfigurationDictionary[{Count}]")]
+    [System.Diagnostics.DebuggerDisplay("ConfigurationDictionary[{Count}] ({GetPath()})")]
     public class ConfigurationDictionary<TElement> : ConfigurationDictionaryBase<string, TElement>, IConfigurationDictionary<TElement>
     {
         /// <summary>
@@ -68,7 +68,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets a value indicating whether the <see cref="ICollection{TElement}" /> is read-only.
         /// </summary>
-        public override bool IsReadOnly
+        protected override bool InnerIsReadOnly
         {
             get
             {
@@ -109,6 +109,17 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <param name="item"> The object to add to the <see cref="T:System.Collections.Generic.ICollection{T}" />. </param>
         public void Add(KeyValuePair<string, TElement> item) => base.Add(item.Key, item.Value);
+
+        /// <summary>
+        ///     Adds a new value with the key specified, copying the properties and elements from the value give,
+        ///     returning the new value.
+        /// </summary>
+        /// <param name="item"> The object to add to the <see cref="T:System.Collections.Generic.ICollection{T}" />. </param>
+        /// <returns> The newly added element. </returns>
+        /// <remarks>
+        ///     Used to add objects and collections that have been constructed externally using alternate implementations.
+        /// </remarks>
+        public void AddCopy(KeyValuePair<string, TElement> item) => AddCopy(item.Key, item.Value);
 
         /// <summary>
         ///     Determines whether this instance contains the object.

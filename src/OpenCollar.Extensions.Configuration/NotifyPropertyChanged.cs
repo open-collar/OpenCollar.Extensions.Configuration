@@ -32,6 +32,12 @@ namespace OpenCollar.Extensions.Configuration
     public abstract class NotifyPropertyChanged : Disposable, INotifyPropertyChanged
     {
         /// <summary>
+        ///     A value indicating whether property changed events are fired. Applies to the current thread only.
+        /// </summary>
+        [ThreadStatic]
+        private bool suspendPropertyChangedEvents;
+
+        /// <summary>
         ///     Occurs when a property changes.
         /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -42,7 +48,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <value> <see langword="true" /> if property changed events are suspended; otherwise, <see langword="false" />. </value>
         protected bool SuspendPropertyChangedEvents
         {
-            get; set;
+            get => suspendPropertyChangedEvents; set => suspendPropertyChangedEvents = value;
         }
 
         /// <summary>
@@ -106,7 +112,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <remarks> Raises the <see cref="PropertyChanged" /> event if the value has changed. </remarks>
         protected bool OnPropertyChanged<T>(string propertyName, ref T field, T value)
         {
-            if(Equals(field, value))
+            if(UniversalComparer.Equals(field, value))
             {
                 return false;
             }

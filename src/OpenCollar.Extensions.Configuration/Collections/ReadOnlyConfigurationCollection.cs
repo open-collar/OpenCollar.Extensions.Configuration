@@ -29,7 +29,7 @@ namespace OpenCollar.Extensions.Configuration
     ///     an element is added or removed.
     /// </summary>
     /// <typeparam name="TElement"> The type of the element. </typeparam>
-    [System.Diagnostics.DebuggerDisplay("ReadOnlyConfigurationCollection[{Count}]")]
+    [System.Diagnostics.DebuggerDisplay("ReadOnlyConfigurationCollection[{Count}] ({GetPath()})")]
     public sealed class ReadOnlyConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IReadOnlyCollection<TElement>, IConfigurationCollection<TElement>
     {
         /// <summary>
@@ -67,7 +67,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets a value indicating whether the <see cref="ICollection{T}" /> is read-only.
         /// </summary>
-        public override bool IsReadOnly
+        protected override bool InnerIsReadOnly
         {
             get
             {
@@ -98,6 +98,18 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <param name="item"> The item to add. </param>
         public void Add(TElement item) => Add(Count, item);
+
+        /// <summary>
+        ///     Adds a new value with the key specified, copying the properties and elements from the value give,
+        ///     returning the new value.
+        /// </summary>
+        /// <param name="value"> The value to copy. </param>
+        /// <returns> The newly added element. </returns>
+        /// <remarks>
+        ///     Used to add objects and collections that have been constructed externally using alternate implementations.
+        /// </remarks>
+        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        public TElement AddCopy(TElement value) => throw new NotImplementedException("This collection is read-only.");
 
         /// <summary>
         ///     Adds a new value with the key specified, returning the new value.
@@ -168,7 +180,7 @@ namespace OpenCollar.Extensions.Configuration
             var n = 0;
             foreach(var element in this)
             {
-                if(Equals(element, item))
+                if(UniversalComparer.Equals(element, item))
                 {
                     return n;
                 }

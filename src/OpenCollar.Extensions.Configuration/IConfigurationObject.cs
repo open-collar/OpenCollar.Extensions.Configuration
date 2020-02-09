@@ -65,7 +65,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <exception cref="ObjectDisposedException">
         ///     This method cannot be used after the object has been disposed of.
         /// </exception>
-        void Reload();
+        void Load();
 
         /// <summary>
         ///     Saves this current values for each property back to the configuration sources.

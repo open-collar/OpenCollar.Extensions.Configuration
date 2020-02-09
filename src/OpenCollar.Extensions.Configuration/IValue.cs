@@ -85,6 +85,13 @@ namespace OpenCollar.Extensions.Configuration
         void ReadValue(IConfigurationRoot configurationRoot);
 
         /// <summary>
+        ///     Sets the value without firing any events.
+        /// </summary>
+        /// <param name="value"> The new value. </param>
+        /// <returns> <see langword="true" /> if the value has changed; otherwise, <see langword="false" />. </returns>
+        bool SetValue(object? value);
+
+        /// <summary>
         ///     Writes the value to the configuration store.
         /// </summary>
         /// <param name="configurationRoot"> The configuration root to which to write the value. </param>

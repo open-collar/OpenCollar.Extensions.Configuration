@@ -36,8 +36,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="IConfigurationObject" />
     /// <seealso cref="IDictionary{TKey, TElement}" />
     /// <seealso cref="INotifyCollectionChanged" />
-    [System.Diagnostics.DebuggerDisplay("ConfigurationDictionaryBase[{Count}]")]
-    public abstract class ConfigurationDictionaryBase<TKey, TElement> : NotifyPropertyChanged, IEnumerable, IConfigurationObject, IValueChanged
+    [System.Diagnostics.DebuggerDisplay("ConfigurationDictionaryBase[{Count}] ({GetPath()})")]
+    public abstract class ConfigurationDictionaryBase<TKey, TElement> : NotifyPropertyChanged, IEnumerable, IConfigurationObject, IValueChanged, IConfigurationChild
     {
         /// <summary>
         ///     A dictionary containing the elements of the collection against a key.
@@ -50,10 +50,20 @@ namespace OpenCollar.Extensions.Configuration.Collections
         private readonly List<Element<TKey, TElement>> _orderedItems = new List<Element<TKey, TElement>>();
 
         /// <summary>
+        ///     a value indicating whether events are raised for changes. Thread specific.
+        /// </summary>
+        [ThreadStatic]
+        private bool _disableCollectionChangedEvents;
+
+        /// <summary>
         ///     The object that is the parent of this one, or <see langword="null" /> if this is the root.
         /// </summary>
         private IConfigurationParent? _parent;
 
+        /// <summary>
+        ///     Suspends the read-only functionality when greater than zero. Thread-static.
+        /// </summary>
+        [ThreadStatic]
         private int _suspendReadOnly = 0;
 
         /// <summary>
@@ -97,7 +107,16 @@ namespace OpenCollar.Extensions.Configuration.Collections
             {
                 foreach(var item in items)
                 {
-                    var element = new Element<TKey, TElement>(propertyDef, this, item.Key, item.Value);
+                    Element<TKey, TElement> element;
+                    Interlocked.Increment(ref _suspendReadOnly);
+                    try
+                    {
+                        element = new Element<TKey, TElement>(propertyDef, this, item.Key) { Value = item.Value };
+                    }
+                    finally
+                    {
+                        Interlocked.Decrement(ref _suspendReadOnly);
+                    }
                     _itemsByKey.Add(item.Key, element);
                     _orderedItems.Add(element);
                     element.Saved();
@@ -161,9 +180,17 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets a value indicating whether the <see cref="ICollection{T}" /> is read-only.
         /// </summary>
-        public abstract bool IsReadOnly
+        public bool IsReadOnly
         {
-            get;
+            get
+            {
+                if(_suspendReadOnly > 0)
+                {
+                    return false;
+                }
+
+                return InnerIsReadOnly;
+            }
         }
 
         /// <summary>
@@ -216,7 +243,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 try
                 {
                     // Use the order items to ensure the values are in the correct order.
-                    return _orderedItems.Select(v => (TElement)v.Value).ToArray();
+                    return _orderedItems.Select(v => v.Value).ToArray();
                 }
                 finally
                 {
@@ -228,9 +255,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the configuration root service from which values are read or to which all values will be written.
         /// </summary>
-        /// <value>
-        ///     The configuration root service from which values are read or to which all values will be written.
-        /// </value>
+        /// <value> The configuration root service from which values are read or to which all values will be written. </value>
         internal IConfigurationRoot ConfigurationRoot
         {
             get;
@@ -240,9 +265,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     Gets or sets a value indicating whether events are raised for changes.
         /// </summary>
         /// <value> <see langword="true" /> if change events are disabled; otherwise, <see langword="false" />. </value>
-        protected bool DisableEvents
+        protected bool DisableCollectionChangedEvents
         {
-            get; set;
+            get => _disableCollectionChangedEvents; set => _disableCollectionChangedEvents = value;
         }
 
         /// <summary>
@@ -256,6 +281,14 @@ namespace OpenCollar.Extensions.Configuration.Collections
             {
                 return _itemsByKey.Count;
             }
+        }
+
+        /// <summary>
+        ///     Gets a value indicating whether the <see cref="ICollection{T}" /> is read-only.
+        /// </summary>
+        protected abstract bool InnerIsReadOnly
+        {
+            get;
         }
 
         /// <summary>
@@ -322,6 +355,67 @@ namespace OpenCollar.Extensions.Configuration.Collections
 
                 SetValueByKey(key, value);
             }
+        }
+
+        /// <summary>
+        ///     Adds a new value with the key specified, copying the properties and elements from the value give,
+        ///     returning the new value.
+        /// </summary>
+        /// <param name="key"> The key identifying the value to add. </param>
+        /// <param name="value"> The value to copy. </param>
+        /// <returns> The newly added element. </returns>
+        /// <remarks>
+        ///     Used to add objects and collections that have been constructed externally using alternate implementations.
+        /// </remarks>
+        public TElement AddCopy(TKey key, TElement value)
+        {
+            TElement copy;
+
+            switch(PropertyDef.ElementImplementation.ImplementationKind)
+            {
+                case ImplementationKind.ConfigurationCollection:
+                    if(ReferenceEquals(value, null))
+                    {
+                        copy = default;
+                    }
+                    else
+                    {
+                        copy = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, this, PropertyDef, ConfigurationRoot, value);
+                    }
+                    break;
+
+                case ImplementationKind.ConfigurationDictionary:
+                    if(ReferenceEquals(value, null))
+                    {
+                        copy = default;
+                    }
+                    else
+                    {
+                        copy = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, this, PropertyDef, ConfigurationRoot, value);
+                    }
+                    break;
+
+                case ImplementationKind.ConfigurationObject:
+                    if(ReferenceEquals(value, null))
+                    {
+                        copy = default;
+                    }
+                    else
+                    {
+                        var clone = Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, ConfigurationRoot, this);
+                        ((ConfigurationObjectBase<TElement>)clone).Clone(value);
+                        copy = (TElement)clone;
+                    }
+                    break;
+
+                default:
+                    copy = value;
+                    break;
+            }
+
+            Add(key, copy);
+
+            return copy;
         }
 
         /// <summary>
@@ -409,23 +503,19 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <returns> A string containing the path to this configuration object. </returns>
         public string GetPath()
         {
-            return PropertyDef.GetPath(_parent);
-        }
+            if(ReferenceEquals(_parent, null))
+            {
+                return string.Empty;
+            }
 
-        /// <summary>
-        ///     Called when a value has changed.
-        /// </summary>
-        /// <param name="oldValue"> The old value. </param>
-        /// <param name="newValue"> The new value. </param>
-        public void OnValueChanged(IValue oldValue, IValue newValue)
-        {
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldValue, newValue));
+            // The collection itself doesn't feature in the path, only the child element name and parent property name.
+            return _parent.GetPath();
         }
 
         /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
-        public void Reload()
+        public void Load()
         {
             var path = GetPath();
 
@@ -437,52 +527,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
             foreach(var pair in existingValues)
             {
                 Element<TKey, TElement> value;
-                if(_itemsByKey.TryGetValue(pair.Key, out value))
-                {
-                    // If necessary update the existing value.
-                    switch(PropertyDef.ElementImplementation.ImplementationKind)
-                    {
-                        case ImplementationKind.ConfigurationCollection:
-                        case ImplementationKind.ConfigurationDictionary:
-                        case ImplementationKind.ConfigurationObject:
-                            ((IConfigurationObject)value.Value).Reload();
-                            break;
-
-                        default:
-                            value = new Element<TKey, TElement>(PropertyDef, this, pair.Key, (TElement)PropertyDef.ConvertStringToValue(path, pair.Value.Value));
-                            break;
-                    }
-                }
-                else
+                if(!_itemsByKey.TryGetValue(pair.Key, out value))
                 {
                     // If the value is a configuration object of some sort then create or reuse the existing value;
-                    switch(PropertyDef.ElementImplementation.ImplementationKind)
-                    {
-                        case ImplementationKind.ConfigurationCollection:
-                        case ImplementationKind.ConfigurationDictionary:
-                            value = new Element<TKey, TElement>(PropertyDef, this, pair.Key, (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, (IConfigurationParent?)this, PropertyDef, ConfigurationRoot));
-                            break;
-
-                        case ImplementationKind.ConfigurationObject:
-                            value = new Element<TKey, TElement>(PropertyDef, this, pair.Key, (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, ConfigurationRoot, (IConfigurationParent?)this, false));
-
-                            break;
-
-                        default:
-                            value = new Element<TKey, TElement>(PropertyDef, this, pair.Key, (TElement)PropertyDef.ConvertStringToValue(path, pair.Value.Value));
-                            break;
-                    }
-
-                    if(ReferenceEquals(value, null) && !PropertyDef.IsNullable)
-                    {
-                        throw new ConfigurationException(path, $"No value specified for configuration path: '{path}:{pair.Key}'.");
-                    }
-
-                    if(ReferenceEquals(value, null) && PropertyDef.IsNullable)
-                    {
-                        value = new Element<TKey, TElement>(PropertyDef, this, pair.Key, (TElement)PropertyDef.DefaultValue);
-                    }
+                    value = new Element<TKey, TElement>(PropertyDef, this, pair.Key);
                 }
+                value.ReadValue(ConfigurationRoot);
 
                 // Add/update the value in the updated values list.
                 value.Saved();
@@ -513,6 +563,16 @@ namespace OpenCollar.Extensions.Configuration.Collections
 
             OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, updatedValues.Select(p => p.Value).ToList()));
+        }
+
+        /// <summary>
+        ///     Called when a value has changed.
+        /// </summary>
+        /// <param name="oldValue"> The old value. </param>
+        /// <param name="newValue"> The new value. </param>
+        public void OnValueChanged(IValue oldValue, IValue newValue)
+        {
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldValue, newValue));
         }
 
         /// <summary>
@@ -637,7 +697,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 foreach(var element in _itemsByKey.ToArray())
                 {
                     var z = element.Value.StringValue;
-                    if(Equals(element.Value.Value, item))
+                    if(UniversalComparer.Equals(element.Value.Value, item))
                     {
                         if(!_itemsByKey.Remove(element.Key, out var removedElement))
                         {
@@ -647,7 +707,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                         var n = 0;
                         foreach(var orderedElement in _orderedItems.ToArray())
                         {
-                            if(Equals(orderedElement.Value, item))
+                            if(UniversalComparer.Equals(orderedElement.Value, item))
                             {
                                 _orderedItems.RemoveAt(n);
                                 args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, removedElement, n);
@@ -678,7 +738,19 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </summary>
         public void Save()
         {
-            var values = _orderedItems.Select(p => p.Value);
+            foreach(var element in _orderedItems)
+            {
+                element.WriteValue(ConfigurationRoot);
+            }
+        }
+
+        /// <summary>
+        ///     Sets the parent of a configuration object.
+        /// </summary>
+        /// <param name="parent"> The new parent object. </param>
+        public void SetParent(IConfigurationParent? parent)
+        {
+            _parent = parent;
         }
 
         /// <summary>
@@ -702,7 +774,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
             {
                 if(_itemsByKey.TryGetValue(key, out var item))
                 {
-                    value = (TElement)item.Value;
+                    value = item.Value;
                     return true;
                 }
                 value = default;
@@ -779,18 +851,16 @@ namespace OpenCollar.Extensions.Configuration.Collections
             {
                 if(!ReferenceEquals(value, null))
                 {
-                    if(value.GetType() != PropertyDef.ElementImplementation.ImplementationType)
+                    if(PropertyDef.ElementImplementation.ImplementationType != value.GetType())
                     {
                         throw new TypeMismatchException($"Expected object of type {PropertyDef.ElementImplementation.ImplementationType.FullName}.", GetPath());
                     }
-
-                    // TODO: Check for parent?
                 }
             }
 
             NotifyCollectionChangedEventArgs? args = null;
 
-            var element = new Element<TKey, TElement>(PropertyDef, this, key, value);
+            var element = new Element<TKey, TElement>(PropertyDef, this, key) { Value = value };
 
             Lock.EnterUpgradeableReadLock();
             try
@@ -837,11 +907,11 @@ namespace OpenCollar.Extensions.Configuration.Collections
             {
                 case ImplementationKind.ConfigurationCollection:
                 case ImplementationKind.ConfigurationDictionary:
-                    value = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, (IConfigurationParent?)this, PropertyDef, ConfigurationRoot);
+                    value = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, this, PropertyDef, ConfigurationRoot);
                     break;
 
                 case ImplementationKind.ConfigurationObject:
-                    value = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, ConfigurationRoot, (IConfigurationParent?)this, true);
+                    value = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, ConfigurationRoot, this);
                     break;
 
                 default:
@@ -870,7 +940,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
             try
             {
                 foreach(var value in _orderedItems)
-                    if(Equals(value.Value, item))
+                    if(UniversalComparer.Equals(value.Value, item))
                         return true;
 
                 return false;
@@ -933,7 +1003,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="args"> The <see cref="NotifyCollectionChangedEventArgs" /> instance defining the change. </param>
         protected void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
         {
-            if(DisableEvents)
+            if(_disableCollectionChangedEvents)
             {
                 return;
             }
@@ -963,6 +1033,35 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
+        ///     Reindexes the items after the specified index after removing an item.
+        /// </summary>
+        /// <param name="removedIndex"> Index of the removed item. </param>
+        protected void Reindex(int removedIndex, Func<int, Element<TKey, TElement>, TKey> getNewKey)
+        {
+            if(removedIndex >= Count)
+            {
+                // The last item was removed, we don't need to do anything.
+                return;
+            }
+
+            DisableCollectionChangedEvents = true;
+            try
+            {
+                var elements = _orderedItems.ToArray();
+                for(var n = removedIndex; n < Count; ++n)
+                {
+                    _itemsByKey.Remove(elements[n].Key);
+                    elements[n].Key = getNewKey(n, elements[n]);
+                    _itemsByKey.Add(elements[n].Key, elements[n]);
+                }
+            }
+            finally
+            {
+                DisableCollectionChangedEvents = false;
+            }
+        }
+
+        /// <summary>
         ///     Replaces the contents of the dictionary.
         /// </summary>
         /// <param name="list"> The new contents. </param>
@@ -977,6 +1076,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
             _itemsByKey.Clear();
             foreach(var item in list)
             {
+                var child = item as IConfigurationChild;
+                if(!ReferenceEquals(child, null))
+                {
+                    child.SetParent(this);
+                }
+
                 _itemsByKey.Add(item.Key, item);
             }
         }

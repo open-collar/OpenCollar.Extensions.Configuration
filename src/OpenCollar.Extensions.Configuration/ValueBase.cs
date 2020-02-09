@@ -30,8 +30,8 @@ namespace OpenCollar.Extensions.Configuration
     ///     The type of the parent object. Must implement <See cref="IValueChanged" /> interface.
     /// </typeparam>
     /// <typeparam name="TValue"> The type of the contained value. </typeparam>
-    [System.Diagnostics.DebuggerDisplay("{Path,nq}=\"{StringValue}\"")]
-    public abstract class ValueBase<TParent, TValue> : IValue where TParent : IValueChanged, IConfigurationParent
+    [System.Diagnostics.DebuggerDisplay("ValueBase[{Path,nq}={StringValue}] ({GetPath()})")]
+    public abstract class ValueBase<TParent, TValue> : IValue, IConfigurationParent where TParent : class, IValueChanged, IConfigurationParent
     {
         /// <summary>
         ///     The parent for which this object represents a value.
@@ -73,13 +73,16 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <param name="propertyDef"> The definition of the property to represent. </param>
         /// <param name="parent"> The parent configuration object for which this object represents a property. </param>
-        /// <param name="value"> The initial value to assign. </param>
-        internal ValueBase(PropertyDef propertyDef, TParent parent, TValue value)
+        /// <exception cref="ArgumentNullException"> <paramref name="parent" /> is <see langword="null" />. </exception>
+        internal ValueBase(PropertyDef propertyDef, TParent parent)
         {
+            if(ReferenceEquals(parent, null))
+            {
+                throw new ArgumentNullException(nameof(parent), "'parent' is null.");
+            }
+
             _parent = parent;
             _propertyDef = propertyDef;
-            _currentValue = value;
-            _originalValue = value;
             _isSaved = false;
         }
 
@@ -113,6 +116,11 @@ namespace OpenCollar.Extensions.Configuration
                     return false;
                 }
             }
+        }
+
+        public bool IsReadOnly
+        {
+            get;
         }
 
         /// <summary>
@@ -166,14 +174,9 @@ namespace OpenCollar.Extensions.Configuration
                     throw new NotImplementedException("This value is read-only.");
                 }
 
-                lock(_lock)
+                if(!SetValue(value))
                 {
-                    if(_propertyDef.AreEqual(_originalValue, value))
-                    {
-                        return;
-                    }
-
-                    _currentValue = value;
+                    return;
                 }
 
                 _parent.OnValueChanged(this, this);
@@ -249,6 +252,15 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets the implementation details of the value object.
+        /// </summary>
+        /// <value> The implementation details of the value object. </value>
+        protected abstract Implementation ValueImplementation
+        {
+            get;
+        }
+
+        /// <summary>
         ///     Reads the value of the value identified by <see cref="PropertyDef" /> from the configuration root given.
         /// </summary>
         /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
@@ -280,37 +292,41 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
         public void ReadValue(IConfigurationRoot configurationRoot)
         {
+            var implementation = ValueImplementation;
+
             lock(_lock)
             {
                 // If the value is a configuration object of some sort then create or reuse the existing value;
                 IConfigurationObject? configurationObject;
-                switch(_propertyDef.Implementation.ImplementationKind)
+                switch(implementation.ImplementationKind)
                 {
                     case ImplementationKind.ConfigurationCollection:
                     case ImplementationKind.ConfigurationDictionary:
                         configurationObject = (_currentValue ?? _originalValue) as IConfigurationObject;
-                        if(ReferenceEquals(configurationObject, null) || (configurationObject.GetType() != _propertyDef.Implementation.ImplementationType))
+                        if(ReferenceEquals(configurationObject, null) || (configurationObject.GetType() != implementation.ImplementationType))
                         {
-                            Value = (TValue)Activator.CreateInstance(_propertyDef.Implementation.ImplementationType, (IConfigurationParent)this, _propertyDef, configurationRoot);
+                            Value = (TValue)Activator.CreateInstance(implementation.ImplementationType, null, _propertyDef, configurationRoot);
                         }
                         else
                         {
-                            configurationObject.Reload();
                             Value = (TValue)configurationObject;
                         }
+                        configurationObject = _currentValue as IConfigurationObject;
+                        configurationObject?.Load();
                         break;
 
                     case ImplementationKind.ConfigurationObject:
                         configurationObject = (_currentValue ?? _originalValue) as IConfigurationObject;
-                        if(ReferenceEquals(configurationObject, null) || (configurationObject.GetType() != _propertyDef.Implementation.ImplementationType))
+                        if(ReferenceEquals(configurationObject, null) || (configurationObject.GetType() != implementation.ImplementationType))
                         {
-                            Value = (TValue)Activator.CreateInstance(_propertyDef.Implementation.ImplementationType, _propertyDef, (IConfigurationParent)this, configurationRoot, true);
+                            Value = (TValue)Activator.CreateInstance(implementation.ImplementationType, configurationRoot, null);
                         }
                         else
                         {
-                            configurationObject.Reload();
                             Value = (TValue)configurationObject;
                         }
+                        configurationObject = _currentValue as IConfigurationObject;
+                        configurationObject?.Load();
                         break;
 
                     default:
@@ -337,14 +353,26 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Sets the value without firing any events.
+        /// </summary>
+        /// <param name="value"> The new value. </param>
+        /// <returns> <see langword="true" /> if the value has changed; otherwise, <see langword="false" />. </returns>
+        public bool SetValue(object? value)
+        {
+            return SetValue((TValue)value);
+        }
+
+        /// <summary>
         ///     Writes the value to the configuration store.
         /// </summary>
         /// <param name="configurationRoot"> The configuration root to which to write the value. </param>
         public void WriteValue(IConfigurationRoot configurationRoot)
         {
+            var implementation = ValueImplementation;
+
             lock(_lock)
             {
-                switch(_propertyDef.Implementation.ImplementationKind)
+                switch(implementation.ImplementationKind)
                 {
                     case ImplementationKind.ConfigurationCollection:
                     case ImplementationKind.ConfigurationDictionary:
@@ -402,6 +430,32 @@ namespace OpenCollar.Extensions.Configuration
             {
                 _isSaved = true;
                 _originalValue = _currentValue;
+            }
+        }
+
+        /// <summary>
+        ///     Sets the value without firing any events.
+        /// </summary>
+        /// <param name="value"> The new value. </param>
+        /// <returns> <see langword="true" /> if the value has changed; otherwise, <see langword="false" />. </returns>
+        internal bool SetValue(TValue value)
+        {
+            lock(_lock)
+            {
+                if(_propertyDef.AreEqual(_originalValue, value))
+                {
+                    return false;
+                }
+
+                _currentValue = value;
+
+                var child = value as IConfigurationChild;
+                if(!ReferenceEquals(child, null))
+                {
+                    child.SetParent(this);
+                }
+
+                return true;
             }
         }
     }

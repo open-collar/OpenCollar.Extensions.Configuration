@@ -31,6 +31,17 @@ namespace OpenCollar.Extensions.Configuration
     public interface IConfigurationCollection<TElement> : IList<TElement>, IEnumerable<TElement>, INotifyCollectionChanged
     {
         /// <summary>
+        ///     Adds a new value with the key specified, copying the properties and elements from the value give,
+        ///     returning the new value.
+        /// </summary>
+        /// <param name="value"> The value to copy. </param>
+        /// <returns> The newly added element. </returns>
+        /// <remarks>
+        ///     Used to add objects and collections that have been constructed externally using alternate implementations.
+        /// </remarks>
+        TElement AddCopy(TElement value);
+
+        /// <summary>
         ///     Adds a new value with the key specified, returning the new value.
         /// </summary>
         /// <returns> The newly added element. </returns>

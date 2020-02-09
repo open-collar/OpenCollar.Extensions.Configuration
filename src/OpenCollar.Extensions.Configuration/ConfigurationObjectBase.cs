@@ -44,9 +44,15 @@ namespace OpenCollar.Extensions.Configuration
     ///         value) will not be reported.
     ///     </para>
     /// </remarks>
-    [System.Diagnostics.DebuggerDisplay("{ToString(),nq}")]
-    public abstract class ConfigurationObjectBase : NotifyPropertyChanged, IConfigurationObject, IValueChanged
+    [System.Diagnostics.DebuggerDisplay("{ToString(),nq} ({GetPath()})")]
+    public abstract class ConfigurationObjectBase : NotifyPropertyChanged, IConfigurationObject, IValueChanged, IConfigurationChild
     {
+        /// <summary>
+        ///     A dictionary of property values keyed on the name of the property it represents (case sensitive).
+        /// </summary>
+        [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
+        protected readonly Dictionary<string, IValue> _propertiesByName = new Dictionary<string, IValue>(StringComparer.Ordinal);
+
         /// <summary>
         ///     The constructed types for properties.
         /// </summary>
@@ -57,12 +63,6 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
         private readonly IConfigurationRoot _configurationRoot;
-
-        /// <summary>
-        ///     A dictionary of property values keyed on the name of the property it represents (case sensitive).
-        /// </summary>
-        [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
-        private readonly Dictionary<string, IValue> _propertiesByName = new Dictionary<string, IValue>(StringComparer.Ordinal);
 
         /// <summary>
         ///     A dictionary of property values keyed on the path to the underlying value (case insensitive).
@@ -112,7 +112,7 @@ namespace OpenCollar.Extensions.Configuration
             foreach(var childPropertyDef in childPropertyDefs)
             {
                 var type = _propertyTypes.GetOrAdd(childPropertyDef.Type, t => typeof(PropertyValue<>).MakeGenericType(t));
-                var property = (IValue)Activator.CreateInstance(type, childPropertyDef, (IConfigurationParent)this);
+                var property = (IValue)Activator.CreateInstance(type, childPropertyDef, this);
                 _propertiesByName.Add(childPropertyDef.PropertyName, property);
                 _propertiesByPath.Add(property.Path, property);
             }
@@ -247,7 +247,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <exception cref="ObjectDisposedException">
         ///     This method cannot be used after the object has been disposed of.
         /// </exception>
-        public void Reload()
+        public void Load()
         {
             EnforceDisposed();
 
@@ -271,6 +271,15 @@ namespace OpenCollar.Extensions.Configuration
             {
                 value.WriteValue(_configurationRoot);
             }
+        }
+
+        /// <summary>
+        ///     Sets the parent of a configuration object.
+        /// </summary>
+        /// <param name="parent"> The new parent object. </param>
+        public void SetParent(IConfigurationParent? parent)
+        {
+            _parent = parent;
         }
 
         /// <summary>
@@ -330,7 +339,7 @@ namespace OpenCollar.Extensions.Configuration
                 if(value.Path.StartsWith(section.Path))
                 {
                     // TODO: Make this more specifc - only reload the values that might have changed.
-                    Reload();
+                    Load();
                     break;
                 }
             }
@@ -358,7 +367,7 @@ namespace OpenCollar.Extensions.Configuration
     ///     </para>
     /// </remarks>
     /// <seealso cref="IConfigurationObject" />
-    public abstract class ConfigurationObjectBase<TInterface> : ConfigurationObjectBase
+    public abstract class ConfigurationObjectBase<TInterface> : ConfigurationObjectBase, IEquatable<TInterface>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationObjectBase{TInterface}" /> class.
@@ -383,27 +392,17 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        /// <param name="noInitialization">
-        ///     If set to <see langword="true" /> the object will be not be initialization from the configuration store.
-        /// </param>
-        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, IConfigurationParent parent, bool noInitialization) : base(ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface)), configurationRoot, parent)
+        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, IConfigurationParent parent) : base(ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface)), configurationRoot, parent)
         {
             SuspendPropertyChangedEvents = true;
             try
             {
-                if(noInitialization)
+                foreach(var value in Values)
                 {
-                    foreach(var value in Values)
+                    if(value.PropertyDef.HasDefaultValue)
                     {
-                        if(value.PropertyDef.HasDefaultValue)
-                        {
-                            value.Value = value.PropertyDef.DefaultValue;
-                        }
+                        value.Value = value.PropertyDef.DefaultValue;
                     }
-                }
-                else
-                {
-                    Reload();
                 }
             }
             finally
@@ -417,5 +416,57 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <value> The type of the interface implemented by this object. </value>
         protected override Type InterfaceType => typeof(TInterface);
+
+        /// <summary>
+        ///     Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other"> An object to compare with this object. </param>
+        /// <returns>
+        ///     <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter;
+        ///     otherwise, <see langword="false" />.
+        /// </returns>
+        public bool Equals(TInterface other)
+        {
+            if(ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            var otherConfigurationObjectBase = other as ConfigurationObjectBase<TInterface>;
+
+            var isConfigurationObjectBase = !ReferenceEquals(otherConfigurationObjectBase, null);
+
+            foreach(var property in _propertiesByName)
+            {
+                if(isConfigurationObjectBase)
+                {
+                    if(!Equals(property.Value.Value, otherConfigurationObjectBase[property.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if(!Equals(property.Value, property.Value.PropertyDef.PropertyInfo.GetValue(other)))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        ///     Clones the property values from the specified instance.
+        /// </summary>
+        /// <param name="value"> The instance from which to clone the values. </param>
+        internal void Clone(TInterface value)
+        {
+            foreach(var property in _propertiesByName)
+            {
+                var propertyValue = property.Value.PropertyDef.PropertyInfo.GetValue(value);
+                property.Value.SetValue(propertyValue);
+            }
+        }
     }
 }

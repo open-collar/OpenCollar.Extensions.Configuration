@@ -22,7 +22,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <summary>
     ///     A class used to represent a property on an interface and its location in the configuration model.
     /// </summary>
-    [System.Diagnostics.DebuggerDisplay("{Key,nq}=\"{StringValue}\"")]
+    [System.Diagnostics.DebuggerDisplay("Element[{Key,nq}={StringValue}] ({GetPath()})")]
     public sealed class Element<TKey, TValue> : ValueBase<ConfigurationDictionaryBase<TKey, TValue>, TValue>
     {
         /// <summary>
@@ -31,8 +31,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="propertyDef"> The definition of the property to represent. </param>
         /// <param name="parent"> The parent configuration dictionary for which this object represents a property. </param>
         /// <param name="key"> The key that identifies this element in the collection. </param>
-        /// <param name="value"> The initial value for this instance. </param>
-        internal Element(PropertyDef propertyDef, ConfigurationDictionaryBase<TKey, TValue> parent, TKey key, TValue value) : base(propertyDef, parent, value)
+        internal Element(PropertyDef propertyDef, ConfigurationDictionaryBase<TKey, TValue> parent, TKey key) : base(propertyDef, parent)
         {
             Key = key;
         }
@@ -56,6 +55,18 @@ namespace OpenCollar.Extensions.Configuration.Collections
         {
             get;
             internal set;
+        }
+
+        /// <summary>
+        ///     Gets the implementation details of the value object.
+        /// </summary>
+        /// <value> The implementation details of the value object. </value>
+        protected override Implementation ValueImplementation
+        {
+            get
+            {
+                return _propertyDef.ElementImplementation;
+            }
         }
 
         /// <summary>

@@ -60,11 +60,11 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             ReadOnlyChildConfigurationCollectionPropertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty("ReadOnlyChildCollection", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public));
 
             Data = new[] {
-            GetConfigurationObject("a", false),
-            GetConfigurationObject("b", false),
-            GetConfigurationObject("c", false),
-            GetConfigurationObject("d", false),
-            GetConfigurationObject("e", true)};
+            GetConfigurationObject("a", 0, false),
+            GetConfigurationObject("b", 1, false),
+            GetConfigurationObject("c", 2, false),
+            GetConfigurationObject("d", 3, false),
+            GetConfigurationObject("e", 4, true)};
         }
 
         public PropertyDef ChildConfigurationCollectionPropertyDef
@@ -102,11 +102,13 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             return new TestDataContext(this);
         }
 
-        private IChildElement GetConfigurationObject(string name, bool isDirty)
+        private IChildElement GetConfigurationObject(string name, int value, bool isDirty)
         {
             var mock = new Moq.Mock<IChildElement>();
             mock.Setup(x => x.PropertyDef).Returns(new PropertyDef(typeof(IDummyInterface), typeof(IDummyInterface).GetProperty(name, System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public)));
             mock.Setup(x => x.IsDirty).Returns(isDirty);
+            mock.Setup(x => x.Name).Returns(name);
+            mock.Setup(x => x.Value).Returns(value);
             return mock.Object;
         }
 
@@ -181,9 +183,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 return ChildDictionary[name];
             }
 
-            public IChildElement GetConfigurationObject(string name, bool isDirty)
+            public IChildElement GetConfigurationObject(string name, int value, bool isDirty)
             {
-                return _propertyTestData.GetConfigurationObject(name, isDirty);
+                return _propertyTestData.GetConfigurationObject(name, value, isDirty);
             }
         }
     }

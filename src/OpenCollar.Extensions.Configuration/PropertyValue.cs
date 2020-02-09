@@ -22,7 +22,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     A class used to represent a property on an interface and its location in the configuration model.
     /// </summary>
-    [System.Diagnostics.DebuggerDisplay("{PropertyName,nq}={StringValue}")]
+    [System.Diagnostics.DebuggerDisplay("PropertyValue[{PropertyName,nq}={StringValue}] ({GetPath()})")]
     internal sealed class PropertyValue<TValue> : ValueBase<ConfigurationObjectBase, TValue>, IPropertyValue, IConfigurationParent
     {
         /// <summary>
@@ -30,7 +30,7 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <param name="propertyDef"> The definition of the property to represent. </param>
         /// <param name="parent"> The parent configuration object for which this object represents a property. </param>
-        public PropertyValue(PropertyDef propertyDef, ConfigurationObjectBase parent) : base(propertyDef, parent, default)
+        public PropertyValue(PropertyDef propertyDef, ConfigurationObjectBase parent) : base(propertyDef, parent)
         {
         }
 
@@ -55,6 +55,18 @@ namespace OpenCollar.Extensions.Configuration
             get
             {
                 return _propertyDef.PropertyName;
+            }
+        }
+
+        /// <summary>
+        ///     Gets the implementation details of the value object.
+        /// </summary>
+        /// <value> The implementation details of the value object. </value>
+        protected override Implementation ValueImplementation
+        {
+            get
+            {
+                return _propertyDef.Implementation;
             }
         }
 

@@ -54,7 +54,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     The definition of a property of a configuration object.
     /// </summary>
-    [System.Diagnostics.DebuggerDisplay("{PropertyName}")]
+    [System.Diagnostics.DebuggerDisplay("PropertyDef[{PropertyName}]")]
     public class PropertyDef
     {
         /// <summary>
@@ -78,6 +78,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="context"> The context in which the property is being defined. </param>
         internal PropertyDef(Type interfaceType, PropertyInfo propertyInfo)
         {
+            PropertyInfo = propertyInfo;
             PropertyName = propertyInfo.Name;
             Type = propertyInfo.PropertyType;
             UnderlyingType = GetUnderlyingType(propertyInfo.PropertyType);
@@ -199,6 +200,15 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets the property information that defines the interface property.
+        /// </summary>
+        /// <value> The property information that defines the interface property. </value>
+        public PropertyInfo PropertyInfo
+        {
+            get;
+        }
+
+        /// <summary>
         ///     Gets the name of the property represented by this object.
         /// </summary>
         /// <value> The name of the property represented by this object. </value>
@@ -296,7 +306,7 @@ namespace OpenCollar.Extensions.Configuration
         {
             if(ReferenceEquals(parent, null))
             {
-                return PropertyName;
+                return PathSection;
             }
 
             switch(PathModifier)
@@ -332,7 +342,7 @@ namespace OpenCollar.Extensions.Configuration
                 return true;
             }
 
-            return original.Equals(current);
+            return UniversalComparer.Equals(original, current);
         }
 
         /// <summary>

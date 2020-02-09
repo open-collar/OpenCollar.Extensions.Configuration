@@ -68,7 +68,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.Equal(false, x.BooleanPropertyB);
             x.BooleanPropertyB = true;
             x.Save();
-            x.Reload();
+            x.Load();
             Assert.Equal(true, x.BooleanPropertyB);
         }
 
@@ -81,7 +81,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.Equal('B', x.CharPropertyB);
             x.CharPropertyB = 'C';
             x.Save();
-            x.Reload();
+            x.Load();
             Assert.Equal('C', x.CharPropertyB);
         }
 
@@ -95,7 +95,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var now = System.DateTime.UtcNow;
             x.DateTimePropertyB = now;
             x.Save();
-            x.Reload();
+            x.Load();
             Assert.Equal(now, x.DateTimePropertyB);
         }
 
@@ -109,7 +109,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var now = System.DateTimeOffset.UtcNow;
             x.DateTimeOffsetPropertyB = now;
             x.Save();
-            x.Reload();
+            x.Load();
             Assert.Equal(now, x.DateTimeOffsetPropertyB);
         }
 
@@ -122,7 +122,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.Equal((decimal)-666.777, x.DecimalPropertyB);
             x.DecimalPropertyB = (decimal)-1111.2222;
             x.Save();
-            x.Reload();
+            x.Load();
             Assert.Equal((decimal)-1111.2222, x.DecimalPropertyB);
         }
 
@@ -131,12 +131,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var x = _configurationFixture.RootElement;
 
-            Assert.Equal((double)555.666, x.DoublePropertyA);
-            Assert.Equal((double)-666.777, x.DoublePropertyB);
-            x.DoublePropertyB = (double)-1111.2222;
+            Assert.Equal(555.666, x.DoublePropertyA);
+            Assert.Equal(-666.777, x.DoublePropertyB);
+            x.DoublePropertyB = -1111.2222;
             x.Save();
-            x.Reload();
-            Assert.Equal((double)-1111.2222, x.DoublePropertyB);
+            x.Load();
+            Assert.Equal(-1111.2222, x.DoublePropertyB);
         }
 
         [Fact]
@@ -148,7 +148,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.Equal(System.Reflection.BindingFlags.Instance, x.EnumPropertyB);
             x.EnumPropertyB = System.Reflection.BindingFlags.NonPublic;
             x.Save();
-            x.Reload();
+            x.Load();
             Assert.Equal(System.Reflection.BindingFlags.NonPublic, x.EnumPropertyB);
         }
 
@@ -159,9 +159,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             Assert.Equal((short)333, x.Int16PropertyA);
             Assert.Equal((short)-444, x.Int16PropertyB);
-            x.Int16PropertyB = (short)-1111;
+            x.Int16PropertyB = -1111;
             x.Save();
-            x.Reload();
+            x.Load();
             Assert.Equal((short)-1111, x.Int16PropertyB);
         }
 
@@ -170,13 +170,13 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var x = _configurationFixture.RootElement;
 
-            Assert.Equal((int)333, x.Int32PropertyA);
-            Assert.Equal((int)-444, x.Int32PropertyB);
-            Assert.Equal((int)-444, x.Int32PropertyB);
-            x.Int32PropertyB = (int)-1111;
+            Assert.Equal(333, x.Int32PropertyA);
+            Assert.Equal(-444, x.Int32PropertyB);
+            Assert.Equal(-444, x.Int32PropertyB);
+            x.Int32PropertyB = -1111;
             x.Save();
-            x.Reload();
-            Assert.Equal((int)-1111, x.Int32PropertyB);
+            x.Load();
+            Assert.Equal(-1111, x.Int32PropertyB);
         }
 
         [Fact]
@@ -184,13 +184,13 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var x = _configurationFixture.RootElement;
 
-            Assert.Equal((long)333, x.Int64PropertyA);
-            Assert.Equal((long)-444, x.Int64PropertyB);
-            Assert.Equal((long)-444, x.Int64PropertyB);
-            x.Int64PropertyB = (long)-1111;
+            Assert.Equal(333, x.Int64PropertyA);
+            Assert.Equal(-444, x.Int64PropertyB);
+            Assert.Equal(-444, x.Int64PropertyB);
+            x.Int64PropertyB = -1111;
             x.Save();
-            x.Reload();
-            Assert.Equal((long)-1111, x.Int64PropertyB);
+            x.Load();
+            Assert.Equal(-1111, x.Int64PropertyB);
         }
 
         [Fact]
@@ -199,11 +199,11 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var x = _configurationFixture.RootElement;
 
             _configurationFixture.ConfigurationRoot[nameof(IRootElement.SinglePropertyWithDefault)] = null;
-            x.Reload();
+            x.Load();
             Assert.Equal((float?)123.456, x.SinglePropertyWithDefault);
 
             _configurationFixture.ConfigurationRoot[nameof(IRootElement.SinglePropertyNoDefault)] = null;
-            Assert.Throws<ConfigurationException>(() => x.Reload());
+            Assert.Throws<ConfigurationException>(() => x.Load());
         }
 
         [Fact]
@@ -221,9 +221,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             Assert.Equal((sbyte)99, x.SBytePropertyA);
             Assert.Equal((sbyte)-100, x.SBytePropertyB);
-            x.SBytePropertyB = (sbyte)-111;
+            x.SBytePropertyB = -111;
             x.Save();
-            x.Reload();
+            x.Load();
             Assert.Equal((sbyte)-111, x.SBytePropertyB);
         }
 
@@ -236,7 +236,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.Equal((float)-666.777, x.SinglePropertyB);
             x.SinglePropertyB = (float)-1111.2222;
             x.Save();
-            x.Reload();
+            x.Load();
             Assert.Equal((float)-1111.2222, x.SinglePropertyB);
         }
 
@@ -259,7 +259,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var seventeenSeconds = System.TimeSpan.FromSeconds(17);
             x.TimeSpanPropertyB = seventeenSeconds;
             x.Save();
-            x.Reload();
+            x.Load();
             Assert.Equal(seventeenSeconds, x.TimeSpanPropertyB); //It's a measure of time.
         }
 
@@ -298,9 +298,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             x.Save();
 
-            Assert.Equal("true", fixture.ConfigurationRoot["BooleanPropertyB"]);
+            Assert.Equal("True", fixture.ConfigurationRoot["BooleanPropertyB"]);
             Assert.Equal("!", fixture.ConfigurationRoot["CharPropertyB"]);
-            Assert.Equal("ABABAB", fixture.ConfigurationRoot["ChildCollection:0:Name"]);
+            Assert.Equal("ABABAB", fixture.ConfigurationRoot["ChildCollection:3:Name"]);
         }
     }
 }
