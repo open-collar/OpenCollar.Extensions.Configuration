@@ -40,12 +40,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             Assert.NotEqual(customObjectA, null, ConfigurationObjectComparer.Instance);
             Assert.NotEqual(customObjectA, null, ConfigurationObjectComparer.Instance);
-            Assert.NotEqual((IChildElement)otherCustomObject, null, ConfigurationObjectComparer.Instance);
+            Assert.NotEqual(otherCustomObject, null, ConfigurationObjectComparer.Instance);
             Assert.NotEqual(configObjectA, null, ConfigurationObjectComparer.Instance);
 
             Assert.NotEqual(null, customObjectA, ConfigurationObjectComparer.Instance);
             Assert.NotEqual(null, customObjectA, ConfigurationObjectComparer.Instance);
-            Assert.NotEqual(null, (IChildElement)otherCustomObject, ConfigurationObjectComparer.Instance);
+            Assert.NotEqual(null, otherCustomObject, ConfigurationObjectComparer.Instance);
             Assert.NotEqual(null, configObjectA, ConfigurationObjectComparer.Instance);
         }
 
@@ -70,6 +70,30 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.NotEqual(customObjectA, otherCustomObjectMultiInterface);
             Assert.NotEqual((IChildElement)otherCustomObject, otherCustomObjectMultiInterface);
             Assert.NotEqual(configObjectA, otherCustomObjectMultiInterface);
+        }
+
+        [Fact]
+        public void TestGetHashCode()
+        {
+            var testContext = _propertyTestData.GetContext();
+
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
+
+            var customObjectA = testContext.GetChildElement("a");
+            var configObjectA = x.AddCopy(customObjectA);
+
+            var otherCustomObject = new ChildElementMock();
+            otherCustomObject.Name = customObjectA.Name;
+            otherCustomObject.Value = customObjectA.Value;
+
+            Assert.NotEqual(customObjectA, configObjectA);
+            Assert.Equal(ConfigurationObjectComparer.Instance.GetHashCode(customObjectA), ConfigurationObjectComparer.Instance.GetHashCode(configObjectA));
+
+            Assert.Equal(ConfigurationObjectComparer.Instance.GetHashCode(configObjectA), ConfigurationObjectComparer.Instance.GetHashCode(configObjectA));
+            Assert.Equal(ConfigurationObjectComparer.Instance.GetHashCode(customObjectA), ConfigurationObjectComparer.Instance.GetHashCode(customObjectA));
+
+            Assert.Equal(ConfigurationObjectComparer.Instance.GetHashCode(otherCustomObject), ConfigurationObjectComparer.Instance.GetHashCode(configObjectA));
+            Assert.Equal(ConfigurationObjectComparer.Instance.GetHashCode(otherCustomObject), ConfigurationObjectComparer.Instance.GetHashCode(customObjectA));
         }
     }
 }

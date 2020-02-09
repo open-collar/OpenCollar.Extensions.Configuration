@@ -427,33 +427,7 @@ namespace OpenCollar.Extensions.Configuration
         /// </returns>
         public bool Equals(TInterface other)
         {
-            if(ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            var otherConfigurationObjectBase = other as ConfigurationObjectBase<TInterface>;
-
-            var isConfigurationObjectBase = !ReferenceEquals(otherConfigurationObjectBase, null);
-
-            foreach(var property in _propertiesByName)
-            {
-                if(isConfigurationObjectBase)
-                {
-                    if(!Equals(property.Value.Value, otherConfigurationObjectBase[property.Key]))
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    if(!Equals(property.Value, property.Value.PropertyDef.PropertyInfo.GetValue(other)))
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
+            return ConfigurationObjectComparer.Instance.Equals(this, (IConfigurationObject)other);
         }
 
         /// <summary>
