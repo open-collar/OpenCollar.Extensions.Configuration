@@ -98,16 +98,7 @@ namespace OpenCollar.Extensions.Configuration
             PropertyDef = propertyDef;
             _configurationRoot = configurationRoot;
 
-            var children = _configurationRoot.GetChildren();
-
-            if(!ReferenceEquals(children, null))
-            {
-                foreach(var section in children)
-                {
-                    var token = section.GetReloadToken();
-                    token.RegisterChangeCallback(OnSectionChanged, section);
-                }
-            }
+            RegisterReloadToken();
         }
 
         /// <summary>
@@ -334,21 +325,24 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="sectionObject"> An object containing the section that has changed. </param>
         private void OnSectionChanged(object sectionObject)
         {
-            var section = (IConfigurationSection)sectionObject;
-            if(ReferenceEquals(section, null))
-            {
-                return;
-            }
+            System.Diagnostics.Debug.Assert(ReferenceEquals(_configurationRoot, sectionObject));
 
-            foreach(var value in _propertiesByName.Values)
+            foreach(var section in _configurationRoot.GetChildren())
             {
-                if(value.Path.StartsWith(section.Path))
+                if(_propertiesByPath.TryGetValue(section.Path, out var value))
                 {
-                    // TODO: Make this more specifc - only reload the values that might have changed.
-                    Load();
-                    break;
+                    value.ReadValue(_configurationRoot);
                 }
             }
+
+            RegisterReloadToken();
+        }
+
+        /// <summary>Registers a reload token with the <see cref"_configurationRoot"/>.</summary>
+        private void RegisterReloadToken()
+        {
+            var token = _configurationRoot.GetReloadToken();
+            token.RegisterChangeCallback(OnSectionChanged, _configurationRoot);
         }
     }
 

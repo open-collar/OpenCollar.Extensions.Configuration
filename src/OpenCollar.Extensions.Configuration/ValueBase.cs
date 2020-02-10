@@ -333,14 +333,16 @@ namespace OpenCollar.Extensions.Configuration
                         var path = GetPath();
                         var value = configurationRoot[path];
 
-                        if(ReferenceEquals(value, null) && !_propertyDef.IsNullable)
+                        if(ReferenceEquals(value, null))
                         {
-                            throw new ConfigurationException(path, $"No value could be found for configuration path: '{path}'.");
-                        }
-
-                        if(ReferenceEquals(value, null) && _propertyDef.IsNullable)
-                        {
-                            Value = (TValue)_propertyDef.DefaultValue;
+                            if(!_propertyDef.HasDefaultValue)
+                            {
+                                throw new ConfigurationException(path, $"No value could be found for configuration path: '{path}'.");
+                            }
+                            else
+                            {
+                                Value = (TValue)_propertyDef.DefaultValue;
+                            }
                         }
                         else
                         {

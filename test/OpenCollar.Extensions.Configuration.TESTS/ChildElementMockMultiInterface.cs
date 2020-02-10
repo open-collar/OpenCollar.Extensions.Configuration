@@ -125,6 +125,16 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             set;
         }
 
+        public int Int32PropertyC
+        {
+            get;
+        }
+
+        public int Int32PropertyD
+        {
+            get;
+        }
+
         public long Int64PropertyA
         {
             get;

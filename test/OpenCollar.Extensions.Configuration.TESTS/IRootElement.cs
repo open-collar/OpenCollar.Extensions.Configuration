@@ -149,6 +149,19 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         // We would expect this to be implemented as a read-only property.
+        [DefaultValue(999)]
+        int Int32PropertyC
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read-only property.
+        int Int32PropertyD
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read-only property.
         long Int64PropertyA
         {
             get;

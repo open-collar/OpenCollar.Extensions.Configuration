@@ -20,7 +20,7 @@
 using System.Linq;
 
 using Microsoft.Extensions.Configuration;
-
+using Microsoft.Extensions.Configuration.Memory;
 using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
@@ -39,17 +39,26 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var x = _configurationFixture.RootElement;
 
-            Assert.Equal(333, x.Int32PropertyA);
+            Assert.Equal(999, x.Int32PropertyC);
+
+            _configurationFixture.ConfigurationRoot[nameof(IRootElement.Int32PropertyC)] = "777";
+            _configurationFixture.ConfigurationRoot.Reload();
+            Assert.Equal(777, x.Int32PropertyC);
+
+            Assert.Equal(555, x.Int32PropertyD);
+            _configurationFixture.ConfigurationRoot[nameof(IRootElement.Int32PropertyD)] = "111";
+            _configurationFixture.ConfigurationRoot.Reload();
+            Assert.Equal(111, x.Int32PropertyD);
 
             string propertyName = null;
 
             x.PropertyChanged += (s, args) => { propertyName = args.PropertyName; };
 
-            _configurationFixture.ConfigurationRoot["Int32PropertyA"] = "444";
+            _configurationFixture.ConfigurationRoot[nameof(IRootElement.Int32PropertyC)] = "444";
             _configurationFixture.ConfigurationRoot.Reload();
 
-            Assert.Equal("Int32PropertyA", propertyName);
-            Assert.Equal(444, x.Int32PropertyA);
+            Assert.Equal(nameof(IRootElement.Int32PropertyC), propertyName);
+            Assert.Equal(444, x.Int32PropertyC);
         }
 
         [Fact]
