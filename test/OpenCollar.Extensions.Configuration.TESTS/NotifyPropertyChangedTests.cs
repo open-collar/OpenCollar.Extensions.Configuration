@@ -95,13 +95,15 @@ namespace OpenCollar.Extensions.Configuration.TESTS
                 eventArgs = args;
             };
 
-            x.SuspendPropertyChangedEvents = true;
+            x.DisablePropertyChangedEvents();
 
             x.IntPropertyA = 99;
 
-            x.SuspendPropertyChangedEvents = false;
+            x.EnablePropertyChangedEvents();
 
             Assert.Null(eventArgs);
+
+            //TODO: Validate that this is per-thread.
         }
     }
 }

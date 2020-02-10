@@ -235,14 +235,14 @@ namespace OpenCollar.Extensions.Configuration
                 InnerCopyTo(entries, 0);
 
                 var list = new List<Element<int, TElement>>(entries.Select(k => k.Value));
-                DisableCollectionChangedEvents = true;
+                DisableCollectionChangedEvents();
                 try
                 {
                     list.Insert(index, new Element<int, TElement>(PropertyDef, this, index) { Value = item });
                 }
                 finally
                 {
-                    DisableCollectionChangedEvents = false;
+                    EnableCollectionChangedEvents();
                 }
                 events.Add(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Add, item, index));
                 foreach(var element in list.ToArray())

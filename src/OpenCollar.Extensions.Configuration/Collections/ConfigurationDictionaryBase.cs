@@ -51,10 +51,11 @@ namespace OpenCollar.Extensions.Configuration.Collections
         private readonly List<Element<TKey, TElement>> _orderedItems = new List<Element<TKey, TElement>>();
 
         /// <summary>
-        ///     a value indicating whether events are raised for changes. Thread specific.
+        ///     A value indicating whether events are raised for changes on the current thread. Any value greater than
+        ///     zero indicates events are not to be raised.
         /// </summary>
         [ThreadStatic]
-        private bool _disableCollectionChangedEvents;
+        private int _disableCollectionChangedEvents;
 
         /// <summary>
         ///     The object that is the parent of this one, or <see langword="null" /> if this is the root.
@@ -256,19 +257,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the configuration root service from which values are read or to which all values will be written.
         /// </summary>
-        /// <value> The configuration root service from which values are read or to which all values will be written. </value>
+        /// <value>
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </value>
         internal IConfigurationRoot ConfigurationRoot
         {
             get;
-        }
-
-        /// <summary>
-        ///     Gets or sets a value indicating whether events are raised for changes.
-        /// </summary>
-        /// <value> <see langword="true" /> if change events are disabled; otherwise, <see langword="false" />. </value>
-        protected bool DisableCollectionChangedEvents
-        {
-            get => _disableCollectionChangedEvents; set => _disableCollectionChangedEvents = value;
         }
 
         /// <summary>
@@ -856,6 +850,17 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
+        ///     Disables the firing of the <see cref="INotifyCollectionChanged.CollectionChanged" /> event on the
+        ///     current thread.
+        /// </summary>
+        protected void DisableCollectionChangedEvents()
+        {
+            Interlocked.Increment(ref _disableCollectionChangedEvents);
+
+            Debug.Assert(_disableCollectionChangedEvents >= 0);
+        }
+
+        /// <summary>
         ///     Releases unmanaged and - optionally - managed resources.
         /// </summary>
         /// <param name="disposing">
@@ -869,6 +874,16 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 InternalClear();
                 Lock.Dispose();
             }
+        }
+
+        /// <summary>
+        ///     Enables the firing of the <see cref="INotifyCollectionChanged.CollectionChanged" /> event on the current thread.
+        /// </summary>
+        protected void EnableCollectionChangedEvents()
+        {
+            Interlocked.Decrement(ref _disableCollectionChangedEvents);
+
+            Debug.Assert(_disableCollectionChangedEvents >= 0);
         }
 
         /// <summary>
@@ -907,7 +922,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="args"> The <see cref="NotifyCollectionChangedEventArgs" /> instance defining the change. </param>
         protected void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
         {
-            if(_disableCollectionChangedEvents)
+            if(_disableCollectionChangedEvents > 0)
             {
                 return;
             }
@@ -949,7 +964,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 return;
             }
 
-            _disableCollectionChangedEvents = true;
+            DisableCollectionChangedEvents();
             try
             {
                 var elements = _orderedItems.ToArray();
@@ -962,7 +977,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
             }
             finally
             {
-                _disableCollectionChangedEvents = false;
+                EnableCollectionChangedEvents();
             }
         }
 

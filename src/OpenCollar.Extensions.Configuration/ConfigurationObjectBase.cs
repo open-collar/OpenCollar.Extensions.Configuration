@@ -405,7 +405,7 @@ namespace OpenCollar.Extensions.Configuration
         /// </param>
         protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, IConfigurationParent parent) : base(ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface)), configurationRoot, parent)
         {
-            SuspendPropertyChangedEvents = true;
+            DisablePropertyChangedEvents();
             try
             {
                 foreach(var value in Values)
@@ -418,7 +418,7 @@ namespace OpenCollar.Extensions.Configuration
             }
             finally
             {
-                SuspendPropertyChangedEvents = false;
+                EnablePropertyChangedEvents();
             }
         }
 

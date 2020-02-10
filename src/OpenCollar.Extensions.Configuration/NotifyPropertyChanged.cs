@@ -32,10 +32,11 @@ namespace OpenCollar.Extensions.Configuration
     public abstract class NotifyPropertyChanged : Disposable, INotifyPropertyChanged
     {
         /// <summary>
-        ///     A value indicating whether property changed events are fired. Applies to the current thread only.
+        ///     A value indicating whether events are raised for changes. Any value greater than zero indicates events
+        ///     are not to be raised.
         /// </summary>
         [ThreadStatic]
-        private bool suspendPropertyChangedEvents;
+        private int _disablePropertyChangedEvents;
 
         /// <summary>
         ///     Occurs when a property changes.
@@ -43,12 +44,23 @@ namespace OpenCollar.Extensions.Configuration
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
-        ///     Gets or sets a value indicating whether property changed events are fired.
+        ///     Disables the firing of the <see cref="INotifyPropertyChanged.PropertyChanged" /> event on the current thread.
         /// </summary>
-        /// <value> <see langword="true" /> if property changed events are suspended; otherwise, <see langword="false" />. </value>
-        protected bool SuspendPropertyChangedEvents
+        protected void DisablePropertyChangedEvents()
         {
-            get => suspendPropertyChangedEvents; set => suspendPropertyChangedEvents = value;
+            System.Threading.Interlocked.Increment(ref _disablePropertyChangedEvents);
+
+            System.Diagnostics.Debug.Assert(_disablePropertyChangedEvents >= 0);
+        }
+
+        /// <summary>
+        ///     Enables the firing of the <see cref="INotifyPropertyChanged.PropertyChanged" /> event on the current thread.
+        /// </summary>
+        protected void EnablePropertyChangedEvents()
+        {
+            System.Threading.Interlocked.Decrement(ref _disablePropertyChangedEvents);
+
+            System.Diagnostics.Debug.Assert(_disablePropertyChangedEvents >= 0);
         }
 
         /// <summary>
@@ -58,7 +70,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <exception cref="AggregateException"> One or more change event handlers threw an exception. </exception>
         protected void OnPropertyChanged(string propertyName)
         {
-            if(SuspendPropertyChangedEvents)
+            if(_disablePropertyChangedEvents > 0)
             {
                 return;
             }

@@ -40,20 +40,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             get; set;
         }
 
-        /// <summary>
-        ///     Gets or sets a value indicating whether property changed events are fired.
-        /// </summary>
-        /// <value> <see langword="true" /> if property changed events are suspended; otherwise, <see langword="false" />. </value>
-        public new bool SuspendPropertyChangedEvents
+        public new void DisablePropertyChangedEvents()
         {
-            get
-            {
-                return base.SuspendPropertyChangedEvents;
-            }
-            set
-            {
-                base.SuspendPropertyChangedEvents = value;
-            }
+            base.DisablePropertyChangedEvents();
+        }
+
+        public new void EnablePropertyChangedEvents()
+        {
+            base.EnablePropertyChangedEvents();
         }
     }
 }

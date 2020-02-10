@@ -134,10 +134,10 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             x.AddCopy(a);
             x.AddCopy(b);
 
-            Assert.Contains(a, x, OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.Instance);
-            Assert.Contains(b, x, OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.Instance);
-            Assert.DoesNotContain(c, x, OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.Instance);
-            Assert.DoesNotContain(null, x, OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.Instance);
+            Assert.Contains(a, x, ConfigurationObjectComparer.Instance);
+            Assert.Contains(b, x, ConfigurationObjectComparer.Instance);
+            Assert.DoesNotContain(c, x, ConfigurationObjectComparer.Instance);
+            Assert.DoesNotContain(null, x, ConfigurationObjectComparer.Instance);
 
             x.Dispose();
             Assert.Throws<ObjectDisposedException>(() => x.Contains(a));
@@ -211,15 +211,38 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 switch(n++)
                 {
                     case 0:
-                        Assert.Equal(a, item, OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.Instance);
+                        Assert.Equal(a, item, ConfigurationObjectComparer.Instance);
                         break;
 
                     case 1:
-                        Assert.Equal(b, item, OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.Instance);
+                        Assert.Equal(b, item, ConfigurationObjectComparer.Instance);
                         break;
 
                     case 2:
-                        Assert.Equal(c, item, OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.Instance);
+                        Assert.Equal(c, item, ConfigurationObjectComparer.Instance);
+                        break;
+
+                    default:
+                        Assert.True(false);
+                        break;
+                }
+            }
+            n = 0;
+
+            foreach(IChildElement item in (System.Collections.IEnumerable)x)
+            {
+                switch(n++)
+                {
+                    case 0:
+                        Assert.Equal(a, item, ConfigurationObjectComparer.Instance);
+                        break;
+
+                    case 1:
+                        Assert.Equal(b, item, ConfigurationObjectComparer.Instance);
+                        break;
+
+                    case 2:
+                        Assert.Equal(c, item, ConfigurationObjectComparer.Instance);
                         break;
 
                     default:

@@ -287,6 +287,29 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 }
             }
 
+            n = 0;
+            foreach(KeyValuePair<string, IChildElement> item in (System.Collections.IEnumerable)x)
+            {
+                switch(n++)
+                {
+                    case 0:
+                        Assert.Equal(a, item.Value, ConfigurationObjectComparer.Instance);
+                        break;
+
+                    case 1:
+                        Assert.Equal(b, item.Value, ConfigurationObjectComparer.Instance);
+                        break;
+
+                    case 2:
+                        Assert.Equal(c, item.Value, ConfigurationObjectComparer.Instance);
+                        break;
+
+                    default:
+                        Assert.True(false);
+                        break;
+                }
+            }
+
             x.Dispose();
             Assert.Throws<ObjectDisposedException>(() => { foreach(var y in x) { }; });
         }
