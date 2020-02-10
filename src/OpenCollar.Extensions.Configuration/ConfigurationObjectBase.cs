@@ -299,12 +299,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <returns> A <see cref="string" /> that represents this instance. </returns>
         public override string ToString()
         {
-            if(ReferenceEquals(PropertyDef, null))
-            {
-                return $"ConfigurationObjectBase<{InterfaceType.FullName}>";
-            }
-
-            return $"ConfigurationObjectBase<{InterfaceType.FullName}>: {PropertyDef.PropertyName}";
+            return $"{InterfaceType.FullName}: \"{GetPath()}\"";
         }
 
         /// <summary>

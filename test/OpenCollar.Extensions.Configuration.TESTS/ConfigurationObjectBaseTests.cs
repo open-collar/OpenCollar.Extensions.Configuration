@@ -337,5 +337,26 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.Equal("!", fixture.ConfigurationRoot["CharPropertyB"]);
             Assert.Equal("ABABAB", fixture.ConfigurationRoot["ChildCollection:3:Name"]);
         }
+
+        [Fact]
+        public void TestToString()
+        {
+            var x = _configurationFixture.RootElement;
+
+            var y = x.ChildCollection;
+
+            var z1 = y[0];
+
+            var z2 = y[1];
+
+            Assert.IsAssignableFrom<IConfigurationObject>(x);
+            Assert.IsAssignableFrom<IConfigurationObject>(z1);
+
+            Assert.NotEqual(z1.ToString(), z2.ToString());
+
+            Assert.Equal("OpenCollar.Extensions.Configuration.TESTS.IRootElement: \"\"", x.ToString());
+            Assert.Equal("OpenCollar.Extensions.Configuration.TESTS.IChildElement: \"ChildCollection:0\"", z1.ToString());
+            Assert.Equal("OpenCollar.Extensions.Configuration.TESTS.IChildElement: \"ChildCollection:1\"", z2.ToString());
+        }
     }
 }
