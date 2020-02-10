@@ -81,6 +81,20 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         [Fact]
+        public void TestGetPath()
+        {
+            var x = _configurationFixture.RootElement;
+
+            Assert.Equal(string.Empty, x.GetPath());
+
+            var y = x.ChildCollection;
+
+            var z = y[0];
+
+            Assert.Equal("ChildCollection:0", z.GetPath());
+        }
+
+        [Fact]
         public void TestProperties_Boolean()
         {
             var x = _configurationFixture.RootElement;
