@@ -35,6 +35,24 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         [Fact]
+        public void TestChangeEvents()
+        {
+            var x = _configurationFixture.RootElement;
+
+            Assert.Equal(333, x.Int32PropertyA);
+
+            string propertyName = null;
+
+            x.PropertyChanged += (s, args) => { propertyName = args.PropertyName; };
+
+            _configurationFixture.ConfigurationRoot["Int32PropertyA"] = "444";
+            _configurationFixture.ConfigurationRoot.Reload();
+
+            Assert.Equal("Int32PropertyA", propertyName);
+            Assert.Equal(444, x.Int32PropertyA);
+        }
+
+        [Fact]
         public void TestConstructors()
         {
             var x = _configurationFixture.RootElement;
