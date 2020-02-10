@@ -370,21 +370,6 @@ namespace OpenCollar.Extensions.Configuration
     public abstract class ConfigurationObjectBase<TInterface> : ConfigurationObjectBase, IEquatable<TInterface>
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ConfigurationObjectBase{TInterface}" /> class.
-        /// </summary>
-        /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
-        /// <param name="propertyDef">
-        ///     The definition of the property defined by this object. This can be <see lang="null" /> if this object is
-        ///     the root of the hierarchy.
-        /// </param>
-        /// <param name="parent">
-        ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
-        /// </param>
-        protected ConfigurationObjectBase(PropertyDef? propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent) : base(propertyDef, configurationRoot, parent)
-        {
-        }
-
-        /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationObjectBase{TInterface}" /> class. This is the
         ///     interface used when creating the root instance for the service collection.
         /// </summary>
