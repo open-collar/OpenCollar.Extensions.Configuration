@@ -356,6 +356,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Throws<ArgumentOutOfRangeException>(() => { x.InsertCopy(-1, a); });
             Assert.Throws<ArgumentOutOfRangeException>(() => { x.InsertCopy(x.Count + 1, a); });
 
+            Assert.Throws<TypeMismatchException>(() => { x.Insert(1, a); });
+
             x.Dispose();
             Assert.Throws<ObjectDisposedException>(() => x.InsertCopy(1, b));
         }
