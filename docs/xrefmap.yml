@@ -193,13 +193,13 @@ references:
   nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Delete
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Delete
 - uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.DisableCollectionChangedEvents
-  name: DisableCollectionChangedEvents
+  name: DisableCollectionChangedEvents()
   href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_DisableCollectionChangedEvents
-  commentId: P:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.DisableCollectionChangedEvents
-  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.DisableCollectionChangedEvents
-  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).DisableCollectionChangedEvents
-  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.DisableCollectionChangedEvents
-  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).DisableCollectionChangedEvents
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.DisableCollectionChangedEvents
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.DisableCollectionChangedEvents()
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).DisableCollectionChangedEvents()
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.DisableCollectionChangedEvents()
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).DisableCollectionChangedEvents()
 - uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.DisableCollectionChangedEvents*
   name: DisableCollectionChangedEvents
   href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_DisableCollectionChangedEvents_
@@ -226,6 +226,23 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).Dispose
   nameWithType: ConfigurationDictionaryBase<TKey, TElement>.Dispose
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).Dispose
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.EnableCollectionChangedEvents
+  name: EnableCollectionChangedEvents()
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_EnableCollectionChangedEvents
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.EnableCollectionChangedEvents
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.EnableCollectionChangedEvents()
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).EnableCollectionChangedEvents()
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.EnableCollectionChangedEvents()
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).EnableCollectionChangedEvents()
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.EnableCollectionChangedEvents*
+  name: EnableCollectionChangedEvents
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_EnableCollectionChangedEvents_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.EnableCollectionChangedEvents
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.EnableCollectionChangedEvents
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).EnableCollectionChangedEvents
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.EnableCollectionChangedEvents
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).EnableCollectionChangedEvents
 - uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetIndexedElements(System.Collections.Generic.IEnumerable{`1})
   name: GetIndexedElements(IEnumerable<TElement>)
   href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_GetIndexedElements_System_Collections_Generic_IEnumerable__1__
@@ -2191,6 +2208,32 @@ references:
   commentId: T:OpenCollar.Extensions.Configuration.NotifyPropertyChanged
   fullName: OpenCollar.Extensions.Configuration.NotifyPropertyChanged
   nameWithType: NotifyPropertyChanged
+- uid: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.DisablePropertyChangedEvents
+  name: DisablePropertyChangedEvents()
+  href: api/OpenCollar.Extensions.Configuration.NotifyPropertyChanged.html#OpenCollar_Extensions_Configuration_NotifyPropertyChanged_DisablePropertyChangedEvents
+  commentId: M:OpenCollar.Extensions.Configuration.NotifyPropertyChanged.DisablePropertyChangedEvents
+  fullName: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.DisablePropertyChangedEvents()
+  nameWithType: NotifyPropertyChanged.DisablePropertyChangedEvents()
+- uid: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.DisablePropertyChangedEvents*
+  name: DisablePropertyChangedEvents
+  href: api/OpenCollar.Extensions.Configuration.NotifyPropertyChanged.html#OpenCollar_Extensions_Configuration_NotifyPropertyChanged_DisablePropertyChangedEvents_
+  commentId: Overload:OpenCollar.Extensions.Configuration.NotifyPropertyChanged.DisablePropertyChangedEvents
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.DisablePropertyChangedEvents
+  nameWithType: NotifyPropertyChanged.DisablePropertyChangedEvents
+- uid: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.EnablePropertyChangedEvents
+  name: EnablePropertyChangedEvents()
+  href: api/OpenCollar.Extensions.Configuration.NotifyPropertyChanged.html#OpenCollar_Extensions_Configuration_NotifyPropertyChanged_EnablePropertyChangedEvents
+  commentId: M:OpenCollar.Extensions.Configuration.NotifyPropertyChanged.EnablePropertyChangedEvents
+  fullName: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.EnablePropertyChangedEvents()
+  nameWithType: NotifyPropertyChanged.EnablePropertyChangedEvents()
+- uid: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.EnablePropertyChangedEvents*
+  name: EnablePropertyChangedEvents
+  href: api/OpenCollar.Extensions.Configuration.NotifyPropertyChanged.html#OpenCollar_Extensions_Configuration_NotifyPropertyChanged_EnablePropertyChangedEvents_
+  commentId: Overload:OpenCollar.Extensions.Configuration.NotifyPropertyChanged.EnablePropertyChangedEvents
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.EnablePropertyChangedEvents
+  nameWithType: NotifyPropertyChanged.EnablePropertyChangedEvents
 - uid: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.OnPropertyChanged(System.String)
   name: OnPropertyChanged(String)
   href: api/OpenCollar.Extensions.Configuration.NotifyPropertyChanged.html#OpenCollar_Extensions_Configuration_NotifyPropertyChanged_OnPropertyChanged_System_String_
@@ -2219,19 +2262,6 @@ references:
   commentId: E:OpenCollar.Extensions.Configuration.NotifyPropertyChanged.PropertyChanged
   fullName: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.PropertyChanged
   nameWithType: NotifyPropertyChanged.PropertyChanged
-- uid: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.SuspendPropertyChangedEvents
-  name: SuspendPropertyChangedEvents
-  href: api/OpenCollar.Extensions.Configuration.NotifyPropertyChanged.html#OpenCollar_Extensions_Configuration_NotifyPropertyChanged_SuspendPropertyChangedEvents
-  commentId: P:OpenCollar.Extensions.Configuration.NotifyPropertyChanged.SuspendPropertyChangedEvents
-  fullName: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.SuspendPropertyChangedEvents
-  nameWithType: NotifyPropertyChanged.SuspendPropertyChangedEvents
-- uid: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.SuspendPropertyChangedEvents*
-  name: SuspendPropertyChangedEvents
-  href: api/OpenCollar.Extensions.Configuration.NotifyPropertyChanged.html#OpenCollar_Extensions_Configuration_NotifyPropertyChanged_SuspendPropertyChangedEvents_
-  commentId: Overload:OpenCollar.Extensions.Configuration.NotifyPropertyChanged.SuspendPropertyChangedEvents
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.NotifyPropertyChanged.SuspendPropertyChangedEvents
-  nameWithType: NotifyPropertyChanged.SuspendPropertyChangedEvents
 - uid: OpenCollar.Extensions.Configuration.PathAttribute
   name: PathAttribute
   href: api/OpenCollar.Extensions.Configuration.PathAttribute.html
