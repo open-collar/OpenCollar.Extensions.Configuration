@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html",
-          "hash": "YT7GZmtiUrEMy5QghPlPXQ=="
+          "hash": "puyxoyyk0VsnU9QXDyBsGw=="
         }
       },
       "is_incremental": false,
@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.Collections.Element-2.html",
-          "hash": "shi1EkrWocJ0OlMAn6Vg3Q=="
+          "hash": "sf8w/RLgC3y1vcw8042WsQ=="
         }
       },
       "is_incremental": false,
@@ -54,7 +54,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationCollection-1.html",
-          "hash": "nrnlX4pq18QQ22TAN6eKrA=="
+          "hash": "bAzsVOX/+X+3YH3NgTdc8w=="
         }
       },
       "is_incremental": false,
@@ -66,7 +66,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationDictionary-1.html",
-          "hash": "DrHP63NY9eY2ex027Y1eMQ=="
+          "hash": "WpcaOi4+GYx1qrbrvbjX5w=="
         }
       },
       "is_incremental": false,
@@ -78,7 +78,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationException.html",
-          "hash": "WAugNhnnu5zbuP6Sfp8tFg=="
+          "hash": "LP1F0E19AkGcGBV09YHqog=="
         }
       },
       "is_incremental": false,
@@ -90,7 +90,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationObjectBase-1.html",
-          "hash": "Rdynh1pVnp/b13Ib1bHkzQ=="
+          "hash": "6CndQaabrknlee0Y/5axYg=="
         }
       },
       "is_incremental": false,
@@ -102,7 +102,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html",
-          "hash": "LJ2yHg56bkbrlLVVBqSm5Q=="
+          "hash": "xhCtuRqMp8G9Kro6mKkqFA=="
         }
       },
       "is_incremental": false,
@@ -114,7 +114,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.html",
-          "hash": "qKkBZGHaTzKBz7zGT9sGjA=="
+          "hash": "ntikcV3TH7YOuTzU3VjFNw=="
         }
       },
       "is_incremental": false,
@@ -126,7 +126,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.DefaultValueAttribute.html",
-          "hash": "arVPWOq3QZjbKoQbybeAnw=="
+          "hash": "w025TwW2L7EUUQxktGy2TA=="
         }
       },
       "is_incremental": false,
@@ -138,7 +138,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.Disposable.html",
-          "hash": "Kl8sSDAk30LQMUxJCxfxKw=="
+          "hash": "lWTQHM6zEnM1M18UhVB4bg=="
         }
       },
       "is_incremental": false,
@@ -150,7 +150,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationChild.html",
-          "hash": "uJjk3p5wU+J/8XOavIPoCA=="
+          "hash": "0BtNZe7OgGIfwVXtCbMTiA=="
         }
       },
       "is_incremental": false,
@@ -162,7 +162,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationCollection-1.html",
-          "hash": "uzNQkFj91S38TS6PRXQsMQ=="
+          "hash": "ohtfkuTYGFb8p9KillsoFQ=="
         }
       },
       "is_incremental": false,
@@ -174,7 +174,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationDictionary-1.html",
-          "hash": "JLidnWyZ0c+CtnV1jXu1fQ=="
+          "hash": "llaOHX1kSW78eL0Oz9Nfcg=="
         }
       },
       "is_incremental": false,
@@ -186,7 +186,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationObject.html",
-          "hash": "B/Xs14uaMJ2Thx8qefSHJg=="
+          "hash": "ilozCN1xnnfI1XDUZ9BCaw=="
         }
       },
       "is_incremental": false,
@@ -198,7 +198,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationParent.html",
-          "hash": "qoyVKVKdi5QlB+2tZFOpqA=="
+          "hash": "BBfn4w/AI0MIHRnEpIxubA=="
         }
       },
       "is_incremental": false,
@@ -210,7 +210,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IValue.html",
-          "hash": "7tpc469ZwPioO5gD7a63gg=="
+          "hash": "G86/dPbWfLo3KxLf1cSU3A=="
         }
       },
       "is_incremental": false,
@@ -222,7 +222,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IValueChanged.html",
-          "hash": "Nw3zoMD9IjaYmbqCBtQeNg=="
+          "hash": "1m7uhjrVj9g1eCHJ2sI6Sg=="
         }
       },
       "is_incremental": false,
@@ -234,7 +234,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.Implementation.html",
-          "hash": "y3CVwDEKqRvuyQYBv2RkBQ=="
+          "hash": "j8hJnhNOeOdCUrHpu2xBiQ=="
         }
       },
       "is_incremental": false,
@@ -246,7 +246,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ImplementationKind.html",
-          "hash": "JzXhKdgqTluXXD6drDqGog=="
+          "hash": "xf9HJrAPNccWCS4rvH9+/g=="
         }
       },
       "is_incremental": false,
@@ -258,7 +258,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.NotifyPropertyChanged.html",
-          "hash": "pCs2+M1iwg372xcSqnf81g=="
+          "hash": "TteqFU5FL7cWV+GLTBJxzA=="
         }
       },
       "is_incremental": false,
@@ -270,7 +270,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.PathAttribute.html",
-          "hash": "aKd0Cr9d8PqNfseXxGYCJQ=="
+          "hash": "u9Q+H0zkN/GCH/Mw4htN2Q=="
         }
       },
       "is_incremental": false,
@@ -282,7 +282,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.PathIs.html",
-          "hash": "c89zYdqbibUL29gs06KwVQ=="
+          "hash": "jWB72o9VPEVef4RxEYARGQ=="
         }
       },
       "is_incremental": false,
@@ -294,7 +294,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.PropertyDef.html",
-          "hash": "Q/TS3vzQLTvu31VLbrXxZg=="
+          "hash": "ad6mfuwbPMQiXR3lWh5SGg=="
         }
       },
       "is_incremental": false,
@@ -306,7 +306,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ReadOnlyConfigurationCollection-1.html",
-          "hash": "EZYyWtTOK1DhrOoG3eg86g=="
+          "hash": "vwFYmZxR9gJL5p2wvfR37g=="
         }
       },
       "is_incremental": false,
@@ -318,7 +318,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ReadOnlyConfigurationDictionary-1.html",
-          "hash": "SUSPb6LYEMch8ALXlGlDuA=="
+          "hash": "TbsaeTuBRfdfeNtVwslTtg=="
         }
       },
       "is_incremental": false,
@@ -330,7 +330,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.html",
-          "hash": "7B0/S9eVLlAUvpOXSETJ4A=="
+          "hash": "chqjze0uANctGw2NplzpHQ=="
         }
       },
       "is_incremental": false,
@@ -342,7 +342,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.TypeMismatchException.html",
-          "hash": "mwbvXaNdkP0DIn53GIigGA=="
+          "hash": "uGhi2o3flXNwjBBmCKCMxw=="
         }
       },
       "is_incremental": false,
@@ -354,7 +354,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.UniversalComparer.html",
-          "hash": "fV5dmf8Hm9hgWv+54lI9tQ=="
+          "hash": "OrPFhHRTshYw+mVMJNyysQ=="
         }
       },
       "is_incremental": false,
@@ -366,7 +366,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ValueBase-2.html",
-          "hash": "HvkAfAXpuwRQx3yIMcXMmg=="
+          "hash": "1q9Hc7Qq37y/bUtkmQToBw=="
         }
       },
       "is_incremental": false,
@@ -508,13 +508,6 @@
           "total_file_count": 0,
           "skipped_file_count": 0
         },
-        "ResourceDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build",
-          "total_file_count": 0,
-          "skipped_file_count": 0
-        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
@@ -525,6 +518,13 @@
           "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 31,
+          "skipped_file_count": 0
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
           "skipped_file_count": 0
         }
       }
