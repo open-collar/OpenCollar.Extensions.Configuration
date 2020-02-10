@@ -88,6 +88,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
             _parent = parent;
             PropertyDef = propertyDef;
             ConfigurationRoot = configurationRoot;
+
+            RegisterReloadToken();
         }
 
         /// <summary>
@@ -257,9 +259,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the configuration root service from which values are read or to which all values will be written.
         /// </summary>
-        /// <value>
-        ///     The configuration root service from which values are read or to which all values will be written.
-        /// </value>
+        /// <value> The configuration root service from which values are read or to which all values will be written. </value>
         internal IConfigurationRoot ConfigurationRoot
         {
             get;
@@ -1041,6 +1041,24 @@ namespace OpenCollar.Extensions.Configuration.Collections
             }
 
             OnPropertyChanged(nameof(Count));
+        }
+
+        /// <summary>
+        ///     Called when a section in the configuration root has changed.
+        /// </summary>
+        /// <param name="sectionObject"> An object containing the section that has changed. </param>
+        private void OnSectionChanged(object sectionObject)
+        {
+            Load();
+
+            RegisterReloadToken();
+        }
+
+        /// <summary>Registers a reload token with the <see cref"_configurationRoot"/>.</summary>
+        private void RegisterReloadToken()
+        {
+            var token = ConfigurationRoot.GetReloadToken();
+            token.RegisterChangeCallback(OnSectionChanged, ConfigurationRoot);
         }
     }
 }

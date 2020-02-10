@@ -26,9 +26,5 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         public ConfigurationObjectMock(IConfigurationRoot configurationRoot, IConfigurationParent parent) : base(configurationRoot, parent)
         {
         }
-
-        public ConfigurationObjectMock(PropertyDef? propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent) : base(propertyDef, configurationRoot, parent)
-        {
-        }
     }
 }
