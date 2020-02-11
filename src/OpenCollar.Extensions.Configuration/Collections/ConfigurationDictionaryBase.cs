@@ -38,7 +38,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="IDictionary{TKey,TValue}" />
     /// <seealso cref="INotifyCollectionChanged" />
     [DebuggerDisplay("ConfigurationDictionaryBase[{Count}] ({GetPath()})")]
-    public abstract class ConfigurationDictionaryBase<TKey, TElement> : NotifyPropertyChanged, IEnumerable, IConfigurationObject, IValueChanged,
+    public abstract class ConfigurationDictionaryBase<TKey, TElement> : NotifyPropertyChanged, IConfigurationObject, IValueChanged,
         IConfigurationChild
     {
         /// <summary>
@@ -263,7 +263,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the configuration root service from which values are read or to which all values will be written.
         /// </summary>
-        /// <value> The configuration root service from which values are read or to which all values will be written. </value>
+        /// <value>
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </value>
         internal IConfigurationRoot ConfigurationRoot
         {
             get;
@@ -638,25 +640,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Returns an enumerator that iterates through a collection.
-        /// </summary>
-        /// <returns> An <see cref="IEnumerator" /> object that can be used to iterate through the collection. </returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            EnforceDisposed();
-
-            Lock.EnterReadLock();
-            try
-            {
-                return ((IEnumerable)_orderedItems).GetEnumerator();
-            }
-            finally
-            {
-                Lock.ExitReadLock();
-            }
-        }
-
-        /// <summary>
         ///     Converts the string given to the key.
         /// </summary>
         /// <param name="key"> The key to convert, as a string. </param>
@@ -666,7 +649,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
-        /// <param name="initializing"> If set to <see langword="true" /> the element changed events are not fired. </param>
+        /// <param name="initializing">
+        ///     If set to <see langword="true" /> the element changed events are not fired.
+        /// </param>
         internal void Load(bool initializing)
         {
             var path = GetPath();
