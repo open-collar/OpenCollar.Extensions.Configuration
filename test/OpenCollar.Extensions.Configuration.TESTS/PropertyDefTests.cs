@@ -26,7 +26,18 @@ using Xunit;
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
     public sealed class PropertyDefTests
-    {
+    {//
+        [Fact]
+        public void TestConvertStringToValue_Boolean()
+        {
+            var propertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.BooleanPropertyA), BindingFlags.Instance | BindingFlags.Public));
+
+            Assert.Equal(true, (System.Boolean)propertyDef.ConvertStringToValue("PATH", "True"));
+            Assert.Equal(false, (System.Boolean)propertyDef.ConvertStringToValue("PATH", "False"));
+
+            Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "NOT AN BOOLEAN"); });
+        }
+
         [Fact]
         public void TestConvertStringToValue_Byte()
         {
@@ -37,6 +48,16 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "1234"); });
 
             Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "NOT AN INT"); });
+        }
+
+        [Fact]
+        public void TestConvertStringToValue_Char()
+        {
+            var propertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.CharPropertyA), BindingFlags.Instance | BindingFlags.Public));
+
+            Assert.Equal((System.Char)'x', propertyDef.ConvertStringToValue("PATH", "x"));
+
+            Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "XX"); });
         }
 
         [Fact]
@@ -60,6 +81,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         [Fact]
+        public void TestConvertStringToValue_Decimal()
+        {
+            var propertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.DecimalPropertyA), BindingFlags.Instance | BindingFlags.Public));
+
+            Assert.Equal((System.Decimal)123456789.101112, propertyDef.ConvertStringToValue("PATH", "123456789.101112"));
+
+            Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "123456785436547659012345678910.1234557567865867890"); });
+
+            Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "NOT AN INT"); });
+        }
+
+        [Fact]
         public void TestConvertStringToValue_Double()
         {
             var propertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.DoublePropertyA), BindingFlags.Instance | BindingFlags.Public));
@@ -67,6 +100,19 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.Equal((System.Double)123.456, (System.Double)propertyDef.ConvertStringToValue("PATH", "123.456"), 3);
 
             Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "NOT AN NUMBER"); });
+        }
+
+        [Fact]
+        public void TestConvertStringToValue_Enum()
+        {
+            var propertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.EnumPropertyA), BindingFlags.Instance | BindingFlags.Public));
+
+            Assert.Equal(BindingFlags.NonPublic, (BindingFlags)propertyDef.ConvertStringToValue("PATH", "NonPublic"));
+            Assert.Equal(BindingFlags.CreateInstance, (BindingFlags)propertyDef.ConvertStringToValue("PATH", "CreateInstance"));
+            Assert.Equal(BindingFlags.CreateInstance, (BindingFlags)propertyDef.ConvertStringToValue("PATH", "2"));
+
+            Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "NOT A VALUE"); });
+            Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "999"); });
         }
 
         [Fact]
@@ -133,6 +179,16 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var propertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.StringPropertyA), BindingFlags.Instance | BindingFlags.Public));
 
             Assert.Equal("test-string", propertyDef.ConvertStringToValue("PATH", "test-string"));
+        }
+
+        [Fact]
+        public void TestConvertStringToValue_TimeSpan()
+        {
+            var propertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.TimeSpanPropertyA), BindingFlags.Instance | BindingFlags.Public));
+
+            Assert.Equal(System.TimeSpan.FromSeconds(1550), propertyDef.ConvertStringToValue("PATH", "00:25:50"));
+
+            Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "NOT A DATE"); });
         }
     }
 }

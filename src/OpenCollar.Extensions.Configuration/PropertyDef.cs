@@ -277,7 +277,12 @@ namespace OpenCollar.Extensions.Configuration
 
             if(type.IsEnum)
             {
-                return Enum.Parse(type, stringRepresentation);
+                if(Enum.TryParse(type, stringRepresentation, out var enumValue))
+                {
+                    return enumValue;
+                }
+                throw new ConfigurationException(path,
+                    $"Value could not be treated as a '{type.FullName}'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(string))
