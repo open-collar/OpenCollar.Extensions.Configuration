@@ -29,12 +29,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 {
     public class ConfigurationObjectBaseTests : IClassFixture<ConfigurationFixture>
     {
+        private readonly ConfigurationFixture _configurationFixture;
+
         public ConfigurationObjectBaseTests(ConfigurationFixture configurationFixture)
         {
             _configurationFixture = configurationFixture;
         }
-
-        private readonly ConfigurationFixture _configurationFixture;
 
         [Fact]
         public void TestChangeEvents()

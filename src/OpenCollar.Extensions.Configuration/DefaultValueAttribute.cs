@@ -21,20 +21,32 @@ using System;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>An attribute that can be used to specify the default value to return if no value is defined in the configuration root.</summary>
-    /// <seealso cref="Attribute"/>
+    /// <summary>
+    ///     An attribute that can be used to specify the default value to return if no value is defined in the
+    ///     configuration root.
+    /// </summary>
+    /// <seealso cref="Attribute" />
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class DefaultValueAttribute : Attribute
     {
-        /// <summary>Initializes a new instance of the <see cref="DefaultValueAttribute"/> class.</summary>
-        /// <param name="defaultValue">The default value to return if no value is defined in the configuration root. Can be <see langword="null"/>.</param>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="DefaultValueAttribute" /> class.
+        /// </summary>
+        /// <param name="defaultValue">
+        ///     The default value to return if no value is defined in the configuration root. Can be <see langword="null" />.
+        /// </param>
         public DefaultValueAttribute(object? defaultValue)
         {
             DefaultValue = defaultValue;
         }
 
-        /// <summary>Gets the default value.</summary>
-        /// <value> The default value to return if no value is defined in the configuration root. Can be <see langword="null"/>. </value>
-        public object? DefaultValue { get; }
+        /// <summary>
+        ///     Gets the default value.
+        /// </summary>
+        /// <value> The default value to return if no value is defined in the configuration root. Can be <see langword="null" />. </value>
+        public object? DefaultValue
+        {
+            get;
+        }
     }
 }

@@ -9,19 +9,29 @@ using Microsoft.Extensions.Configuration;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>A class used to build implementations of <see cref="IConfigurationObject"/> interfaces.</summary>
+    /// <summary>
+    ///     A class used to build implementations of <see cref="IConfigurationObject" /> interfaces.
+    /// </summary>
     internal class ConfigurationObjectTypeBuilder
     {
-        /// <summary>The type of the <see cref="ConfigurationObjectBase{T}"/> class.</summary>
+        /// <summary>
+        ///     The type of the <see cref="ConfigurationObjectBase{T}" /> class.
+        /// </summary>
         private readonly Type _baseClassType;
 
-        /// <summary>The type of the interface to implement.</summary>
+        /// <summary>
+        ///     The type of the interface to implement.
+        /// </summary>
         private readonly Type _interfaceType;
 
-        /// <summary>The definitions of the interface's properties.</summary>
+        /// <summary>
+        ///     The definitions of the interface's properties.
+        /// </summary>
         private readonly PropertyDef[] _propertyDefs;
 
-        /// <summary>Initializes a new instance of the <see cref="ConfigurationObjectTypeBuilder"/> class.</summary>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationObjectTypeBuilder" /> class.
+        /// </summary>
         /// <param name="interfaceType"> The type of the interface. </param>
         /// <param name="propertyDefs"> The definitions of the interface's properties.. </param>
         public ConfigurationObjectTypeBuilder(Type interfaceType, IEnumerable<PropertyDef> propertyDefs)
@@ -33,7 +43,9 @@ namespace OpenCollar.Extensions.Configuration
             _baseClassType = typeof(ConfigurationObjectBase<>).MakeGenericType(_interfaceType);
         }
 
-        /// <summary>Generates this instance.</summary>
+        /// <summary>
+        ///     Generates this instance.
+        /// </summary>
         /// <returns> </returns>
         public Type Generate()
         {
@@ -57,7 +69,9 @@ namespace OpenCollar.Extensions.Configuration
             return objectTypeInfo;
         }
 
-        /// <summary>Adds the constructor.</summary>
+        /// <summary>
+        ///     Adds the constructor.
+        /// </summary>
         /// <param name="builder"> The builder. </param>
         private void AddConstructor(TypeBuilder builder)
         {
@@ -80,7 +94,9 @@ namespace OpenCollar.Extensions.Configuration
             generator.Emit(OpCodes.Ret);
         }
 
-        /// <summary>Adds the property.</summary>
+        /// <summary>
+        ///     Adds the property.
+        /// </summary>
         /// <param name="builder"> The builder. </param>
         /// <param name="propertyDef"> The property definition. </param>
         /// <param name="indexerDef"> The indexer definition. </param>
@@ -123,7 +139,9 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        /// <summary>Gets the type builder.</summary>
+        /// <summary>
+        ///     Gets the type builder.
+        /// </summary>
         /// <returns> </returns>
         private TypeBuilder GetTypeBuilder()
         {

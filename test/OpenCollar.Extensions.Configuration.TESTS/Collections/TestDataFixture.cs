@@ -26,15 +26,30 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 {
     public interface IDummyInterface
     {
-        IRootElement a { get; set; }
+        IRootElement a
+        {
+            get; set;
+        }
 
-        IRootElement b { get; set; }
+        IRootElement b
+        {
+            get; set;
+        }
 
-        IRootElement c { get; set; }
+        IRootElement c
+        {
+            get; set;
+        }
 
-        IRootElement d { get; set; }
+        IRootElement d
+        {
+            get; set;
+        }
 
-        IRootElement e { get; set; }
+        IRootElement e
+        {
+            get; set;
+        }
     }
 
     public sealed class TestDataFixture : Disposable
@@ -59,17 +74,35 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             };
         }
 
-        public PropertyDef ChildConfigurationCollectionPropertyDef { get; }
+        public PropertyDef ChildConfigurationCollectionPropertyDef
+        {
+            get;
+        }
 
-        public PropertyDef ChildConfigurationDictionaryPropertyDef { get; }
+        public PropertyDef ChildConfigurationDictionaryPropertyDef
+        {
+            get;
+        }
 
-        public PropertyDef ReadOnlyChildConfigurationCollectionPropertyDef { get; }
+        public PropertyDef ReadOnlyChildConfigurationCollectionPropertyDef
+        {
+            get;
+        }
 
-        public PropertyDef ReadOnlyChildConfigurationDictionaryPropertyDef { get; }
+        public PropertyDef ReadOnlyChildConfigurationDictionaryPropertyDef
+        {
+            get;
+        }
 
-        private PropertyDef BooleanPropertyDef { get; }
+        private PropertyDef BooleanPropertyDef
+        {
+            get;
+        }
 
-        private IChildElement[] Data { get; }
+        private IChildElement[] Data
+        {
+            get;
+        }
 
         public TestDataContext GetContext()
         {
@@ -113,19 +146,40 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 Configuration = new ConfigurationFixture();
             }
 
-            public PropertyDef BooleanPropertyDef { get; }
+            public PropertyDef BooleanPropertyDef
+            {
+                get;
+            }
 
-            public PropertyDef ChildConfigurationCollectionPropertyDef { get; }
+            public PropertyDef ChildConfigurationCollectionPropertyDef
+            {
+                get;
+            }
 
-            public PropertyDef ChildConfigurationDictionaryPropertyDef { get; }
+            public PropertyDef ChildConfigurationDictionaryPropertyDef
+            {
+                get;
+            }
 
-            public Dictionary<string, IChildElement> ChildDictionary { get; }
+            public Dictionary<string, IChildElement> ChildDictionary
+            {
+                get;
+            }
 
-            public ConfigurationFixture Configuration { get; }
+            public ConfigurationFixture Configuration
+            {
+                get;
+            }
 
-            public PropertyDef ReadOnlyChildConfigurationCollectionPropertyDef { get; }
+            public PropertyDef ReadOnlyChildConfigurationCollectionPropertyDef
+            {
+                get;
+            }
 
-            public PropertyDef ReadOnlyChildConfigurationDictionaryPropertyDef { get; }
+            public PropertyDef ReadOnlyChildConfigurationDictionaryPropertyDef
+            {
+                get;
+            }
 
             public IChildElement GetChildElement(string name)
             {

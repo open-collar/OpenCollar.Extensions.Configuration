@@ -21,7 +21,10 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 {
     internal class DisposableMock : Disposable
     {
-        public int DisposeCalls { get; private set; }
+        public int DisposeCalls
+        {
+            get; private set;
+        }
 
         public new bool IsDisposed => base.IsDisposed;
 

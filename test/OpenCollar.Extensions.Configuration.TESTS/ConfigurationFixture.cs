@@ -90,11 +90,20 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             RootElement.Load(); // TODO: Make this automatic - lazy evaluation?
         }
 
-        public IConfigurationRoot ConfigurationRoot { get; }
+        public IConfigurationRoot ConfigurationRoot
+        {
+            get;
+        }
 
-        public IRootElement RootElement { get; }
+        public IRootElement RootElement
+        {
+            get;
+        }
 
-        public ServiceProvider Services { get; }
+        public ServiceProvider Services
+        {
+            get;
+        }
 
         protected override void Dispose(bool disposing)
         {

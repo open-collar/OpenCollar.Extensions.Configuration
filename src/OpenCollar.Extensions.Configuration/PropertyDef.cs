@@ -26,11 +26,15 @@ using System.Reflection;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>The definition of a property of a configuration object.</summary>
+    /// <summary>
+    ///     The definition of a property of a configuration object.
+    /// </summary>
     [DebuggerDisplay("PropertyDef[{" + nameof(PropertyName) + "}]")]
     public class PropertyDef
     {
-        /// <summary>Initializes a new instance of the <see cref="PropertyDef"/> class.</summary>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
+        /// </summary>
         /// <param name="interfaceType"> The type of the interface from which the property is taken. </param>
         /// <param name="propertyInfo"> The definition of the property. </param>
         /// <param name="defaultValue"> The default value. </param>
@@ -40,7 +44,9 @@ namespace OpenCollar.Extensions.Configuration
             DefaultValue = defaultValue;
         }
 
-        /// <summary>Initializes a new instance of the <see cref="PropertyDef"/> class.</summary>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
+        /// </summary>
         /// <param name="interfaceType"> The type of the interface from which the property is taken. </param>
         /// <param name="propertyInfo"> The definition of the property. </param>
         internal PropertyDef(Type interfaceType, PropertyInfo propertyInfo)
@@ -80,58 +86,126 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        /// <summary>Gets or sets the default value.</summary>
-        /// <value> The default value. Can be <see langword="null"/>. </value>
-        public object? DefaultValue { get; }
-
-        /// <summary>Gets the details of the specific implementation of this property.</summary>
-        /// <value> The details of the specific implementation of this property. </value>
-        public Implementation? ElementImplementation { get; }
-
-        /// <summary>Gets a value indicating whether the property represented by this instance has default a value.</summary>
-        /// <value><see langword="true"/> if the property represented by this instance has default a value; otherwise, <see langword="false"/>.</value>
-        public bool HasDefaultValue { get; }
-
-        /// <summary>Gets the details of the specific implementation of this property.</summary>
-        /// <value> The details of the specific implementation of this property. </value>
-        public Implementation Implementation { get; }
-
-        /// <summary>Gets a value indicating whether the value of the property represented by this instance can be <see langword="null"/>.</summary>
-        /// <value><see langword="true"/> if the value of the property represented by this instance is nullable; otherwise, <see langword="false"/>.</value>
-        public bool IsNullable { get; }
-
-        /// <summary>Gets a value indicating whether this instance is read only.</summary>
-        /// <value><see langword="true"/> if the property is read only; otherwise, <see langword="false"/> for an editable property.</value>
-        public bool IsReadOnly { get; }
-
-        /// <summary>Gets the path modifier.</summary>
-        /// <value> The path modifier. </value>
-        public PathIs PathModifier { get; }
-
-        /// <summary>Gets the path section.</summary>
-        /// <value> The path section. </value>
-        public string PathSection { get; }
-
-        /// <summary>Gets the property information that defines the interface property.</summary>
-        /// <value> The property information that defines the interface property. </value>
-        public PropertyInfo PropertyInfo { get; }
-
-        /// <summary>Gets the name of the property represented by this object.</summary>
-        /// <value> The name of the property represented by this object. </value>
-        public string PropertyName { get; }
-
-        /// <summary>Gets the type of the value held in the property.</summary>
-        /// <value> The type of the value held in the property. </value>
-        public Type Type { get; }
+        /// <summary>
+        ///     Gets or sets the default value.
+        /// </summary>
+        /// <value> The default value. Can be <see langword="null" />. </value>
+        public object? DefaultValue
+        {
+            get;
+        }
 
         /// <summary>
-        ///     Gets the basic type represented by the type of the property (for example by <c>int?</c> would have an underlying type of <see cref="int"/>
-        ///     ).
+        ///     Gets the details of the specific implementation of this property.
+        /// </summary>
+        /// <value> The details of the specific implementation of this property. </value>
+        public Implementation? ElementImplementation
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets a value indicating whether the property represented by this instance has default a value.
+        /// </summary>
+        /// <value>
+        ///     <see langword="true" /> if the property represented by this instance has default a value; otherwise, <see langword="false" />.
+        /// </value>
+        public bool HasDefaultValue
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the details of the specific implementation of this property.
+        /// </summary>
+        /// <value> The details of the specific implementation of this property. </value>
+        public Implementation Implementation
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets a value indicating whether the value of the property represented by this instance can be <see langword="null" />.
+        /// </summary>
+        /// <value>
+        ///     <see langword="true" /> if the value of the property represented by this instance is nullable;
+        ///     otherwise, <see langword="false" />.
+        /// </value>
+        public bool IsNullable
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets a value indicating whether this instance is read only.
+        /// </summary>
+        /// <value>
+        ///     <see langword="true" /> if the property is read only; otherwise, <see langword="false" /> for an
+        ///     editable property.
+        /// </value>
+        public bool IsReadOnly
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the path modifier.
+        /// </summary>
+        /// <value> The path modifier. </value>
+        public PathIs PathModifier
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the path section.
+        /// </summary>
+        /// <value> The path section. </value>
+        public string PathSection
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the property information that defines the interface property.
+        /// </summary>
+        /// <value> The property information that defines the interface property. </value>
+        public PropertyInfo PropertyInfo
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the name of the property represented by this object.
+        /// </summary>
+        /// <value> The name of the property represented by this object. </value>
+        public string PropertyName
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the type of the value held in the property.
+        /// </summary>
+        /// <value> The type of the value held in the property. </value>
+        public Type Type
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the basic type represented by the type of the property (for example by <c> int? </c> would have an
+        ///     underlying type of <see cref="int" /> ).
         /// </summary>
         /// <returns> The basic type represented by the type given. </returns>
-        public Type UnderlyingType { get; }
+        public Type UnderlyingType
+        {
+            get;
+        }
 
-        /// <summary>Gets the basic type represented by the type given.</summary>
+        /// <summary>
+        ///     Gets the basic type represented by the type given.
+        /// </summary>
         /// <param name="type"> The type for which to find the underlying type. </param>
         /// <returns> </returns>
         public static Type GetUnderlyingType(Type type)
@@ -144,11 +218,15 @@ namespace OpenCollar.Extensions.Configuration
             return type;
         }
 
-        /// <summary>Determines whether a property can be set to <see langword="null"/>.</summary>
+        /// <summary>
+        ///     Determines whether a property can be set to <see langword="null" />.
+        /// </summary>
         /// <param name="implementingType"> Type of the object to which the property belongs. </param>
         /// <param name="property"> The definition of the property to examine. </param>
         /// <returns> </returns>
-        /// <exception cref="ArgumentException"><paramref name="implementingType"/> must be the type which defines property.</exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="implementingType" /> must be the type which defines property.
+        /// </exception>
         public static bool PropertyIsNullable(Type implementingType, PropertyInfo property)
         {
             if(!implementingType
@@ -190,7 +268,9 @@ namespace OpenCollar.Extensions.Configuration
             return property.PropertyType.IsConstructedGenericType && (property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>));
         }
 
-        /// <summary>Gets the path to this configuration object.</summary>
+        /// <summary>
+        ///     Gets the path to this configuration object.
+        /// </summary>
         /// <returns> A string containing the path to this configuration object. </returns>
         public string GetPath(IConfigurationParent? parent)
         {
@@ -208,10 +288,12 @@ namespace OpenCollar.Extensions.Configuration
             return PathSection;
         }
 
-        /// <summary>Determines whether the current value is the same as the original value.</summary>
+        /// <summary>
+        ///     Determines whether the current value is the same as the original value.
+        /// </summary>
         /// <param name="original"> The original value. </param>
         /// <param name="current"> The current value. </param>
-        /// <returns> <see langword="true"/> if the values are the same; otherwise, <see langword="false"/>. </returns>
+        /// <returns> <see langword="true" /> if the values are the same; otherwise, <see langword="false" />. </returns>
         internal bool AreEqual(object? original, object? current)
         {
             if(ReferenceEquals(original, current))
@@ -233,7 +315,9 @@ namespace OpenCollar.Extensions.Configuration
             return UniversalComparer.Equals(original, current);
         }
 
-        /// <summary>Parses a string value into the type defined by the property definition.</summary>
+        /// <summary>
+        ///     Parses a string value into the type defined by the property definition.
+        /// </summary>
         /// <param name="path"> The path to the value being converted (used in error messages). </param>
         /// <param name="stringRepresentation"> The string to parse. </param>
         /// <returns> The string parsed as the type of this property. </returns>
@@ -399,7 +483,9 @@ namespace OpenCollar.Extensions.Configuration
             return Convert.ChangeType(stringRepresentation, Type);
         }
 
-        /// <summary>Given a value that can be assigned to the property represented, returns a string equivalent.</summary>
+        /// <summary>
+        ///     Given a value that can be assigned to the property represented, returns a string equivalent.
+        /// </summary>
         /// <param name="value"> The value. </param>
         /// <returns> The string equivalent of the value given. </returns>
         internal string? ConvertValueToString(object? value)

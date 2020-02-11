@@ -25,19 +25,29 @@ using System.Threading;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>A base class providing an implementation of the <see cref="INotifyPropertyChanged"/> interface (and the <see cref="IDisposable"/> interface.</summary>
-    /// <seealso cref="INotifyPropertyChanged"/>
-    /// <seealso cref="IDisposable"/>
+    /// <summary>
+    ///     A base class providing an implementation of the <see cref="INotifyPropertyChanged" /> interface (and the
+    ///     <see cref="IDisposable" /> interface.
+    /// </summary>
+    /// <seealso cref="INotifyPropertyChanged" />
+    /// <seealso cref="IDisposable" />
     public abstract class NotifyPropertyChanged : Disposable, INotifyPropertyChanged
     {
-        /// <summary>A value indicating whether events are raised for changes. Any value greater than zero indicates events are not to be raised.</summary>
+        /// <summary>
+        ///     A value indicating whether events are raised for changes. Any value greater than zero indicates events
+        ///     are not to be raised.
+        /// </summary>
         [ThreadStatic]
         private int _disablePropertyChangedEvents;
 
-        /// <summary>Occurs when a property changes.</summary>
+        /// <summary>
+        ///     Occurs when a property changes.
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        /// <summary>Disables the firing of the <see cref="INotifyPropertyChanged.PropertyChanged"/> event on the current thread.</summary>
+        /// <summary>
+        ///     Disables the firing of the <see cref="INotifyPropertyChanged.PropertyChanged" /> event on the current thread.
+        /// </summary>
         protected void DisablePropertyChangedEvents()
         {
             Interlocked.Increment(ref _disablePropertyChangedEvents);
@@ -45,7 +55,9 @@ namespace OpenCollar.Extensions.Configuration
             Debug.Assert(_disablePropertyChangedEvents >= 0);
         }
 
-        /// <summary>Enables the firing of the <see cref="INotifyPropertyChanged.PropertyChanged"/> event on the current thread.</summary>
+        /// <summary>
+        ///     Enables the firing of the <see cref="INotifyPropertyChanged.PropertyChanged" /> event on the current thread.
+        /// </summary>
         protected void EnablePropertyChangedEvents()
         {
             Interlocked.Decrement(ref _disablePropertyChangedEvents);
@@ -53,7 +65,9 @@ namespace OpenCollar.Extensions.Configuration
             Debug.Assert(_disablePropertyChangedEvents >= 0);
         }
 
-        /// <summary>Called when an underlying property has been changed.</summary>
+        /// <summary>
+        ///     Called when an underlying property has been changed.
+        /// </summary>
         /// <param name="propertyName"> The name of the property that has changed. </param>
         /// <exception cref="AggregateException"> One or more change event handlers threw an exception. </exception>
         protected void OnPropertyChanged(string propertyName)
@@ -101,13 +115,15 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        /// <summary>Called when a property is to be changed.</summary>
+        /// <summary>
+        ///     Called when a property is to be changed.
+        /// </summary>
         /// <typeparam name="T"> The type of the property. </typeparam>
         /// <param name="field"> The field to which the value is to be assigned. </param>
         /// <param name="value"> The value to assign. </param>
         /// <param name="propertyName"> The name of the property that has changed. </param>
-        /// <returns> <see langword="true"/> if the property has changed; otherwise, <see langword="false"/> </returns>
-        /// <remarks> Raises the <see cref="PropertyChanged"/> event if the value has changed. </remarks>
+        /// <returns> <see langword="true" /> if the property has changed; otherwise, <see langword="false" /> </returns>
+        /// <remarks> Raises the <see cref="PropertyChanged" /> event if the value has changed. </remarks>
         protected bool OnPropertyChanged<T>(string propertyName, ref T field, T value)
         {
             if(UniversalComparer.Equals(field, value))

@@ -29,7 +29,10 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             set => LastPropertyAssignmentWasChange = OnPropertyChanged(nameof(IntPropertyA), ref _propertyA, value);
         }
 
-        public bool LastPropertyAssignmentWasChange { get; set; }
+        public bool LastPropertyAssignmentWasChange
+        {
+            get; set;
+        }
 
         public new void DisablePropertyChangedEvents()
         {

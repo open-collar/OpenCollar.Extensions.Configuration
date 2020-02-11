@@ -7,15 +7,30 @@ namespace OpenCollar.Extensions.Configuration.TESTS
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool IsDirty { get; set; }
+        public bool IsDirty
+        {
+            get; set;
+        }
 
-        public bool IsReadOnly { get; set; }
+        public bool IsReadOnly
+        {
+            get; set;
+        }
 
-        public string Name { get; set; }
+        public string Name
+        {
+            get; set;
+        }
 
-        public PropertyDef PropertyDef { get; set; }
+        public PropertyDef PropertyDef
+        {
+            get; set;
+        }
 
-        public int Value { get; set; }
+        public int Value
+        {
+            get; set;
+        }
 
         public void Delete() => throw new NotImplementedException();
 

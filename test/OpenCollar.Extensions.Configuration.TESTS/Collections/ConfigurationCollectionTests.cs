@@ -28,15 +28,17 @@ using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 {
-    /// <summary>Tests for the <see cref="Configuration.Collections.ConfigurationCollection{T}"/> class.</summary>
+    /// <summary>
+    ///     Tests for the <see cref="Configuration.Collections.ConfigurationCollection{T}" /> class.
+    /// </summary>
     public sealed class ConfigurationCollectionTests : IClassFixture<TestDataFixture>
     {
+        private readonly TestDataFixture _propertyTestData;
+
         public ConfigurationCollectionTests(TestDataFixture propertyDefFixture)
         {
             _propertyTestData = propertyDefFixture;
         }
-
-        private readonly TestDataFixture _propertyTestData;
 
         [Fact]
         public void AddAndRetrieveTests()
@@ -502,7 +504,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Throws<ObjectDisposedException>(() => x.Remove(a));
         }
 
-        /// <summary>Tests for the constructor.</summary>
+        /// <summary>
+        ///     Tests for the constructor.
+        /// </summary>
         [Fact]
         public void TestConstructor()
         {

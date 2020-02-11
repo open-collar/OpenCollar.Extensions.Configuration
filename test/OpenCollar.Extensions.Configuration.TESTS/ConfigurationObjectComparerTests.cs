@@ -7,12 +7,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 {
     public sealed class ConfigurationObjectComparerTests : IClassFixture<TestDataFixture>
     {
+        private readonly TestDataFixture _propertyTestData;
+
         public ConfigurationObjectComparerTests(TestDataFixture propertyDefFixture)
         {
             _propertyTestData = propertyDefFixture;
         }
-
-        private readonly TestDataFixture _propertyTestData;
 
         [Fact]
         public void TestCompareComparableTypes()
