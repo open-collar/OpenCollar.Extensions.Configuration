@@ -48,6 +48,11 @@ namespace OpenCollar.Extensions.Configuration.Collections
         private readonly ThreadLocal<int> _disableCollectionChangedEvents = new ThreadLocal<int>();
 
         /// <summary>
+        ///     Suspends the read-only functionality when greater than zero. Thread-static.
+        /// </summary>
+        private readonly ThreadLocal<int> _disableReadOnly = new ThreadLocal<int>();
+
+        /// <summary>
         ///     A dictionary containing the elements of the collection against a key.
         /// </summary>
         private readonly Dictionary<TKey, Element<TKey, TElement>> _itemsByKey = new Dictionary<TKey, Element<TKey, TElement>>();
@@ -56,11 +61,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     An ordered list of the elements in the collection.
         /// </summary>
         private readonly List<Element<TKey, TElement>> _orderedItems = new List<Element<TKey, TElement>>();
-
-        /// <summary>
-        ///     Suspends the read-only functionality when greater than zero. Thread-static.
-        /// </summary>
-        private readonly ThreadLocal<int> _suspendReadOnly = new ThreadLocal<int>();
 
         /// <summary>
         ///     The object that is the parent of this one, or <see langword="null" /> if this is the root.
@@ -112,7 +112,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 foreach(var item in items)
                 {
                     Element<TKey, TElement> element;
-                    _suspendReadOnly.Value = _suspendReadOnly.Value + 1;
+                    _disableReadOnly.Value = _disableReadOnly.Value + 1;
                     try
                     {
                         element = new Element<TKey, TElement>(propertyDef, this, item.Key)
@@ -122,7 +122,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     }
                     finally
                     {
-                        _suspendReadOnly.Value = _suspendReadOnly.Value - 1;
+                        _disableReadOnly.Value = _disableReadOnly.Value - 1;
                     }
 
                     _itemsByKey.Add(item.Key, element);
@@ -192,7 +192,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         {
             get
             {
-                if(_suspendReadOnly.Value > 0)
+                if(_disableReadOnly.Value > 0)
                 {
                     return false;
                 }
@@ -465,75 +465,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </summary>
         public void Load()
         {
-            var path = GetPath();
-
-            // Iterate across all of the elements in the path and then delete those not in the dictionary, and then
-            // insert those that have been added.
-            var section = ConfigurationRoot.GetSection(path);
-            var existingValues = section.GetChildren().Select(s => new KeyValuePair<TKey, IConfigurationSection>(ConvertStringToKey(s.Key), s)).ToList();
-            var updatedValues = new List<Element<TKey, TElement>>();
-            var newValues = new List<Element<TKey, TElement>>();
-
-            _suspendReadOnly.Value = _suspendReadOnly.Value + 1;// TODO: What about config changes after load
-            try
-            {
-                foreach(var pair in existingValues)
-                {
-                    Element<TKey, TElement> value;
-                    if(!_itemsByKey.TryGetValue(pair.Key, out value))
-                    {
-                        // If the value is a configuration object of some sort then create or reuse the existing value.
-                        value = new Element<TKey, TElement>(PropertyDef, this, pair.Key);
-                        newValues.Add(value);
-
-                        value.ReadValue(ConfigurationRoot);
-
-                        // Add/update the value in the updated values list.
-                        value.Saved();
-                    }
-
-                    updatedValues.Add(value);
-                }
-            }
-            finally
-            {
-                _suspendReadOnly.Value = _suspendReadOnly.Value - 1;
-            }
-
-            // TODO: How should we deal with values that weren;t added from the source but were added by the consumer at runtime?  Flags?
-            var deletedValues = _orderedItems.ToArray().Except(updatedValues).ToList();
-
-            if((deletedValues.Count > 0) || (newValues.Count > 0))
-            {
-                _suspendReadOnly.Value = _suspendReadOnly.Value + 1;
-                try
-                {
-                    Lock.EnterWriteLock();
-                    try
-                    {
-                        Replace(updatedValues);
-                    }
-                    finally
-                    {
-                        Lock.ExitWriteLock();
-                    }
-                }
-                finally
-                {
-                    _suspendReadOnly.Value = _suspendReadOnly.Value - 1;
-                }
-
-                if(deletedValues.Count > 0)
-                {
-                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove,
-                        deletedValues.Select(p => p.Value).ToList()));
-                }
-
-                if(newValues.Count > 0)
-                {
-                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, newValues.Select(p => p.Value).ToList()));
-                }
-            }
+            Load(false);
         }
 
         /// <summary>
@@ -730,6 +662,89 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="key"> The key to convert, as a string. </param>
         /// <returns> Returns the key converted to the correct type. </returns>
         internal abstract TKey ConvertStringToKey(string key);
+
+        /// <summary>
+        ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
+        /// </summary>
+        /// <param name="initializing"> If set to <see langword="true" /> the element changed events are not fired. </param>
+        internal void Load(bool initializing)
+        {
+            var path = GetPath();
+
+            // Iterate across all of the elements in the path and then delete those not in the dictionary, and then
+            // insert those that have been added.
+            var section = ConfigurationRoot.GetSection(path);
+            var existingValues = section.GetChildren().Select(s => new KeyValuePair<TKey, IConfigurationSection>(ConvertStringToKey(s.Key), s)).ToList();
+            var updatedValues = new List<Element<TKey, TElement>>();
+            var newValues = new List<Element<TKey, TElement>>();
+
+            if(initializing)
+            {
+                _disableReadOnly.Value = _disableReadOnly.Value + 1;// TODO: What about config changes after load
+            }
+            try
+            {
+                foreach(var pair in existingValues)
+                {
+                    Element<TKey, TElement> value;
+                    if(!_itemsByKey.TryGetValue(pair.Key, out value))
+                    {
+                        // If the value is a configuration object of some sort then create or reuse the existing value.
+                        value = new Element<TKey, TElement>(PropertyDef, this, pair.Key);
+                        newValues.Add(value);
+
+                        value.ReadValue(ConfigurationRoot);
+
+                        // Add/update the value in the updated values list.
+                        value.Saved();
+                    }
+
+                    updatedValues.Add(value);
+                }
+            }
+            finally
+            {
+                if(initializing)
+                {
+                    _disableReadOnly.Value = _disableReadOnly.Value - 1;
+                }
+            }
+
+            // TODO: How should we deal with values that weren;t added from the source but were added by the consumer at runtime?  Flags?
+            var deletedValues = _orderedItems.ToArray().Except(updatedValues).ToList();
+
+            if((deletedValues.Count > 0) || (newValues.Count > 0))
+            {
+                _disableReadOnly.Value = _disableReadOnly.Value + 1;
+                try
+                {
+                    Lock.EnterWriteLock();
+                    try
+                    {
+                        Replace(updatedValues);
+                    }
+                    finally
+                    {
+                        Lock.ExitWriteLock();
+                    }
+                }
+                finally
+                {
+                    _disableReadOnly.Value = _disableReadOnly.Value - 1;
+                }
+
+                if(deletedValues.Count > 0)
+                {
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove,
+                        deletedValues.Select(p => p.Value).ToList()));
+                }
+
+                if(newValues.Count > 0)
+                {
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, newValues.Select(p => p.Value).ToList()));
+                }
+            }
+        }
 
         /// <summary>
         ///     Gets the elements given as a sequence of <see cref="KeyValuePair{T, TElement}" /> keyed in the index.
@@ -1027,7 +1042,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
         private void EnforceReadOnly()
         {
-            if(_suspendReadOnly.Value > 0)
+            if(_disableReadOnly.Value > 0)
             {
                 return;
             }
@@ -1064,7 +1079,15 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="sectionObject"> An object containing the section that has changed. </param>
         private void OnSectionChanged(object sectionObject)
         {
-            Load();
+            _disableReadOnly.Value = _disableReadOnly.Value + 1;
+            try
+            {
+                Load(false);
+            }
+            finally
+            {
+                _disableReadOnly.Value = _disableReadOnly.Value - 1;
+            }
 
             RegisterReloadToken();
         }

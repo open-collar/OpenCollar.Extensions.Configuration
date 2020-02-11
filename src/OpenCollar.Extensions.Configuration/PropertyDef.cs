@@ -55,7 +55,6 @@ namespace OpenCollar.Extensions.Configuration
             PropertyName = propertyInfo.Name;
             Type = propertyInfo.PropertyType;
             UnderlyingType = GetUnderlyingType(propertyInfo.PropertyType);
-            IsNullable = PropertyIsNullable(interfaceType, propertyInfo);
             IsReadOnly = !propertyInfo.CanWrite;
 
             var pathAttributes = propertyInfo.GetCustomAttributes(typeof(PathAttribute), true);
@@ -120,18 +119,6 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <value> The details of the specific implementation of this property. </value>
         public Implementation Implementation
-        {
-            get;
-        }
-
-        /// <summary>
-        ///     Gets a value indicating whether the value of the property represented by this instance can be <see langword="null" />.
-        /// </summary>
-        /// <value>
-        ///     <see langword="true" /> if the value of the property represented by this instance is nullable;
-        ///     otherwise, <see langword="false" />.
-        /// </value>
-        public bool IsNullable
         {
             get;
         }
@@ -219,56 +206,6 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Determines whether a property can be set to <see langword="null" />.
-        /// </summary>
-        /// <param name="implementingType"> Type of the object to which the property belongs. </param>
-        /// <param name="property"> The definition of the property to examine. </param>
-        /// <returns> </returns>
-        /// <exception cref="ArgumentException">
-        ///     <paramref name="implementingType" /> must be the type which defines property.
-        /// </exception>
-        public static bool PropertyIsNullable(Type implementingType, PropertyInfo property)
-        {
-            if(!implementingType
-                .GetProperties(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly)
-                .Contains(property))
-            {
-                throw new ArgumentException("'enclosingType' must be the type which defines property.");
-            }
-
-            var nullable = property.CustomAttributes.FirstOrDefault(x => x.AttributeType.FullName == @"System.Runtime.CompilerServices.NullableAttribute");
-            if(!ReferenceEquals(nullable, null) && (nullable.ConstructorArguments.Count == 1))
-            {
-                var attributeArgument = nullable.ConstructorArguments[0];
-                if(attributeArgument.ArgumentType == typeof(byte[]))
-                {
-                    var args = (ReadOnlyCollection<CustomAttributeTypedArgument>)attributeArgument.Value;
-                    if((args.Count > 0) && (args[0].ArgumentType == typeof(byte)))
-                    {
-                        return (byte)args[0].Value == 2;
-                    }
-                }
-                else if(attributeArgument.ArgumentType == typeof(byte))
-                {
-                    return (byte)attributeArgument.Value == 2;
-                }
-            }
-
-            var context = implementingType.CustomAttributes.FirstOrDefault(x =>
-                x.AttributeType.FullName == "System.Runtime.CompilerServices.NullableContextAttribute");
-            if(!ReferenceEquals(context, null) && (context.ConstructorArguments.Count == 1) && (context.ConstructorArguments[0].ArgumentType == typeof(byte)))
-            {
-                if((byte)context.ConstructorArguments[0].Value == 2)
-                {
-                    return true;
-                }
-            }
-
-            // Couldn't find a suitable attribute
-            return property.PropertyType.IsConstructedGenericType && (property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>));
-        }
-
-        /// <summary>
         ///     Gets the path to this configuration object.
         /// </summary>
         /// <returns> A string containing the path to this configuration object. </returns>
@@ -326,7 +263,7 @@ namespace OpenCollar.Extensions.Configuration
         {
             if(ReferenceEquals(stringRepresentation, null))
             {
-                if(IsNullable)
+                if(HasDefaultValue)
                 {
                     return DefaultValue;
                 }
@@ -379,6 +316,17 @@ namespace OpenCollar.Extensions.Configuration
 
                 throw new ConfigurationException(path,
                     $"Value could not be parsed as an 'SByte'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+            }
+
+            if(type == typeof(byte))
+            {
+                if(byte.TryParse(stringRepresentation, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsed))
+                {
+                    return parsed;
+                }
+
+                throw new ConfigurationException(path,
+                    $"Value could not be parsed as an 'Byte'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(int))
@@ -520,6 +468,11 @@ namespace OpenCollar.Extensions.Configuration
             if(type == typeof(sbyte))
             {
                 return ((sbyte)value).ToString("D", CultureInfo.InvariantCulture);
+            }
+
+            if(type == typeof(byte))
+            {
+                return ((byte)value).ToString("D", CultureInfo.InvariantCulture);
             }
 
             if(type == typeof(int))

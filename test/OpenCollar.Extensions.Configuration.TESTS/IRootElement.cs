@@ -37,6 +37,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         // We would expect this to be implemented as a read-only property.
+        byte BytePropertyA
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        byte BytePropertyB
+        {
+            get; set;
+        }
+
+        // We would expect this to be implemented as a read-only property.
         char CharPropertyA
         {
             get;

@@ -47,6 +47,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS
                     new KeyValuePair<string, string>(nameof(IRootElement.Int16PropertyB), "-444"),
                     new KeyValuePair<string, string>(nameof(IRootElement.SBytePropertyA), "99"),
                     new KeyValuePair<string, string>(nameof(IRootElement.SBytePropertyB), "-100"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.BytePropertyA), "01"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.BytePropertyB), "123"),
                     new KeyValuePair<string, string>(nameof(IRootElement.Int64PropertyA), "333"),
                     new KeyValuePair<string, string>(nameof(IRootElement.Int64PropertyB), "-444"),
                     new KeyValuePair<string, string>(nameof(IRootElement.DoublePropertyA), "555.666"),

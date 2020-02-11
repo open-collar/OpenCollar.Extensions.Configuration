@@ -18,6 +18,17 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             get; set;
         }
 
+        public byte BytePropertyA
+        {
+            get;
+        }
+
+        public byte BytePropertyB
+        {
+            get;
+            set;
+        }
+
         public char CharPropertyA
         {
             get;
