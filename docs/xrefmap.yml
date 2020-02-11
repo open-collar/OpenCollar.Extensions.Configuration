@@ -668,6 +668,32 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.Element(Of TKey, TValue)
   nameWithType: Element<TKey, TValue>
   nameWithType.vb: Element(Of TKey, TValue)
+- uid: OpenCollar.Extensions.Configuration.Collections.Element`2.Equals(OpenCollar.Extensions.Configuration.Collections.Element{`0,`1})
+  name: Equals(Element<TKey, TValue>)
+  href: api/OpenCollar.Extensions.Configuration.Collections.Element-2.html#OpenCollar_Extensions_Configuration_Collections_Element_2_Equals_OpenCollar_Extensions_Configuration_Collections_Element__0__1__
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.Element`2.Equals(OpenCollar.Extensions.Configuration.Collections.Element{`0,`1})
+  name.vb: Equals(Element(Of TKey, TValue))
+  fullName: OpenCollar.Extensions.Configuration.Collections.Element<TKey, TValue>.Equals(OpenCollar.Extensions.Configuration.Collections.Element<TKey, TValue>)
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.Element(Of TKey, TValue).Equals(OpenCollar.Extensions.Configuration.Collections.Element(Of TKey, TValue))
+  nameWithType: Element<TKey, TValue>.Equals(Element<TKey, TValue>)
+  nameWithType.vb: Element(Of TKey, TValue).Equals(Element(Of TKey, TValue))
+- uid: OpenCollar.Extensions.Configuration.Collections.Element`2.Equals(System.Object)
+  name: Equals(Object)
+  href: api/OpenCollar.Extensions.Configuration.Collections.Element-2.html#OpenCollar_Extensions_Configuration_Collections_Element_2_Equals_System_Object_
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.Element`2.Equals(System.Object)
+  fullName: OpenCollar.Extensions.Configuration.Collections.Element<TKey, TValue>.Equals(System.Object)
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.Element(Of TKey, TValue).Equals(System.Object)
+  nameWithType: Element<TKey, TValue>.Equals(Object)
+  nameWithType.vb: Element(Of TKey, TValue).Equals(Object)
+- uid: OpenCollar.Extensions.Configuration.Collections.Element`2.Equals*
+  name: Equals
+  href: api/OpenCollar.Extensions.Configuration.Collections.Element-2.html#OpenCollar_Extensions_Configuration_Collections_Element_2_Equals_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.Element`2.Equals
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.Element<TKey, TValue>.Equals
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.Element(Of TKey, TValue).Equals
+  nameWithType: Element<TKey, TValue>.Equals
+  nameWithType.vb: Element(Of TKey, TValue).Equals
 - uid: OpenCollar.Extensions.Configuration.Collections.Element`2.GetPath
   name: GetPath()
   href: api/OpenCollar.Extensions.Configuration.Collections.Element-2.html#OpenCollar_Extensions_Configuration_Collections_Element_2_GetPath
