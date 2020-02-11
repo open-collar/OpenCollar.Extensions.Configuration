@@ -57,6 +57,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "media", "media", "{ADA32901
 		media\opencollar-logo.svg = media\opencollar-logo.svg
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCollar.Extensions.Configuration.Specs", "test\OpenCollar.Extensions.Configuration.Specs\OpenCollar.Extensions.Configuration.Specs.csproj", "{6AA5AAC7-1CE0-4CBC-BD51-2A1ECE38CAEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,6 +116,18 @@ Global
 		{DE0DD469-09DC-4436-8CC5-E86AD4231371}.Release|x64.Build.0 = Release|Any CPU
 		{DE0DD469-09DC-4436-8CC5-E86AD4231371}.Release|x86.ActiveCfg = Release|Any CPU
 		{DE0DD469-09DC-4436-8CC5-E86AD4231371}.Release|x86.Build.0 = Release|Any CPU
+		{6AA5AAC7-1CE0-4CBC-BD51-2A1ECE38CAEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AA5AAC7-1CE0-4CBC-BD51-2A1ECE38CAEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AA5AAC7-1CE0-4CBC-BD51-2A1ECE38CAEE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6AA5AAC7-1CE0-4CBC-BD51-2A1ECE38CAEE}.Debug|x64.Build.0 = Debug|Any CPU
+		{6AA5AAC7-1CE0-4CBC-BD51-2A1ECE38CAEE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6AA5AAC7-1CE0-4CBC-BD51-2A1ECE38CAEE}.Debug|x86.Build.0 = Debug|Any CPU
+		{6AA5AAC7-1CE0-4CBC-BD51-2A1ECE38CAEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AA5AAC7-1CE0-4CBC-BD51-2A1ECE38CAEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AA5AAC7-1CE0-4CBC-BD51-2A1ECE38CAEE}.Release|x64.ActiveCfg = Release|Any CPU
+		{6AA5AAC7-1CE0-4CBC-BD51-2A1ECE38CAEE}.Release|x64.Build.0 = Release|Any CPU
+		{6AA5AAC7-1CE0-4CBC-BD51-2A1ECE38CAEE}.Release|x86.ActiveCfg = Release|Any CPU
+		{6AA5AAC7-1CE0-4CBC-BD51-2A1ECE38CAEE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,6 +138,7 @@ Global
 		{AA71998F-9E67-48E2-BCDE-ACFF99137FD0} = {6B5734ED-5AE3-4F36-AD5F-05FC1B828CFA}
 		{8A6FA1A3-B379-449E-BD1D-E631B326D95B} = {4CB53D99-C3E1-4CC8-B058-A7E8CA78A515}
 		{DE0DD469-09DC-4436-8CC5-E86AD4231371} = {EB2B82BB-BE74-4B60-B93C-633AA5D5B6AF}
+		{6AA5AAC7-1CE0-4CBC-BD51-2A1ECE38CAEE} = {937BBBC0-F82C-11E9-BF62-FD6DB016B1EA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D6B1BA9-0595-478F-91A0-E419289B1E0F}
