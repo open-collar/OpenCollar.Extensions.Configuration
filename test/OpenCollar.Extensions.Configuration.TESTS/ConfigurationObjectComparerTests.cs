@@ -1,4 +1,5 @@
-﻿using OpenCollar.Extensions.Configuration.TESTS.Collections;
+﻿using OpenCollar.Extensions.Configuration.Collections;
+using OpenCollar.Extensions.Configuration.TESTS.Collections;
 
 using Xunit;
 
@@ -6,19 +7,20 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 {
     public sealed class ConfigurationObjectComparerTests : IClassFixture<TestDataFixture>
     {
-        private readonly TestDataFixture _propertyTestData;
-
         public ConfigurationObjectComparerTests(TestDataFixture propertyDefFixture)
         {
             _propertyTestData = propertyDefFixture;
         }
+
+        private readonly TestDataFixture _propertyTestData;
 
         [Fact]
         public void TestCompareComparableTypes()
         {
             var testContext = _propertyTestData.GetContext();
 
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot);
 
             var customObjectA = testContext.GetChildElement("a");
             var configObjectA = x.AddCopy(customObjectA);
@@ -52,7 +54,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var testContext = _propertyTestData.GetContext();
 
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot);
 
             var customObjectA = testContext.GetChildElement("a");
             var configObjectA = x.AddCopy(customObjectA);
@@ -75,7 +78,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var testContext = _propertyTestData.GetContext();
 
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot);
 
             var customObjectA = testContext.GetChildElement("a");
             var configObjectA = x.AddCopy(customObjectA);

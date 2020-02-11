@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -8,29 +9,19 @@ using Microsoft.Extensions.Configuration;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>
-    ///     A class used to build implementations of <see cref="IConfigurationObject" /> interfaces.
-    /// </summary>
+    /// <summary>A class used to build implementations of <see cref="IConfigurationObject"/> interfaces.</summary>
     internal class ConfigurationObjectTypeBuilder
     {
-        /// <summary>
-        ///     The type of the <see cref="ConfigurationObjectBase{T}" /> class.
-        /// </summary>
+        /// <summary>The type of the <see cref="ConfigurationObjectBase{T}"/> class.</summary>
         private readonly Type _baseClassType;
 
-        /// <summary>
-        ///     The type of the interface to implement.
-        /// </summary>
+        /// <summary>The type of the interface to implement.</summary>
         private readonly Type _interfaceType;
 
-        /// <summary>
-        ///     The definitions of the interface's properties.
-        /// </summary>
+        /// <summary>The definitions of the interface's properties.</summary>
         private readonly PropertyDef[] _propertyDefs;
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ConfigurationObjectTypeBuilder" /> class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="ConfigurationObjectTypeBuilder"/> class.</summary>
         /// <param name="interfaceType"> The type of the interface. </param>
         /// <param name="propertyDefs"> The definitions of the interface's properties.. </param>
         public ConfigurationObjectTypeBuilder(Type interfaceType, IEnumerable<PropertyDef> propertyDefs)
@@ -39,18 +30,16 @@ namespace OpenCollar.Extensions.Configuration
 
             _interfaceType = interfaceType;
             _propertyDefs = propertyDefs.ToArray();
-            _baseClassType = typeof(ConfigurationObjectBase<>).MakeGenericType(new[] { _interfaceType });
+            _baseClassType = typeof(ConfigurationObjectBase<>).MakeGenericType(_interfaceType);
         }
 
-        /// <summary>
-        ///     Generates this instance.
-        /// </summary>
+        /// <summary>Generates this instance.</summary>
         /// <returns> </returns>
         public Type Generate()
         {
             var indexerDef = _baseClassType.GetProperty("Item", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-            System.Diagnostics.Debug.Assert(!ReferenceEquals(indexerDef, null));
+            Debug.Assert(!ReferenceEquals(indexerDef, null));
 
             var builder = GetTypeBuilder();
 
@@ -68,19 +57,20 @@ namespace OpenCollar.Extensions.Configuration
             return objectTypeInfo;
         }
 
-        /// <summary>
-        ///     Adds the constructor.
-        /// </summary>
+        /// <summary>Adds the constructor.</summary>
         /// <param name="builder"> The builder. </param>
         private void AddConstructor(TypeBuilder builder)
         {
-            var constructorArgumentTypes = new Type[] { typeof(IConfigurationRoot), typeof(IConfigurationParent) };
+            var constructorArgumentTypes = new[] { typeof(IConfigurationRoot), typeof(IConfigurationParent) };
 
-            var baseConstructor = _baseClassType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, constructorArgumentTypes, null);
+            var baseConstructor = _baseClassType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null,
+                constructorArgumentTypes, null);
 
-            System.Diagnostics.Debug.Assert(!ReferenceEquals(baseConstructor, null));
+            Debug.Assert(!ReferenceEquals(baseConstructor, null));
 
-            var constructorBuilder = builder.DefineConstructor(MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName, CallingConventions.Standard, constructorArgumentTypes);
+            var constructorBuilder =
+                builder.DefineConstructor(MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName,
+                    CallingConventions.Standard, constructorArgumentTypes);
 
             var generator = constructorBuilder.GetILGenerator();
             generator.Emit(OpCodes.Ldarg, 0);
@@ -90,43 +80,32 @@ namespace OpenCollar.Extensions.Configuration
             generator.Emit(OpCodes.Ret);
         }
 
-        /// <summary>
-        ///     Adds the property.
-        /// </summary>
+        /// <summary>Adds the property.</summary>
         /// <param name="builder"> The builder. </param>
         /// <param name="propertyDef"> The property definition. </param>
         /// <param name="indexerDef"> The indexer definition. </param>
         private void AddProperty(TypeBuilder builder, PropertyDef propertyDef, PropertyInfo indexerDef)
         {
             var propertyBuilder = builder.DefineProperty(propertyDef.PropertyName, PropertyAttributes.HasDefault, propertyDef.Type, null);
-            var getMethodBuilder = builder.DefineMethod("get_" + propertyDef.PropertyName, MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.Virtual, propertyDef.Type, Type.EmptyTypes);
+            var getMethodBuilder = builder.DefineMethod("get_" + propertyDef.PropertyName,
+                MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.Virtual, propertyDef.Type, Type.EmptyTypes);
             var getIl = getMethodBuilder.GetILGenerator();
 
             getIl.Emit(OpCodes.Ldarg_0);
             getIl.Emit(OpCodes.Ldstr, propertyDef.PropertyName);
-            getIl.EmitCall(OpCodes.Call, indexerDef.GetMethod, new Type[] { typeof(string) });
+            getIl.EmitCall(OpCodes.Call, indexerDef.GetMethod, new[] { typeof(string) });
             if(propertyDef.Type != typeof(object))
             {
-                if(propertyDef.Type.IsValueType)
-                {
-                    getIl.Emit(OpCodes.Unbox_Any, propertyDef.Type);
-                }
-                else
-                {
-                    getIl.Emit(OpCodes.Castclass, propertyDef.Type);
-                }
+                getIl.Emit(propertyDef.Type.IsValueType ? OpCodes.Unbox_Any : OpCodes.Castclass, propertyDef.Type);
             }
+
             getIl.Emit(OpCodes.Ret);
             propertyBuilder.SetGetMethod(getMethodBuilder);
 
             if(!propertyDef.IsReadOnly)
             {
-                var setMethodBuilder =
-                    builder.DefineMethod("set_" + propertyDef.PropertyName,
-                      MethodAttributes.Public |
-                      MethodAttributes.SpecialName |
-                      MethodAttributes.Virtual,
-                      null, new[] { propertyDef.Type });
+                var setMethodBuilder = builder.DefineMethod("set_" + propertyDef.PropertyName,
+                    MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.Virtual, null, new[] { propertyDef.Type });
                 var setIl = setMethodBuilder.GetILGenerator();
 
                 setIl.Emit(OpCodes.Ldarg_0);
@@ -136,16 +115,15 @@ namespace OpenCollar.Extensions.Configuration
                 {
                     setIl.Emit(OpCodes.Box, propertyDef.Type);
                 }
-                setIl.EmitCall(OpCodes.Call, indexerDef.SetMethod, new Type[] { typeof(string) });
+
+                setIl.EmitCall(OpCodes.Call, indexerDef.SetMethod, new[] { typeof(string) });
                 setIl.Emit(OpCodes.Ret);
 
                 propertyBuilder.SetSetMethod(setMethodBuilder);
             }
         }
 
-        /// <summary>
-        ///     Gets the type builder.
-        /// </summary>
+        /// <summary>Gets the type builder.</summary>
         /// <returns> </returns>
         private TypeBuilder GetTypeBuilder()
         {
@@ -160,13 +138,8 @@ namespace OpenCollar.Extensions.Configuration
             var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(an, AssemblyBuilderAccess.Run);
             var moduleBuilder = assemblyBuilder.DefineDynamicModule("MainModule");
             return moduleBuilder.DefineType(typeName,
-                    TypeAttributes.Public |
-                    TypeAttributes.Class |
-                    TypeAttributes.AutoClass |
-                    TypeAttributes.AnsiClass |
-                    TypeAttributes.BeforeFieldInit |
-                    TypeAttributes.AutoLayout,
-                    _baseClassType);
+                TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.AutoClass | TypeAttributes.AnsiClass | TypeAttributes.BeforeFieldInit |
+                TypeAttributes.AutoLayout, _baseClassType);
         }
     }
 }

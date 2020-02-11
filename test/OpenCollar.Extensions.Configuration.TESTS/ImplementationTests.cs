@@ -20,6 +20,8 @@
 using System;
 using System.Collections.Generic;
 
+using OpenCollar.Extensions.Configuration.Collections;
+
 using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS

@@ -21,23 +21,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 {
     internal class DisposableMock : Disposable
     {
-        private int _disposeCalls;
+        public int DisposeCalls { get; private set; }
 
-        public int DisposeCalls
-        {
-            get
-            {
-                return _disposeCalls;
-            }
-        }
-
-        public new bool IsDisposed
-        {
-            get
-            {
-                return base.IsDisposed;
-            }
-        }
+        public new bool IsDisposed => base.IsDisposed;
 
         public new void EnforceDisposed()
         {
@@ -46,7 +32,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
         protected override void Dispose(bool disposing)
         {
-            ++_disposeCalls;
+            ++DisposeCalls;
 
             base.Dispose(disposing);
         }

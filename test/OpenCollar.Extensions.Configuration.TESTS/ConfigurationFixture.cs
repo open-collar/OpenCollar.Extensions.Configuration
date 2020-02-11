@@ -19,6 +19,8 @@
 
 using System.Collections.Generic;
 
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Memory;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
@@ -27,7 +29,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
     {
         public ConfigurationFixture()
         {
-            var source = new Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource()
+            var source = new MemoryConfigurationSource()
             {
                 InitialData = new[]
                 {
@@ -63,24 +65,20 @@ namespace OpenCollar.Extensions.Configuration.TESTS
                     new KeyValuePair<string, string>(nameof(IRootElement.TimeSpanPropertyB), "00:30:30"),
                     new KeyValuePair<string, string>(nameof(IRootElement.EnumPropertyA), "Public"),
                     new KeyValuePair<string, string>(nameof(IRootElement.EnumPropertyB), "Instance"),
-                    new KeyValuePair<string, string>("CustomRoot", "XX_XX"),
-                    new KeyValuePair<string, string>("ChildDictionary:Item1:Name", "Item_1"),
+                    new KeyValuePair<string, string>("CustomRoot", "XX_XX"), new KeyValuePair<string, string>("ChildDictionary:Item1:Name", "Item_1"),
                     new KeyValuePair<string, string>("ChildDictionary:Item1:Value", "1"),
                     new KeyValuePair<string, string>("ChildDictionary:Item2:Name", "Item_2"),
                     new KeyValuePair<string, string>("ChildDictionary:Item2:Value", "2"),
                     new KeyValuePair<string, string>("ChildDictionary:Item3:Name", "Item_3"),
                     new KeyValuePair<string, string>("ChildDictionary:Item3:Value", "3"),
-                    new KeyValuePair<string, string>("ChildCollection:0:Name", "Item_0"),
-                    new KeyValuePair<string, string>("ChildCollection:0:Value", "0"),
-                    new KeyValuePair<string, string>("ChildCollection:1:Name", "Item_1"),
-                    new KeyValuePair<string, string>("ChildCollection:1:Value", "1"),
-                    new KeyValuePair<string, string>("ChildCollection:2:Name", "Item_2"),
-                    new KeyValuePair<string, string>("ChildCollection:2:Value", "2")
+                    new KeyValuePair<string, string>("ChildCollection:0:Name", "Item_0"), new KeyValuePair<string, string>("ChildCollection:0:Value", "0"),
+                    new KeyValuePair<string, string>("ChildCollection:1:Name", "Item_1"), new KeyValuePair<string, string>("ChildCollection:1:Value", "1"),
+                    new KeyValuePair<string, string>("ChildCollection:2:Name", "Item_2"), new KeyValuePair<string, string>("ChildCollection:2:Value", "2")
                 }
             };
 
-            var provider = new Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider(source);
-            ConfigurationRoot = new Microsoft.Extensions.Configuration.ConfigurationRoot(new[] { provider });
+            var provider = new MemoryConfigurationProvider(source);
+            ConfigurationRoot = new ConfigurationRoot(new[] { provider });
 
             IServiceCollection servicesCollection = new ServiceCollection();
             servicesCollection.AddSingleton(ConfigurationRoot);
@@ -89,23 +87,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Services = servicesCollection.BuildServiceProvider();
 
             RootElement = Services.GetService<IRootElement>();
-            RootElement.Load();  // TODO: Make this automatic - lazy evaluation?
+            RootElement.Load(); // TODO: Make this automatic - lazy evaluation?
         }
 
-        public Microsoft.Extensions.Configuration.IConfigurationRoot ConfigurationRoot
-        {
-            get;
-        }
+        public IConfigurationRoot ConfigurationRoot { get; }
 
-        public IRootElement RootElement
-        {
-            get;
-        }
+        public IRootElement RootElement { get; }
 
-        public ServiceProvider Services
-        {
-            get;
-        }
+        public ServiceProvider Services { get; }
 
         protected override void Dispose(bool disposing)
         {

@@ -17,6 +17,11 @@
  * Copyright © 2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
+using System;
+using System.Reflection;
+
+using OpenCollar.Extensions.Configuration.Collections;
+
 using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS.Collections
@@ -28,13 +33,16 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         {
             using(var fixture = new ConfigurationFixture())
             {
-                var def = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.StringPropertyA), System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance));
+                var def = new PropertyDef(typeof(IRootElement),
+                    typeof(IRootElement).GetProperty(nameof(IRootElement.StringPropertyA), BindingFlags.Public | BindingFlags.Instance));
 
-                var elementA = new Configuration.Collections.Element<string, IChildElement>(def, (OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<string, IChildElement>)fixture.RootElement.ChildDictionary, "TEST1");
-                var elementB = new Configuration.Collections.Element<string, IChildElement>(def, (OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<string, IChildElement>)fixture.RootElement.ChildDictionary, "TEST2");
+                var elementA = new Element<string, IChildElement>(def, (ConfigurationDictionaryBase<string, IChildElement>)fixture.RootElement.ChildDictionary,
+                    "TEST1");
+                var elementB = new Element<string, IChildElement>(def, (ConfigurationDictionaryBase<string, IChildElement>)fixture.RootElement.ChildDictionary,
+                    "TEST2");
 
                 Assert.True(elementA.Equals(elementA));
-                Assert.False(elementA.Equals((Configuration.Collections.Element<string, string>)null));
+                Assert.False(elementA.Equals((Element<string, string>)null));
                 Assert.False(elementA.Equals(elementB));
 
                 Assert.True(elementA.Equals((object)elementA));
@@ -47,11 +55,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         public void TestWithoutParent()
         {
             const string propertyName = "StringPropertyA";
-            var def = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(propertyName, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance));
+            var def = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance));
 
-            Assert.Throws<System.ArgumentNullException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
             {
-                var x = new Configuration.Collections.Element<string, string>(def, null, "TEST") { Value = "TESTVALUE" };
+                var x = new Element<string, string>(def, null, "TEST")
+                {
+                    Value = "TESTVALUE"
+                };
             });
         }
 
@@ -62,9 +73,10 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             {
                 var parentObject = fixture.RootElement;
 
-                var def = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.ChildDictionary), System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance));
+                var def = new PropertyDef(typeof(IRootElement),
+                    typeof(IRootElement).GetProperty(nameof(IRootElement.ChildDictionary), BindingFlags.Public | BindingFlags.Instance));
 
-                var x = new Configuration.Collections.Element<string, IChildElement>(def, (Configuration.Collections.ConfigurationDictionaryBase<string, IChildElement>)parentObject.ChildDictionary, "TEST");
+                var x = new Element<string, IChildElement>(def, (ConfigurationDictionaryBase<string, IChildElement>)parentObject.ChildDictionary, "TEST");
 
                 Assert.NotNull(x);
                 Assert.Equal("TEST", x.Key);

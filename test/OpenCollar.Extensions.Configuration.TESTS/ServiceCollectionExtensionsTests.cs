@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Memory;
 using Microsoft.Extensions.DependencyInjection;
 
 using Xunit;
@@ -12,15 +13,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         [Fact]
         public void TestAddService()
         {
-            var source = new Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource()
+            var source = new MemoryConfigurationSource()
             {
-                InitialData = new[]
-                {
-                    new KeyValuePair<string, string>(nameof(IRootElement.CharPropertyA), "a")
-                }
+                InitialData = new[] { new KeyValuePair<string, string>(nameof(IRootElement.CharPropertyA), "a") }
             };
 
-            var provider = new Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider(source);
+            var provider = new MemoryConfigurationProvider(source);
             var configurationRoot = new ConfigurationRoot(new[] { provider });
 
             IServiceCollection servicesCollection = new ServiceCollection();

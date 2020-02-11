@@ -17,22 +17,24 @@
  * Copyright © 2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
+using System;
 using System.Linq;
+using System.Reflection;
 
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Memory;
+
 using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
     public class ConfigurationObjectBaseTests : IClassFixture<ConfigurationFixture>
     {
-        private ConfigurationFixture _configurationFixture;
-
         public ConfigurationObjectBaseTests(ConfigurationFixture configurationFixture)
         {
             _configurationFixture = configurationFixture;
         }
+
+        private readonly ConfigurationFixture _configurationFixture;
 
         [Fact]
         public void TestChangeEvents()
@@ -69,20 +71,20 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.NotNull(x);
             Assert.Null(x.PropertyDef);
 
-            Assert.Throws<System.Reflection.TargetInvocationException>(() =>
+            Assert.Throws<TargetInvocationException>(() =>
             {
-                var y = System.Activator.CreateInstance(x.GetType(), (IConfigurationRoot)null, (IConfigurationParent)null);
+                var y = Activator.CreateInstance(x.GetType(), (IConfigurationRoot)null, (IConfigurationParent)null);
             });
 
             try
             {
-                var y = System.Activator.CreateInstance(x.GetType(), (IConfigurationRoot)null, (IConfigurationParent)null);
+                var y = Activator.CreateInstance(x.GetType(), (IConfigurationRoot)null, (IConfigurationParent)null);
             }
-            catch(System.Reflection.TargetInvocationException ex)
+            catch(TargetInvocationException ex)
             {
-                Assert.IsType<System.ArgumentNullException>(ex.InnerException);
+                Assert.IsType<ArgumentNullException>(ex.InnerException);
             }
-            catch(System.Exception ex)
+            catch(Exception ex)
             {
                 Assert.True(false);
             }
@@ -152,9 +154,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var x = _configurationFixture.RootElement;
 
-            Assert.Equal(new System.DateTime(2020, 01, 10, 18, 00, 30), x.DateTimePropertyA);
-            Assert.Equal(new System.DateTime(2019, 10, 01, 14, 30, 15), x.DateTimePropertyB);
-            var now = System.DateTime.UtcNow;
+            Assert.Equal(new DateTime(2020, 01, 10, 18, 00, 30), x.DateTimePropertyA);
+            Assert.Equal(new DateTime(2019, 10, 01, 14, 30, 15), x.DateTimePropertyB);
+            var now = DateTime.UtcNow;
             x.DateTimePropertyB = now;
             x.Save();
             x.Load();
@@ -166,9 +168,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var x = _configurationFixture.RootElement;
 
-            Assert.Equal(new System.DateTimeOffset(2020, 01, 10, 18, 00, 30, System.TimeSpan.FromHours(3)), x.DateTimeOffsetPropertyA);
-            Assert.Equal(new System.DateTimeOffset(2019, 10, 01, 14, 30, 15, System.TimeSpan.FromHours(3)), x.DateTimeOffsetPropertyB);
-            var now = System.DateTimeOffset.UtcNow;
+            Assert.Equal(new DateTimeOffset(2020, 01, 10, 18, 00, 30, TimeSpan.FromHours(3)), x.DateTimeOffsetPropertyA);
+            Assert.Equal(new DateTimeOffset(2019, 10, 01, 14, 30, 15, TimeSpan.FromHours(3)), x.DateTimeOffsetPropertyB);
+            var now = DateTimeOffset.UtcNow;
             x.DateTimeOffsetPropertyB = now;
             x.Save();
             x.Load();
@@ -206,12 +208,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var x = _configurationFixture.RootElement;
 
-            Assert.Equal(System.Reflection.BindingFlags.Public, x.EnumPropertyA);
-            Assert.Equal(System.Reflection.BindingFlags.Instance, x.EnumPropertyB);
-            x.EnumPropertyB = System.Reflection.BindingFlags.NonPublic;
+            Assert.Equal(BindingFlags.Public, x.EnumPropertyA);
+            Assert.Equal(BindingFlags.Instance, x.EnumPropertyB);
+            x.EnumPropertyB = BindingFlags.NonPublic;
             x.Save();
             x.Load();
-            Assert.Equal(System.Reflection.BindingFlags.NonPublic, x.EnumPropertyB);
+            Assert.Equal(BindingFlags.NonPublic, x.EnumPropertyB);
         }
 
         [Fact]
@@ -316,9 +318,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var x = _configurationFixture.RootElement;
 
-            Assert.Equal(new System.TimeSpan(04, 00, 10), x.TimeSpanPropertyA);
-            Assert.Equal(new System.TimeSpan(00, 30, 30), x.TimeSpanPropertyB);
-            var seventeenSeconds = System.TimeSpan.FromSeconds(17);
+            Assert.Equal(new TimeSpan(04, 00, 10), x.TimeSpanPropertyA);
+            Assert.Equal(new TimeSpan(00, 30, 30), x.TimeSpanPropertyB);
+            var seventeenSeconds = TimeSpan.FromSeconds(17);
             x.TimeSpanPropertyB = seventeenSeconds;
             x.Save();
             x.Load();

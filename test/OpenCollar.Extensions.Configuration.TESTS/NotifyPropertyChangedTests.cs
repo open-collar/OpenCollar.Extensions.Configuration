@@ -18,6 +18,7 @@
  */
 
 using System;
+using System.ComponentModel;
 
 using Xunit;
 
@@ -30,12 +31,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var x = new NotifyPropertyChangedMock();
 
-            System.ComponentModel.PropertyChangedEventArgs eventArgs = null;
+            PropertyChangedEventArgs eventArgs = null;
 
-            x.PropertyChanged += (sender, args) =>
-            {
-                eventArgs = args;
-            };
+            x.PropertyChanged += (sender, args) => { eventArgs = args; };
 
             x.IntPropertyA = 88;
 
@@ -56,10 +54,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var x = new NotifyPropertyChangedMock();
 
-            x.PropertyChanged += (sender, args) =>
-            {
-                throw new Exception("TEST");
-            };
+            x.PropertyChanged += (sender, args) => { throw new Exception("TEST"); };
 
             Assert.Throws<AggregateException>(() => { x.IntPropertyA = 88; });
         }
@@ -71,12 +66,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             x.IntPropertyA = 88;
 
-            System.ComponentModel.PropertyChangedEventArgs eventArgs = null;
+            PropertyChangedEventArgs eventArgs = null;
 
-            x.PropertyChanged += (sender, args) =>
-            {
-                eventArgs = args;
-            };
+            x.PropertyChanged += (sender, args) => { eventArgs = args; };
 
             x.IntPropertyA = 88;
 
@@ -88,12 +80,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var x = new NotifyPropertyChangedMock();
 
-            System.ComponentModel.PropertyChangedEventArgs eventArgs = null;
+            PropertyChangedEventArgs eventArgs = null;
 
-            x.PropertyChanged += (sender, args) =>
-            {
-                eventArgs = args;
-            };
+            x.PropertyChanged += (sender, args) => { eventArgs = args; };
 
             x.DisablePropertyChangedEvents();
 

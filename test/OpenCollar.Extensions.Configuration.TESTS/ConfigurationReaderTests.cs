@@ -25,14 +25,10 @@ using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
-    /// <summary>
-    ///     Tests for the <see cref="Configuration.ConfigurationReader." /> class.
-    /// </summary>
+    /// <summary>Tests for the <see cref="Configuration.ConfigurationReader."/> class.</summary>
     public class ConfigurationReaderTests
     {
-        /// <summary>
-        ///     Test that a service can be registered for a configuration object.
-        /// </summary>
+        /// <summary>Test that a service can be registered for a configuration object.</summary>
         [Fact]
         public void ServiceRegistration()
         {

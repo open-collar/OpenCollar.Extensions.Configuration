@@ -22,37 +22,26 @@ using System.Collections.Specialized;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>
-    ///     Defines a dictionary containing configurtation items and keyed on the element name.
-    /// </summary>
+    /// <summary>Defines a dictionary containing configuration items and keyed on the element name.</summary>
     /// <typeparam name="TElement"> The type of the elements contained in the dictionary. </typeparam>
-    /// <seealso cref="IDictionary{Type,T}" />
+    /// <seealso cref="IDictionary{TKey,TValue}"/>
     public interface IConfigurationDictionary<TElement> : IDictionary<string, TElement>, INotifyCollectionChanged
     {
-        /// <summary>
-        ///     Adds a new value with the key specified, copying the properties and elements from the value give,
-        ///     returning the new value.
-        /// </summary>
+        /// <summary>Adds a new value with the key specified, copying the properties and elements from the value give, returning the new value.</summary>
         /// <param name="key"> The key identifying the value to add. </param>
         /// <param name="value"> The value to copy. </param>
         /// <returns> The newly added element. </returns>
-        /// <remarks>
-        ///     Used to add objects and collections that have been constructed externally using alternate implementations.
-        /// </remarks>
+        /// <remarks>Used to add objects and collections that have been constructed externally using alternate implementations.</remarks>
         TElement AddCopy(string key, TElement value);
 
-        /// <summary>
-        ///     Adds a new value with the key specified, returning the new value.
-        /// </summary>
+        /// <summary>Adds a new value with the key specified, returning the new value.</summary>
         /// <param name="key"> The key identifying the value to add. </param>
         /// <returns> The newly added element. </returns>
         TElement AddNew(string key);
 
-        /// <summary>
-        ///     Determines whether this dictionary contains the element specified.
-        /// </summary>
+        /// <summary>Determines whether this dictionary contains the element specified.</summary>
         /// <param name="element"> The element for which to check. </param>
-        /// <returns> <see langword="true" /> if the dictionary contains the specified element; otherwise, <see langword="false" />. </returns>
+        /// <returns> <see langword="true"/> if the dictionary contains the specified element; otherwise, <see langword="false"/>. </returns>
         bool Contains(TElement element);
     }
 }

@@ -18,6 +18,8 @@
  */
 
 using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 using Xunit;
 
@@ -106,17 +108,17 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             var x = new TypeMismatchException(path, message, ex);
 
-            var serializer = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            var serializer = new BinaryFormatter();
 
             byte[] buffer;
-            using(var stream = new System.IO.MemoryStream())
+            using(var stream = new MemoryStream())
             {
                 serializer.Serialize(stream, x);
                 buffer = stream.ToArray();
             }
 
             TypeMismatchException y = null;
-            using(var stream = new System.IO.MemoryStream(buffer))
+            using(var stream = new MemoryStream(buffer))
             {
                 y = (TypeMismatchException)serializer.Deserialize(stream);
             }

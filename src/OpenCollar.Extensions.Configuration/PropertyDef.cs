@@ -19,60 +19,28 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>
-    ///     Specifies the ways in which a property can be used to represent structural elements.
-    /// </summary>
-    internal enum StructuralElementKind
-    {
-        /// <summary>
-        ///     The kind of structural element is unknown or undefined. Use of this value will usually result in an
-        ///     error; it is provided to as sentinel to detect accidental usages.
-        /// </summary>
-        Unknown = 0,
-
-        /// <summary>
-        ///     The element is a property that contains a single, unstructured, value.
-        /// </summary>
-        Property,
-
-        /// <summary>
-        ///     The property contains an array of elements.
-        /// </summary>
-        Array,
-
-        /// <summary>
-        ///     The property contains a dictionary of elements.
-        /// </summary>
-        Dictionary
-    }
-
-    /// <summary>
-    ///     The definition of a property of a configuration object.
-    /// </summary>
-    [System.Diagnostics.DebuggerDisplay("PropertyDef[{PropertyName}]")]
+    /// <summary>The definition of a property of a configuration object.</summary>
+    [DebuggerDisplay("PropertyDef[{" + nameof(PropertyName) + "}]")]
     public class PropertyDef
     {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="PropertyDef"/> class.</summary>
         /// <param name="interfaceType"> The type of the interface from which the property is taken. </param>
         /// <param name="propertyInfo"> The definition of the property. </param>
         /// <param name="defaultValue"> The default value. </param>
-        /// <param name="context"> The context in which the property is being defined. </param>
         internal PropertyDef(Type interfaceType, PropertyInfo propertyInfo, object? defaultValue) : this(interfaceType, propertyInfo)
         {
             HasDefaultValue = true;
             DefaultValue = defaultValue;
         }
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="PropertyDef"/> class.</summary>
         /// <param name="interfaceType"> The type of the interface from which the property is taken. </param>
         /// <param name="propertyInfo"> The definition of the property. </param>
         internal PropertyDef(Type interfaceType, PropertyInfo propertyInfo)
@@ -85,7 +53,7 @@ namespace OpenCollar.Extensions.Configuration
             IsReadOnly = !propertyInfo.CanWrite;
 
             var pathAttributes = propertyInfo.GetCustomAttributes(typeof(PathAttribute), true);
-            if(!ReferenceEquals(pathAttributes, null) && (pathAttributes.Length > 0))
+            if(pathAttributes.Length > 0)
             {
                 var pathAttribute = ((PathAttribute)pathAttributes[0]);
 
@@ -112,126 +80,58 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        /// <summary>
-        ///     Gets or sets the default value.
-        /// </summary>
-        /// <value> The default value. Can be <see langword="null" />. </value>
-        public object? DefaultValue
-        {
-            get;
-        }
+        /// <summary>Gets or sets the default value.</summary>
+        /// <value> The default value. Can be <see langword="null"/>. </value>
+        public object? DefaultValue { get; }
 
-        /// <summary>
-        ///     Gets the details of the specific implementation of this property.
-        /// </summary>
+        /// <summary>Gets the details of the specific implementation of this property.</summary>
         /// <value> The details of the specific implementation of this property. </value>
-        public Implementation? ElementImplementation
-        {
-            get;
-        }
+        public Implementation? ElementImplementation { get; }
 
-        /// <summary>
-        ///     Gets a value indicating whether the property represented by this instance has default a value.
-        /// </summary>
-        /// <value>
-        ///     <see langword="true" /> if the property represented by this instance has default a value; otherwise, <see langword="false" />.
-        /// </value>
-        public bool HasDefaultValue
-        {
-            get;
-        }
+        /// <summary>Gets a value indicating whether the property represented by this instance has default a value.</summary>
+        /// <value><see langword="true"/> if the property represented by this instance has default a value; otherwise, <see langword="false"/>.</value>
+        public bool HasDefaultValue { get; }
 
-        /// <summary>
-        ///     Gets the details of the specific implementation of this property.
-        /// </summary>
+        /// <summary>Gets the details of the specific implementation of this property.</summary>
         /// <value> The details of the specific implementation of this property. </value>
-        public Implementation Implementation
-        {
-            get;
-        }
+        public Implementation Implementation { get; }
 
-        /// <summary>
-        ///     Gets a value indicating whether the value of the property represented by this instance can be <see langword="null" />.
-        /// </summary>
-        /// <value>
-        ///     <see langword="true" /> if the value of the property represented by this instance is nullable;
-        ///     otherwise, <see langword="false" />.
-        /// </value>
-        public bool IsNullable
-        {
-            get;
-        }
+        /// <summary>Gets a value indicating whether the value of the property represented by this instance can be <see langword="null"/>.</summary>
+        /// <value><see langword="true"/> if the value of the property represented by this instance is nullable; otherwise, <see langword="false"/>.</value>
+        public bool IsNullable { get; }
 
-        /// <summary>
-        ///     Gets a value indicating whether this instance is read only.
-        /// </summary>
-        /// <value>
-        ///     <see langword="true" /> if the property is read only; otherwise, <see langword="false" /> for an
-        ///     editable property.
-        /// </value>
-        public bool IsReadOnly
-        {
-            get;
-        }
+        /// <summary>Gets a value indicating whether this instance is read only.</summary>
+        /// <value><see langword="true"/> if the property is read only; otherwise, <see langword="false"/> for an editable property.</value>
+        public bool IsReadOnly { get; }
 
-        /// <summary>
-        ///     Gets the path modifier.
-        /// </summary>
+        /// <summary>Gets the path modifier.</summary>
         /// <value> The path modifier. </value>
-        public PathIs PathModifier
-        {
-            get;
-        }
+        public PathIs PathModifier { get; }
 
-        /// <summary>
-        ///     Gets the path section.
-        /// </summary>
+        /// <summary>Gets the path section.</summary>
         /// <value> The path section. </value>
-        public string PathSection
-        {
-            get;
-        }
+        public string PathSection { get; }
 
-        /// <summary>
-        ///     Gets the property information that defines the interface property.
-        /// </summary>
+        /// <summary>Gets the property information that defines the interface property.</summary>
         /// <value> The property information that defines the interface property. </value>
-        public PropertyInfo PropertyInfo
-        {
-            get;
-        }
+        public PropertyInfo PropertyInfo { get; }
 
-        /// <summary>
-        ///     Gets the name of the property represented by this object.
-        /// </summary>
+        /// <summary>Gets the name of the property represented by this object.</summary>
         /// <value> The name of the property represented by this object. </value>
-        public string PropertyName
-        {
-            get;
-        }
+        public string PropertyName { get; }
 
-        /// <summary>
-        ///     Gets the type of the value held in the property.
-        /// </summary>
+        /// <summary>Gets the type of the value held in the property.</summary>
         /// <value> The type of the value held in the property. </value>
-        public Type Type
-        {
-            get;
-        }
+        public Type Type { get; }
 
         /// <summary>
-        ///     Gets the basic type represented by the type of the property (for example by <see cref="int?" /> would
-        ///     have an underlying type of <see cref="int" />).
+        ///     Gets the basic type represented by the type of the property (for example by <c>int?</c> would have an underlying type of <see cref="int"/>
+        ///     ).
         /// </summary>
         /// <returns> The basic type represented by the type given. </returns>
-        public Type UnderlyingType
-        {
-            get;
-        }
+        public Type UnderlyingType { get; }
 
-        /// <summary>
-        ///     Gets the basic type represented by the type given.
-        /// </summary>
+        /// <summary>Gets the basic type represented by the type given.</summary>
         /// <param name="type"> The type for which to find the underlying type. </param>
         /// <returns> </returns>
         public static Type GetUnderlyingType(Type type)
@@ -244,19 +144,19 @@ namespace OpenCollar.Extensions.Configuration
             return type;
         }
 
-        /// <summary>
-        ///     Determines whether a property can be set to <see langword="null" />.
-        /// </summary>
+        /// <summary>Determines whether a property can be set to <see langword="null"/>.</summary>
         /// <param name="implementingType"> Type of the object to which the property belongs. </param>
         /// <param name="property"> The definition of the property to examine. </param>
         /// <returns> </returns>
-        /// <exception cref="ArgumentException">
-        ///     <paramref name="implementingType" /> must be the type which defines property.
-        /// </exception>
+        /// <exception cref="ArgumentException"><paramref name="implementingType"/> must be the type which defines property.</exception>
         public static bool PropertyIsNullable(Type implementingType, PropertyInfo property)
         {
-            if(!implementingType.GetProperties(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).Contains(property))
+            if(!implementingType
+                .GetProperties(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly)
+                .Contains(property))
+            {
                 throw new ArgumentException("'enclosingType' must be the type which defines property.");
+            }
 
             var nullable = property.CustomAttributes.FirstOrDefault(x => x.AttributeType.FullName == @"System.Runtime.CompilerServices.NullableAttribute");
             if(!ReferenceEquals(nullable, null) && (nullable.ConstructorArguments.Count == 1))
@@ -276,10 +176,9 @@ namespace OpenCollar.Extensions.Configuration
                 }
             }
 
-            var context = implementingType.CustomAttributes.FirstOrDefault(x => x.AttributeType.FullName == "System.Runtime.CompilerServices.NullableContextAttribute");
-            if(!ReferenceEquals(context, null) &&
-                (context.ConstructorArguments.Count == 1) &&
-                (context.ConstructorArguments[0].ArgumentType == typeof(byte)))
+            var context = implementingType.CustomAttributes.FirstOrDefault(x =>
+                x.AttributeType.FullName == "System.Runtime.CompilerServices.NullableContextAttribute");
+            if(!ReferenceEquals(context, null) && (context.ConstructorArguments.Count == 1) && (context.ConstructorArguments[0].ArgumentType == typeof(byte)))
             {
                 if((byte)context.ConstructorArguments[0].Value == 2)
                 {
@@ -291,9 +190,7 @@ namespace OpenCollar.Extensions.Configuration
             return property.PropertyType.IsConstructedGenericType && (property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>));
         }
 
-        /// <summary>
-        ///     Gets the path to this configuration object.
-        /// </summary>
+        /// <summary>Gets the path to this configuration object.</summary>
         /// <returns> A string containing the path to this configuration object. </returns>
         public string GetPath(IConfigurationParent? parent)
         {
@@ -311,12 +208,10 @@ namespace OpenCollar.Extensions.Configuration
             return PathSection;
         }
 
-        /// <summary>
-        ///     Determines whether the current value is the same as the original value.
-        /// </summary>
+        /// <summary>Determines whether the current value is the same as the original value.</summary>
         /// <param name="original"> The original value. </param>
         /// <param name="current"> The current value. </param>
-        /// <returns> <see langword="true" /> if the values are the same; otherwise, <see langword="false" />. </returns>
+        /// <returns> <see langword="true"/> if the values are the same; otherwise, <see langword="false"/>. </returns>
         internal bool AreEqual(object? original, object? current)
         {
             if(ReferenceEquals(original, current))
@@ -338,9 +233,7 @@ namespace OpenCollar.Extensions.Configuration
             return UniversalComparer.Equals(original, current);
         }
 
-        /// <summary>
-        ///     Parses a string value into the type defined by the property definition.
-        /// </summary>
+        /// <summary>Parses a string value into the type defined by the property definition.</summary>
         /// <param name="path"> The path to the value being converted (used in error messages). </param>
         /// <param name="stringRepresentation"> The string to parse. </param>
         /// <returns> The string parsed as the type of this property. </returns>
@@ -375,99 +268,121 @@ namespace OpenCollar.Extensions.Configuration
             {
                 if(stringRepresentation.Length != 1)
                 {
-                    throw new ConfigurationException(path, $"Value could not be treated as a 'char'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+                    throw new ConfigurationException(path,
+                        $"Value could not be treated as a 'char'; configuration path: '{path}'; value: '{stringRepresentation}'.");
                 }
+
                 return stringRepresentation[0];
             }
 
             if(type == typeof(short))
             {
-                if(short.TryParse(stringRepresentation, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                if(short.TryParse(stringRepresentation, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsed))
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(path, $"Value could not be parsed as an 'Int16'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+
+                throw new ConfigurationException(path,
+                    $"Value could not be parsed as an 'Int16'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(sbyte))
             {
-                if(sbyte.TryParse(stringRepresentation, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                if(sbyte.TryParse(stringRepresentation, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsed))
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(path, $"Value could not be parsed as an 'SByte'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+
+                throw new ConfigurationException(path,
+                    $"Value could not be parsed as an 'SByte'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(int))
             {
-                if(int.TryParse(stringRepresentation, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var int32Value))
+                if(int.TryParse(stringRepresentation, NumberStyles.Integer, CultureInfo.InvariantCulture, out var int32Value))
                 {
                     return int32Value;
                 }
-                throw new ConfigurationException(path, $"Value could not be parsed as an 'Int32'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+
+                throw new ConfigurationException(path,
+                    $"Value could not be parsed as an 'Int32'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(long))
             {
-                if(long.TryParse(stringRepresentation, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var int64Value))
+                if(long.TryParse(stringRepresentation, NumberStyles.Integer, CultureInfo.InvariantCulture, out var int64Value))
                 {
                     return int64Value;
                 }
-                throw new ConfigurationException(path, $"Value could not be parsed as an 'Int64'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+
+                throw new ConfigurationException(path,
+                    $"Value could not be parsed as an 'Int64'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(float))
             {
-                if(float.TryParse(stringRepresentation, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                if(float.TryParse(stringRepresentation, NumberStyles.Float, CultureInfo.InvariantCulture, out var parsed))
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(path, $"Value could not be parsed as an 'Single'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+
+                throw new ConfigurationException(path,
+                    $"Value could not be parsed as an 'Single'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(double))
             {
-                if(double.TryParse(stringRepresentation, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                if(double.TryParse(stringRepresentation, NumberStyles.Float, CultureInfo.InvariantCulture, out var parsed))
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(path, $"Value could not be parsed as an 'Double'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+
+                throw new ConfigurationException(path,
+                    $"Value could not be parsed as an 'Double'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(decimal))
             {
-                if(decimal.TryParse(stringRepresentation, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                if(decimal.TryParse(stringRepresentation, NumberStyles.Float, CultureInfo.InvariantCulture, out var parsed))
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(path, $"Value could not be parsed as an 'Decimal'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+
+                throw new ConfigurationException(path,
+                    $"Value could not be parsed as an 'Decimal'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(DateTime))
             {
-                if(DateTime.TryParse(stringRepresentation, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out var parsed))
+                if(DateTime.TryParse(stringRepresentation, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out var parsed))
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(path, $"Value could not be parsed as an 'DateTime'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+
+                throw new ConfigurationException(path,
+                    $"Value could not be parsed as an 'DateTime'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(DateTimeOffset))
             {
-                if(DateTimeOffset.TryParse(stringRepresentation, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out var parsed))
+                if(DateTimeOffset.TryParse(stringRepresentation, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out var parsed))
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(path, $"Value could not be parsed as an 'DateTimeOffset'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+
+                throw new ConfigurationException(path,
+                    $"Value could not be parsed as an 'DateTimeOffset'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(TimeSpan))
             {
-                if(TimeSpan.TryParse(stringRepresentation, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                if(TimeSpan.TryParse(stringRepresentation, CultureInfo.InvariantCulture, out var parsed))
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(path, $"Value could not be parsed as an 'TimeSpan'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+
+                throw new ConfigurationException(path,
+                    $"Value could not be parsed as an 'TimeSpan'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(bool))
@@ -476,15 +391,15 @@ namespace OpenCollar.Extensions.Configuration
                 {
                     return parsed;
                 }
-                throw new ConfigurationException(path, $"Value could not be parsed as an 'Boolean'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+
+                throw new ConfigurationException(path,
+                    $"Value could not be parsed as an 'Boolean'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             return Convert.ChangeType(stringRepresentation, Type);
         }
 
-        /// <summary>
-        ///     Given a value that can be assigned to the property represented, returns a string equalivalent.
-        /// </summary>
+        /// <summary>Given a value that can be assigned to the property represented, returns a string equivalent.</summary>
         /// <param name="value"> The value. </param>
         /// <returns> The string equivalent of the value given. </returns>
         internal string? ConvertValueToString(object? value)
@@ -513,57 +428,57 @@ namespace OpenCollar.Extensions.Configuration
 
             if(type == typeof(short))
             {
-                return ((short)value).ToString("D", System.Globalization.CultureInfo.InvariantCulture);
+                return ((short)value).ToString("D", CultureInfo.InvariantCulture);
             }
 
             if(type == typeof(sbyte))
             {
-                return ((sbyte)value).ToString("D", System.Globalization.CultureInfo.InvariantCulture);
+                return ((sbyte)value).ToString("D", CultureInfo.InvariantCulture);
             }
 
             if(type == typeof(int))
             {
-                return ((int)value).ToString("D", System.Globalization.CultureInfo.InvariantCulture);
+                return ((int)value).ToString("D", CultureInfo.InvariantCulture);
             }
 
             if(type == typeof(long))
             {
-                return ((long)value).ToString("D", System.Globalization.CultureInfo.InvariantCulture);
+                return ((long)value).ToString("D", CultureInfo.InvariantCulture);
             }
 
             if(type == typeof(float))
             {
-                return ((float)value).ToString("G9", System.Globalization.CultureInfo.InvariantCulture);
+                return ((float)value).ToString("G9", CultureInfo.InvariantCulture);
             }
 
             if(type == typeof(double))
             {
-                return ((double)value).ToString("G17", System.Globalization.CultureInfo.InvariantCulture);
+                return ((double)value).ToString("G17", CultureInfo.InvariantCulture);
             }
 
             if(type == typeof(decimal))
             {
-                return ((decimal)value).ToString("G", System.Globalization.CultureInfo.InvariantCulture);
+                return ((decimal)value).ToString("G", CultureInfo.InvariantCulture);
             }
 
             if(type == typeof(DateTime))
             {
-                return ((DateTime)value).ToString("O", System.Globalization.CultureInfo.InvariantCulture);
+                return ((DateTime)value).ToString("O", CultureInfo.InvariantCulture);
             }
 
             if(type == typeof(DateTimeOffset))
             {
-                return ((DateTimeOffset)value).ToString("O", System.Globalization.CultureInfo.InvariantCulture);
+                return ((DateTimeOffset)value).ToString("O", CultureInfo.InvariantCulture);
             }
 
             if(type == typeof(TimeSpan))
             {
-                return ((TimeSpan)value).ToString("c", System.Globalization.CultureInfo.InvariantCulture);
+                return ((TimeSpan)value).ToString("c", CultureInfo.InvariantCulture);
             }
 
             if(type == typeof(bool))
             {
-                return ((bool)value).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                return ((bool)value).ToString(CultureInfo.InvariantCulture);
             }
 
             // For anything else, let's hope that "ToString" is good enough.

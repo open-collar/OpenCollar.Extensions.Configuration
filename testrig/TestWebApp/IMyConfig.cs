@@ -23,14 +23,8 @@ namespace TestWebApp
 {
     public interface IMyConfig : IConfigurationObject
     {
-        public string ReadOnlyString
-        {
-            get;
-        }
+        public string ReadOnlyString { get; }
 
-        public string ReadWriteString
-        {
-            get; set;
-        }
+        public string ReadWriteString { get; set; }
     }
 }

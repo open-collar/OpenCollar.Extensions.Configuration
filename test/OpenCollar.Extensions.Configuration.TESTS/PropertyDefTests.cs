@@ -18,8 +18,8 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Reflection;
+
 using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
@@ -29,7 +29,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         [Fact]
         public void TestPropertyIsNullable()
         {
-            var propertyInfo = typeof(string).GetProperty("Length", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
+            var propertyInfo = typeof(string).GetProperty("Length", BindingFlags.Instance | BindingFlags.Public);
 
             Assert.Throws<ArgumentException>(() => { PropertyDef.PropertyIsNullable(typeof(int), propertyInfo); });
         }

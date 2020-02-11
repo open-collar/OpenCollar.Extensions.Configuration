@@ -18,45 +18,45 @@
  */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+
+using OpenCollar.Extensions.Configuration.Collections;
 
 using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 {
-    /// <summary>
-    ///     Tests for the <see cref="Configuration.Collections.ConfigurationCollection{T}" /> class.
-    /// </summary>
+    /// <summary>Tests for the <see cref="Configuration.Collections.ConfigurationCollection{T}"/> class.</summary>
     public sealed class ConfigurationCollectionTests : IClassFixture<TestDataFixture>
     {
-        private readonly TestDataFixture _propertyTestData;
-
         public ConfigurationCollectionTests(TestDataFixture propertyDefFixture)
         {
             _propertyTestData = propertyDefFixture;
         }
+
+        private readonly TestDataFixture _propertyTestData;
 
         [Fact]
         public void AddAndRetrieveTests()
         {
             var testContext = _propertyTestData.GetContext();
 
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot);
 
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
             var c = testContext.GetChildElement("c");
 
-            var change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
-            x.CollectionChanged += (sender, args) =>
-            {
-                change = args.Action;
-            };
+            var change = (NotifyCollectionChangedAction)(-1);
+            x.CollectionChanged += (sender, args) => { change = args.Action; };
 
             x.AddCopy(a);
 
             Assert.Single(x);
-            Assert.Equal(System.Collections.Specialized.NotifyCollectionChangedAction.Add, change);
+            Assert.Equal(NotifyCollectionChangedAction.Add, change);
 
             x.AddCopy(b);
             x.AddCopy(c);
@@ -96,19 +96,17 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = testContext.GetChildElement("b");
             var c = testContext.GetChildElement("c");
             var d = testContext.GetChildElement("d");
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c, d);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot, a, b, c, d);
 
             Assert.Equal(4, x.Count);
 
-            var change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
-            x.CollectionChanged += (sender, args) =>
-            {
-                change = args.Action;
-            };
+            var change = (NotifyCollectionChangedAction)(-1);
+            x.CollectionChanged += (sender, args) => { change = args.Action; };
 
             x.Clear();
 
-            Assert.Equal(System.Collections.Specialized.NotifyCollectionChangedAction.Reset, change);
+            Assert.Equal(NotifyCollectionChangedAction.Reset, change);
 
             Assert.Equal(0, x.Count);
 
@@ -125,7 +123,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         public void ContainsTests()
         {
             var testContext = _propertyTestData.GetContext();
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot);
 
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
@@ -147,7 +146,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         public void CopyToTests()
         {
             var testContext = _propertyTestData.GetContext();
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot);
 
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
@@ -181,7 +181,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         public void DisposeTests()
         {
             var testContext = _propertyTestData.GetContext();
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot);
             x.Dispose();
             Assert.Throws<ObjectDisposedException>(() => x.IndexOf(null));
         }
@@ -190,7 +191,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         public void EnumeratorTests()
         {
             var testContext = _propertyTestData.GetContext();
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot);
 
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
@@ -227,9 +229,10 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                         break;
                 }
             }
+
             n = 0;
 
-            foreach(IChildElement item in (System.Collections.IEnumerable)x)
+            foreach(IChildElement item in (IEnumerable)x)
             {
                 switch(n++)
                 {
@@ -252,14 +255,22 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             }
 
             x.Dispose();
-            Assert.Throws<ObjectDisposedException>(() => { foreach(var y in x) { }; });
+            Assert.Throws<ObjectDisposedException>(() =>
+            {
+                foreach(var y in x)
+                {
+                }
+
+                ;
+            });
         }
 
         [Fact]
         public void IndexerTests()
         {
             var testContext = _propertyTestData.GetContext();
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot);
 
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
@@ -273,15 +284,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Equal(b, x[1], ConfigurationObjectComparer.Instance);
             Assert.Equal(c, x[2], ConfigurationObjectComparer.Instance);
 
-            var change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
-            x.CollectionChanged += (sender, args) =>
-            {
-                change = args.Action;
-            };
+            var change = (NotifyCollectionChangedAction)(-1);
+            x.CollectionChanged += (sender, args) => { change = args.Action; };
 
             x[0] = c;
 
-            Assert.Equal(System.Collections.Specialized.NotifyCollectionChangedAction.Replace, change);
+            Assert.Equal(NotifyCollectionChangedAction.Replace, change);
 
             x[2] = a;
 
@@ -297,7 +305,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         public void IndexOfTests()
         {
             var testContext = _propertyTestData.GetContext();
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot);
 
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
@@ -330,7 +339,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         public void InsertTests()
         {
             var testContext = _propertyTestData.GetContext();
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot);
 
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
@@ -341,17 +351,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             x.AddCopy(a);
             x.AddCopy(c);
 
-            var changes = new List<System.Collections.Specialized.NotifyCollectionChangedAction>();
-            x.CollectionChanged += (sender, args) =>
-            {
-                changes.Add(args.Action);
-            };
+            var changes = new List<NotifyCollectionChangedAction>();
+            x.CollectionChanged += (sender, args) => { changes.Add(args.Action); };
 
             x.InsertCopy(1, b);
 
             Assert.Equal(2, changes.Count);
-            Assert.Equal(System.Collections.Specialized.NotifyCollectionChangedAction.Add, changes[0]);
-            Assert.Equal(System.Collections.Specialized.NotifyCollectionChangedAction.Move, changes[1]);
+            Assert.Equal(NotifyCollectionChangedAction.Add, changes[0]);
+            Assert.Equal(NotifyCollectionChangedAction.Move, changes[1]);
 
             Assert.Equal(3, x.Count);
 
@@ -394,7 +401,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var c = testContext.GetChildElement("c");
             var e = testContext.GetChildElement("e");
 
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot, a, b, c);
 
             Assert.False(x.IsDirty);
 
@@ -407,7 +415,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         public void IsReadOnlyTests()
         {
             var testContext = _propertyTestData.GetContext();
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot);
 
             Assert.False(x.IsReadOnly);
         }
@@ -417,17 +426,15 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         {
             var testContext = _propertyTestData.GetContext();
 
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot);
 
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
 
             var callbackCount = 0;
 
-            x.PropertyChanged += (source, args) =>
-            {
-                ++callbackCount;
-            };
+            x.PropertyChanged += (source, args) => { ++callbackCount; };
 
             x.AddCopy(a);
 
@@ -442,7 +449,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         public void RemoveTests()
         {
             var testContext = _propertyTestData.GetContext();
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot);
 
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
@@ -453,18 +461,15 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             x.AddCopy(b);
             x.AddCopy(c);
 
-            var change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
-            x.CollectionChanged += (sender, args) =>
-            {
-                change = args.Action;
-            };
+            var change = (NotifyCollectionChangedAction)(-1);
+            x.CollectionChanged += (sender, args) => { change = args.Action; };
 
             Assert.True(x.Remove(b));
-            Assert.Equal(System.Collections.Specialized.NotifyCollectionChangedAction.Remove, change);
+            Assert.Equal(NotifyCollectionChangedAction.Remove, change);
 
-            change = (System.Collections.Specialized.NotifyCollectionChangedAction)(-1);
+            change = (NotifyCollectionChangedAction)(-1);
             Assert.False(x.Remove(b));
-            Assert.Equal((System.Collections.Specialized.NotifyCollectionChangedAction)(-1), change);
+            Assert.Equal((NotifyCollectionChangedAction)(-1), change);
 
             Assert.Equal(2, x.Count);
             Assert.Equal(a, x[0], ConfigurationObjectComparer.Instance);
@@ -497,9 +502,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Throws<ObjectDisposedException>(() => x.Remove(a));
         }
 
-        /// <summary>
-        ///     Tests for the constructor.
-        /// </summary>
+        /// <summary>Tests for the constructor.</summary>
         [Fact]
         public void TestConstructor()
         {
@@ -527,7 +530,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Equal(2, x.Count);
             Assert.Equal(propertyDef.PropertyName, x.PropertyDef.PropertyName);
 
-            x = new ConfigurationCollection<IChildElement>(null, propertyDef, testContext.Configuration.ConfigurationRoot, (IEnumerable<IChildElement>)(new[] { a, b }));
+            x = new ConfigurationCollection<IChildElement>(null, propertyDef, testContext.Configuration.ConfigurationRoot,
+                (IEnumerable<IChildElement>)(new[] { a, b }));
 
             Assert.NotNull(x);
             Assert.Equal(2, x.Count);
@@ -542,17 +546,19 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var b = testContext.GetChildElement("b");
             var c = testContext.GetChildElement("c");
 
-            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot);
 
-            foreach(var item in (System.Collections.IEnumerable)x)
+            foreach(var item in (IEnumerable)x)
             {
                 Assert.True(false);
             }
 
-            x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef, testContext.Configuration.ConfigurationRoot, a, b, c);
+            x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
+                testContext.Configuration.ConfigurationRoot, a, b, c);
 
             var n = 0;
-            foreach(IChildElement item in (System.Collections.IEnumerable)x)
+            foreach(IChildElement item in (IEnumerable)x)
             {
                 switch(n++)
                 {
@@ -575,7 +581,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             }
 
             x.Dispose();
-            Assert.Throws<ObjectDisposedException>(() => { foreach(var y in (System.Collections.IEnumerable)x) { }; });
+            Assert.Throws<ObjectDisposedException>(() =>
+            {
+                foreach(var y in (IEnumerable)x)
+                {
+                }
+
+                ;
+            });
         }
     }
 }

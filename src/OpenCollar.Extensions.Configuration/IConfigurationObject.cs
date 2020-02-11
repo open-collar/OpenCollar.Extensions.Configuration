@@ -22,57 +22,28 @@ using System.ComponentModel;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>
-    ///     The interface from which all configuration objects are derived.
-    /// </summary>
+    /// <summary>The interface from which all configuration objects are derived.</summary>
     public interface IConfigurationObject : IDisposable, INotifyPropertyChanged, IConfigurationParent
     {
-        /// <summary>
-        ///     Gets a value indicating whether this object has any properties with unsaved changes.
-        /// </summary>
-        /// <value>
-        ///     <see langword="true" /> if this object has any properties with unsaved changes; otherwise,
-        ///     <see langword="false" /> .
-        /// </value>
-        /// <exception cref="ObjectDisposedException">
-        ///     This method cannot be used after the object has been disposed of.
-        /// </exception>
-        bool IsDirty
-        {
-            get;
-        }
+        /// <summary>Gets a value indicating whether this object has any properties with unsaved changes.</summary>
+        /// <value><see langword="true"/> if this object has any properties with unsaved changes; otherwise, <see langword="false"/> .</value>
+        /// <exception cref="ObjectDisposedException">This method cannot be used after the object has been disposed of.</exception>
+        bool IsDirty { get; }
 
-        /// <summary>
-        ///     Gets the definition of this property object.
-        /// </summary>
+        /// <summary>Gets the definition of this property object.</summary>
         /// <value> The definition of this property object. </value>
-        PropertyDef PropertyDef
-        {
-            get;
-        }
+        PropertyDef? PropertyDef { get; }
 
-        /// <summary>
-        ///     Recursively deletes all of the properties from the configuration sources.
-        /// </summary>
-        /// <exception cref="ObjectDisposedException">
-        ///     This method cannot be used after the object has been disposed of.
-        /// </exception>
+        /// <summary>Recursively deletes all of the properties from the configuration sources.</summary>
+        /// <exception cref="ObjectDisposedException">This method cannot be used after the object has been disposed of.</exception>
         void Delete();
 
-        /// <summary>
-        ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
-        /// </summary>
-        /// <exception cref="ObjectDisposedException">
-        ///     This method cannot be used after the object has been disposed of.
-        /// </exception>
+        /// <summary>Loads all of the properties from the configuration sources, overwriting any unsaved changes.</summary>
+        /// <exception cref="ObjectDisposedException">This method cannot be used after the object has been disposed of.</exception>
         void Load();
 
-        /// <summary>
-        ///     Saves this current values for each property back to the configuration sources.
-        /// </summary>
-        /// <exception cref="ObjectDisposedException">
-        ///     This method cannot be used after the object has been disposed of.
-        /// </exception>
+        /// <summary>Saves this current values for each property back to the configuration sources.</summary>
+        /// <exception cref="ObjectDisposedException">This method cannot be used after the object has been disposed of.</exception>
         void Save();
     }
 }

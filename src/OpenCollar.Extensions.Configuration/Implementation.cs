@@ -1,51 +1,36 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
+
+using OpenCollar.Extensions.Configuration.Collections;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>
-    ///     Defines the way in which the value returned by a property is implemented.
-    /// </summary>
+    /// <summary>Defines the way in which the value returned by a property is implemented.</summary>
     public enum ImplementationKind
     {
-        /// <summary>
-        ///     The implementation is unknown or undefined.
-        /// </summary>
+        /// <summary>The implementation is unknown or undefined.</summary>
         Unknown = 0,
 
-        /// <summary>
-        ///     The implementation is the naive type (i.e. nothing special is required).
-        /// </summary>
+        /// <summary>The implementation is the naive type (i.e. nothing special is required).</summary>
         Naive,
 
-        /// <summary>
-        ///     The implementation is derived from <see cref="ConfigurationObjectBase{TInterface}" />.
-        /// </summary>
+        /// <summary>The implementation is derived from <see cref="ConfigurationObjectBase{TInterface}"/>.</summary>
         ConfigurationObject,
 
-        /// <summary>
-        ///     The implementation is derived from <see cref="ConfigurationCollection{TInterface}" />.
-        /// </summary>
+        /// <summary>The implementation is derived from <see cref="ConfigurationCollection{TElement}"/>.</summary>
         ConfigurationCollection,
 
-        /// <summary>
-        ///     The implementation is derived from <see cref="ConfigurationDictionary{TInterface}" />.
-        /// </summary>
+        /// <summary>The implementation is derived from <see cref="ConfigurationDictionary{TInterface}"/>.</summary>
         ConfigurationDictionary
     }
 
-    /// <summary>
-    ///     The details of the implementation of a property or element.
-    /// </summary>
+    /// <summary>The details of the implementation of a property or element.</summary>
     public sealed class Implementation
     {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="Implementation" /> class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="Implementation"/> class.</summary>
         /// <param name="underlyingType"> The underlying type of the property or collection represented. </param>
-        /// <param name="isReadOnly">
-        ///     If set to <see langword="true" /> the property or collection is treated as a read-only.
-        /// </param>
+        /// <param name="isReadOnly">If set to <see langword="true"/> the property or collection is treated as a read-only.</param>
         internal Implementation(Type underlyingType, bool isReadOnly)
         {
             ImplementationKind = GetImplementationKind(underlyingType);
@@ -69,6 +54,7 @@ namespace OpenCollar.Extensions.Configuration
                     {
                         ImplementationType = typeof(ConfigurationCollection<>).MakeGenericType(new[] { elementType });
                     }
+
                     Type = elementType;
                     break;
 
@@ -82,6 +68,7 @@ namespace OpenCollar.Extensions.Configuration
                     {
                         ImplementationType = typeof(ConfigurationDictionary<>).MakeGenericType(new[] { elementType });
                     }
+
                     Type = elementType;
                     break;
 
@@ -92,38 +79,19 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        /// <summary>
-        ///     Gets the kind of the implementation to use to instantiate values.
-        /// </summary>
+        /// <summary>Gets the kind of the implementation to use to instantiate values.</summary>
         /// <value> The kind of the implementation to use to instantiate values. </value>
-        public ImplementationKind ImplementationKind
-        {
-            get;
-        }
+        public ImplementationKind ImplementationKind { get; }
 
-        /// <summary>
-        ///     Gets the type of the object that implements values ( <see langword="null" /> if the property is naive).
-        /// </summary>
-        /// <value>
-        ///     The type of the object that implements values ( <see langword="null" /> if the property is naive).
-        /// </value>
-        public Type? ImplementationType
-        {
-            get;
-        }
+        /// <summary>Gets the type of the object that implements values ( <see langword="null"/> if the property is naive).</summary>
+        /// <value>The type of the object that implements values ( <see langword="null"/> if the property is naive).</value>
+        public Type? ImplementationType { get; }
 
-        /// <summary>
-        ///     Gets the type of the value represented (the type of the property).
-        /// </summary>
+        /// <summary>Gets the type of the value represented (the type of the property).</summary>
         /// <value> The type of the value represented (the type of the property). </value>
-        public Type Type
-        {
-            get;
-        }
+        public Type Type { get; }
 
-        /// <summary>
-        ///     Gets the kind of the implementation required for the type given.
-        /// </summary>
+        /// <summary>Gets the kind of the implementation required for the type given.</summary>
         /// <param name="type"> The type for which the implementation kind is required. </param>
         /// <returns> </returns>
         private static ImplementationKind GetImplementationKind(Type type)
@@ -146,11 +114,9 @@ namespace OpenCollar.Extensions.Configuration
             return ImplementationKind.Naive;
         }
 
-        /// <summary>
-        ///     Determines whether the specified type is a is configuration collection.
-        /// </summary>
+        /// <summary>Determines whether the specified type is a is configuration collection.</summary>
         /// <param name="type"> The type to verify. </param>
-        /// <returns> <see langword="true" /> if the type is configuration collection; otherwise, <see langword="false" />. </returns>
+        /// <returns> <see langword="true"/> if the type is configuration collection; otherwise, <see langword="false"/>. </returns>
         private static bool IsConfigurationCollection(Type type)
         {
             if(!type.IsConstructedGenericType)
@@ -165,16 +131,14 @@ namespace OpenCollar.Extensions.Configuration
 
             var arguments = type.GetGenericArguments();
 
-            System.Diagnostics.Debug.Assert(arguments.Length == 1);
+            Debug.Assert(arguments.Length == 1);
 
             return typeof(IConfigurationObject).IsAssignableFrom(arguments[0]);
         }
 
-        /// <summary>
-        ///     Determines whether the specified type is a is configuration dictionary.
-        /// </summary>
+        /// <summary>Determines whether the specified type is a is configuration dictionary.</summary>
         /// <param name="type"> The type to verify. </param>
-        /// <returns> <see langword="true" /> if the type is configuration dictionary; otherwise, <see langword="false" />. </returns>
+        /// <returns> <see langword="true"/> if the type is configuration dictionary; otherwise, <see langword="false"/>. </returns>
         private static bool IsConfigurationDictionary(Type type)
         {
             if(!type.IsConstructedGenericType)
@@ -189,7 +153,7 @@ namespace OpenCollar.Extensions.Configuration
 
             var arguments = type.GetGenericArguments();
 
-            System.Diagnostics.Debug.Assert(arguments.Length == 1);
+            Debug.Assert(arguments.Length == 1);
 
             return typeof(IConfigurationObject).IsAssignableFrom(arguments[0]);
         }
