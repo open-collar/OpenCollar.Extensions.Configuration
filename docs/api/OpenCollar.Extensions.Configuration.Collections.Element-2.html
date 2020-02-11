@@ -96,6 +96,7 @@
     <h5>Implements</h5>
     <div><a class="xref" href="OpenCollar.Extensions.Configuration.IValue.html">IValue</a></div>
     <div><a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationParent.html">IConfigurationParent</a></div>
+    <div><span class="xref">System.IEquatable</span>&lt;<a class="xref" href="OpenCollar.Extensions.Configuration.Collections.Element-2.html">Element</a>&lt;TKey, TValue&gt;&gt;</div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -163,9 +164,6 @@
       <a class="xref" href="OpenCollar.Extensions.Configuration.ValueBase-2.html#OpenCollar_Extensions_Configuration_ValueBase_2_OpenCollar_Extensions_Configuration_IValue_WriteValue_Microsoft_Extensions_Configuration_IConfigurationRoot_">ValueBase&lt;ConfigurationDictionaryBase&lt;TKey, TValue&gt;, TValue&gt;.IValue.WriteValue(IConfigurationRoot)</a>
     </div>
     <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
-    </div>
-    <div>
       <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
     </div>
     <div>
@@ -188,7 +186,7 @@
   <h6><strong>Assembly</strong>: OpenCollar.Extensions.Configuration.dll</h6>
   <h5 id="OpenCollar_Extensions_Configuration_Collections_Element_2_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class Element&lt;TKey, TValue&gt; : ValueBase&lt;ConfigurationDictionaryBase&lt;TKey, TValue&gt;, TValue&gt;, IValue, IConfigurationParent</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class Element&lt;TKey, TValue&gt; : ValueBase&lt;ConfigurationDictionaryBase&lt;TKey, TValue&gt;, TValue&gt;, IValue, IConfigurationParent, IEquatable&lt;Element&lt;TKey, TValue&gt;&gt;</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -216,7 +214,7 @@
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_Collections_Element_2_Key.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.Collections.Element%602.Key%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/e84e53485b5125c9ce82540c733ef486f0f88a8e/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L54">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/2819070b6ffda7554f52bc7113d55c7ca6e788b8/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L54">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_Collections_Element_2_Key_" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.Key*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_Collections_Element_2_Key" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.Key">Key</h4>
@@ -248,7 +246,7 @@
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_Collections_Element_2_ValueImplementation.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.Collections.Element%602.ValueImplementation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/e84e53485b5125c9ce82540c733ef486f0f88a8e/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L64">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/2819070b6ffda7554f52bc7113d55c7ca6e788b8/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L64">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_Collections_Element_2_ValueImplementation_" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.ValueImplementation*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_Collections_Element_2_ValueImplementation" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.ValueImplementation">ValueImplementation</h4>
@@ -281,10 +279,114 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_Collections_Element_2_Equals_OpenCollar_Extensions_Configuration_Collections_Element__0__1__.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.Collections.Element%602.Equals(OpenCollar.Extensions.Configuration.Collections.Element%7B%600%2C%601%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/2819070b6ffda7554f52bc7113d55c7ca6e788b8/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L80">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_Collections_Element_2_Equals_" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.Equals*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_Collections_Element_2_Equals_OpenCollar_Extensions_Configuration_Collections_Element__0__1__" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.Equals(OpenCollar.Extensions.Configuration.Collections.Element{`0,`1})">Equals(Element&lt;TKey, TValue&gt;)</h4>
+  <div class="markdown level1 summary"><p>Indicates whether the current object is equal to another object of the same type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(Element&lt;TKey, TValue&gt; other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenCollar.Extensions.Configuration.Collections.Element-2.html">Element</a>&lt;TKey, TValue&gt;</td>
+        <td><span class="parametername">other</span></td>
+        <td><p>An object to compare with this object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><span class="xref">true</span> if the current object is equal to the <code data-dev-comment-type="paramref" class="paramref">other</code> parameter;
+otherwise, <span class="xref">false</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_Collections_Element_2_Equals_System_Object_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.Collections.Element%602.Equals(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/2819070b6ffda7554f52bc7113d55c7ca6e788b8/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L101">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_Collections_Element_2_Equals_" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.Equals*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_Collections_Element_2_Equals_System_Object_" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.Equals(System.Object)">Equals(Object)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the specified <span class="xref">System.Object</span>, is equal to this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>The <span class="xref">System.Object</span> to compare with this instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><span class="xref">true</span> if the specified <span class="xref">System.Object</span> is equal to this instance;
+otherwise, <span class="xref">false</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Object.Equals(System.Object)</span></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_Collections_Element_2_GetPath.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.Collections.Element%602.GetPath%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/e84e53485b5125c9ce82540c733ef486f0f88a8e/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L76">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/2819070b6ffda7554f52bc7113d55c7ca6e788b8/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L117">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_Collections_Element_2_GetPath_" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.GetPath*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_Collections_Element_2_GetPath" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.GetPath">GetPath()</h4>
@@ -320,6 +422,9 @@
   <div>
       <a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationParent.html">IConfigurationParent</a>
   </div>
+  <div>
+      <span class="xref">System.IEquatable&lt;T&gt;</span>
+  </div>
 </article>
           </div>
           
@@ -331,7 +436,7 @@
                     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_Collections_Element_2.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.Collections.Element%602%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/e84e53485b5125c9ce82540c733ef486f0f88a8e/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L25" class="contribution-link">View Source</a>
+                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/2819070b6ffda7554f52bc7113d55c7ca6e788b8/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L25" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
@@ -350,7 +455,7 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.120</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.121</span></div></div>
             
           </div>
         </div>
