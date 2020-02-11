@@ -313,6 +313,28 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Throws<NotImplementedException>(() => x.Remove(2));
         }
 
+        [Fact]
+        public void TestChangeEvents()
+        {
+            var f = new ConfigurationFixture();
+
+            f.ConfigurationRoot["ReadOnlyChildCollection:3:Name"] = "NAME-A";
+            f.ConfigurationRoot["ReadOnlyChildCollection:3:Value"] = "333";
+
+            var x = f.RootElement.ReadOnlyChildCollection;
+
+            object newElement = null;
+
+            x.CollectionChanged += (s, args) => { newElement = args.NewItems[0]; };
+
+            f.ConfigurationRoot.Reload();
+
+            Assert.NotNull(newElement);
+            Assert.IsAssignableFrom<IChildElement>(newElement);
+            Assert.Equal("NAME-A", ((IChildElement)newElement).Name);
+            Assert.Equal(333, ((IChildElement)newElement).Value);
+        }
+
         /// <summary>
         ///     Tests for the constructor.
         /// </summary>

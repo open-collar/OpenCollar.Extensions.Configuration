@@ -23,7 +23,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     ///     A class used to represent a property on an interface and its location in the configuration model.
     /// </summary>
     [System.Diagnostics.DebuggerDisplay("Element[{Key,nq}={StringValue}] ({GetPath()})")]
-    public sealed class Element<TKey, TValue> : ValueBase<ConfigurationDictionaryBase<TKey, TValue>, TValue>
+    public sealed class Element<TKey, TValue> : ValueBase<ConfigurationDictionaryBase<TKey, TValue>, TValue>, System.IEquatable<Element<TKey, TValue>>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="Element{TKey,TValue}" /> class.
@@ -67,6 +67,47 @@ namespace OpenCollar.Extensions.Configuration.Collections
             {
                 return _propertyDef.ElementImplementation;
             }
+        }
+
+        /// <summary>
+        ///     Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other"> An object to compare with this object. </param>
+        /// <returns>
+        ///     <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter;
+        ///     otherwise, <see langword="false" />.
+        /// </returns>
+        public bool Equals(Element<TKey, TValue> other)
+        {
+            if(ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if(ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            return Equals(other.Key, this.Key);
+        }
+
+        /// <summary>
+        ///     Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj"> The <see cref="System.Object" /> to compare with this instance. </param>
+        /// <returns>
+        ///     <see langword="true" /> if the specified <see cref="System.Object" /> is equal to this instance;
+        ///     otherwise, <see langword="false" />.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            if(ReferenceEquals(obj, null))
+            {
+                return false;
+            }
+
+            var other = obj as Element<TKey, TValue>;
+
+            return Equals(other);
         }
 
         /// <summary>

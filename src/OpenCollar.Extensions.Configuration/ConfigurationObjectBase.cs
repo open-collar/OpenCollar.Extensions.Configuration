@@ -331,6 +331,10 @@ namespace OpenCollar.Extensions.Configuration
             {
                 if(_propertiesByPath.TryGetValue(section.Path, out var value))
                 {
+                    if(value.PropertyDef.Implementation.ImplementationKind != ImplementationKind.Naive)
+                    {
+                        continue; //Already subscribing to changes.
+                    }
                     value.ReadValue(_configurationRoot);
                 }
             }

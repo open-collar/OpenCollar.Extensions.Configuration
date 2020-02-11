@@ -17,18 +17,18 @@
  * Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-
-using Microsoft.Extensions.Configuration;
-
 namespace OpenCollar.Extensions.Configuration.Collections
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.Specialized;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Threading;
+
+    using Microsoft.Extensions.Configuration;
+
     /// <summary>
     ///     A base class provide the functionality used by both dictionaries and collections.
     /// </summary>
@@ -475,36 +475,26 @@ namespace OpenCollar.Extensions.Configuration.Collections
             var section = ConfigurationRoot.GetSection(path);
             var existingValues = section.GetChildren().Select(s => new KeyValuePair<TKey, IConfigurationSection>(ConvertStringToKey(s.Key), s)).ToList();
             var updatedValues = new List<Element<TKey, TElement>>();
-            foreach(var pair in existingValues)
-            {
-                Element<TKey, TElement> value;
-                if(!_itemsByKey.TryGetValue(pair.Key, out value))
-                {
-                    // If the value is a configuration object of some sort then create or reuse the existing value;
-                    value = new Element<TKey, TElement>(PropertyDef, this, pair.Key);
-                }
-                value.ReadValue(ConfigurationRoot);
-
-                // Add/update the value in the updated values list.
-                value.Saved();
-                updatedValues.Add(value);
-            }
+            var newValues = new List<Element<TKey, TElement>>();
 
             Interlocked.Increment(ref _suspendReadOnly);
             try
             {
-                Lock.EnterWriteLock();
-                try
+                foreach(var pair in existingValues)
                 {
-                    Replace(updatedValues);
-                    foreach(var element in _orderedItems)
+                    Element<TKey, TElement> value;
+                    if(!_itemsByKey.TryGetValue(pair.Key, out value))
                     {
-                        element.Saved();
+                        // If the value is a configuration object of some sort then create or reuse the existing value;
+                        value = new Element<TKey, TElement>(PropertyDef, this, pair.Key);
+                        newValues.Add(value);
+
+                        value.ReadValue(ConfigurationRoot);
+
+                        // Add/update the value in the updated values list.
+                        value.Saved();
                     }
-                }
-                finally
-                {
-                    Lock.ExitWriteLock();
+                    updatedValues.Add(value);
                 }
             }
             finally
@@ -512,8 +502,38 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 Interlocked.Decrement(ref _suspendReadOnly);
             }
 
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, updatedValues.Select(p => p.Value).ToList()));
+            var deletedValues = _orderedItems.ToArray().Except(updatedValues).ToList();
+
+            if((deletedValues.Count > 0) || (newValues.Count > 0))
+            {
+                Interlocked.Increment(ref _suspendReadOnly);
+                try
+                {
+                    Lock.EnterWriteLock();
+                    try
+                    {
+                        Replace(updatedValues);
+                    }
+                    finally
+                    {
+                        Lock.ExitWriteLock();
+                    }
+                }
+                finally
+                {
+                    Interlocked.Decrement(ref _suspendReadOnly);
+                }
+
+                if(deletedValues.Count > 0)
+                {
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, deletedValues.Select(p => p.Value).ToList()));
+                }
+
+                if(newValues.Count > 0)
+                {
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, newValues.Select(p => p.Value).ToList()));
+                }
+            }
         }
 
         /// <summary>
