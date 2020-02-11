@@ -42,7 +42,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                     "TEST2");
 
                 Assert.True(elementA.Equals(elementA));
-                Assert.False(elementA.Equals((Element<string, string>)null));
+                Assert.False(elementA.Equals((Element<string, IChildElement>)null));
                 Assert.False(elementA.Equals(elementB));
 
                 Assert.True(elementA.Equals((object)elementA));

@@ -244,6 +244,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Equal(c, z["c"]);
             Assert.Throws<ArgumentOutOfRangeException>(() => z["d"]);
 
+            var w = (IReadOnlyDictionary<string, IChildElement>)x;
+            Assert.Equal(a, w["a"]);
+            Assert.Equal(b, w["b"]);
+            Assert.Equal(c, w["c"]);
+            Assert.Throws<ArgumentOutOfRangeException>(() => w["d"]);
+
             Assert.Throws<NotImplementedException>(() => x["a"].Value = a);
 
             x.Dispose();
