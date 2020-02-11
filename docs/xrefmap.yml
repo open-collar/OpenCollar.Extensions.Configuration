@@ -2821,19 +2821,6 @@ references:
   isSpec: "True"
   fullName: OpenCollar.Extensions.Configuration.PropertyDef.Implementation
   nameWithType: PropertyDef.Implementation
-- uid: OpenCollar.Extensions.Configuration.PropertyDef.IsNullable
-  name: IsNullable
-  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_IsNullable
-  commentId: P:OpenCollar.Extensions.Configuration.PropertyDef.IsNullable
-  fullName: OpenCollar.Extensions.Configuration.PropertyDef.IsNullable
-  nameWithType: PropertyDef.IsNullable
-- uid: OpenCollar.Extensions.Configuration.PropertyDef.IsNullable*
-  name: IsNullable
-  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_IsNullable_
-  commentId: Overload:OpenCollar.Extensions.Configuration.PropertyDef.IsNullable
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.PropertyDef.IsNullable
-  nameWithType: PropertyDef.IsNullable
 - uid: OpenCollar.Extensions.Configuration.PropertyDef.IsReadOnly
   name: IsReadOnly
   href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_IsReadOnly
@@ -2886,19 +2873,6 @@ references:
   isSpec: "True"
   fullName: OpenCollar.Extensions.Configuration.PropertyDef.PropertyInfo
   nameWithType: PropertyDef.PropertyInfo
-- uid: OpenCollar.Extensions.Configuration.PropertyDef.PropertyIsNullable(System.Type,System.Reflection.PropertyInfo)
-  name: PropertyIsNullable(Type, PropertyInfo)
-  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_PropertyIsNullable_System_Type_System_Reflection_PropertyInfo_
-  commentId: M:OpenCollar.Extensions.Configuration.PropertyDef.PropertyIsNullable(System.Type,System.Reflection.PropertyInfo)
-  fullName: OpenCollar.Extensions.Configuration.PropertyDef.PropertyIsNullable(System.Type, System.Reflection.PropertyInfo)
-  nameWithType: PropertyDef.PropertyIsNullable(Type, PropertyInfo)
-- uid: OpenCollar.Extensions.Configuration.PropertyDef.PropertyIsNullable*
-  name: PropertyIsNullable
-  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_PropertyIsNullable_
-  commentId: Overload:OpenCollar.Extensions.Configuration.PropertyDef.PropertyIsNullable
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.PropertyDef.PropertyIsNullable
-  nameWithType: PropertyDef.PropertyIsNullable
 - uid: OpenCollar.Extensions.Configuration.PropertyDef.PropertyName
   name: PropertyName
   href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_PropertyName
