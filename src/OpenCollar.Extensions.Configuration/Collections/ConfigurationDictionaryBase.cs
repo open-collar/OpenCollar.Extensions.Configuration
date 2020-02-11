@@ -259,7 +259,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the configuration root service from which values are read or to which all values will be written.
         /// </summary>
-        /// <value> The configuration root service from which values are read or to which all values will be written. </value>
+        /// <value>
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </value>
         internal IConfigurationRoot ConfigurationRoot
         {
             get;
@@ -502,6 +504,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 Interlocked.Decrement(ref _suspendReadOnly);
             }
 
+            // TODO: How should we deal with values that weren;t added from the source but were added by the consumer at runtime?  Flags?
             var deletedValues = _orderedItems.ToArray().Except(updatedValues).ToList();
 
             if((deletedValues.Count > 0) || (newValues.Count > 0))

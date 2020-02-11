@@ -24,6 +24,26 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
     public sealed class ElementTests
     {
         [Fact]
+        public void TestEquals()
+        {
+            using(var fixture = new ConfigurationFixture())
+            {
+                var def = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.StringPropertyA), System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance));
+
+                var elementA = new Configuration.Collections.Element<string, IChildElement>(def, (OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<string, IChildElement>)fixture.RootElement.ChildDictionary, "TEST1");
+                var elementB = new Configuration.Collections.Element<string, IChildElement>(def, (OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<string, IChildElement>)fixture.RootElement.ChildDictionary, "TEST2");
+
+                Assert.True(elementA.Equals(elementA));
+                Assert.False(elementA.Equals((Configuration.Collections.Element<string, string>)null));
+                Assert.False(elementA.Equals(elementB));
+
+                Assert.True(elementA.Equals((object)elementA));
+                Assert.False(elementA.Equals((object)null));
+                Assert.False(elementA.Equals((object)elementB));
+            }
+        }
+
+        [Fact]
         public void TestWithoutParent()
         {
             const string propertyName = "StringPropertyA";
