@@ -1582,14 +1582,6 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.ConfigurationObjectBase(Of TInterface).ConfigurationObjectBase(Microsoft.Extensions.Configuration.IConfigurationRoot, OpenCollar.Extensions.Configuration.IConfigurationParent)
   nameWithType: ConfigurationObjectBase<TInterface>.ConfigurationObjectBase(IConfigurationRoot, IConfigurationParent)
   nameWithType.vb: ConfigurationObjectBase(Of TInterface).ConfigurationObjectBase(IConfigurationRoot, IConfigurationParent)
-- uid: OpenCollar.Extensions.Configuration.ConfigurationObjectBase`1.#ctor(OpenCollar.Extensions.Configuration.PropertyDef,Microsoft.Extensions.Configuration.IConfigurationRoot,OpenCollar.Extensions.Configuration.IConfigurationParent)
-  name: ConfigurationObjectBase(PropertyDef, IConfigurationRoot, IConfigurationParent)
-  href: api/OpenCollar.Extensions.Configuration.ConfigurationObjectBase-1.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_1__ctor_OpenCollar_Extensions_Configuration_PropertyDef_Microsoft_Extensions_Configuration_IConfigurationRoot_OpenCollar_Extensions_Configuration_IConfigurationParent_
-  commentId: M:OpenCollar.Extensions.Configuration.ConfigurationObjectBase`1.#ctor(OpenCollar.Extensions.Configuration.PropertyDef,Microsoft.Extensions.Configuration.IConfigurationRoot,OpenCollar.Extensions.Configuration.IConfigurationParent)
-  fullName: OpenCollar.Extensions.Configuration.ConfigurationObjectBase<TInterface>.ConfigurationObjectBase(OpenCollar.Extensions.Configuration.PropertyDef, Microsoft.Extensions.Configuration.IConfigurationRoot, OpenCollar.Extensions.Configuration.IConfigurationParent)
-  fullName.vb: OpenCollar.Extensions.Configuration.ConfigurationObjectBase(Of TInterface).ConfigurationObjectBase(OpenCollar.Extensions.Configuration.PropertyDef, Microsoft.Extensions.Configuration.IConfigurationRoot, OpenCollar.Extensions.Configuration.IConfigurationParent)
-  nameWithType: ConfigurationObjectBase<TInterface>.ConfigurationObjectBase(PropertyDef, IConfigurationRoot, IConfigurationParent)
-  nameWithType.vb: ConfigurationObjectBase(Of TInterface).ConfigurationObjectBase(PropertyDef, IConfigurationRoot, IConfigurationParent)
 - uid: OpenCollar.Extensions.Configuration.ConfigurationObjectBase`1.#ctor*
   name: ConfigurationObjectBase
   href: api/OpenCollar.Extensions.Configuration.ConfigurationObjectBase-1.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_1__ctor_
