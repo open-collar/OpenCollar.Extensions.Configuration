@@ -159,6 +159,17 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             get; set;
         }
 
+        public NonFlagsEnum NonFlagsEnumPropertyA
+        {
+            get;
+        }
+
+        public NonFlagsEnum NonFlagsEnumPropertyB
+        {
+            get;
+            set;
+        }
+
         public PropertyDef PropertyDef
         {
             get; set;

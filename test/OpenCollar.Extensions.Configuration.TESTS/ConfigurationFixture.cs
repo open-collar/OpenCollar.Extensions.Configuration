@@ -75,7 +75,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS
                     new KeyValuePair<string, string>("ChildDictionary:Item3:Value", "3"),
                     new KeyValuePair<string, string>("ChildCollection:0:Name", "Item_0"), new KeyValuePair<string, string>("ChildCollection:0:Value", "0"),
                     new KeyValuePair<string, string>("ChildCollection:1:Name", "Item_1"), new KeyValuePair<string, string>("ChildCollection:1:Value", "1"),
-                    new KeyValuePair<string, string>("ChildCollection:2:Name", "Item_2"), new KeyValuePair<string, string>("ChildCollection:2:Value", "2")
+                    new KeyValuePair<string, string>("ChildCollection:2:Name", "Item_2"), new KeyValuePair<string, string>("ChildCollection:2:Value", "2"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.NonFlagsEnumPropertyA), "First"),
+                    new KeyValuePair<string, string>(nameof(IRootElement.NonFlagsEnumPropertyB), "Third")
                 }
             };
 

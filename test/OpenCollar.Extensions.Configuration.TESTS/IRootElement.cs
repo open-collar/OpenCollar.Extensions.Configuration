@@ -22,6 +22,15 @@ using System.Reflection;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
+    public enum NonFlagsEnum
+    {
+        Unknown = 0,
+
+        First,
+
+        Second, Third
+    }
+
     public interface IRootElement : IConfigurationObject
     {
         // We would expect this to be implemented as a read-only property.
@@ -184,6 +193,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
         // We would expect this to be implemented as a read/write property.
         long Int64PropertyB
+        {
+            get; set;
+        }
+
+        // We would expect this to be implemented as a read-only property.
+        NonFlagsEnum NonFlagsEnumPropertyA
+        {
+            get;
+        }
+
+        // We would expect this to be implemented as a read/write property.
+        NonFlagsEnum NonFlagsEnumPropertyB
         {
             get; set;
         }

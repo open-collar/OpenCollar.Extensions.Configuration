@@ -103,7 +103,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         [Fact]
-        public void TestConvertStringToValue_Enum()
+        public void TestConvertStringToValue_EnumFlags()
         {
             var propertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.EnumPropertyA), BindingFlags.Instance | BindingFlags.Public));
 
@@ -112,7 +112,19 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.Equal(BindingFlags.NonPublic, (BindingFlags)propertyDef.ConvertStringToValue("PATH", "32"));
 
             Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "NOT A VALUE"); });
-            Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "999"); });
+        }
+
+        [Fact]
+        public void TestConvertStringToValue_EnumNonFlags()
+        {
+            var propertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.NonFlagsEnumPropertyA), BindingFlags.Instance | BindingFlags.Public));
+
+            Assert.Equal(NonFlagsEnum.First, (NonFlagsEnum)propertyDef.ConvertStringToValue("PATH", "First"));
+            Assert.Equal(NonFlagsEnum.Second, (NonFlagsEnum)propertyDef.ConvertStringToValue("PATH", "2"));
+            Assert.Equal(NonFlagsEnum.Third, (NonFlagsEnum)propertyDef.ConvertStringToValue("PATH", "3"));
+
+            Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "5"); });
+            Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "NOT A VALUE"); });
         }
 
         [Fact]

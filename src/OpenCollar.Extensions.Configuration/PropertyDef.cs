@@ -279,6 +279,17 @@ namespace OpenCollar.Extensions.Configuration
             {
                 if(Enum.TryParse(type, stringRepresentation, out var enumValue))
                 {
+                    if(type.GetCustomAttributes<FlagsAttribute>().Any())
+                    {
+                        return enumValue;
+                    }
+
+                    if(!Enum.IsDefined(type, enumValue))
+                    {
+                        throw new ConfigurationException(path,
+                            $"Value could not be treated as a '{type.FullName}'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+                    }
+
                     return enumValue;
                 }
                 throw new ConfigurationException(path,
