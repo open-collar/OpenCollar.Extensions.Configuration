@@ -1144,25 +1144,6 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).SetParent
   nameWithType: ConfigurationDictionaryBase<TKey, TElement>.SetParent
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).SetParent
-- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.System#Collections#IEnumerable#GetEnumerator
-  name: IEnumerable.GetEnumerator()
-  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_System_Collections_IEnumerable_GetEnumerator
-  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.System#Collections#IEnumerable#GetEnumerator
-  name.vb: System.Collections.IEnumerable.GetEnumerator()
-  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.System.Collections.IEnumerable.GetEnumerator()
-  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).System.Collections.IEnumerable.GetEnumerator()
-  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.IEnumerable.GetEnumerator()
-  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).System.Collections.IEnumerable.GetEnumerator()
-- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.System#Collections#IEnumerable#GetEnumerator*
-  name: IEnumerable.GetEnumerator
-  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_System_Collections_IEnumerable_GetEnumerator_
-  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.System#Collections#IEnumerable#GetEnumerator
-  isSpec: "True"
-  name.vb: System.Collections.IEnumerable.GetEnumerator
-  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.System.Collections.IEnumerable.GetEnumerator
-  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).System.Collections.IEnumerable.GetEnumerator
-  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.IEnumerable.GetEnumerator
-  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).System.Collections.IEnumerable.GetEnumerator
 - uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.TryGetValue(`0,`1@)
   name: TryGetValue(TKey, out TElement)
   href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_TryGetValue__0__1__
