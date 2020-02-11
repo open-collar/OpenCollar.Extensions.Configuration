@@ -202,5 +202,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "NOT A DATE"); });
         }
+
+        [Fact]
+        public void TestGetPath()
+        {
+            var propertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.NonFlagsEnumPropertyA), BindingFlags.Instance | BindingFlags.Public));
+
+            Assert.Equal(nameof(IRootElement.NonFlagsEnumPropertyA), propertyDef.GetPath(null));
+
+            var parent = new ConfigurationParentMock();
+            parent.Path = "TEST";
+
+            Assert.Equal("TEST:" + nameof(IRootElement.NonFlagsEnumPropertyA), propertyDef.GetPath(parent));
+        }
     }
 }
