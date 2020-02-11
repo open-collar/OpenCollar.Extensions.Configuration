@@ -109,7 +109,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             Assert.Equal(BindingFlags.NonPublic, (BindingFlags)propertyDef.ConvertStringToValue("PATH", "NonPublic"));
             Assert.Equal(BindingFlags.CreateInstance, (BindingFlags)propertyDef.ConvertStringToValue("PATH", "CreateInstance"));
-            Assert.Equal(BindingFlags.CreateInstance, (BindingFlags)propertyDef.ConvertStringToValue("PATH", "2"));
+            Assert.Equal(BindingFlags.NonPublic, (BindingFlags)propertyDef.ConvertStringToValue("PATH", "32"));
 
             Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "NOT A VALUE"); });
             Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "999"); });
