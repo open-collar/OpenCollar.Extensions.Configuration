@@ -32,7 +32,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     ///     an element is added or removed.
     /// </summary>
     /// <typeparam name="TElement"> The type of the element. </typeparam>
-    [DebuggerDisplay("ReadOnlyConfigurationCollection[{Count}] ({GetPath()})")]
+    [DebuggerDisplay("ReadOnlyConfigurationCollection[{Count}] ({CalculatePath()})")]
     public sealed class ReadOnlyConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IReadOnlyCollection<TElement>,
         IConfigurationCollection<TElement>
     {
@@ -103,14 +103,14 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     Used to add objects and collections that have been constructed externally using alternate implementations.
         /// </remarks>
         /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
-        public TElement AddCopy(TElement value) => throw new NotImplementedException("This collection is read-only.");
+        public TElement AddCopy(TElement value) => throw new NotImplementedException(Resources.Exceptions.CollectionIsReadOnly);
 
         /// <summary>
         ///     Adds a new value with the key specified, returning the new value.
         /// </summary>
         /// <returns> The newly added element. </returns>
         /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
-        public TElement AddNew() => throw new NotImplementedException("This collection is read-only.");
+        public TElement AddNew() => throw new NotImplementedException(Resources.Exceptions.CollectionIsReadOnly);
 
         /// <summary>
         ///     Determines whether this instance contains the object.
@@ -136,13 +136,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
 
             if(arrayIndex < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, $"'{nameof(arrayIndex)}' must be at least zero.");
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_NumberTooSmall, nameof(arrayIndex)));
             }
 
             if((arrayIndex + Count) > array.Length)
             {
                 throw new ArgumentOutOfRangeException(nameof(array), array,
-                    $"'{nameof(array)}' is not large enough to hold the contents of this collection (if data is copied to the location specified by '{nameof(arrayIndex)}'.");
+                    string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArrayTooSmall, nameof(array), nameof(arrayIndex)));
             }
 
             foreach(var item in this)
@@ -196,7 +196,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         public void Insert(int index, TElement item)
         {
             EnforceDisposed();
-            throw new NotImplementedException("This collection is read-only.");
+            throw new NotImplementedException(Resources.Exceptions.CollectionIsReadOnly);
         }
 
         /// <summary>
@@ -207,15 +207,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
         public void RemoveAt(int index)
         {
             EnforceDisposed();
-            throw new NotImplementedException("This collection is read-only.");
+            throw new NotImplementedException(Resources.Exceptions.CollectionIsReadOnly);
         }
 
         /// <summary>
         ///     Returns an enumerator that iterates through a collection.
         /// </summary>
-        /// <returns>
-        ///     An <see cref="System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
-        /// </returns>
+        /// <returns> An <see cref="IEnumerator" /> object that can be used to iterate through the collection. </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)Values).GetEnumerator();

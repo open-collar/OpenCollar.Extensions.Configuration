@@ -32,7 +32,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <typeparam name="TElement"> The type of the element. </typeparam>
     /// <seealso cref="ConfigurationDictionaryBase{TKey,TElement}" />
     /// <seealso cref="IConfigurationDictionary{TElement}" />
-    [DebuggerDisplay("ReadOnlyConfigurationDictionary[{Count}] ({GetPath()})")]
+    [DebuggerDisplay("ReadOnlyConfigurationDictionary[{Count}] ({CalculatePath()})")]
     public sealed class ReadOnlyConfigurationDictionary<TElement> : ConfigurationDictionary<TElement>, IReadOnlyDictionary<string, TElement>
     {
         /// <summary>
@@ -110,9 +110,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Returns an enumerator that iterates through a collection.
         /// </summary>
-        /// <returns>
-        ///     An <see cref="System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
-        /// </returns>
+        /// <returns> An <see cref="IEnumerator" /> object that can be used to iterate through the collection. </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             EnforceDisposed();

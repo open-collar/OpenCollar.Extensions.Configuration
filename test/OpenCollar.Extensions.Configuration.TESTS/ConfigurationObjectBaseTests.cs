@@ -37,6 +37,20 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         [Fact]
+        public void TestCalculatePath()
+        {
+            var x = _configurationFixture.RootElement;
+
+            Assert.Equal(string.Empty, x.CalculatePath());
+
+            var y = x.ChildCollection;
+
+            var z = y[0];
+
+            Assert.Equal("ChildCollection:0", z.CalculatePath());
+        }
+
+        [Fact]
         public void TestChangeEvents()
         {
             var x = _configurationFixture.RootElement;
@@ -107,20 +121,6 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             {
                 Assert.Null(valuesAfter[path].Value);
             }
-        }
-
-        [Fact]
-        public void TestGetPath()
-        {
-            var x = _configurationFixture.RootElement;
-
-            Assert.Equal(string.Empty, x.GetPath());
-
-            var y = x.ChildCollection;
-
-            var z = y[0];
-
-            Assert.Equal("ChildCollection:0", z.GetPath());
         }
 
         [Fact]

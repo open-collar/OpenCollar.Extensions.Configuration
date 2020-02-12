@@ -28,7 +28,7 @@ using Xunit;
 namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 {
     /// <summary>
-    ///     Tests for the <see cref="Configuration.Collections.ReadOnlyConfigurationCollection{T}" /> class.
+    ///     Tests for the <see cref="ReadOnlyConfigurationCollection{T}" /> class.
     /// </summary>
     public sealed class ReadOnlyConfigurationCollectionTests : IClassFixture<TestDataFixture>
     {

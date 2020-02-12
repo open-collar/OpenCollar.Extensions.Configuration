@@ -67,7 +67,7 @@ namespace OpenCollar.Extensions.Configuration
         {
             if(string.IsNullOrWhiteSpace(path))
             {
-                throw new ArgumentException($"'{nameof(path)}' must contain a valid path or fragment of a path.", nameof(path));
+                throw new ArgumentException(string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_Path, nameof(path)), nameof(path));
             }
 
             switch(usage)
@@ -77,7 +77,7 @@ namespace OpenCollar.Extensions.Configuration
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(usage), usage, "'usage' does not contain a valid value.");
+                    throw new ArgumentOutOfRangeException(nameof(usage), usage, string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_EnumDoesNotContainValidValue, nameof(usage)));
             }
 
             Usage = usage;

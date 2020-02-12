@@ -209,7 +209,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the path to this configuration object.
         /// </summary>
         /// <returns> A string containing the path to this configuration object. </returns>
-        public string GetPath(IConfigurationParent? parent)
+        public string CalculatePath(IConfigurationParent? parent)
         {
             if(ReferenceEquals(parent, null))
             {
@@ -219,7 +219,7 @@ namespace OpenCollar.Extensions.Configuration
             switch(PathModifier)
             {
                 case PathIs.Suffix:
-                    return PathHelper.GetPath(parent.GetPath(), PathSection);
+                    return PathHelper.CalculatePath(parent.CalculatePath(), PathSection);
             }
 
             return PathSection;

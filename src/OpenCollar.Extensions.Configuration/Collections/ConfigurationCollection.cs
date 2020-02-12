@@ -25,6 +25,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 
+using OpenCollar.Extensions.Configuration.Validation;
+
 using Microsoft.Extensions.Configuration;
 
 namespace OpenCollar.Extensions.Configuration.Collections
@@ -36,7 +38,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <typeparam name="TElement"> The type of the element. </typeparam>
     /// <seealso cref="ConfigurationDictionaryBase{TKey,TElement}" />
     /// <seealso cref="IConfigurationCollection{TElement}" />
-    [DebuggerDisplay("ConfigurationCollection[{Count}] ({GetPath()})")]
+    [DebuggerDisplay("ConfigurationCollection[{Count}] ({CalculatePath()})")]
     public class ConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IConfigurationCollection<TElement>
     {
         /// <summary>
@@ -132,17 +134,20 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     <paramref name="arrayIndex" /> must be at least zero. or <paramref name="array" /> is not large enough
         ///     to hold the contents of this collection (if data is copied to the location specified by <paramref name="arrayIndex" />.
         /// </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="array" /> is <see langword="null" />. </exception>
         public void CopyTo(TElement[] array, int arrayIndex)
         {
+            array.Validate(nameof(array), ObjectIs.NotNull);
+
             if(arrayIndex < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, $"'{nameof(arrayIndex)}' must be at least zero.");
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_EnumValueNotEnum, nameof(arrayIndex)));
             }
 
             if((arrayIndex + Count) > array.Length)
             {
                 throw new ArgumentOutOfRangeException(nameof(array), array,
-                    $"'{nameof(array)}' is not large enough to hold the contents of this collection (if data is copied to the location specified by '{nameof(arrayIndex)}'.");
+                    string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArrayTooSmall, nameof(array), nameof(arrayIndex)));
             }
 
             foreach(var item in this)
@@ -195,26 +200,28 @@ namespace OpenCollar.Extensions.Configuration.Collections
         {
             EnforceDisposed();
 
+            System.Diagnostics.Debug.Assert(PropertyDef.ElementImplementation != null);
+
             if(PropertyDef.ElementImplementation.ImplementationKind != ImplementationKind.Naive)
             {
                 if(!ReferenceEquals(item, null))
                 {
                     if(PropertyDef.ElementImplementation.ImplementationType != item.GetType())
                     {
-                        throw new TypeMismatchException($"Expected object of type {PropertyDef.ElementImplementation.ImplementationType.FullName}.", GetPath());
+                        throw new TypeMismatchException($"Expected object of type {PropertyDef.ElementImplementation.ImplementationType.FullName}.", CalculatePath());
                     }
                 }
             }
 
             if(index < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(index), index, $"'{nameof(index)}' must be greater than or equal to zero.");
+                throw new ArgumentOutOfRangeException(nameof(index), index, string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_NumberMustBeGreaterThanEqualZero, nameof(index)));
             }
 
             if(index > InnerCount)
             {
                 throw new ArgumentOutOfRangeException(nameof(index), index,
-                    $"'{nameof(index)}' must be less than or equal to the number of items in the collection.");
+                    string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_MustBeLessThanOrEqualToCount, nameof(index)));
             }
 
             if(index == Count)
@@ -279,12 +286,14 @@ namespace OpenCollar.Extensions.Configuration.Collections
         {
             TElement copy;
 
+            Debug.Assert(PropertyDef.ElementImplementation != null);
+
             switch(PropertyDef.ElementImplementation.ImplementationKind)
             {
                 case ImplementationKind.ConfigurationCollection:
                     if(ReferenceEquals(item, null))
                     {
-                        copy = default;
+                        copy = default!;
                     }
                     else
                     {
@@ -297,7 +306,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 case ImplementationKind.ConfigurationDictionary:
                     if(ReferenceEquals(item, null))
                     {
-                        copy = default;
+                        copy = default!;
                     }
                     else
                     {
@@ -310,7 +319,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 case ImplementationKind.ConfigurationObject:
                     if(ReferenceEquals(item, null))
                     {
-                        copy = default;
+                        copy = default!;
                     }
                     else
                     {
@@ -322,7 +331,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     break;
 
                 default:
-                    copy = item;
+                    copy = item!;
                     break;
             }
 
@@ -384,9 +393,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Returns an enumerator that iterates through a collection.
         /// </summary>
-        /// <returns>
-        ///     An <see cref="System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
-        /// </returns>
+        /// <returns> An <see cref="IEnumerator" /> object that can be used to iterate through the collection. </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)Values).GetEnumerator();

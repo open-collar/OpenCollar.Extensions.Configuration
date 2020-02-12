@@ -29,7 +29,7 @@ using Xunit;
 namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 {
     /// <summary>
-    ///     Tests for the <see cref="Configuration.Collections.ConfigurationDictionary{T}" /> class.
+    ///     Tests for the <see cref="ConfigurationDictionary{T}" /> class.
     /// </summary>
     public sealed class ConfigurationDictionaryTests : IClassFixture<TestDataFixture>
     {

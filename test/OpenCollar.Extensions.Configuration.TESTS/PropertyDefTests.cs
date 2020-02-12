@@ -28,6 +28,19 @@ namespace OpenCollar.Extensions.Configuration.TESTS
     public sealed class PropertyDefTests
     {//
         [Fact]
+        public void TestCalculatePath()
+        {
+            var propertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.NonFlagsEnumPropertyA), BindingFlags.Instance | BindingFlags.Public));
+
+            Assert.Equal(nameof(IRootElement.NonFlagsEnumPropertyA), propertyDef.CalculatePath(null));
+
+            var parent = new ConfigurationParentMock();
+            parent.Path = "TEST";
+
+            Assert.Equal("TEST:" + nameof(IRootElement.NonFlagsEnumPropertyA), propertyDef.CalculatePath(parent));
+        }
+
+        [Fact]
         public void TestConvertStringToValue_Boolean()
         {
             var propertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.BooleanPropertyA), BindingFlags.Instance | BindingFlags.Public));
@@ -65,7 +78,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var propertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.DateTimePropertyA), BindingFlags.Instance | BindingFlags.Public));
 
-            Assert.Equal(new System.DateTime(2020, 12, 21, 12, 34, 56, DateTimeKind.Utc), propertyDef.ConvertStringToValue("PATH", "2020-12-21T12:34:56.0000000Z"));
+            Assert.Equal(new DateTime(2020, 12, 21, 12, 34, 56, DateTimeKind.Utc), propertyDef.ConvertStringToValue("PATH", "2020-12-21T12:34:56.0000000Z"));
 
             Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "NOT A DATE"); });
         }
@@ -75,7 +88,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var propertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.DateTimeOffsetPropertyA), BindingFlags.Instance | BindingFlags.Public));
 
-            Assert.Equal(new System.DateTimeOffset(2020, 12, 21, 12, 34, 56, TimeSpan.FromHours(1)), propertyDef.ConvertStringToValue("PATH", "2020-12-21T12:34:56.0000000+01:00"));
+            Assert.Equal(new DateTimeOffset(2020, 12, 21, 12, 34, 56, TimeSpan.FromHours(1)), propertyDef.ConvertStringToValue("PATH", "2020-12-21T12:34:56.0000000+01:00"));
 
             Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "NOT A DATE"); });
         }
@@ -201,19 +214,6 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.Equal(System.TimeSpan.FromSeconds(1550), propertyDef.ConvertStringToValue("PATH", "00:25:50"));
 
             Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "NOT A DATE"); });
-        }
-
-        [Fact]
-        public void TestGetPath()
-        {
-            var propertyDef = new PropertyDef(typeof(IRootElement), typeof(IRootElement).GetProperty(nameof(IRootElement.NonFlagsEnumPropertyA), BindingFlags.Instance | BindingFlags.Public));
-
-            Assert.Equal(nameof(IRootElement.NonFlagsEnumPropertyA), propertyDef.GetPath(null));
-
-            var parent = new ConfigurationParentMock();
-            parent.Path = "TEST";
-
-            Assert.Equal("TEST:" + nameof(IRootElement.NonFlagsEnumPropertyA), propertyDef.GetPath(parent));
         }
     }
 }

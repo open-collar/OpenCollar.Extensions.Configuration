@@ -19,7 +19,7 @@
 
 using System;
 using System.Diagnostics;
-
+using OpenCollar.Extensions.Configuration.Validation;
 using Microsoft.Extensions.Configuration;
 
 namespace OpenCollar.Extensions.Configuration
@@ -31,7 +31,7 @@ namespace OpenCollar.Extensions.Configuration
     ///     The type of the parent object. Must implement <See cref="IValueChanged" /> interface.
     /// </typeparam>
     /// <typeparam name="TValue"> The type of the contained value. </typeparam>
-    [DebuggerDisplay("ValueBase[{Path,nq}={StringValue}] ({GetPath()})")]
+    [DebuggerDisplay("ValueBase[{Path,nq}={StringValue}] ({CalculatePath()})")]
     public abstract class ValueBase<TParent, TValue> : IValue, IConfigurationParent where TParent : class, IValueChanged, IConfigurationParent
     {
         /// <summary>
@@ -77,10 +77,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <exception cref="ArgumentNullException"> <paramref name="parent" /> is <see langword="null" />. </exception>
         internal ValueBase(PropertyDef propertyDef, TParent parent)
         {
-            if(ReferenceEquals(parent, null))
-            {
-                throw new ArgumentNullException(nameof(parent), "'parent' is null.");
-            }
+            parent.Validate(nameof(parent), ObjectIs.NotNull);
 
             _parent = parent;
             _propertyDef = propertyDef;
@@ -138,7 +135,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the colon-delimited path to the underlying configuration value.
         /// </summary>
         /// <value> The colon-delimited path to the underlying configuration value. </value>
-        public string Path => GetPath();
+        public string Path => CalculatePath();
 
         /// <summary>
         ///     Gets the definition of the property represented by this value.
@@ -158,7 +155,7 @@ namespace OpenCollar.Extensions.Configuration
             {
                 if(_parent.IsReadOnly)
                 {
-                    throw new NotImplementedException("This value is read-only.");
+                    throw new NotImplementedException(Resources.Exceptions.ValueIsReadOnly);
                 }
 
                 if(!SetValue(value))
@@ -218,6 +215,12 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets the full path for this value.
+        /// </summary>
+        /// <returns> The full path for this value </returns>
+        public abstract string CalculatePath();
+
+        /// <summary>
         ///     Reads the value of the value identified by <see cref="PropertyDef" /> from the configuration root given.
         /// </summary>
         /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
@@ -225,7 +228,7 @@ namespace OpenCollar.Extensions.Configuration
         {
             if(_propertyDef.Implementation.ImplementationKind == ImplementationKind.Naive)
             {
-                configurationRoot[GetPath()] = null;
+                configurationRoot[CalculatePath()] = null;
             }
             else
             {
@@ -236,12 +239,6 @@ namespace OpenCollar.Extensions.Configuration
                 }
             }
         }
-
-        /// <summary>
-        ///     Gets the full path for this value.
-        /// </summary>
-        /// <returns> The full path for this value </returns>
-        public abstract string GetPath();
 
         /// <summary>
         ///     Reads the value of the value identified by <see cref="PropertyDef" /> from the configuration root given.
@@ -291,7 +288,7 @@ namespace OpenCollar.Extensions.Configuration
                         break;
 
                     default:
-                        var path = GetPath();
+                        var path = CalculatePath();
                         var value = configurationRoot[path];
 
                         if(ReferenceEquals(value, null))
@@ -362,7 +359,7 @@ namespace OpenCollar.Extensions.Configuration
                         break;
 
                     default:
-                        configurationRoot[GetPath()] = StringValue;
+                        configurationRoot[CalculatePath()] = StringValue;
                         break;
                 }
 

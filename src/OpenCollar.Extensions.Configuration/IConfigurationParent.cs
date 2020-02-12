@@ -18,6 +18,6 @@
         ///     Gets the path to this configuration object.
         /// </summary>
         /// <returns> A string containing the path to this configuration object. </returns>
-        string GetPath();
+        string CalculatePath();
     }
 }

@@ -24,7 +24,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     A class used to represent a property on an interface and its location in the configuration model.
     /// </summary>
-    [DebuggerDisplay("PropertyValue[{PropertyName,nq}={StringValue}] ({GetPath()})")]
+    [DebuggerDisplay("PropertyValue[{PropertyName,nq}={StringValue}] ({CalculatePath()})")]
     internal sealed class PropertyValue<TValue> : ValueBase<ConfigurationObjectBase, TValue>, IPropertyValue, IConfigurationParent
     {
         /// <summary>
@@ -58,9 +58,9 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the path to this configuration object.
         /// </summary>
         /// <returns> A string containing the path to this configuration object. </returns>
-        public override string GetPath()
+        public override string CalculatePath()
         {
-            return _propertyDef.GetPath(_parent);
+            return _propertyDef.CalculatePath(_parent);
         }
     }
 }

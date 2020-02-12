@@ -24,6 +24,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 
+using OpenCollar.Extensions.Configuration.Validation;
+
 using Microsoft.Extensions.Configuration;
 
 namespace OpenCollar.Extensions.Configuration
@@ -45,7 +47,7 @@ namespace OpenCollar.Extensions.Configuration
     ///         no practical impact (for example assigning a new instance of a string with the same value) will not be reported.
     ///     </para>
     /// </remarks>
-    [DebuggerDisplay("{ToString(),nq} ({GetPath()})")]
+    [DebuggerDisplay("{ToString(),nq} ({CalculatePath()})")]
     public abstract class ConfigurationObjectBase : NotifyPropertyChanged, IConfigurationObject, IValueChanged, IConfigurationChild
     {
         /// <summary>
@@ -90,9 +92,10 @@ namespace OpenCollar.Extensions.Configuration
         /// <exception cref="ArgumentNullException"> <paramref name="configurationRoot" /> is <see langword="null" />. </exception>
         protected ConfigurationObjectBase(PropertyDef? propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent)
         {
+            configurationRoot.Validate(nameof(configurationRoot), ObjectIs.NotNull);
             _parent = parent;
             PropertyDef = propertyDef;
-            _configurationRoot = configurationRoot ?? throw new ArgumentNullException(nameof(configurationRoot), "'configurationRoot' is null.");
+            _configurationRoot = configurationRoot;
 
             RegisterReloadToken();
         }
@@ -194,6 +197,25 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets the path to this configuration object.
+        /// </summary>
+        /// <returns> A string containing the path to this configuration object. </returns>
+        public string CalculatePath()
+        {
+            if(ReferenceEquals(PropertyDef, null))
+            {
+                if(!ReferenceEquals(_parent, null))
+                {
+                    return _parent.CalculatePath();
+                }
+
+                return string.Empty;
+            }
+
+            return PropertyDef.CalculatePath(_parent);
+        }
+
+        /// <summary>
         ///     Recursively deletes all of the properties from the configuration sources.
         /// </summary>
         /// <exception cref="ObjectDisposedException">
@@ -207,25 +229,6 @@ namespace OpenCollar.Extensions.Configuration
             {
                 value.DeleteValue(_configurationRoot);
             }
-        }
-
-        /// <summary>
-        ///     Gets the path to this configuration object.
-        /// </summary>
-        /// <returns> A string containing the path to this configuration object. </returns>
-        public string GetPath()
-        {
-            if(ReferenceEquals(PropertyDef, null))
-            {
-                if(!ReferenceEquals(_parent, null))
-                {
-                    return _parent.GetPath();
-                }
-
-                return string.Empty;
-            }
-
-            return PropertyDef.GetPath(_parent);
         }
 
         /// <summary>
@@ -275,7 +278,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <returns> A <see cref="string" /> that represents this instance. </returns>
         public override string ToString()
         {
-            return $"{InterfaceType.FullName}: \"{GetPath()}\"";
+            return $"{InterfaceType.FullName}: \"{CalculatePath()}\"";
         }
 
         /// <summary>

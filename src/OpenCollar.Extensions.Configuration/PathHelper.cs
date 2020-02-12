@@ -41,7 +41,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     A string containing the sections of path given, delimited using <see cref="PathDelimiter" />. Will be an
         ///     empty string if no valid sections are supplied.
         /// </returns>
-        public static string GetPath(params string[] sections)
+        public static string CalculatePath(params string[] sections)
         {
             if(ReferenceEquals(sections, null))
             {

@@ -35,7 +35,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             get; set;
         }
 
-        public string GetPath()
+        public string CalculatePath()
         {
             return Path;
         }

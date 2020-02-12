@@ -37,7 +37,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="IConfigurationObject" />
     /// <seealso cref="IDictionary{TKey,TValue}" />
     /// <seealso cref="INotifyCollectionChanged" />
-    [DebuggerDisplay("ConfigurationDictionaryBase[{Count}] ({GetPath()})")]
+    [DebuggerDisplay("ConfigurationDictionaryBase[{Count}] ({CalculatePath()})")]
     public abstract class ConfigurationDictionaryBase<TKey, TElement> : NotifyPropertyChanged, IConfigurationObject, IValueChanged,
         IConfigurationChild
     {
@@ -263,9 +263,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the configuration root service from which values are read or to which all values will be written.
         /// </summary>
-        /// <value>
-        ///     The configuration root service from which values are read or to which all values will be written.
-        /// </value>
+        /// <value> The configuration root service from which values are read or to which all values will be written. </value>
         internal IConfigurationRoot ConfigurationRoot
         {
             get;
@@ -322,7 +320,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     return value;
                 }
 
-                throw new ArgumentOutOfRangeException(nameof(key), $"'{nameof(key)}' did not identify a valid element.");
+                throw new ArgumentOutOfRangeException(nameof(key), string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.KeyNotFound, nameof(key)));
             }
         }
 
@@ -340,12 +338,14 @@ namespace OpenCollar.Extensions.Configuration.Collections
         {
             TElement copy;
 
+            Debug.Assert(PropertyDef.ElementImplementation != null);
+
             switch(PropertyDef.ElementImplementation.ImplementationKind)
             {
                 case ImplementationKind.ConfigurationCollection:
                     if(ReferenceEquals(value, null))
                     {
-                        copy = default;
+                        copy = default!;
                     }
                     else
                     {
@@ -358,7 +358,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 case ImplementationKind.ConfigurationDictionary:
                     if(ReferenceEquals(value, null))
                     {
-                        copy = default;
+                        copy = default!;
                     }
                     else
                     {
@@ -371,7 +371,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 case ImplementationKind.ConfigurationObject:
                     if(ReferenceEquals(value, null))
                     {
-                        copy = default;
+                        copy = default!;
                     }
                     else
                     {
@@ -390,6 +390,21 @@ namespace OpenCollar.Extensions.Configuration.Collections
             Add(key, copy);
 
             return copy;
+        }
+
+        /// <summary>
+        ///     Gets the path to this configuration object.
+        /// </summary>
+        /// <returns> A string containing the path to this configuration object. </returns>
+        public string CalculatePath()
+        {
+            if(ReferenceEquals(_parent, null))
+            {
+                return string.Empty;
+            }
+
+            // The collection itself doesn't feature in the path, only the child element name and parent property name.
+            return _parent.CalculatePath();
         }
 
         /// <summary>
@@ -448,21 +463,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Gets the path to this configuration object.
-        /// </summary>
-        /// <returns> A string containing the path to this configuration object. </returns>
-        public string GetPath()
-        {
-            if(ReferenceEquals(_parent, null))
-            {
-                return string.Empty;
-            }
-
-            // The collection itself doesn't feature in the path, only the child element name and parent property name.
-            return _parent.GetPath();
-        }
-
-        /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
         public void Load()
@@ -502,7 +502,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
             {
                 if(_itemsByKey.Remove(key))
                 {
-                    var removed = _orderedItems.First(i => i.Key.Equals(key));
+                    var removed = _orderedItems.First(i => i.Key!.Equals(key));
                     if(!_orderedItems.Remove(removed))
                     {
                         Debug.Assert(false, "A matching item must always be found.");
@@ -630,7 +630,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     return true;
                 }
 
-                value = default;
+                value = default!;
                 return false;
             }
             finally
@@ -649,12 +649,10 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
-        /// <param name="initializing">
-        ///     If set to <see langword="true" /> the element changed events are not fired.
-        /// </param>
+        /// <param name="initializing"> If set to <see langword="true" /> the element changed events are not fired. </param>
         internal void Load(bool initializing)
         {
-            var path = GetPath();
+            var path = CalculatePath();
 
             // Iterate across all of the elements in the path and then delete those not in the dictionary, and then
             // insert those that have been added.
@@ -766,13 +764,16 @@ namespace OpenCollar.Extensions.Configuration.Collections
             EnforceDisposed();
             EnforceReadOnly();
 
+            Debug.Assert(PropertyDef.ElementImplementation != null);
+
             if(PropertyDef.ElementImplementation.ImplementationKind != ImplementationKind.Naive)
             {
                 if(!ReferenceEquals(value, null))
                 {
                     if(PropertyDef.ElementImplementation.ImplementationType != value.GetType())
                     {
-                        throw new TypeMismatchException($"Expected object of type {PropertyDef.ElementImplementation.ImplementationType.FullName}.", GetPath());
+                        Debug.Assert(PropertyDef.ElementImplementation.ImplementationType != null);
+                        throw new TypeMismatchException($"Expected object of type {PropertyDef.ElementImplementation.ImplementationType.FullName}.", CalculatePath());
                     }
                 }
             }
@@ -824,6 +825,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
         protected TElement AddNew(TKey key)
         {
             TElement value;
+
+            Debug.Assert(PropertyDef.ElementImplementation != null);
 
             switch(PropertyDef.ElementImplementation.ImplementationKind)
             {
@@ -901,6 +904,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
             {
                 InternalClear();
                 Lock.Dispose();
+                _disableCollectionChangedEvents.Dispose();
+                _disableReadOnly.Dispose();
             }
         }
 
@@ -1034,7 +1039,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
 
             if(IsReadOnly)
             {
-                throw new NotImplementedException("This collection is read-only.");
+                throw new NotImplementedException(Resources.Exceptions.CollectionIsReadOnly);
             }
         }
 

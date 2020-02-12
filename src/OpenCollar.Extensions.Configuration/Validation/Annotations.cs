@@ -636,9 +636,9 @@ namespace JetBrains.Annotations
     ///{
     ///public void Foo()
     ///{
-    ///// Warning: Contents of the collection is never updated
-    ///var col = new MyStringCollection();
-    ///string x = col.GetFirstString();
+    /// // Warning: Contents of the collection is never updated
+    /// var col = new MyStringCollection();
+    /// string x = col.GetFirstString();
     ///}
     ///}
     ///     </code>
@@ -699,8 +699,8 @@ namespace JetBrains.Annotations
     ///         </item>
     ///         <item>
     ///             <code>
-    ///// A method that returns null if the parameter is null,
-    ///// and not null if the parameter is not null
+    /// // A method that returns null if the parameter is null,
+    /// // and not null if the parameter is not null
     ///[ContractAnnotation("null =&gt; null; notnull =&gt; notnull")]
     ///public object Transform(object data)
     ///             </code>
@@ -787,7 +787,7 @@ namespace JetBrains.Annotations
 
     /// <summary>
     ///     Indicates that the function argument should be a string literal and match one of the parameters of the
-    ///     caller function. For example, ReSharper annotates the parameter of <see cref="System.ArgumentNullException" />.
+    ///     caller function. For example, ReSharper annotates the parameter of <see cref="ArgumentNullException" />.
     /// </summary>
     /// <example>
     ///     <code>
@@ -814,7 +814,7 @@ namespace JetBrains.Annotations
     ///{
     ///foreach (var book in books)
     ///{
-    ///// Warning: Possible 'System.NullReferenceException'
+    /// // Warning: Possible 'System.NullReferenceException'
     ///Console.WriteLine(book.ToUpper());
     ///}
     ///}
@@ -898,9 +898,9 @@ namespace JetBrains.Annotations
     /// </summary>
     /// <remarks>
     ///     You can apply the attribute on the whole method or on any of its additional parameters. The macro expression
-    ///     is defined in the <see cref="MacroAttribute.Expression" /> property. When applied on a method, the target
-    ///     template parameter is defined in the <see cref="MacroAttribute.Target" /> property. To apply the macro
-    ///     silently for the parameter, set the <see cref="MacroAttribute.Editable" /> property value = -1.
+    ///     is defined in the <see cref="Expression" /> property. When applied on a method, the target
+    ///     template parameter is defined in the <see cref="Target" /> property. To apply the macro
+    ///     silently for the parameter, set the <see cref="Editable" /> property value = -1.
     /// </remarks>
     /// <example>
     ///     Applying the attribute on a source template method:
@@ -908,7 +908,7 @@ namespace JetBrains.Annotations
     ///[SourceTemplate, Macro(Target = "item", Expression = "suggestVariableName()")]
     ///public static void forEach&lt;T&gt;(this IEnumerable&lt;T&gt; collection) {
     ///foreach (var item in collection) {
-    /////$ $END$
+    /// //$ $END$
     ///}
     ///}
     ///     </code>
@@ -916,7 +916,7 @@ namespace JetBrains.Annotations
     ///     <code>
     ///[SourceTemplate]
     ///public static void something(this Entity x, [Macro(Expression = "guid()", Editable = -1)] string newguid) {
-    ////*$ var $x$Id = "$newguid$" + x.ToString();
+    /// /*$ var $x$Id = "$newguid$" + x.ToString();
     ///x.DoSomething($x$Id); */
     ///}
     ///     </code>
@@ -961,9 +961,9 @@ namespace JetBrains.Annotations
 
     /// <summary>
     ///     Can be applied to attributes, type parameters, and parameters of a type assignable from
-    ///     <see cref="System.Type" /> . When applied to an attribute, the decorated attribute behaves the same as
+    ///     <see cref="Type" /> . When applied to an attribute, the decorated attribute behaves the same as
     ///     <see cref="UsedImplicitlyAttribute" />. When applied to a type parameter or to a parameter of type
-    ///     <see cref="System.Type" />, indicates that the corresponding type is used implicitly.
+    ///     <see cref="Type" />, indicates that the corresponding type is used implicitly.
     /// </summary>
     [ExcludeFromCodeCoverage]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.GenericParameter | AttributeTargets.Parameter)]
@@ -1036,7 +1036,7 @@ namespace JetBrains.Annotations
     ///     <code>
     ///static void ThrowIfNull&lt;T&gt;([NoEnumeration] T v, string n) where T : class
     ///{
-    ///// custom check for null but no enumeration
+    /// // custom check for null but no enumeration
     ///}
     ///
     ///void Foo(IEnumerable&lt;string&gt; values)
@@ -1177,7 +1177,7 @@ namespace JetBrains.Annotations
     ///
     ///void ProcessNode(INode node) {
     ///DoSomething(node, node.GetGlobalServices().Bar);
-    /////              ^ Warning: use value of '_barService' field
+    /// //              ^ Warning: use value of '_barService' field
     ///}
     ///}
     ///     </code>
@@ -1383,7 +1383,7 @@ namespace JetBrains.Annotations
     ///[SourceTemplate]
     ///public static void forEach&lt;T&gt;(this IEnumerable&lt;T&gt; xs) {
     ///foreach (var x in xs) {
-    /////$ $END$
+    /// //$ $END$
     ///}
     ///}
     ///     </code>

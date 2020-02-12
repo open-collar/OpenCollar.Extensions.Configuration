@@ -32,7 +32,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <typeparam name="TElement"> The type of the element. </typeparam>
     /// <seealso cref="ConfigurationDictionaryBase{TKey,TElement}" />
     /// <seealso cref="IConfigurationDictionary{TElement}" />
-    [DebuggerDisplay("ConfigurationDictionary[{Count}] ({GetPath()})")]
+    [DebuggerDisplay("ConfigurationDictionary[{Count}] ({CalculatePath()})")]
     public class ConfigurationDictionary<TElement> : ConfigurationDictionaryBase<string, TElement>, IConfigurationDictionary<TElement>
     {
         /// <summary>
@@ -87,9 +87,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
-        ///     Adds an item to the <see cref="T:System.Collections.Generic.ICollection{T}" />.
+        ///     Adds an item to the <see cref="ICollection{T}" />.
         /// </summary>
-        /// <param name="item"> The object to add to the <see cref="T:System.Collections.Generic.ICollection{T}" />. </param>
+        /// <param name="item"> The object to add to the <see cref="ICollection{T}" />. </param>
         public void Add(KeyValuePair<string, TElement> item) => base.Add(item.Key, item.Value);
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     Adds a new value with the key specified, copying the properties and elements from the value give,
         ///     returning the new value.
         /// </summary>
-        /// <param name="item"> The object to add to the <see cref="T:System.Collections.Generic.ICollection{T}" />. </param>
+        /// <param name="item"> The object to add to the <see cref="ICollection{T}" />. </param>
         /// <returns> The newly added element. </returns>
         /// <remarks>
         ///     Used to add objects and collections that have been constructed externally using alternate implementations.
@@ -204,9 +204,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Returns an enumerator that iterates through a collection.
         /// </summary>
-        /// <returns>
-        ///     An <see cref="System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
-        /// </returns>
+        /// <returns> An <see cref="IEnumerator" /> object that can be used to iterate through the collection. </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             EnforceDisposed();

@@ -80,7 +80,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
                 Assert.NotNull(x);
                 Assert.Equal("TEST", x.Key);
-                Assert.Equal("ChildDictionary:TEST", x.GetPath());
+                Assert.Equal("ChildDictionary:TEST", x.CalculatePath());
             }
         }
     }

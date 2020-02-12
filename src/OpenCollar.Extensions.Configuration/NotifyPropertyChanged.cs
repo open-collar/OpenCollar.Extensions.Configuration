@@ -111,7 +111,7 @@ namespace OpenCollar.Extensions.Configuration
 
             if(exceptions.Count > 0)
             {
-                throw new AggregateException("One or more change event handlers threw an exception.", exceptions);
+                throw new AggregateException(Resources.Exceptions.EventHandlerThrewException, exceptions);
             }
         }
 

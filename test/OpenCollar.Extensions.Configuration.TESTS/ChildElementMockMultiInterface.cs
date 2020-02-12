@@ -264,11 +264,11 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             get; set;
         }
 
+        public string CalculatePath() => throw new NotImplementedException();
+
         public void Delete() => throw new NotImplementedException();
 
         public void Dispose() => throw new NotImplementedException();
-
-        public string GetPath() => throw new NotImplementedException();
 
         public void Load() => throw new NotImplementedException();
 
