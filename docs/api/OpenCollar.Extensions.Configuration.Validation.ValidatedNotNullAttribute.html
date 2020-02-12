@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class DefaultValueAttribute
+    <title>Class ValidatedNotNullAttribute
    | API Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class DefaultValueAttribute
+    <meta name="title" content="Class ValidatedNotNullAttribute
    | API Documentation ">
     <meta name="generator" content="docfx 2.48.1.0">
     
@@ -78,20 +78,19 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="OpenCollar.Extensions.Configuration.DefaultValueAttribute">
+            <article class="content wrap" id="_content" data-uid="OpenCollar.Extensions.Configuration.Validation.ValidatedNotNullAttribute">
   
   
-  <h1 id="OpenCollar_Extensions_Configuration_DefaultValueAttribute" data-uid="OpenCollar.Extensions.Configuration.DefaultValueAttribute" class="text-break">Class DefaultValueAttribute
+  <h1 id="OpenCollar_Extensions_Configuration_Validation_ValidatedNotNullAttribute" data-uid="OpenCollar.Extensions.Configuration.Validation.ValidatedNotNullAttribute" class="text-break">Class ValidatedNotNullAttribute
   </h1>
-  <div class="markdown level0 summary"><p>An attribute that can be used to specify the default value to return if no value is defined in the
-configuration root.</p>
+  <div class="markdown level0 summary"><p>Used to mark properties and arguments as having been validated as not being <span class="xref">null</span>.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">System.Attribute</span></div>
-    <div class="level2"><span class="xref">DefaultValueAttribute</span></div>
+    <div class="level2"><span class="xref">ValidatedNotNullAttribute</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -222,83 +221,20 @@ configuration root.</p>
       <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="OpenCollar.Extensions.Configuration.html">OpenCollar.Extensions.Configuration</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="OpenCollar.Extensions.Configuration.Validation.html">OpenCollar.Extensions.Configuration.Validation</a></h6>
   <h6><strong>Assembly</strong>: OpenCollar.Extensions.Configuration.dll</h6>
-  <h5 id="OpenCollar_Extensions_Configuration_DefaultValueAttribute_syntax">Syntax</h5>
+  <h5 id="OpenCollar_Extensions_Configuration_Validation_ValidatedNotNullAttribute_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[AttributeUsage(AttributeTargets.Property)]
-public sealed class DefaultValueAttribute : Attribute</code></pre>
+    <pre><code class="lang-csharp hljs">[AttributeUsage(AttributeTargets.Field | AttributeTargets.Parameter)]
+public sealed class ValidatedNotNullAttribute : Attribute</code></pre>
   </div>
-  <h3 id="constructors">Constructors
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_DefaultValueAttribute__ctor_System_Object_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.DefaultValueAttribute.%23ctor(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/ee746d3a7ae7d36c6b3b4bed5805fc79b773b1d6/src/OpenCollar.Extensions.Configuration/DefaultValueAttribute.cs/#L38">View Source</a>
-  </span>
-  <a id="OpenCollar_Extensions_Configuration_DefaultValueAttribute__ctor_" data-uid="OpenCollar.Extensions.Configuration.DefaultValueAttribute.#ctor*"></a>
-  <h4 id="OpenCollar_Extensions_Configuration_DefaultValueAttribute__ctor_System_Object_" data-uid="OpenCollar.Extensions.Configuration.DefaultValueAttribute.#ctor(System.Object)">DefaultValueAttribute(Object)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="OpenCollar.Extensions.Configuration.DefaultValueAttribute.html">DefaultValueAttribute</a> class.</p>
+  <h5 id="OpenCollar_Extensions_Configuration_Validation_ValidatedNotNullAttribute_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Taken from this
+<a href="http://geekswithblogs.net/terje/archive/2010/10/14/making-static-code-analysis-and-code-contracts-work-together-or.aspx">
+Making Static
+Code Analysis and Code Contracts work together, or the CA1062 problem
+</a></p>
 </div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DefaultValueAttribute(object defaultValue)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Object</span></td>
-        <td><span class="parametername">defaultValue</span></td>
-        <td><p>The default value to return if no value is defined in the configuration root. Can be <span class="xref">null</span>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="properties">Properties
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_DefaultValueAttribute_DefaultValue.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValue%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/ee746d3a7ae7d36c6b3b4bed5805fc79b773b1d6/src/OpenCollar.Extensions.Configuration/DefaultValueAttribute.cs/#L47">View Source</a>
-  </span>
-  <a id="OpenCollar_Extensions_Configuration_DefaultValueAttribute_DefaultValue_" data-uid="OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValue*"></a>
-  <h4 id="OpenCollar_Extensions_Configuration_DefaultValueAttribute_DefaultValue" data-uid="OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValue">DefaultValue</h4>
-  <div class="markdown level1 summary"><p>Gets the default value.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public object DefaultValue { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Object</span></td>
-        <td><p>The default value to return if no value is defined in the configuration root. Can be <span class="xref">null</span>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="extensionmethods">Extension Methods</h3>
   <div>
       <a class="xref" href="OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.html#OpenCollar_Extensions_Configuration_Validation_ArgumentValidationExtensions_Validate__1___0_System_String_OpenCollar_Extensions_Configuration_Validation_ObjectIs_">ArgumentValidationExtensions.Validate&lt;T&gt;(T, String, ObjectIs)</a>
@@ -315,10 +251,10 @@ public sealed class DefaultValueAttribute : Attribute</code></pre>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_DefaultValueAttribute.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.DefaultValueAttribute%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_Validation_ValidatedNotNullAttribute.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.Validation.ValidatedNotNullAttribute%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/ee746d3a7ae7d36c6b3b4bed5805fc79b773b1d6/src/OpenCollar.Extensions.Configuration/DefaultValueAttribute.cs/#L29" class="contribution-link">View Source</a>
+                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/ee746d3a7ae7d36c6b3b4bed5805fc79b773b1d6/src/OpenCollar.Extensions.Configuration/Validation/ValidatedNotNullAttribute.cs/#L33" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
@@ -337,7 +273,7 @@ public sealed class DefaultValueAttribute : Attribute</code></pre>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.134</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: BUILD_VERSION</span></div></div>
             
           </div>
         </div>

@@ -2983,6 +2983,166 @@ references:
   isSpec: "True"
   fullName: OpenCollar.Extensions.Configuration.UniversalComparer.Equals
   nameWithType: UniversalComparer.Equals
+- uid: OpenCollar.Extensions.Configuration.Validation
+  name: OpenCollar.Extensions.Configuration.Validation
+  href: api/OpenCollar.Extensions.Configuration.Validation.html
+  commentId: N:OpenCollar.Extensions.Configuration.Validation
+  fullName: OpenCollar.Extensions.Configuration.Validation
+  nameWithType: OpenCollar.Extensions.Configuration.Validation
+- uid: OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions
+  name: ArgumentValidationExtensions
+  href: api/OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.html
+  commentId: T:OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions
+  fullName: OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions
+  nameWithType: ArgumentValidationExtensions
+- uid: OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate(System.String,System.String,OpenCollar.Extensions.Configuration.Validation.StringIs)
+  name: Validate(String, String, StringIs)
+  href: api/OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.html#OpenCollar_Extensions_Configuration_Validation_ArgumentValidationExtensions_Validate_System_String_System_String_OpenCollar_Extensions_Configuration_Validation_StringIs_
+  commentId: M:OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate(System.String,System.String,OpenCollar.Extensions.Configuration.Validation.StringIs)
+  fullName: OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate(System.String, System.String, OpenCollar.Extensions.Configuration.Validation.StringIs)
+  nameWithType: ArgumentValidationExtensions.Validate(String, String, StringIs)
+- uid: OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate*
+  name: Validate
+  href: api/OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.html#OpenCollar_Extensions_Configuration_Validation_ArgumentValidationExtensions_Validate_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate
+  nameWithType: ArgumentValidationExtensions.Validate
+- uid: OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate``1(``0,System.String,OpenCollar.Extensions.Configuration.Validation.EnumIs)
+  name: Validate<TEnum>(TEnum, String, EnumIs)
+  href: api/OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.html#OpenCollar_Extensions_Configuration_Validation_ArgumentValidationExtensions_Validate__1___0_System_String_OpenCollar_Extensions_Configuration_Validation_EnumIs_
+  commentId: M:OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate``1(``0,System.String,OpenCollar.Extensions.Configuration.Validation.EnumIs)
+  name.vb: Validate(Of TEnum)(TEnum, String, EnumIs)
+  fullName: OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate<TEnum>(TEnum, System.String, OpenCollar.Extensions.Configuration.Validation.EnumIs)
+  fullName.vb: OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate(Of TEnum)(TEnum, System.String, OpenCollar.Extensions.Configuration.Validation.EnumIs)
+  nameWithType: ArgumentValidationExtensions.Validate<TEnum>(TEnum, String, EnumIs)
+  nameWithType.vb: ArgumentValidationExtensions.Validate(Of TEnum)(TEnum, String, EnumIs)
+- uid: OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate``1(``0,System.String,OpenCollar.Extensions.Configuration.Validation.ObjectIs)
+  name: Validate<T>(T, String, ObjectIs)
+  href: api/OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.html#OpenCollar_Extensions_Configuration_Validation_ArgumentValidationExtensions_Validate__1___0_System_String_OpenCollar_Extensions_Configuration_Validation_ObjectIs_
+  commentId: M:OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate``1(``0,System.String,OpenCollar.Extensions.Configuration.Validation.ObjectIs)
+  name.vb: Validate(Of T)(T, String, ObjectIs)
+  fullName: OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate<T>(T, System.String, OpenCollar.Extensions.Configuration.Validation.ObjectIs)
+  fullName.vb: OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate(Of T)(T, System.String, OpenCollar.Extensions.Configuration.Validation.ObjectIs)
+  nameWithType: ArgumentValidationExtensions.Validate<T>(T, String, ObjectIs)
+  nameWithType.vb: ArgumentValidationExtensions.Validate(Of T)(T, String, ObjectIs)
+- uid: OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate``1(System.Collections.Generic.IEnumerable{``0},System.String,OpenCollar.Extensions.Configuration.Validation.ObjectIs,OpenCollar.Extensions.Configuration.Validation.ObjectIs)
+  name: Validate<T>(IEnumerable<T>, String, ObjectIs, ObjectIs)
+  href: api/OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.html#OpenCollar_Extensions_Configuration_Validation_ArgumentValidationExtensions_Validate__1_System_Collections_Generic_IEnumerable___0__System_String_OpenCollar_Extensions_Configuration_Validation_ObjectIs_OpenCollar_Extensions_Configuration_Validation_ObjectIs_
+  commentId: M:OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate``1(System.Collections.Generic.IEnumerable{``0},System.String,OpenCollar.Extensions.Configuration.Validation.ObjectIs,OpenCollar.Extensions.Configuration.Validation.ObjectIs)
+  name.vb: Validate(Of T)(IEnumerable(Of T), String, ObjectIs, ObjectIs)
+  fullName: OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate<T>(System.Collections.Generic.IEnumerable<T>, System.String, OpenCollar.Extensions.Configuration.Validation.ObjectIs, OpenCollar.Extensions.Configuration.Validation.ObjectIs)
+  fullName.vb: OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.Validate(Of T)(System.Collections.Generic.IEnumerable(Of T), System.String, OpenCollar.Extensions.Configuration.Validation.ObjectIs, OpenCollar.Extensions.Configuration.Validation.ObjectIs)
+  nameWithType: ArgumentValidationExtensions.Validate<T>(IEnumerable<T>, String, ObjectIs, ObjectIs)
+  nameWithType.vb: ArgumentValidationExtensions.Validate(Of T)(IEnumerable(Of T), String, ObjectIs, ObjectIs)
+- uid: OpenCollar.Extensions.Configuration.Validation.EnumIs
+  name: EnumIs
+  href: api/OpenCollar.Extensions.Configuration.Validation.EnumIs.html
+  commentId: T:OpenCollar.Extensions.Configuration.Validation.EnumIs
+  fullName: OpenCollar.Extensions.Configuration.Validation.EnumIs
+  nameWithType: EnumIs
+- uid: OpenCollar.Extensions.Configuration.Validation.EnumIs.None
+  name: None
+  href: api/OpenCollar.Extensions.Configuration.Validation.EnumIs.html#OpenCollar_Extensions_Configuration_Validation_EnumIs_None
+  commentId: F:OpenCollar.Extensions.Configuration.Validation.EnumIs.None
+  fullName: OpenCollar.Extensions.Configuration.Validation.EnumIs.None
+  nameWithType: EnumIs.None
+- uid: OpenCollar.Extensions.Configuration.Validation.EnumIs.NonZero
+  name: NonZero
+  href: api/OpenCollar.Extensions.Configuration.Validation.EnumIs.html#OpenCollar_Extensions_Configuration_Validation_EnumIs_NonZero
+  commentId: F:OpenCollar.Extensions.Configuration.Validation.EnumIs.NonZero
+  fullName: OpenCollar.Extensions.Configuration.Validation.EnumIs.NonZero
+  nameWithType: EnumIs.NonZero
+- uid: OpenCollar.Extensions.Configuration.Validation.EnumIs.NonZeroValidMember
+  name: NonZeroValidMember
+  href: api/OpenCollar.Extensions.Configuration.Validation.EnumIs.html#OpenCollar_Extensions_Configuration_Validation_EnumIs_NonZeroValidMember
+  commentId: F:OpenCollar.Extensions.Configuration.Validation.EnumIs.NonZeroValidMember
+  fullName: OpenCollar.Extensions.Configuration.Validation.EnumIs.NonZeroValidMember
+  nameWithType: EnumIs.NonZeroValidMember
+- uid: OpenCollar.Extensions.Configuration.Validation.EnumIs.ValidMember
+  name: ValidMember
+  href: api/OpenCollar.Extensions.Configuration.Validation.EnumIs.html#OpenCollar_Extensions_Configuration_Validation_EnumIs_ValidMember
+  commentId: F:OpenCollar.Extensions.Configuration.Validation.EnumIs.ValidMember
+  fullName: OpenCollar.Extensions.Configuration.Validation.EnumIs.ValidMember
+  nameWithType: EnumIs.ValidMember
+- uid: OpenCollar.Extensions.Configuration.Validation.ObjectIs
+  name: ObjectIs
+  href: api/OpenCollar.Extensions.Configuration.Validation.ObjectIs.html
+  commentId: T:OpenCollar.Extensions.Configuration.Validation.ObjectIs
+  fullName: OpenCollar.Extensions.Configuration.Validation.ObjectIs
+  nameWithType: ObjectIs
+- uid: OpenCollar.Extensions.Configuration.Validation.ObjectIs.None
+  name: None
+  href: api/OpenCollar.Extensions.Configuration.Validation.ObjectIs.html#OpenCollar_Extensions_Configuration_Validation_ObjectIs_None
+  commentId: F:OpenCollar.Extensions.Configuration.Validation.ObjectIs.None
+  fullName: OpenCollar.Extensions.Configuration.Validation.ObjectIs.None
+  nameWithType: ObjectIs.None
+- uid: OpenCollar.Extensions.Configuration.Validation.ObjectIs.NotNull
+  name: NotNull
+  href: api/OpenCollar.Extensions.Configuration.Validation.ObjectIs.html#OpenCollar_Extensions_Configuration_Validation_ObjectIs_NotNull
+  commentId: F:OpenCollar.Extensions.Configuration.Validation.ObjectIs.NotNull
+  fullName: OpenCollar.Extensions.Configuration.Validation.ObjectIs.NotNull
+  nameWithType: ObjectIs.NotNull
+- uid: OpenCollar.Extensions.Configuration.Validation.StringIs
+  name: StringIs
+  href: api/OpenCollar.Extensions.Configuration.Validation.StringIs.html
+  commentId: T:OpenCollar.Extensions.Configuration.Validation.StringIs
+  fullName: OpenCollar.Extensions.Configuration.Validation.StringIs
+  nameWithType: StringIs
+- uid: OpenCollar.Extensions.Configuration.Validation.StringIs.None
+  name: None
+  href: api/OpenCollar.Extensions.Configuration.Validation.StringIs.html#OpenCollar_Extensions_Configuration_Validation_StringIs_None
+  commentId: F:OpenCollar.Extensions.Configuration.Validation.StringIs.None
+  fullName: OpenCollar.Extensions.Configuration.Validation.StringIs.None
+  nameWithType: StringIs.None
+- uid: OpenCollar.Extensions.Configuration.Validation.StringIs.NotEmpty
+  name: NotEmpty
+  href: api/OpenCollar.Extensions.Configuration.Validation.StringIs.html#OpenCollar_Extensions_Configuration_Validation_StringIs_NotEmpty
+  commentId: F:OpenCollar.Extensions.Configuration.Validation.StringIs.NotEmpty
+  fullName: OpenCollar.Extensions.Configuration.Validation.StringIs.NotEmpty
+  nameWithType: StringIs.NotEmpty
+- uid: OpenCollar.Extensions.Configuration.Validation.StringIs.NotEmptyOrWhiteSpace
+  name: NotEmptyOrWhiteSpace
+  href: api/OpenCollar.Extensions.Configuration.Validation.StringIs.html#OpenCollar_Extensions_Configuration_Validation_StringIs_NotEmptyOrWhiteSpace
+  commentId: F:OpenCollar.Extensions.Configuration.Validation.StringIs.NotEmptyOrWhiteSpace
+  fullName: OpenCollar.Extensions.Configuration.Validation.StringIs.NotEmptyOrWhiteSpace
+  nameWithType: StringIs.NotEmptyOrWhiteSpace
+- uid: OpenCollar.Extensions.Configuration.Validation.StringIs.NotNull
+  name: NotNull
+  href: api/OpenCollar.Extensions.Configuration.Validation.StringIs.html#OpenCollar_Extensions_Configuration_Validation_StringIs_NotNull
+  commentId: F:OpenCollar.Extensions.Configuration.Validation.StringIs.NotNull
+  fullName: OpenCollar.Extensions.Configuration.Validation.StringIs.NotNull
+  nameWithType: StringIs.NotNull
+- uid: OpenCollar.Extensions.Configuration.Validation.StringIs.NotNullEmptyOrWhiteSpace
+  name: NotNullEmptyOrWhiteSpace
+  href: api/OpenCollar.Extensions.Configuration.Validation.StringIs.html#OpenCollar_Extensions_Configuration_Validation_StringIs_NotNullEmptyOrWhiteSpace
+  commentId: F:OpenCollar.Extensions.Configuration.Validation.StringIs.NotNullEmptyOrWhiteSpace
+  fullName: OpenCollar.Extensions.Configuration.Validation.StringIs.NotNullEmptyOrWhiteSpace
+  nameWithType: StringIs.NotNullEmptyOrWhiteSpace
+- uid: OpenCollar.Extensions.Configuration.Validation.StringIs.NotNullOrEmpty
+  name: NotNullOrEmpty
+  href: api/OpenCollar.Extensions.Configuration.Validation.StringIs.html#OpenCollar_Extensions_Configuration_Validation_StringIs_NotNullOrEmpty
+  commentId: F:OpenCollar.Extensions.Configuration.Validation.StringIs.NotNullOrEmpty
+  fullName: OpenCollar.Extensions.Configuration.Validation.StringIs.NotNullOrEmpty
+  nameWithType: StringIs.NotNullOrEmpty
+- uid: OpenCollar.Extensions.Configuration.Validation.StringIs.NotNullOrWhiteSpace
+  name: NotNullOrWhiteSpace
+  href: api/OpenCollar.Extensions.Configuration.Validation.StringIs.html#OpenCollar_Extensions_Configuration_Validation_StringIs_NotNullOrWhiteSpace
+  commentId: F:OpenCollar.Extensions.Configuration.Validation.StringIs.NotNullOrWhiteSpace
+  fullName: OpenCollar.Extensions.Configuration.Validation.StringIs.NotNullOrWhiteSpace
+  nameWithType: StringIs.NotNullOrWhiteSpace
+- uid: OpenCollar.Extensions.Configuration.Validation.StringIs.NotWhiteSpace
+  name: NotWhiteSpace
+  href: api/OpenCollar.Extensions.Configuration.Validation.StringIs.html#OpenCollar_Extensions_Configuration_Validation_StringIs_NotWhiteSpace
+  commentId: F:OpenCollar.Extensions.Configuration.Validation.StringIs.NotWhiteSpace
+  fullName: OpenCollar.Extensions.Configuration.Validation.StringIs.NotWhiteSpace
+  nameWithType: StringIs.NotWhiteSpace
+- uid: OpenCollar.Extensions.Configuration.Validation.ValidatedNotNullAttribute
+  name: ValidatedNotNullAttribute
+  href: api/OpenCollar.Extensions.Configuration.Validation.ValidatedNotNullAttribute.html
+  commentId: T:OpenCollar.Extensions.Configuration.Validation.ValidatedNotNullAttribute
+  fullName: OpenCollar.Extensions.Configuration.Validation.ValidatedNotNullAttribute
+  nameWithType: ValidatedNotNullAttribute
 - uid: OpenCollar.Extensions.Configuration.ValueBase`2
   name: ValueBase<TParent, TValue>
   href: api/OpenCollar.Extensions.Configuration.ValueBase-2.html
