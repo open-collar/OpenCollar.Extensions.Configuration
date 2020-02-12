@@ -18,26 +18,19 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace OpenCollar.Extensions.Configuration.TESTS
+namespace OpenCollar.Extensions.Configuration.Validation
 {
-    public sealed class ConfigurationParentMock : IConfigurationParent
+#pragma warning disable S2342 // Rename this enumeration to match the regular expression: '^([A-Z]{1,3}[a-z0-9]+)*([A-Z]{2})?s$'.
+
+    /// <summary>Defines the type of validation to apply to an <see cref="object"/> argument.</summary>
+    [Flags]
+    public enum ObjectIs
     {
-        public bool IsReadOnly
-        {
-            get; set;
-        }
+        /// <summary>The validation to perform is unknown or undefined.  This value must never be used.</summary>
+        None = 0,
 
-        public string Path
-        {
-            get; set;
-        }
-
-        public string GetPath()
-        {
-            return Path;
-        }
+        /// <summary>The argument being validated must not be <see langword="null"/>.</summary>
+        NotNull = 1
     }
 }

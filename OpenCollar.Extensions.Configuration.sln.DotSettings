@@ -153,7 +153,6 @@ if ReferenceEquals($EXPR$, null) throw new System.ArgumentNullException($NAME$);
 	<s:Boolean x:Key="/Default/Environment/ContinuousTesting/ShowStatusBarIndicator/@EntryValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Editor/UseCamelHumps/@EntryValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=EBA9EA65BDB48648A3455B4FCAF726B1/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=EBA9EA65BDB48648A3455B4FCAF726B1/AbsolutePath/@EntryValue">C:\Users\evansjox\Documents\Willis Towers Watson\Personal\OpenCollar.Extensions.Configuration\OpenCollar.Extensions.Configuration.sln.DotSettings</s:String>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=EBA9EA65BDB48648A3455B4FCAF726B1/RelativePath/@EntryValue"></s:String>
 	
 	

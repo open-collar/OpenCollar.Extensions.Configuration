@@ -18,26 +18,23 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace OpenCollar.Extensions.Configuration.TESTS
+namespace OpenCollar.Extensions.Configuration.Validation
 {
-    public sealed class ConfigurationParentMock : IConfigurationParent
+    /// <summary>An enumeration defining the validation that can be applied to an enum value.</summary>
+    [Flags]
+    public enum EnumIs
     {
-        public bool IsReadOnly
-        {
-            get; set;
-        }
+        /// <summary>No validation is applied.</summary>
+        None = 0,
 
-        public string Path
-        {
-            get; set;
-        }
+        /// <summary>The value is any valid member of the enum.</summary>
+        ValidMember = 1,
 
-        public string GetPath()
-        {
-            return Path;
-        }
+        /// <summary>The value is any non-zero value (typically <c>Unknown</c> = 0). </summary>
+        NonZero = 2,
+
+        /// <summary>The value is any valid, non-zero, member of the enum (typically <c>Unknown</c> = 0). </summary>
+        NonZeroValidMember = ValidMember | NonZero
     }
 }

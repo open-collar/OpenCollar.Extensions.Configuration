@@ -18,26 +18,20 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace OpenCollar.Extensions.Configuration.TESTS
+namespace OpenCollar.Extensions.Configuration.Validation
 {
-    public sealed class ConfigurationParentMock : IConfigurationParent
+    /// <summary>Used to mark properties and arguments as having been validated as not being <see langword="null"/>.</summary>
+    /// <seealso cref="System.Attribute"/>
+    /// <remarks>
+    ///     Taken from this
+    ///     <see href="http://geekswithblogs.net/terje/archive/2010/10/14/making-static-code-analysis-and-code-contracts-work-together-or.aspx">
+    ///         Making Static
+    ///         Code Analysis and Code Contracts work together, or the CA1062 problem
+    ///     </see>
+    /// </remarks>
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Field)]
+    public sealed class ValidatedNotNullAttribute : Attribute
     {
-        public bool IsReadOnly
-        {
-            get; set;
-        }
-
-        public string Path
-        {
-            get; set;
-        }
-
-        public string GetPath()
-        {
-            return Path;
-        }
     }
 }

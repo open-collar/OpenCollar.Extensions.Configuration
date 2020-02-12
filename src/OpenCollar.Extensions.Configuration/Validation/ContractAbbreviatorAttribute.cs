@@ -18,26 +18,20 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics;
 
-namespace OpenCollar.Extensions.Configuration.TESTS
+namespace OpenCollar.Extensions.Configuration.Validation
 {
-    public sealed class ConfigurationParentMock : IConfigurationParent
+    /// <summary>Enables writing abbreviations for contracts that get copied to other methods</summary>
+    /// <remarks>
+    ///     Taken from this
+    ///     <see href="http://geekswithblogs.net/terje/archive/2010/10/14/making-static-code-analysis-and-code-contracts-work-together-or.aspx">
+    ///         Making Static Code Analysis and Code Contracts work together, or the CA1062 problem
+    ///     </see>
+    /// </remarks>
+    [AttributeUsage(AttributeTargets.Method)]
+    [Conditional("CONTRACTS_FULL")]
+    internal sealed class ContractAbbreviatorAttribute : Attribute
     {
-        public bool IsReadOnly
-        {
-            get; set;
-        }
-
-        public string Path
-        {
-            get; set;
-        }
-
-        public string GetPath()
-        {
-            return Path;
-        }
     }
 }
