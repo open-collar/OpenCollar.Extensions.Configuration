@@ -140,10 +140,10 @@
       <a class="xref" href="OpenCollar.Extensions.Configuration.ValueBase-2.html#OpenCollar_Extensions_Configuration_ValueBase_2_ValueImplementation">ValueBase&lt;ConfigurationDictionaryBase&lt;TKey, TValue&gt;, TValue&gt;.ValueImplementation</a>
     </div>
     <div>
-      <a class="xref" href="OpenCollar.Extensions.Configuration.ValueBase-2.html#OpenCollar_Extensions_Configuration_ValueBase_2_DeleteValue_Microsoft_Extensions_Configuration_IConfigurationRoot_">ValueBase&lt;ConfigurationDictionaryBase&lt;TKey, TValue&gt;, TValue&gt;.DeleteValue(IConfigurationRoot)</a>
+      <a class="xref" href="OpenCollar.Extensions.Configuration.ValueBase-2.html#OpenCollar_Extensions_Configuration_ValueBase_2_CalculatePath">ValueBase&lt;ConfigurationDictionaryBase&lt;TKey, TValue&gt;, TValue&gt;.CalculatePath()</a>
     </div>
     <div>
-      <a class="xref" href="OpenCollar.Extensions.Configuration.ValueBase-2.html#OpenCollar_Extensions_Configuration_ValueBase_2_GetPath">ValueBase&lt;ConfigurationDictionaryBase&lt;TKey, TValue&gt;, TValue&gt;.GetPath()</a>
+      <a class="xref" href="OpenCollar.Extensions.Configuration.ValueBase-2.html#OpenCollar_Extensions_Configuration_ValueBase_2_DeleteValue_Microsoft_Extensions_Configuration_IConfigurationRoot_">ValueBase&lt;ConfigurationDictionaryBase&lt;TKey, TValue&gt;, TValue&gt;.DeleteValue(IConfigurationRoot)</a>
     </div>
     <div>
       <a class="xref" href="OpenCollar.Extensions.Configuration.ValueBase-2.html#OpenCollar_Extensions_Configuration_ValueBase_2_ReadValue_Microsoft_Extensions_Configuration_IConfigurationRoot_">ValueBase&lt;ConfigurationDictionaryBase&lt;TKey, TValue&gt;, TValue&gt;.ReadValue(IConfigurationRoot)</a>
@@ -213,7 +213,7 @@
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_Collections_Element_2_IsReadOnly.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.Collections.Element%602.IsReadOnly%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/6ab5f21f4b2b258daded42beda28f99abd60c606/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L70">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/ee4b5025f699b584075a24fded9dce5a7e173c04/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L59">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_Collections_Element_2_IsReadOnly_" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.IsReadOnly*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_Collections_Element_2_IsReadOnly" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.IsReadOnly">IsReadOnly</h4>
@@ -247,7 +247,7 @@
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_Collections_Element_2_Key.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.Collections.Element%602.Key%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/6ab5f21f4b2b258daded42beda28f99abd60c606/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L61">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/ee4b5025f699b584075a24fded9dce5a7e173c04/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L50">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_Collections_Element_2_Key_" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.Key*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_Collections_Element_2_Key" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.Key">Key</h4>
@@ -279,7 +279,7 @@
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_Collections_Element_2_ValueImplementation.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.Collections.Element%602.ValueImplementation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/6ab5f21f4b2b258daded42beda28f99abd60c606/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L76">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/ee4b5025f699b584075a24fded9dce5a7e173c04/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L65">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_Collections_Element_2_ValueImplementation_" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.ValueImplementation*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_Collections_Element_2_ValueImplementation" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.ValueImplementation">ValueImplementation</h4>
@@ -312,10 +312,44 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_Collections_Element_2_CalculatePath.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.Collections.Element%602.CalculatePath%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/ee4b5025f699b584075a24fded9dce5a7e173c04/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L71">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_Collections_Element_2_CalculatePath_" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.CalculatePath*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_Collections_Element_2_CalculatePath" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.CalculatePath">CalculatePath()</h4>
+  <div class="markdown level1 summary"><p>Gets the path to this configuration object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string CalculatePath()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>A string containing the path to this configuration object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">OpenCollar.Extensions.Configuration.ValueBase&lt;OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase&lt;TKey, TValue&gt;, TValue&gt;.CalculatePath()</span></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_Collections_Element_2_Equals_OpenCollar_Extensions_Configuration_Collections_Element__0__1__.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.Collections.Element%602.Equals(OpenCollar.Extensions.Configuration.Collections.Element%7B%600%2C%601%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/6ab5f21f4b2b258daded42beda28f99abd60c606/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L86">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/ee4b5025f699b584075a24fded9dce5a7e173c04/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L84">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_Collections_Element_2_Equals_" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.Equals*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_Collections_Element_2_Equals_OpenCollar_Extensions_Configuration_Collections_Element__0__1__" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.Equals(OpenCollar.Extensions.Configuration.Collections.Element{`0,`1})">Equals(Element&lt;TKey, TValue&gt;)</h4>
@@ -366,7 +400,7 @@ otherwise, <span class="xref">false</span>.</p>
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_Collections_Element_2_Equals_System_Object_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.Collections.Element%602.Equals(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/6ab5f21f4b2b258daded42beda28f99abd60c606/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L109">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/ee4b5025f699b584075a24fded9dce5a7e173c04/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L106">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_Collections_Element_2_Equals_" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.Equals*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_Collections_Element_2_Equals_System_Object_" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.Equals(System.Object)">Equals(Object)</h4>
@@ -406,8 +440,7 @@ otherwise, <span class="xref">false</span>.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><span class="xref">true</span> if the specified <span class="xref">System.Object</span> is equal to this instance;
-otherwise, <span class="xref">false</span>.</p>
+        <td><p><span class="xref">true</span> if the specified <span class="xref">System.Object</span> is equal to this instance; otherwise, <span class="xref">false</span>.</p>
 </td>
       </tr>
     </tbody>
@@ -419,7 +452,7 @@ otherwise, <span class="xref">false</span>.</p>
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_Collections_Element_2_GetHashCode.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.Collections.Element%602.GetHashCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/6ab5f21f4b2b258daded42beda28f99abd60c606/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L127">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/ee4b5025f699b584075a24fded9dce5a7e173c04/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L124">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_Collections_Element_2_GetHashCode_" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.GetHashCode*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_Collections_Element_2_GetHashCode" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.GetHashCode">GetHashCode()</h4>
@@ -448,40 +481,6 @@ otherwise, <span class="xref">false</span>.</p>
   </table>
   <h5 class="overrides">Overrides</h5>
   <div><span class="xref">System.Object.GetHashCode()</span></div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_Collections_Element_2_GetPath.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.Collections.Element%602.GetPath%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/6ab5f21f4b2b258daded42beda28f99abd60c606/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L133">View Source</a>
-  </span>
-  <a id="OpenCollar_Extensions_Configuration_Collections_Element_2_GetPath_" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.GetPath*"></a>
-  <h4 id="OpenCollar_Extensions_Configuration_Collections_Element_2_GetPath" data-uid="OpenCollar.Extensions.Configuration.Collections.Element`2.GetPath">GetPath()</h4>
-  <div class="markdown level1 summary"><p>Gets the path to this configuration object.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override string GetPath()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>A string containing the path to this configuration object.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><span class="xref">OpenCollar.Extensions.Configuration.ValueBase&lt;OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase&lt;TKey, TValue&gt;, TValue&gt;.GetPath()</span></div>
   <h3 id="implements">Implements</h3>
   <div>
       <a class="xref" href="OpenCollar.Extensions.Configuration.IValue.html">IValue</a>
@@ -512,7 +511,7 @@ otherwise, <span class="xref">false</span>.</p>
                     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_Collections_Element_2.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.Collections.Element%602%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/6ab5f21f4b2b258daded42beda28f99abd60c606/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L32" class="contribution-link">View Source</a>
+                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/ee4b5025f699b584075a24fded9dce5a7e173c04/src/OpenCollar.Extensions.Configuration/Collections/Element.cs/#L32" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
@@ -531,7 +530,7 @@ otherwise, <span class="xref">false</span>.</p>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.139</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.140</span></div></div>
             
           </div>
         </div>

@@ -647,6 +647,23 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).AddNew
   nameWithType: ConfigurationDictionaryBase<TKey, TElement>.AddNew
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).AddNew
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.CalculatePath
+  name: CalculatePath()
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_CalculatePath
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.CalculatePath
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.CalculatePath()
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).CalculatePath()
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.CalculatePath()
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).CalculatePath()
+- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.CalculatePath*
+  name: CalculatePath
+  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_CalculatePath_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.CalculatePath
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.CalculatePath
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).CalculatePath
+  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.CalculatePath
+  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).CalculatePath
 - uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.Clear
   name: Clear()
   href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_Clear
@@ -809,23 +826,6 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).GetIndexedElements
   nameWithType: ConfigurationDictionaryBase<TKey, TElement>.GetIndexedElements
   nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).GetIndexedElements
-- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetPath
-  name: GetPath()
-  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_GetPath
-  commentId: M:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetPath
-  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.GetPath()
-  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).GetPath()
-  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.GetPath()
-  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).GetPath()
-- uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetPath*
-  name: GetPath
-  href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_GetPath_
-  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.GetPath
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase<TKey, TElement>.GetPath
-  fullName.vb: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase(Of TKey, TElement).GetPath
-  nameWithType: ConfigurationDictionaryBase<TKey, TElement>.GetPath
-  nameWithType.vb: ConfigurationDictionaryBase(Of TKey, TElement).GetPath
 - uid: OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase`2.InnerCopyTo(System.Collections.Generic.KeyValuePair{`0,OpenCollar.Extensions.Configuration.Collections.Element{`0,`1}}[],System.Int32)
   name: InnerCopyTo(KeyValuePair<TKey, Element<TKey, TElement>>[], Int32)
   href: api/OpenCollar.Extensions.Configuration.Collections.ConfigurationDictionaryBase-2.html#OpenCollar_Extensions_Configuration_Collections_ConfigurationDictionaryBase_2_InnerCopyTo_System_Collections_Generic_KeyValuePair__0_OpenCollar_Extensions_Configuration_Collections_Element__0__1_____System_Int32_
@@ -1188,6 +1188,23 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.Element(Of TKey, TValue)
   nameWithType: Element<TKey, TValue>
   nameWithType.vb: Element(Of TKey, TValue)
+- uid: OpenCollar.Extensions.Configuration.Collections.Element`2.CalculatePath
+  name: CalculatePath()
+  href: api/OpenCollar.Extensions.Configuration.Collections.Element-2.html#OpenCollar_Extensions_Configuration_Collections_Element_2_CalculatePath
+  commentId: M:OpenCollar.Extensions.Configuration.Collections.Element`2.CalculatePath
+  fullName: OpenCollar.Extensions.Configuration.Collections.Element<TKey, TValue>.CalculatePath()
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.Element(Of TKey, TValue).CalculatePath()
+  nameWithType: Element<TKey, TValue>.CalculatePath()
+  nameWithType.vb: Element(Of TKey, TValue).CalculatePath()
+- uid: OpenCollar.Extensions.Configuration.Collections.Element`2.CalculatePath*
+  name: CalculatePath
+  href: api/OpenCollar.Extensions.Configuration.Collections.Element-2.html#OpenCollar_Extensions_Configuration_Collections_Element_2_CalculatePath_
+  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.Element`2.CalculatePath
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.Collections.Element<TKey, TValue>.CalculatePath
+  fullName.vb: OpenCollar.Extensions.Configuration.Collections.Element(Of TKey, TValue).CalculatePath
+  nameWithType: Element<TKey, TValue>.CalculatePath
+  nameWithType.vb: Element(Of TKey, TValue).CalculatePath
 - uid: OpenCollar.Extensions.Configuration.Collections.Element`2.Equals(OpenCollar.Extensions.Configuration.Collections.Element{`0,`1})
   name: Equals(Element<TKey, TValue>)
   href: api/OpenCollar.Extensions.Configuration.Collections.Element-2.html#OpenCollar_Extensions_Configuration_Collections_Element_2_Equals_OpenCollar_Extensions_Configuration_Collections_Element__0__1__
@@ -1231,23 +1248,6 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.Collections.Element(Of TKey, TValue).GetHashCode
   nameWithType: Element<TKey, TValue>.GetHashCode
   nameWithType.vb: Element(Of TKey, TValue).GetHashCode
-- uid: OpenCollar.Extensions.Configuration.Collections.Element`2.GetPath
-  name: GetPath()
-  href: api/OpenCollar.Extensions.Configuration.Collections.Element-2.html#OpenCollar_Extensions_Configuration_Collections_Element_2_GetPath
-  commentId: M:OpenCollar.Extensions.Configuration.Collections.Element`2.GetPath
-  fullName: OpenCollar.Extensions.Configuration.Collections.Element<TKey, TValue>.GetPath()
-  fullName.vb: OpenCollar.Extensions.Configuration.Collections.Element(Of TKey, TValue).GetPath()
-  nameWithType: Element<TKey, TValue>.GetPath()
-  nameWithType.vb: Element(Of TKey, TValue).GetPath()
-- uid: OpenCollar.Extensions.Configuration.Collections.Element`2.GetPath*
-  name: GetPath
-  href: api/OpenCollar.Extensions.Configuration.Collections.Element-2.html#OpenCollar_Extensions_Configuration_Collections_Element_2_GetPath_
-  commentId: Overload:OpenCollar.Extensions.Configuration.Collections.Element`2.GetPath
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.Collections.Element<TKey, TValue>.GetPath
-  fullName.vb: OpenCollar.Extensions.Configuration.Collections.Element(Of TKey, TValue).GetPath
-  nameWithType: Element<TKey, TValue>.GetPath
-  nameWithType.vb: Element(Of TKey, TValue).GetPath
 - uid: OpenCollar.Extensions.Configuration.Collections.Element`2.IsReadOnly
   name: IsReadOnly
   href: api/OpenCollar.Extensions.Configuration.Collections.Element-2.html#OpenCollar_Extensions_Configuration_Collections_Element_2_IsReadOnly
@@ -1784,6 +1784,19 @@ references:
   isSpec: "True"
   fullName: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.ConfigurationObjectBase
   nameWithType: ConfigurationObjectBase.ConfigurationObjectBase
+- uid: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.CalculatePath
+  name: CalculatePath()
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_CalculatePath
+  commentId: M:OpenCollar.Extensions.Configuration.ConfigurationObjectBase.CalculatePath
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.CalculatePath()
+  nameWithType: ConfigurationObjectBase.CalculatePath()
+- uid: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.CalculatePath*
+  name: CalculatePath
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_CalculatePath_
+  commentId: Overload:OpenCollar.Extensions.Configuration.ConfigurationObjectBase.CalculatePath
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.CalculatePath
+  nameWithType: ConfigurationObjectBase.CalculatePath
 - uid: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.Delete
   name: Delete()
   href: api/OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Delete
@@ -1810,19 +1823,6 @@ references:
   isSpec: "True"
   fullName: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.Dispose
   nameWithType: ConfigurationObjectBase.Dispose
-- uid: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.GetPath
-  name: GetPath()
-  href: api/OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_GetPath
-  commentId: M:OpenCollar.Extensions.Configuration.ConfigurationObjectBase.GetPath
-  fullName: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.GetPath()
-  nameWithType: ConfigurationObjectBase.GetPath()
-- uid: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.GetPath*
-  name: GetPath
-  href: api/OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_GetPath_
-  commentId: Overload:OpenCollar.Extensions.Configuration.ConfigurationObjectBase.GetPath
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.GetPath
-  nameWithType: ConfigurationObjectBase.GetPath
 - uid: OpenCollar.Extensions.Configuration.ConfigurationObjectBase.InterfaceType
   name: InterfaceType
   href: api/OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_InterfaceType
@@ -2366,19 +2366,19 @@ references:
   commentId: T:OpenCollar.Extensions.Configuration.IConfigurationParent
   fullName: OpenCollar.Extensions.Configuration.IConfigurationParent
   nameWithType: IConfigurationParent
-- uid: OpenCollar.Extensions.Configuration.IConfigurationParent.GetPath
-  name: GetPath()
-  href: api/OpenCollar.Extensions.Configuration.IConfigurationParent.html#OpenCollar_Extensions_Configuration_IConfigurationParent_GetPath
-  commentId: M:OpenCollar.Extensions.Configuration.IConfigurationParent.GetPath
-  fullName: OpenCollar.Extensions.Configuration.IConfigurationParent.GetPath()
-  nameWithType: IConfigurationParent.GetPath()
-- uid: OpenCollar.Extensions.Configuration.IConfigurationParent.GetPath*
-  name: GetPath
-  href: api/OpenCollar.Extensions.Configuration.IConfigurationParent.html#OpenCollar_Extensions_Configuration_IConfigurationParent_GetPath_
-  commentId: Overload:OpenCollar.Extensions.Configuration.IConfigurationParent.GetPath
+- uid: OpenCollar.Extensions.Configuration.IConfigurationParent.CalculatePath
+  name: CalculatePath()
+  href: api/OpenCollar.Extensions.Configuration.IConfigurationParent.html#OpenCollar_Extensions_Configuration_IConfigurationParent_CalculatePath
+  commentId: M:OpenCollar.Extensions.Configuration.IConfigurationParent.CalculatePath
+  fullName: OpenCollar.Extensions.Configuration.IConfigurationParent.CalculatePath()
+  nameWithType: IConfigurationParent.CalculatePath()
+- uid: OpenCollar.Extensions.Configuration.IConfigurationParent.CalculatePath*
+  name: CalculatePath
+  href: api/OpenCollar.Extensions.Configuration.IConfigurationParent.html#OpenCollar_Extensions_Configuration_IConfigurationParent_CalculatePath_
+  commentId: Overload:OpenCollar.Extensions.Configuration.IConfigurationParent.CalculatePath
   isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.IConfigurationParent.GetPath
-  nameWithType: IConfigurationParent.GetPath
+  fullName: OpenCollar.Extensions.Configuration.IConfigurationParent.CalculatePath
+  nameWithType: IConfigurationParent.CalculatePath
 - uid: OpenCollar.Extensions.Configuration.IConfigurationParent.IsReadOnly
   name: IsReadOnly
   href: api/OpenCollar.Extensions.Configuration.IConfigurationParent.html#OpenCollar_Extensions_Configuration_IConfigurationParent_IsReadOnly
@@ -2724,6 +2724,19 @@ references:
   commentId: T:OpenCollar.Extensions.Configuration.PropertyDef
   fullName: OpenCollar.Extensions.Configuration.PropertyDef
   nameWithType: PropertyDef
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.CalculatePath(OpenCollar.Extensions.Configuration.IConfigurationParent)
+  name: CalculatePath(IConfigurationParent)
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_CalculatePath_OpenCollar_Extensions_Configuration_IConfigurationParent_
+  commentId: M:OpenCollar.Extensions.Configuration.PropertyDef.CalculatePath(OpenCollar.Extensions.Configuration.IConfigurationParent)
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.CalculatePath(OpenCollar.Extensions.Configuration.IConfigurationParent)
+  nameWithType: PropertyDef.CalculatePath(IConfigurationParent)
+- uid: OpenCollar.Extensions.Configuration.PropertyDef.CalculatePath*
+  name: CalculatePath
+  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_CalculatePath_
+  commentId: Overload:OpenCollar.Extensions.Configuration.PropertyDef.CalculatePath
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.PropertyDef.CalculatePath
+  nameWithType: PropertyDef.CalculatePath
 - uid: OpenCollar.Extensions.Configuration.PropertyDef.DefaultValue
   name: DefaultValue
   href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_DefaultValue
@@ -2750,19 +2763,6 @@ references:
   isSpec: "True"
   fullName: OpenCollar.Extensions.Configuration.PropertyDef.ElementImplementation
   nameWithType: PropertyDef.ElementImplementation
-- uid: OpenCollar.Extensions.Configuration.PropertyDef.GetPath(OpenCollar.Extensions.Configuration.IConfigurationParent)
-  name: GetPath(IConfigurationParent)
-  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_GetPath_OpenCollar_Extensions_Configuration_IConfigurationParent_
-  commentId: M:OpenCollar.Extensions.Configuration.PropertyDef.GetPath(OpenCollar.Extensions.Configuration.IConfigurationParent)
-  fullName: OpenCollar.Extensions.Configuration.PropertyDef.GetPath(OpenCollar.Extensions.Configuration.IConfigurationParent)
-  nameWithType: PropertyDef.GetPath(IConfigurationParent)
-- uid: OpenCollar.Extensions.Configuration.PropertyDef.GetPath*
-  name: GetPath
-  href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_GetPath_
-  commentId: Overload:OpenCollar.Extensions.Configuration.PropertyDef.GetPath
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.PropertyDef.GetPath
-  nameWithType: PropertyDef.GetPath
 - uid: OpenCollar.Extensions.Configuration.PropertyDef.GetUnderlyingType(System.Type)
   name: GetUnderlyingType(Type)
   href: api/OpenCollar.Extensions.Configuration.PropertyDef.html#OpenCollar_Extensions_Configuration_PropertyDef_GetUnderlyingType_System_Type_
@@ -3168,6 +3168,23 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.ValueBase(Of TParent, TValue)._propertyDef
   nameWithType: ValueBase<TParent, TValue>._propertyDef
   nameWithType.vb: ValueBase(Of TParent, TValue)._propertyDef
+- uid: OpenCollar.Extensions.Configuration.ValueBase`2.CalculatePath
+  name: CalculatePath()
+  href: api/OpenCollar.Extensions.Configuration.ValueBase-2.html#OpenCollar_Extensions_Configuration_ValueBase_2_CalculatePath
+  commentId: M:OpenCollar.Extensions.Configuration.ValueBase`2.CalculatePath
+  fullName: OpenCollar.Extensions.Configuration.ValueBase<TParent, TValue>.CalculatePath()
+  fullName.vb: OpenCollar.Extensions.Configuration.ValueBase(Of TParent, TValue).CalculatePath()
+  nameWithType: ValueBase<TParent, TValue>.CalculatePath()
+  nameWithType.vb: ValueBase(Of TParent, TValue).CalculatePath()
+- uid: OpenCollar.Extensions.Configuration.ValueBase`2.CalculatePath*
+  name: CalculatePath
+  href: api/OpenCollar.Extensions.Configuration.ValueBase-2.html#OpenCollar_Extensions_Configuration_ValueBase_2_CalculatePath_
+  commentId: Overload:OpenCollar.Extensions.Configuration.ValueBase`2.CalculatePath
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.ValueBase<TParent, TValue>.CalculatePath
+  fullName.vb: OpenCollar.Extensions.Configuration.ValueBase(Of TParent, TValue).CalculatePath
+  nameWithType: ValueBase<TParent, TValue>.CalculatePath
+  nameWithType.vb: ValueBase(Of TParent, TValue).CalculatePath
 - uid: OpenCollar.Extensions.Configuration.ValueBase`2.DeleteValue(Microsoft.Extensions.Configuration.IConfigurationRoot)
   name: DeleteValue(IConfigurationRoot)
   href: api/OpenCollar.Extensions.Configuration.ValueBase-2.html#OpenCollar_Extensions_Configuration_ValueBase_2_DeleteValue_Microsoft_Extensions_Configuration_IConfigurationRoot_
@@ -3185,23 +3202,6 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.ValueBase(Of TParent, TValue).DeleteValue
   nameWithType: ValueBase<TParent, TValue>.DeleteValue
   nameWithType.vb: ValueBase(Of TParent, TValue).DeleteValue
-- uid: OpenCollar.Extensions.Configuration.ValueBase`2.GetPath
-  name: GetPath()
-  href: api/OpenCollar.Extensions.Configuration.ValueBase-2.html#OpenCollar_Extensions_Configuration_ValueBase_2_GetPath
-  commentId: M:OpenCollar.Extensions.Configuration.ValueBase`2.GetPath
-  fullName: OpenCollar.Extensions.Configuration.ValueBase<TParent, TValue>.GetPath()
-  fullName.vb: OpenCollar.Extensions.Configuration.ValueBase(Of TParent, TValue).GetPath()
-  nameWithType: ValueBase<TParent, TValue>.GetPath()
-  nameWithType.vb: ValueBase(Of TParent, TValue).GetPath()
-- uid: OpenCollar.Extensions.Configuration.ValueBase`2.GetPath*
-  name: GetPath
-  href: api/OpenCollar.Extensions.Configuration.ValueBase-2.html#OpenCollar_Extensions_Configuration_ValueBase_2_GetPath_
-  commentId: Overload:OpenCollar.Extensions.Configuration.ValueBase`2.GetPath
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.ValueBase<TParent, TValue>.GetPath
-  fullName.vb: OpenCollar.Extensions.Configuration.ValueBase(Of TParent, TValue).GetPath
-  nameWithType: ValueBase<TParent, TValue>.GetPath
-  nameWithType.vb: ValueBase(Of TParent, TValue).GetPath
 - uid: OpenCollar.Extensions.Configuration.ValueBase`2.IsDirty
   name: IsDirty
   href: api/OpenCollar.Extensions.Configuration.ValueBase-2.html#OpenCollar_Extensions_Configuration_ValueBase_2_IsDirty
