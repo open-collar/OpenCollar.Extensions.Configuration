@@ -45,7 +45,7 @@ jobs:
 
     - name: Test
       run: |
-        dotnet test --configuration Release -p:Version="$VERSION" -p:CollectCoverage=true -p:CoverletOutput=/home/runner/work/OpenCollar.Extensions.Configuration/OpenCollar.Extensions.Configuration/coverage/ -p:CoverletOutputFormat=lcov -p:ExcludeByFiles=**/Annotations.cs
+        dotnet test --configuration Release -p:Version="$VERSION" -p:CollectCoverage=true -p:CoverletOutput=/home/runner/work/OpenCollar.Extensions.Configuration/OpenCollar.Extensions.Configuration/coverage/ -p:CoverletOutputFormat=lcov
 
     - name: Coveralls
       uses: coverallsapp/github-action@master
