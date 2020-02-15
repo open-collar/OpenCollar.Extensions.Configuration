@@ -27,18 +27,19 @@ using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
-    public sealed class ServiceCollectionExtensionsTests
+    public sealed class ServiceCollectionExtensionsTests : IClassFixture<ConfigurationFixture>
     {
+        private readonly ConfigurationFixture _configurationFixture;
+
+        public ServiceCollectionExtensionsTests(ConfigurationFixture configurationFixture)
+        {
+            _configurationFixture = configurationFixture;
+        }
+
         [Fact]
         public void TestAddService()
         {
-            var source = new MemoryConfigurationSource()
-            {
-                InitialData = new[] { new KeyValuePair<string, string>(nameof(IRootElement.CharPropertyA), "a") }
-            };
-
-            var provider = new MemoryConfigurationProvider(source);
-            var configurationRoot = new ConfigurationRoot(new[] { provider });
+            var configurationRoot = _configurationFixture.ConfigurationRoot;
 
             IServiceCollection servicesCollection = new ServiceCollection();
             servicesCollection.AddSingleton<IConfigurationRoot>(configurationRoot);

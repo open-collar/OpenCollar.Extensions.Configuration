@@ -18,11 +18,10 @@
  */
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenCollar.Extensions.Configuration.Validation;
 
@@ -62,7 +61,16 @@ namespace OpenCollar.Extensions.Configuration
 
             var implementationType = GenerateConfigurationObjectType<TConfigurationObject>();
 
-            var descriptor = new ServiceDescriptor(serviceType, implementationType, ServiceLifetime.Singleton);
+            var descriptor = new ServiceDescriptor(serviceType, (provider) =>
+            {
+                var configurationRoot = provider.GetService<IConfigurationRoot>();
+
+                var configurationObject = (TConfigurationObject)Activator.CreateInstance(implementationType, configurationRoot, null);
+
+                configurationObject.Load();
+
+                return configurationObject;
+            }, ServiceLifetime.Singleton);
 
             serviceCollection.Add(descriptor);
         }

@@ -17,10 +17,6 @@
  * Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
     internal sealed class ConfigurationParentMock : IConfigurationParent

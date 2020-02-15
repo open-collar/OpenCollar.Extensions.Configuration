@@ -91,7 +91,6 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Services = servicesCollection.BuildServiceProvider();
 
             RootElement = Services.GetService<IRootElement>();
-            RootElement.Load(); // TODO: Make this automatic - lazy evaluation?
         }
 
         internal IConfigurationRoot ConfigurationRoot
