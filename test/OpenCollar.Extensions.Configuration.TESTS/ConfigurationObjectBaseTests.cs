@@ -124,6 +124,20 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         [Fact]
+        public void TestEquals()
+        {
+            var x = _configurationFixture.RootElement;
+            var y = x.ChildCollection[0];
+            var z = x.ChildCollection[1];
+
+            Assert.True(x.Equals(x));
+            Assert.False(x.Equals(y));
+            Assert.False(y.Equals(x));
+            Assert.False(x.Equals(z));
+            Assert.False(x.Equals(null));
+        }
+
+        [Fact]
         public void TestProperties_Boolean()
         {
             var x = _configurationFixture.RootElement;
