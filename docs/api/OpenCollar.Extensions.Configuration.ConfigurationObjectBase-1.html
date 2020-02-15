@@ -100,16 +100,12 @@ namespace to be to be accessed through a user-defined model with strongly typed 
     <div><a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html">IConfigurationObject</a></div>
     <div><span class="xref">System.IDisposable</span></div>
     <div><span class="xref">System.ComponentModel.INotifyPropertyChanged</span></div>
-    <div><a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationParent.html">IConfigurationParent</a></div>
     <div><a class="xref" href="OpenCollar.Extensions.Configuration.IValueChanged.html">IValueChanged</a></div>
-    <div><a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationChild.html">IConfigurationChild</a></div>
+    <div><a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationParent.html">IConfigurationParent</a></div>
     <div><span class="xref">System.IEquatable</span>&lt;TInterface&gt;</div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_PropertiesByName">ConfigurationObjectBase.PropertiesByName</a>
-    </div>
     <div>
       <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_IsDirty">ConfigurationObjectBase.IsDirty</a>
     </div>
@@ -121,6 +117,9 @@ namespace to be to be accessed through a user-defined model with strongly typed 
     </div>
     <div>
       <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Values">ConfigurationObjectBase.Values</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_PropertiesByName">ConfigurationObjectBase.PropertiesByName</a>
     </div>
     <div>
       <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Item_System_String_">ConfigurationObjectBase.Item[String]</a>
@@ -135,6 +134,9 @@ namespace to be to be accessed through a user-defined model with strongly typed 
       <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Load">ConfigurationObjectBase.Load()</a>
     </div>
     <div>
+      <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_OnValueChanged_OpenCollar_Extensions_Configuration_IValue_OpenCollar_Extensions_Configuration_IValue_">ConfigurationObjectBase.OnValueChanged(IValue, IValue)</a>
+    </div>
+    <div>
       <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Save">ConfigurationObjectBase.Save()</a>
     </div>
     <div>
@@ -142,9 +144,6 @@ namespace to be to be accessed through a user-defined model with strongly typed 
     </div>
     <div>
       <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_ToString">ConfigurationObjectBase.ToString()</a>
-    </div>
-    <div>
-      <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_OpenCollar_Extensions_Configuration_IValueChanged_OnValueChanged_OpenCollar_Extensions_Configuration_IValue_OpenCollar_Extensions_Configuration_IValue_">ConfigurationObjectBase.IValueChanged.OnValueChanged(IValue, IValue)</a>
     </div>
     <div>
       <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationObjectBase.html#OpenCollar_Extensions_Configuration_ConfigurationObjectBase_Dispose_System_Boolean_">ConfigurationObjectBase.Dispose(Boolean)</a>
@@ -196,7 +195,7 @@ namespace to be to be accessed through a user-defined model with strongly typed 
   <h6><strong>Assembly</strong>: OpenCollar.Extensions.Configuration.dll</h6>
   <h5 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class ConfigurationObjectBase&lt;TInterface&gt; : ConfigurationObjectBase, IConfigurationObject, IDisposable, INotifyPropertyChanged, IConfigurationParent, IValueChanged, IConfigurationChild, IEquatable&lt;TInterface&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class ConfigurationObjectBase&lt;TInterface&gt; : ConfigurationObjectBase, IConfigurationObject, IDisposable, INotifyPropertyChanged, IValueChanged, IConfigurationChild, IConfigurationParent, IEquatable&lt;TInterface&gt;</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -233,7 +232,7 @@ namespace to be to be accessed through a user-defined model with strongly typed 
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationObjectBase_1__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_OpenCollar_Extensions_Configuration_IConfigurationParent_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationObjectBase%601.%23ctor(Microsoft.Extensions.Configuration.IConfigurationRoot%2COpenCollar.Extensions.Configuration.IConfigurationParent)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/ee4b5025f699b584075a24fded9dce5a7e173c04/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L374">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/d71f2ec91d5e6714c761f6d93c5a2f179838f886/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L63">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_1__ctor_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase`1.#ctor*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_1__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_OpenCollar_Extensions_Configuration_IConfigurationParent_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase`1.#ctor(Microsoft.Extensions.Configuration.IConfigurationRoot,OpenCollar.Extensions.Configuration.IConfigurationParent)">ConfigurationObjectBase(IConfigurationRoot, IConfigurationParent)</h4>
@@ -276,7 +275,7 @@ interface used when creating the root instance for the service collection.</p>
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationObjectBase_1_InterfaceType.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationObjectBase%601.InterfaceType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/ee4b5025f699b584075a24fded9dce5a7e173c04/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L398">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/d71f2ec91d5e6714c761f6d93c5a2f179838f886/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L87">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_1_InterfaceType_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase`1.InterfaceType*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_1_InterfaceType" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase`1.InterfaceType">InterfaceType</h4>
@@ -312,7 +311,7 @@ interface used when creating the root instance for the service collection.</p>
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationObjectBase_1_Equals__0_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationObjectBase%601.Equals(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/ee4b5025f699b584075a24fded9dce5a7e173c04/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L408">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/d71f2ec91d5e6714c761f6d93c5a2f179838f886/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L97">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_1_Equals_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase`1.Equals*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_ConfigurationObjectBase_1_Equals__0_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationObjectBase`1.Equals(`0)">Equals(TInterface)</h4>
@@ -369,20 +368,13 @@ otherwise, <span class="xref">false</span>.</p>
       <span class="xref">System.ComponentModel.INotifyPropertyChanged</span>
   </div>
   <div>
-      <a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationParent.html">IConfigurationParent</a>
-  </div>
-  <div>
       <a class="xref" href="OpenCollar.Extensions.Configuration.IValueChanged.html">IValueChanged</a>
   </div>
   <div>
-      <a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationChild.html">IConfigurationChild</a>
+      <a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationParent.html">IConfigurationParent</a>
   </div>
   <div>
       <span class="xref">System.IEquatable&lt;T&gt;</span>
-  </div>
-  <h3 id="extensionmethods">Extension Methods</h3>
-  <div>
-      <a class="xref" href="OpenCollar.Extensions.Configuration.Validation.ArgumentValidationExtensions.html#OpenCollar_Extensions_Configuration_Validation_ArgumentValidationExtensions_Validate__1___0_System_String_OpenCollar_Extensions_Configuration_Validation_ObjectIs_">ArgumentValidationExtensions.Validate&lt;T&gt;(T, String, ObjectIs)</a>
   </div>
   <h3 id="seealso">See Also</h3>
   <div class="seealso">
@@ -401,7 +393,7 @@ otherwise, <span class="xref">false</span>.</p>
                     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationObjectBase_1.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationObjectBase%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/ee4b5025f699b584075a24fded9dce5a7e173c04/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L364" class="contribution-link">View Source</a>
+                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/d71f2ec91d5e6714c761f6d93c5a2f179838f886/src/OpenCollar.Extensions.Configuration/ConfigurationObjectBase.cs/#L53" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
@@ -420,7 +412,7 @@ otherwise, <span class="xref">false</span>.</p>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.140</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.142</span></div></div>
             
           </div>
         </div>

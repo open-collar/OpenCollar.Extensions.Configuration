@@ -98,9 +98,6 @@ namespace to be to be accessed through a user-defined model with strongly typed 
       <section><p>A base class that allows configuration from classes in the <span class="xref">Microsoft.Extensions.Configuration</span>
 namespace to be to be accessed through a user-defined model with strongly typed interfaces.</p>
 </section>
-      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.html">ConfigurationObjectComparer</a></h4>
-      <section><p>A comparer for objects that implement interfaces derived from <a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html">IConfigurationObject</a>.</p>
-</section>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.DefaultValueAttribute.html">DefaultValueAttribute</a></h4>
       <section><p>An attribute that can be used to specify the default value to return if no value is defined in the
 configuration root.</p>
@@ -119,26 +116,14 @@ configuration root.</p>
       <section><p>Defines an attribute used to indicate the path to the configuration value(s) underlying a class or
 individual property.</p>
 </section>
-      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.PropertyDef.html">PropertyDef</a></h4>
-      <section><p>The definition of a property of a configuration object.</p>
-</section>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.html">ServiceCollectionExtensions</a></h4>
       <section><p>Extensions to the <span class="xref">Microsoft.Extensions.DependencyInjection.IServiceCollection</span> type allowing configuration objects to be registered.</p>
 </section>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.TypeMismatchException.html">TypeMismatchException</a></h4>
       <section><p>An exception thrown when an object of the wrong type is added to a collection or assigned to a property.</p>
 </section>
-      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.UniversalComparer.html">UniversalComparer</a></h4>
-      <section><p>Support for comparison.</p>
-</section>
-      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.ValueBase-2.html">ValueBase&lt;TParent, TValue&gt;</a></h4>
-      <section><p>A class used to represent a property on an interface and its location in the configuration model.</p>
-</section>
     <h3 id="interfaces">Interfaces
   </h3>
-      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationChild.html">IConfigurationChild</a></h4>
-      <section><p>Defines the interface common to a objects that may belong to a configuration object.</p>
-</section>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationCollection-1.html">IConfigurationCollection&lt;TElement&gt;</a></h4>
       <section><p>Represents a collection of values stored in a property.</p>
 </section>
@@ -150,6 +135,12 @@ individual property.</p>
 </section>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationParent.html">IConfigurationParent</a></h4>
       <section><p>The interface common to all objects that can be parents to others.</p>
+</section>
+      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.IImplementation.html">IImplementation</a></h4>
+      <section><p>The details of the implementation of a property or element.</p>
+</section>
+      <h4><a class="xref" href="OpenCollar.Extensions.Configuration.IPropertyDef.html">IPropertyDef</a></h4>
+      <section><p>The definition of the interface of the class that defines a property of a configuration object.</p>
 </section>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.IValue.html">IValue</a></h4>
       <section><p>The interface internally exposed by value objects.</p>
@@ -190,7 +181,7 @@ attribute can be used to create a full path.</p>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.140</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.142</span></div></div>
             
           </div>
         </div>
