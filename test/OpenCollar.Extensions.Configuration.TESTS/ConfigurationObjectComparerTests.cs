@@ -24,7 +24,7 @@ using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
-    internal sealed class ConfigurationObjectComparerTests : IClassFixture<TestDataFixture>
+    public sealed class ConfigurationObjectComparerTests : IClassFixture<TestDataFixture>
     {
         private readonly TestDataFixture _propertyTestData;
 

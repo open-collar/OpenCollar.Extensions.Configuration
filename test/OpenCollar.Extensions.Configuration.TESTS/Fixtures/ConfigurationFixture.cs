@@ -25,7 +25,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
-    internal sealed class ConfigurationFixture : Disposable
+    public sealed class ConfigurationFixture : Disposable
     {
         public ConfigurationFixture()
         {
@@ -94,17 +94,17 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             RootElement.Load(); // TODO: Make this automatic - lazy evaluation?
         }
 
-        public IConfigurationRoot ConfigurationRoot
+        internal IConfigurationRoot ConfigurationRoot
         {
             get;
         }
 
-        public IRootElement RootElement
+        internal IRootElement RootElement
         {
             get;
         }
 
-        public ServiceProvider Services
+        internal ServiceProvider Services
         {
             get;
         }

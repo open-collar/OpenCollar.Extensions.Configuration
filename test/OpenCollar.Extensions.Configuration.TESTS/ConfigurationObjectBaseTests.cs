@@ -27,7 +27,7 @@ using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
-    internal class ConfigurationObjectBaseTests : IClassFixture<ConfigurationFixture>
+    public class ConfigurationObjectBaseTests : IClassFixture<ConfigurationFixture>
     {
         private readonly ConfigurationFixture _configurationFixture;
 
