@@ -5,6 +5,8 @@ Support for automatic validation, update and strongly-typed access to
 configuration with events allowing for changing detection and more dynamic 
 applications.
 
+ * [API Documentation](https://open-collar.github.io/OpenCollar.Extensions.Configuration/)
+
 ## Set-up Developer Environment
 
 There are no hard dependencies on tooling, all that is required is the 
@@ -34,6 +36,17 @@ There are no hard dependencies on tooling, all that is required is the
 
 ## Project Resources
 
+
+<table style="border-style: none;">
+    <tr style="border-style: none;">
+        <td style="width: 20%; border-style: none;">
+        <td style="width: 20%; border-style: none;"><a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/actions"><img src="https://github.com/open-collar/OpenCollar.Extensions.Configuration/workflows/.NET%20Core/badge.svg"/></a></td>
+        <td style="width: 20%; border-style: none;">
+        <td style="width: 20%; border-style: none;"><a href="https://coveralls.io/github/open-collar/OpenCollar.Extensions.Configuration?branch=master"><img src="https://coveralls.io/repos/github/open-collar/OpenCollar.Extensions.Configuration/badge.svg?branch=master"/></a></td>
+        <td style="width: 20%; border-style: none;">
+    </tr>
+</table>
+
  * [Source Code](https://github.com/open-collar/OpenCollar.Extensions.Configuration)
  * [Issue Tracking](https://github.com/open-collar/OpenCollar.Extensions.Configuration/issues)
  * [GitHub Pages](https://open-collar.github.io/OpenCollar.Extensions.Configuration/)
@@ -44,7 +57,3 @@ There are no hard dependencies on tooling, all that is required is the
  * [Tutorial: Express your design intent more clearly with nullable and non-nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/nullable-reference-types);
  * [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
  * [Coveralls GitHub Action](https://github.com/marketplace/actions/coveralls-github-action)
-
-## Status
- * ![Master](https://github.com/open-collar/OpenCollar.Extensions.Configuration/workflows/.NET%20Core/badge.svg)
- * [![Coverage Status](https://coveralls.io/repos/github/open-collar/OpenCollar.Extensions.Configuration/badge.svg?branch=master)](https://coveralls.io/github/open-collar/OpenCollar.Extensions.Configuration?branch=master)
