@@ -70,37 +70,12 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Adds the constructor.
-        /// </summary>
-        /// <param name="builder"> The builder. </param>
-        private void AddConstructor(TypeBuilder builder)
-        {
-            var constructorArgumentTypes = new[] { typeof(IConfigurationRoot), typeof(IConfigurationParent) };
-
-            var baseConstructor = _baseClassType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null,
-                constructorArgumentTypes, null);
-
-            Debug.Assert(!ReferenceEquals(baseConstructor, null));
-
-            var constructorBuilder =
-                builder.DefineConstructor(MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName,
-                    CallingConventions.Standard, constructorArgumentTypes);
-
-            var generator = constructorBuilder.GetILGenerator();
-            generator.Emit(OpCodes.Ldarg, 0);
-            generator.Emit(OpCodes.Ldarg, 1);
-            generator.Emit(OpCodes.Ldarg, 2);
-            generator.Emit(OpCodes.Call, baseConstructor);
-            generator.Emit(OpCodes.Ret);
-        }
-
-        /// <summary>
         ///     Adds the property.
         /// </summary>
         /// <param name="builder"> The builder. </param>
         /// <param name="propertyDef"> The property definition. </param>
         /// <param name="indexerDef"> The indexer definition. </param>
-        private void AddProperty(TypeBuilder builder, PropertyDef propertyDef, PropertyInfo indexerDef)
+        private static void AddProperty(TypeBuilder builder, PropertyDef propertyDef, PropertyInfo indexerDef)
         {
             var propertyBuilder = builder.DefineProperty(propertyDef.PropertyName, PropertyAttributes.HasDefault, propertyDef.Type, null);
             var getMethodBuilder = builder.DefineMethod("get_" + propertyDef.PropertyName,
@@ -140,6 +115,31 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Adds the constructor.
+        /// </summary>
+        /// <param name="builder"> The builder. </param>
+        private void AddConstructor(TypeBuilder builder)
+        {
+            var constructorArgumentTypes = new[] { typeof(IConfigurationRoot), typeof(IConfigurationParent) };
+
+            var baseConstructor = _baseClassType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null,
+                constructorArgumentTypes, null);
+
+            Debug.Assert(!ReferenceEquals(baseConstructor, null));
+
+            var constructorBuilder =
+                builder.DefineConstructor(MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName,
+                    CallingConventions.Standard, constructorArgumentTypes);
+
+            var generator = constructorBuilder.GetILGenerator();
+            generator.Emit(OpCodes.Ldarg, 0);
+            generator.Emit(OpCodes.Ldarg, 1);
+            generator.Emit(OpCodes.Ldarg, 2);
+            generator.Emit(OpCodes.Call, baseConstructor);
+            generator.Emit(OpCodes.Ret);
+        }
+
+        /// <summary>
         ///     Gets the type builder.
         /// </summary>
         /// <returns> </returns>
@@ -152,11 +152,11 @@ namespace OpenCollar.Extensions.Configuration
             }
 
             var typeName = name + "Impl";
-            var an = new AssemblyName(typeName);
+            var an = new AssemblyName("OpenCollar.Extensions.Configuration.Implementations." + name);
             var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(an, AssemblyBuilderAccess.Run);
             var moduleBuilder = assemblyBuilder.DefineDynamicModule("MainModule");
             return moduleBuilder.DefineType(typeName,
-                TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.AutoClass | TypeAttributes.AnsiClass | TypeAttributes.BeforeFieldInit |
+                TypeAttributes.NotPublic | TypeAttributes.Class | TypeAttributes.AutoClass | TypeAttributes.AnsiClass | TypeAttributes.BeforeFieldInit |
                 TypeAttributes.AutoLayout, _baseClassType);
         }
     }

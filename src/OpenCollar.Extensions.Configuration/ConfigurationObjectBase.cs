@@ -34,6 +34,95 @@ namespace OpenCollar.Extensions.Configuration
     ///     A base class that allows configuration from classes in the <see cref="Microsoft.Extensions.Configuration" />
     ///     namespace to be to be accessed through a user-defined model with strongly typed interfaces.
     /// </summary>
+    /// <typeparam name="TInterface"> The type of the configuration interface implemented. </typeparam>
+    /// <seealso cref="Disposable" />
+    /// <seealso cref="IConfigurationObject" />
+    /// <remarks>
+    ///     <para>
+    ///         For each requested model only a single instance of the model is ever constructed for a given
+    ///         <see cref="IConfigurationSection" /> or <see cref="IConfigurationRoot" /> .
+    ///     </para>
+    ///     <para>
+    ///         The <see cref="INotifyPropertyChanged" /> interface is supported allowing changes to be detected and
+    ///         reported from both the underlying configuration source (through the source changed event) and from
+    ///         detected changes made to properties with a setter. Only material changes are reported, and change with
+    ///         no practical impact (for example assigning a new instance of a string with the same value) will not be reported.
+    ///     </para>
+    /// </remarks>
+    /// <seealso cref="IConfigurationObject" />
+    public abstract class ConfigurationObjectBase<TInterface> : ConfigurationObjectBase, IEquatable<TInterface>
+    {
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationObjectBase{TInterface}" /> class. This is the
+        ///     interface used when creating the root instance for the service collection.
+        /// </summary>
+        /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
+        /// <param name="parent">
+        ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
+        /// </param>
+        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, IConfigurationParent parent) : base(
+            ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface)), configurationRoot, parent)
+        {
+            DisablePropertyChangedEvents();
+            try
+            {
+                foreach(var value in Values)
+                {
+                    if(value.PropertyDef.HasDefaultValue)
+                    {
+                        value.Value = value.PropertyDef.DefaultValue;
+                    }
+                }
+            }
+            finally
+            {
+                EnablePropertyChangedEvents();
+            }
+        }
+
+        /// <summary>
+        ///     Gets the type of the interface implemented by this object.
+        /// </summary>
+        /// <value> The type of the interface implemented by this object. </value>
+        protected override Type InterfaceType => typeof(TInterface);
+
+        /// <summary>
+        ///     Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other"> An object to compare with this object. </param>
+        /// <returns>
+        ///     <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter;
+        ///     otherwise, <see langword="false" />.
+        /// </returns>
+        public bool Equals(TInterface other)
+        {
+            var b = other as IConfigurationObject;
+            if(ReferenceEquals(b, null))
+            {
+                return false;
+            }
+
+            return ConfigurationObjectComparer.Instance.Equals(this, b);
+        }
+
+        /// <summary>
+        ///     Clones the property values from the specified instance.
+        /// </summary>
+        /// <param name="value"> The instance from which to clone the values. </param>
+        internal void Clone(TInterface value)
+        {
+            foreach(var property in PropertiesByName)
+            {
+                var propertyValue = property.Value.PropertyDef.PropertyInfo.GetValue(value);
+                property.Value.SetValue(propertyValue);
+            }
+        }
+    }
+
+    /// <summary>
+    ///     A base class that allows configuration from classes in the <see cref="Microsoft.Extensions.Configuration" />
+    ///     namespace to be to be accessed through a user-defined model with strongly typed interfaces.
+    /// </summary>
     /// <seealso cref="IConfigurationObject" />
     /// <remarks>
     ///     <para>
@@ -48,14 +137,8 @@ namespace OpenCollar.Extensions.Configuration
     ///     </para>
     /// </remarks>
     [DebuggerDisplay("{ToString(),nq} ({CalculatePath()})")]
-    public abstract class ConfigurationObjectBase : NotifyPropertyChanged, IConfigurationObject, IValueChanged, IConfigurationChild
+    public abstract class ConfigurationObjectBase : NotifyPropertyChanged, IConfigurationObject, IValueChanged, IConfigurationChild, IConfigurationParent
     {
-        /// <summary>
-        ///     A dictionary of property values keyed on the name of the property it represents (case sensitive).
-        /// </summary>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected readonly Dictionary<string, IValue> PropertiesByName = new Dictionary<string, IValue>(StringComparer.Ordinal);
-
         /// <summary>
         ///     The constructed types for properties.
         /// </summary>
@@ -66,6 +149,12 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly IConfigurationRoot _configurationRoot;
+
+        /// <summary>
+        ///     A dictionary of property values keyed on the name of the property it represents (case sensitive).
+        /// </summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly Dictionary<string, IValue> _propertiesByName = new Dictionary<string, IValue>(StringComparer.Ordinal);
 
         /// <summary>
         ///     A dictionary of property values keyed on the path to the underlying value (case insensitive).
@@ -90,7 +179,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
         /// <exception cref="ArgumentNullException"> <paramref name="configurationRoot" /> is <see langword="null" />. </exception>
-        protected ConfigurationObjectBase(PropertyDef? propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent)
+        protected ConfigurationObjectBase(IPropertyDef? propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent)
         {
             configurationRoot.Validate(nameof(configurationRoot), ObjectIs.NotNull);
             _parent = parent;
@@ -108,14 +197,17 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        protected ConfigurationObjectBase(IEnumerable<PropertyDef> childPropertyDefs, IConfigurationRoot configurationRoot, IConfigurationParent parent) : this(
+        /// <exception cref="System.ArgumentNullException"> <paramref name="childPropertyDefs" /> is <see langword="null" />. </exception>
+        protected ConfigurationObjectBase(IEnumerable<IPropertyDef> childPropertyDefs, IConfigurationRoot configurationRoot, IConfigurationParent parent) : this(
             (PropertyDef?)null, configurationRoot, parent)
         {
+            childPropertyDefs.Validate(nameof(childPropertyDefs), ObjectIs.NotNull);
+
             foreach(var childPropertyDef in childPropertyDefs)
             {
                 var type = _propertyTypes.GetOrAdd(childPropertyDef.Type, t => typeof(PropertyValue<>).MakeGenericType(t));
                 var property = (IValue)Activator.CreateInstance(type, childPropertyDef, this);
-                PropertiesByName.Add(childPropertyDef.PropertyName, property);
+                _propertiesByName.Add(childPropertyDef.PropertyName, property);
                 _propertiesByPath.Add(property.Path, property);
             }
         }
@@ -150,7 +242,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the definition of this property object.
         /// </summary>
         /// <value> The definition of this property object. </value>
-        public PropertyDef? PropertyDef
+        public IPropertyDef? PropertyDef
         {
             get;
         }
@@ -169,6 +261,12 @@ namespace OpenCollar.Extensions.Configuration
         {
             get;
         }
+
+        /// <summary>
+        ///     Gets a dictionary of property values keyed on the name of the property it represents (case sensitive).
+        /// </summary>
+        /// <value> A dictionary of property values keyed on the name of the property it represents (case sensitive). </value>
+        protected IDictionary<string, IValue> PropertiesByName => _propertiesByName;
 
         /// <summary>
         ///     Gets or sets the value of the property with the specified name.
@@ -248,6 +346,19 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Called when a value has changed.
+        /// </summary>
+        /// <param name="oldValue"> The old value. </param>
+        /// <param name="newValue"> The new value. </param>
+        /// <exception type="System.ArgumentNullException"> <paramref name="newValue" /> was <see langword="null" />. </exception>
+        public void OnValueChanged(IValue oldValue, IValue newValue)
+        {
+            newValue.Validate(nameof(newValue), ObjectIs.NotNull);
+
+            OnPropertyChanged(((IPropertyValue)newValue).PropertyName);
+        }
+
+        /// <summary>
         ///     Saves this current values for each property back to the configuration sources.
         /// </summary>
         /// <exception cref="ObjectDisposedException">
@@ -279,16 +390,6 @@ namespace OpenCollar.Extensions.Configuration
         public override string ToString()
         {
             return $"{InterfaceType.FullName}: \"{CalculatePath()}\"";
-        }
-
-        /// <summary>
-        ///     Called when a value has changed.
-        /// </summary>
-        /// <param name="oldValue"> The old value. </param>
-        /// <param name="newValue"> The new value. </param>
-        void IValueChanged.OnValueChanged(IValue oldValue, IValue newValue)
-        {
-            OnPropertyChanged(((IPropertyValue)newValue).PropertyName);
         }
 
         /// <summary>
@@ -338,89 +439,6 @@ namespace OpenCollar.Extensions.Configuration
         {
             var token = _configurationRoot.GetReloadToken();
             token.RegisterChangeCallback(OnSectionChanged, _configurationRoot);
-        }
-    }
-
-    /// <summary>
-    ///     A base class that allows configuration from classes in the <see cref="Microsoft.Extensions.Configuration" />
-    ///     namespace to be to be accessed through a user-defined model with strongly typed interfaces.
-    /// </summary>
-    /// <typeparam name="TInterface"> The type of the configuration interface implemented. </typeparam>
-    /// <seealso cref="Disposable" />
-    /// <seealso cref="IConfigurationObject" />
-    /// <remarks>
-    ///     <para>
-    ///         For each requested model only a single instance of the model is ever constructed for a given
-    ///         <see cref="IConfigurationSection" /> or <see cref="IConfigurationRoot" /> .
-    ///     </para>
-    ///     <para>
-    ///         The <see cref="INotifyPropertyChanged" /> interface is supported allowing changes to be detected and
-    ///         reported from both the underlying configuration source (through the source changed event) and from
-    ///         detected changes made to properties with a setter. Only material changes are reported, and change with
-    ///         no practical impact (for example assigning a new instance of a string with the same value) will not be reported.
-    ///     </para>
-    /// </remarks>
-    /// <seealso cref="IConfigurationObject" />
-    public abstract class ConfigurationObjectBase<TInterface> : ConfigurationObjectBase, IEquatable<TInterface>
-    {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ConfigurationObjectBase{TInterface}" /> class. This is the
-        ///     interface used when creating the root instance for the service collection.
-        /// </summary>
-        /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
-        /// <param name="parent">
-        ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
-        /// </param>
-        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, IConfigurationParent parent) : base(
-            ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface)), configurationRoot, parent)
-        {
-            DisablePropertyChangedEvents();
-            try
-            {
-                foreach(var value in Values)
-                {
-                    if(value.PropertyDef.HasDefaultValue)
-                    {
-                        value.Value = value.PropertyDef.DefaultValue;
-                    }
-                }
-            }
-            finally
-            {
-                EnablePropertyChangedEvents();
-            }
-        }
-
-        /// <summary>
-        ///     Gets the type of the interface implemented by this object.
-        /// </summary>
-        /// <value> The type of the interface implemented by this object. </value>
-        protected override Type InterfaceType => typeof(TInterface);
-
-        /// <summary>
-        ///     Indicates whether the current object is equal to another object of the same type.
-        /// </summary>
-        /// <param name="other"> An object to compare with this object. </param>
-        /// <returns>
-        ///     <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter;
-        ///     otherwise, <see langword="false" />.
-        /// </returns>
-        public bool Equals(TInterface other)
-        {
-            return ConfigurationObjectComparer.Instance.Equals(this, (IConfigurationObject)other);
-        }
-
-        /// <summary>
-        ///     Clones the property values from the specified instance.
-        /// </summary>
-        /// <param name="value"> The instance from which to clone the values. </param>
-        internal void Clone(TInterface value)
-        {
-            foreach(var property in PropertiesByName)
-            {
-                var propertyValue = property.Value.PropertyDef.PropertyInfo.GetValue(value);
-                property.Value.SetValue(propertyValue);
-            }
         }
     }
 }

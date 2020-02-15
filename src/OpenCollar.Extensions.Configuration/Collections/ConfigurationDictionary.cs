@@ -33,7 +33,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="ConfigurationDictionaryBase{TKey,TElement}" />
     /// <seealso cref="IConfigurationDictionary{TElement}" />
     [DebuggerDisplay("ConfigurationDictionary[{Count}] ({CalculatePath()})")]
-    public class ConfigurationDictionary<TElement> : ConfigurationDictionaryBase<string, TElement>, IConfigurationDictionary<TElement>
+    internal class ConfigurationDictionary<TElement> : ConfigurationDictionaryBase<string, TElement>, IConfigurationDictionary<TElement>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.
@@ -46,7 +46,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
         /// <param name="elements"> The elements with which to initialize to the collection. </param>
-        public ConfigurationDictionary(IConfigurationParent? parent, PropertyDef propertyDef, IConfigurationRoot configurationRoot,
+        public ConfigurationDictionary(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot,
             IEnumerable<KeyValuePair<string, TElement>>? elements) : base(parent, propertyDef, configurationRoot, elements)
         {
         }
@@ -64,7 +64,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="elements">
         ///     A parameter array containing the elements with which to initialize to the collection.
         /// </param>
-        public ConfigurationDictionary(IConfigurationParent? parent, PropertyDef propertyDef, IConfigurationRoot configurationRoot,
+        public ConfigurationDictionary(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot,
             params KeyValuePair<string, TElement>[]? elements) : base(parent, propertyDef, configurationRoot, elements)
         {
         }

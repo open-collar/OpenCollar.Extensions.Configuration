@@ -3,7 +3,7 @@
     /// <summary>
     ///     Support for comparison.
     /// </summary>
-    public static class UniversalComparer
+    internal static class UniversalComparer
     {
         /// <summary>
         ///     Compares two objects, using custom logic for configuration objects.
@@ -27,7 +27,9 @@
             var coB = b as IConfigurationObject;
             if(!ReferenceEquals(coA, null) && !ReferenceEquals(coA, null))
             {
+#pragma warning disable CS8604 // Possible null reference argument.
                 return ConfigurationObjectComparer.Instance.Equals(coA, coB);
+#pragma warning restore CS8604 // Possible null reference argument.
             }
 
             return a.Equals(b);

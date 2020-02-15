@@ -3,7 +3,7 @@
     /// <summary>
     ///     Defines the interface common to a objects that may belong to a configuration object.
     /// </summary>
-    public interface IConfigurationChild
+    internal interface IConfigurationChild
     {
         /// <summary>
         ///     Sets the parent of a configuration object.

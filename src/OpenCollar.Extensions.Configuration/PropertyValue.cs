@@ -52,7 +52,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the implementation details of the value object.
         /// </summary>
         /// <value> The implementation details of the value object. </value>
-        protected override Implementation ValueImplementation => _propertyDef.Implementation;
+        protected override IImplementation ValueImplementation => _propertyDef.Implementation;
 
         /// <summary>
         ///     Gets the path to this configuration object.

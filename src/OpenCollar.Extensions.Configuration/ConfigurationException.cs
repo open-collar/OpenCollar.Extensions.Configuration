@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using OpenCollar.Extensions.Configuration.Validation;
 
 namespace OpenCollar.Extensions.Configuration
 {
@@ -93,8 +94,11 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="context">
         ///     The <see cref="StreamingContext" /> that contains contextual information about the source or destination.
         /// </param>
+        /// <exception cref="System.ArgumentNullException"> <paramref name="info" /> is <see langword="null" />. </exception>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            info.Validate(nameof(info), ObjectIs.NotNull);
+
             info.AddValue(nameof(ConfigurationPath), ConfigurationPath);
             base.GetObjectData(info, context);
         }

@@ -15,6 +15,15 @@
         }
 
         /// <summary>
+        ///     Gets the definition of this property object.
+        /// </summary>
+        /// <value> The definition of this property object. </value>
+        IPropertyDef? PropertyDef
+        {
+            get;
+        }
+
+        /// <summary>
         ///     Gets the path to this configuration object.
         /// </summary>
         /// <returns> A string containing the path to this configuration object. </returns>

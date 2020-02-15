@@ -33,7 +33,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// </summary>
     /// <typeparam name="TElement"> The type of the element. </typeparam>
     [DebuggerDisplay("ReadOnlyConfigurationCollection[{Count}] ({CalculatePath()})")]
-    public sealed class ReadOnlyConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IReadOnlyCollection<TElement>,
+    internal sealed class ReadOnlyConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IReadOnlyCollection<TElement>,
         IConfigurationCollection<TElement>
     {
         /// <summary>
@@ -47,7 +47,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
         /// <param name="elements"> The elements with which to initialize to the collection. </param>
-        public ReadOnlyConfigurationCollection(IConfigurationParent? parent, PropertyDef propertyDef, IConfigurationRoot configurationRoot,
+        public ReadOnlyConfigurationCollection(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot,
             IEnumerable<TElement>? elements) : base(parent, propertyDef, configurationRoot, GetIndexedElements(elements))
         {
         }
@@ -65,7 +65,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="elements">
         ///     A parameter array containing the elements with which to initialize to the collection.
         /// </param>
-        public ReadOnlyConfigurationCollection(IConfigurationParent? parent, PropertyDef propertyDef, IConfigurationRoot configurationRoot,
+        public ReadOnlyConfigurationCollection(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot,
             params TElement[]? elements) : base(parent, propertyDef, configurationRoot, GetIndexedElements(elements))
         {
         }

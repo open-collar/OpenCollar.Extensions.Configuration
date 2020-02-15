@@ -28,6 +28,72 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Validation
 {
     public class ArgumentValidationExtensionsTest
     {
+        [Fact]
+        public void TestEnumerableValidation()
+        {
+            IEnumerable<string> x = null;
+
+            x.Validate("x", ObjectIs.None, ObjectIs.None);
+
+            // ReSharper disable once HeuristicUnreachableCode
+            Assert.Throws<ArgumentNullException>(() => x.Validate("x", ObjectIs.NotNull, ObjectIs.None));
+            Assert.Throws<ArgumentNullException>(() => x.Validate(null, ObjectIs.NotNull, ObjectIs.None));
+            Assert.Throws<ArgumentNullException>(() => x.Validate(string.Empty, ObjectIs.NotNull, ObjectIs.None));
+
+            x = new string[] { "TEST1", "TEST2", null, "TEST4" };
+            x.Validate("x", ObjectIs.None, ObjectIs.None);
+            x.Validate("x", ObjectIs.NotNull, ObjectIs.None);
+            x.Validate(null, ObjectIs.NotNull, ObjectIs.None);
+            x.Validate(string.Empty, ObjectIs.NotNull, ObjectIs.None);
+
+            var y = x.Validate("x", ObjectIs.NotNull, ObjectIs.None);
+            Assert.Throws<ArgumentException>(() => y = x.Validate("x", ObjectIs.NotNull, ObjectIs.NotNull));
+            Assert.Throws<ArgumentException>(() => y = x.Validate(null, ObjectIs.NotNull, ObjectIs.NotNull));
+            y = ((string[])null).Validate("x", ObjectIs.None, ObjectIs.NotNull);
+            Assert.NotNull(y);
+            Assert.Empty(y);
+        }
+
+        [Fact]
+        public void TestEnumValidation()
+        {
+            Assert.Throws<ArgumentException>(() => 1.Validate("y", EnumIs.ValidMember));
+
+            var x = UriKind.Absolute;
+            x.Validate("x", EnumIs.None);
+            x.Validate("x", EnumIs.ValidMember);
+            x.Validate("x", EnumIs.NonZero);
+            x.Validate("x", EnumIs.NonZeroValidMember);
+            Assert.Throws<ArgumentOutOfRangeException>(() => x.Validate("x", (EnumIs)666));
+
+            x = UriKind.RelativeOrAbsolute; /* 0 */
+            x.Validate("x", EnumIs.ValidMember);
+            Assert.Throws<ArgumentOutOfRangeException>(() => x.Validate("x", EnumIs.NonZeroValidMember));
+            Assert.Throws<ArgumentOutOfRangeException>(() => x.Validate("x", EnumIs.NonZero));
+
+            x = (UriKind)666;
+            Assert.Throws<ArgumentOutOfRangeException>(() => x.Validate("x", EnumIs.ValidMember));
+            x.Validate("x", EnumIs.NonZero);
+            Assert.Throws<ArgumentOutOfRangeException>(() => x.Validate("x", EnumIs.NonZeroValidMember));
+        }
+
+        [Fact]
+        public void TestObjectValidation()
+        {
+            object x = null;
+            x.Validate("x", ObjectIs.None);
+
+            // ReSharper disable once HeuristicUnreachableCode
+            Assert.Throws<ArgumentNullException>(() => x.Validate("x", ObjectIs.NotNull));
+            Assert.Throws<ArgumentNullException>(() => x.Validate(null, ObjectIs.NotNull));
+            Assert.Throws<ArgumentNullException>(() => x.Validate(string.Empty, ObjectIs.NotNull));
+            x = new object();
+            x.Validate("x", ObjectIs.None);
+            x.Validate("x", ObjectIs.NotNull);
+            x.Validate(null, ObjectIs.NotNull);
+            x.Validate(string.Empty, ObjectIs.NotNull);
+        }
+
         [Theory]
         [InlineData("x")]
         [InlineData(null)]
@@ -87,74 +153,6 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Validation
             Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotNullOrWhiteSpace));
             Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotEmptyOrWhiteSpace));
             Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotNullEmptyOrWhiteSpace));
-        }
-
-        [Fact]
-        public void TestEnumerableValidation()
-        {
-            IEnumerable<string> x = null;
-
-            x.Validate("x", ObjectIs.None, ObjectIs.None);
-
-            // ReSharper disable once HeuristicUnreachableCode
-            Assert.Throws<ArgumentNullException>(() => x.Validate("x", ObjectIs.NotNull, ObjectIs.None));
-            Assert.Throws<ArgumentNullException>(() => x.Validate(null, ObjectIs.NotNull, ObjectIs.None));
-            Assert.Throws<ArgumentNullException>(() => x.Validate(string.Empty, ObjectIs.NotNull, ObjectIs.None));
-
-            x = new string[] {"TEST1", "TEST2", null, "TEST4"};
-            x.Validate("x", ObjectIs.None, ObjectIs.None);
-            x.Validate("x", ObjectIs.NotNull, ObjectIs.None);
-            x.Validate(null, ObjectIs.NotNull, ObjectIs.None);
-            x.Validate(string.Empty, ObjectIs.NotNull, ObjectIs.None);
-
-            var y = x.Validate("x", ObjectIs.NotNull, ObjectIs.None);
-            Assert.Throws<ArgumentException>(() => y = x.Validate("x", ObjectIs.NotNull, ObjectIs.NotNull));
-            Assert.Throws<ArgumentException>(() => y = x.Validate(null, ObjectIs.NotNull, ObjectIs.NotNull));
-            y = ((string[])null).Validate("x", ObjectIs.None, ObjectIs.NotNull);
-            Assert.NotNull(y);
-            Assert.Empty(y);
-        }
-
-        [Fact]
-        public void TestEnumValidation()
-        {
-            var y = 1;
-            Assert.Throws<ArgumentException>(() => 1.Validate("y", EnumIs.ValidMember));
-
-            var x = UriKind.Absolute;
-            x.Validate("x", EnumIs.None);
-            x.Validate("x", EnumIs.ValidMember);
-            x.Validate("x", EnumIs.NonZero);
-            x.Validate("x", EnumIs.NonZeroValidMember);
-            Assert.Throws<ArgumentOutOfRangeException>(() => x.Validate("x", (EnumIs)666));
-
-            x = UriKind.RelativeOrAbsolute; /* 0 */
-            x.Validate("x", EnumIs.ValidMember);
-            Assert.Throws<ArgumentOutOfRangeException>(() => x.Validate("x", EnumIs.NonZeroValidMember));
-            Assert.Throws<ArgumentOutOfRangeException>(() => x.Validate("x", EnumIs.NonZero));
-
-            x = (UriKind)666;
-            Assert.Throws<ArgumentOutOfRangeException>(() => x.Validate("x", EnumIs.ValidMember));
-            x.Validate("x", EnumIs.NonZero);
-            Assert.Throws<ArgumentOutOfRangeException>(() => x.Validate("x", EnumIs.NonZeroValidMember));
-
-        }
-
-        [Fact]
-        public void TestObjectValidation()
-        {
-            object x = null;
-            x.Validate("x", ObjectIs.None);
-
-            // ReSharper disable once HeuristicUnreachableCode
-            Assert.Throws<ArgumentNullException>(() => x.Validate("x", ObjectIs.NotNull));
-            Assert.Throws<ArgumentNullException>(() => x.Validate(null, ObjectIs.NotNull));
-            Assert.Throws<ArgumentNullException>(() => x.Validate(string.Empty, ObjectIs.NotNull));
-            x = new object();
-            x.Validate("x", ObjectIs.None);
-            x.Validate("x", ObjectIs.NotNull);
-            x.Validate(null, ObjectIs.NotNull);
-            x.Validate(string.Empty, ObjectIs.NotNull);
         }
     }
 }

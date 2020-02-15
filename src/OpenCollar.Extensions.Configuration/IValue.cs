@@ -57,7 +57,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the definition of the property represented by this value.
         /// </summary>
         /// <value> The definition of the property represented by this value. </value>
-        PropertyDef PropertyDef
+        IPropertyDef PropertyDef
         {
             get;
         }

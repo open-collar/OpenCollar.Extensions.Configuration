@@ -14,34 +14,35 @@
  * You should have received a copy of the GNU General Public License along with
  * OpenCollar.Extensions.Configuration.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright © 2020 Jonathan Evans (jevans@open-collar.org.uk).
+ * Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
+
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
-    public sealed class NotifyPropertyChangedMock : NotifyPropertyChanged
+    internal sealed class ConfigurationParentMock : IConfigurationParent
     {
-        private int _propertyA;
-
-        public int IntPropertyA
-        {
-            get => _propertyA;
-            set => LastPropertyAssignmentWasChange = OnPropertyChanged(nameof(IntPropertyA), ref _propertyA, value);
-        }
-
-        public bool LastPropertyAssignmentWasChange
+        public bool IsReadOnly
         {
             get; set;
         }
 
-        public new void DisablePropertyChangedEvents()
+        public string Path
         {
-            base.DisablePropertyChangedEvents();
+            get; set;
         }
 
-        public new void EnablePropertyChangedEvents()
+        public IPropertyDef PropertyDef
         {
-            base.EnablePropertyChangedEvents();
+            get;
+        }
+
+        public string CalculatePath()
+        {
+            return Path;
         }
     }
 }

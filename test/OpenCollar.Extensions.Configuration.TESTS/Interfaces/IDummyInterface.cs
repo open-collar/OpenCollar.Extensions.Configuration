@@ -14,30 +14,36 @@
  * You should have received a copy of the GNU General Public License along with
  * OpenCollar.Extensions.Configuration.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).
+ * Copyright © 2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OpenCollar.Extensions.Configuration.TESTS
+namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 {
-    public sealed class ConfigurationParentMock : IConfigurationParent
+    internal interface IDummyInterface
     {
-        public bool IsReadOnly
+        IRootElement a
         {
             get; set;
         }
 
-        public string Path
+        IRootElement b
         {
             get; set;
         }
 
-        public string CalculatePath()
+        IRootElement c
         {
-            return Path;
+            get; set;
+        }
+
+        IRootElement d
+        {
+            get; set;
+        }
+
+        IRootElement e
+        {
+            get; set;
         }
     }
 }

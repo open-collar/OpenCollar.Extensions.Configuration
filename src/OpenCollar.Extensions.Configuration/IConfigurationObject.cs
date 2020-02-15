@@ -25,7 +25,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     The interface from which all configuration objects are derived.
     /// </summary>
-    public interface IConfigurationObject : IDisposable, INotifyPropertyChanged, IConfigurationParent
+    public interface IConfigurationObject : IDisposable, INotifyPropertyChanged
     {
         /// <summary>
         ///     Gets a value indicating whether this object has any properties with unsaved changes.
@@ -38,15 +38,6 @@ namespace OpenCollar.Extensions.Configuration
         ///     This method cannot be used after the object has been disposed of.
         /// </exception>
         bool IsDirty
-        {
-            get;
-        }
-
-        /// <summary>
-        ///     Gets the definition of this property object.
-        /// </summary>
-        /// <value> The definition of this property object. </value>
-        PropertyDef? PropertyDef
         {
             get;
         }

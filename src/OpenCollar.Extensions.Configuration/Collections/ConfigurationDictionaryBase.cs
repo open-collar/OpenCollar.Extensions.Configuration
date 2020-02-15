@@ -38,8 +38,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="IDictionary{TKey,TValue}" />
     /// <seealso cref="INotifyCollectionChanged" />
     [DebuggerDisplay("ConfigurationDictionaryBase[{Count}] ({CalculatePath()})")]
-    public abstract class ConfigurationDictionaryBase<TKey, TElement> : NotifyPropertyChanged, IConfigurationObject, IValueChanged,
-        IConfigurationChild
+    internal abstract class ConfigurationDictionaryBase<TKey, TElement> : NotifyPropertyChanged, IConfigurationObject, IValueChanged,
+        IConfigurationChild, IConfigurationParent
     {
         /// <summary>
         ///     A value indicating whether events are raised for changes on the current thread. Any value greater than
@@ -82,7 +82,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
-        protected ConfigurationDictionaryBase(IConfigurationParent? parent, PropertyDef propertyDef, IConfigurationRoot configurationRoot)
+        protected ConfigurationDictionaryBase(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot)
         {
             _parent = parent;
             PropertyDef = propertyDef;
@@ -102,7 +102,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
-        protected ConfigurationDictionaryBase(IConfigurationParent? parent, PropertyDef propertyDef, IConfigurationRoot configurationRoot,
+        protected ConfigurationDictionaryBase(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot,
             IEnumerable<KeyValuePair<TKey, TElement>>? items) : this(parent, propertyDef, configurationRoot)
         {
             PropertyDef = propertyDef;
@@ -230,7 +230,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     Gets the definition of this property object.
         /// </summary>
         /// <value> The definition of this property object. </value>
-        public PropertyDef PropertyDef
+        public IPropertyDef PropertyDef
         {
             get;
         }
@@ -263,7 +263,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the configuration root service from which values are read or to which all values will be written.
         /// </summary>
-        /// <value> The configuration root service from which values are read or to which all values will be written. </value>
+        /// <value>
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </value>
         internal IConfigurationRoot ConfigurationRoot
         {
             get;
@@ -649,7 +651,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
-        /// <param name="initializing"> If set to <see langword="true" /> the element changed events are not fired. </param>
+        /// <param name="initializing">
+        ///     If set to <see langword="true" /> the element changed events are not fired.
+        /// </param>
         internal void Load(bool initializing)
         {
             var path = CalculatePath();

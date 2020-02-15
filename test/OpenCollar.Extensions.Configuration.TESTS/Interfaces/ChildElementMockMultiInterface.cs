@@ -17,13 +17,15 @@
  * Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
+#pragma warning disable CS0067 // Interface requirement
+
 using System;
 using System.ComponentModel;
 using System.Reflection;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
-    public sealed class ChildElementMockMultiInterface : IChildElement, IRootElement
+    internal sealed class ChildElementMockMultiInterface : IChildElement, IRootElement
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -189,7 +191,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             set;
         }
 
-        public PropertyDef PropertyDef
+        public IPropertyDef PropertyDef
         {
             get; set;
         }

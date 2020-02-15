@@ -32,7 +32,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </typeparam>
     /// <typeparam name="TValue"> The type of the contained value. </typeparam>
     [DebuggerDisplay("ValueBase[{Path,nq}={StringValue}] ({CalculatePath()})")]
-    public abstract class ValueBase<TParent, TValue> : IValue, IConfigurationParent where TParent : class, IValueChanged, IConfigurationParent
+    internal abstract class ValueBase<TParent, TValue> : IValue, IConfigurationParent where TParent : class, IValueChanged, IConfigurationParent
     {
         /// <summary>
         ///     The parent for which this object represents a value.
@@ -42,7 +42,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     The definition of the property represented by this value.
         /// </summary>
-        protected readonly PropertyDef _propertyDef;
+        protected readonly IPropertyDef _propertyDef;
 
         /// <summary>
         ///     A lock token used to control concurrent access to the <see cref="_currentValue" /> and
@@ -75,7 +75,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="propertyDef"> The definition of the property to represent. </param>
         /// <param name="parent"> The parent configuration object for which this object represents a property. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parent" /> is <see langword="null" />. </exception>
-        internal ValueBase(PropertyDef propertyDef, TParent parent)
+        internal ValueBase(IPropertyDef propertyDef, TParent parent)
         {
             parent.Validate(nameof(parent), ObjectIs.NotNull);
 
@@ -94,12 +94,12 @@ namespace OpenCollar.Extensions.Configuration
             {
                 lock(_lock)
                 {
-                    if(!_propertyDef.AreEqual(_originalValue, _currentValue))
+                    if(!OpenCollar.Extensions.Configuration.PropertyDef.AreEqual(_originalValue, _currentValue))
                     {
                         return true;
                     }
 
-                    if(!_isSaved && !_propertyDef.AreEqual(_originalValue, default(TValue)))
+                    if(!_isSaved && !OpenCollar.Extensions.Configuration.PropertyDef.AreEqual(_originalValue, default(TValue)))
                     {
                         return true;
                     }
@@ -141,7 +141,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the definition of the property represented by this value.
         /// </summary>
         /// <value> The definition of the property represented by this value. </value>
-        public PropertyDef PropertyDef => _propertyDef;
+        public IPropertyDef PropertyDef => _propertyDef;
 
         /// <summary>
         ///     Gets or sets the value represented by this instance.
@@ -209,7 +209,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the implementation details of the value object.
         /// </summary>
         /// <value> The implementation details of the value object. </value>
-        protected abstract Implementation ValueImplementation
+        protected abstract IImplementation ValueImplementation
         {
             get;
         }
@@ -406,7 +406,7 @@ namespace OpenCollar.Extensions.Configuration
         {
             lock(_lock)
             {
-                if(_propertyDef.AreEqual(_originalValue, value))
+                if(OpenCollar.Extensions.Configuration.PropertyDef.AreEqual(_originalValue, value))
                 {
                     return false;
                 }

@@ -21,6 +21,8 @@ using System;
 
 namespace OpenCollar.Extensions.Configuration
 {
+#pragma warning disable CA1717 // Just because it ends in an S doesn't mean it is a plural!
+
     /// <summary>
     ///     An enumeration of the ways in which the string supplied to the <see cref="PathAttribute"> Path </see>
     ///     attribute can be used to create a full path.
@@ -43,6 +45,8 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         Suffix
     }
+
+#pragma warning restore CA1717
 
     /// <summary>
     ///     Defines an attribute used to indicate the path to the configuration value(s) underlying a class or

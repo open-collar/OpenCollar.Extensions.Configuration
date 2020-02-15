@@ -27,7 +27,7 @@ using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
-    public class ConfigurationObjectBaseTests : IClassFixture<ConfigurationFixture>
+    internal class ConfigurationObjectBaseTests : IClassFixture<ConfigurationFixture>
     {
         private readonly ConfigurationFixture _configurationFixture;
 
@@ -83,7 +83,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var x = _configurationFixture.RootElement;
 
             Assert.NotNull(x);
-            Assert.Null(x.PropertyDef);
+            Assert.Null(x.PropertyDef());
 
             Assert.Throws<TargetInvocationException>(() =>
             {
@@ -98,7 +98,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             {
                 Assert.IsType<ArgumentNullException>(ex.InnerException);
             }
-            catch(Exception ex)
+            catch
             {
                 Assert.True(false);
             }

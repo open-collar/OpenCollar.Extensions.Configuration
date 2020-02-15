@@ -307,15 +307,15 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 switch(n++)
                 {
                     case 0:
-                        Assert.Equal(a.PropertyDef.PropertyName, key);
+                        Assert.Equal(a.PropertyDef().PropertyName, key);
                         break;
 
                     case 1:
-                        Assert.Equal(b.PropertyDef.PropertyName, key);
+                        Assert.Equal(b.PropertyDef().PropertyName, key);
                         break;
 
                     case 2:
-                        Assert.Equal(c.PropertyDef.PropertyName, key);
+                        Assert.Equal(c.PropertyDef().PropertyName, key);
                         break;
 
                     default:
@@ -349,15 +349,15 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 switch(n++)
                 {
                     case 0:
-                        Assert.Equal(a.PropertyDef.PropertyName, key);
+                        Assert.Equal(a.PropertyDef().PropertyName, key);
                         break;
 
                     case 1:
-                        Assert.Equal(b.PropertyDef.PropertyName, key);
+                        Assert.Equal(b.PropertyDef().PropertyName, key);
                         break;
 
                     case 2:
-                        Assert.Equal(c.PropertyDef.PropertyName, key);
+                        Assert.Equal(c.PropertyDef().PropertyName, key);
                         break;
 
                     default:

@@ -30,15 +30,14 @@ namespace OpenCollar.Extensions.Configuration
     ///     The definition of a property of a configuration object.
     /// </summary>
     [DebuggerDisplay("PropertyDef[{" + nameof(PropertyName) + "}]")]
-    public class PropertyDef
+    internal class PropertyDef : IPropertyDef
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
         /// </summary>
-        /// <param name="interfaceType"> The type of the interface from which the property is taken. </param>
         /// <param name="propertyInfo"> The definition of the property. </param>
         /// <param name="defaultValue"> The default value. </param>
-        internal PropertyDef(Type interfaceType, PropertyInfo propertyInfo, object? defaultValue) : this(interfaceType, propertyInfo)
+        internal PropertyDef(PropertyInfo propertyInfo, object? defaultValue) : this(propertyInfo)
         {
             HasDefaultValue = true;
             DefaultValue = defaultValue;
@@ -47,9 +46,8 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
         /// </summary>
-        /// <param name="interfaceType"> The type of the interface from which the property is taken. </param>
         /// <param name="propertyInfo"> The definition of the property. </param>
-        internal PropertyDef(Type interfaceType, PropertyInfo propertyInfo)
+        internal PropertyDef(PropertyInfo propertyInfo)
         {
             PropertyInfo = propertyInfo;
             PropertyName = propertyInfo.Name;
@@ -98,7 +96,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the details of the specific implementation of this property.
         /// </summary>
         /// <value> The details of the specific implementation of this property. </value>
-        public Implementation? ElementImplementation
+        public IImplementation? ElementImplementation
         {
             get;
         }
@@ -118,7 +116,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the details of the specific implementation of this property.
         /// </summary>
         /// <value> The details of the specific implementation of this property. </value>
-        public Implementation Implementation
+        public IImplementation Implementation
         {
             get;
         }
@@ -226,40 +224,13 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Determines whether the current value is the same as the original value.
-        /// </summary>
-        /// <param name="original"> The original value. </param>
-        /// <param name="current"> The current value. </param>
-        /// <returns> <see langword="true" /> if the values are the same; otherwise, <see langword="false" />. </returns>
-        internal bool AreEqual(object? original, object? current)
-        {
-            if(ReferenceEquals(original, current))
-            {
-                return true;
-            }
-
-            if(ReferenceEquals(original, null) || ReferenceEquals(current, null))
-            {
-                return false;
-            }
-
-            var configurationObject = current as IConfigurationObject;
-            if(!ReferenceEquals(configurationObject, null) && configurationObject.IsDirty)
-            {
-                return true;
-            }
-
-            return UniversalComparer.Equals(original, current);
-        }
-
-        /// <summary>
         ///     Parses a string value into the type defined by the property definition.
         /// </summary>
         /// <param name="path"> The path to the value being converted (used in error messages). </param>
         /// <param name="stringRepresentation"> The string to parse. </param>
         /// <returns> The string parsed as the type of this property. </returns>
         /// <exception cref="ConfigurationException"> Value could not be converted. </exception>
-        internal object? ConvertStringToValue(string path, string? stringRepresentation)
+        public object? ConvertStringToValue(string path, string? stringRepresentation)
         {
             if(ReferenceEquals(stringRepresentation, null))
             {
@@ -444,7 +415,7 @@ namespace OpenCollar.Extensions.Configuration
                     $"Value could not be parsed as an 'Boolean'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
-            return Convert.ChangeType(stringRepresentation, Type);
+            return Convert.ChangeType(stringRepresentation, Type, System.Globalization.CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -452,7 +423,7 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <param name="value"> The value. </param>
         /// <returns> The string equivalent of the value given. </returns>
-        internal string? ConvertValueToString(object? value)
+        public string? ConvertValueToString(object? value)
         {
             if(ReferenceEquals(value, null))
             {
@@ -538,6 +509,33 @@ namespace OpenCollar.Extensions.Configuration
 
             // For anything else, let's hope that "ToString" is good enough.
             return value.ToString();
+        }
+
+        /// <summary>
+        ///     Determines whether the current value is the same as the original value.
+        /// </summary>
+        /// <param name="original"> The original value. </param>
+        /// <param name="current"> The current value. </param>
+        /// <returns> <see langword="true" /> if the values are the same; otherwise, <see langword="false" />. </returns>
+        internal static bool AreEqual(object? original, object? current)
+        {
+            if(ReferenceEquals(original, current))
+            {
+                return true;
+            }
+
+            if(ReferenceEquals(original, null) || ReferenceEquals(current, null))
+            {
+                return false;
+            }
+
+            var configurationObject = current as IConfigurationObject;
+            if(!ReferenceEquals(configurationObject, null) && configurationObject.IsDirty)
+            {
+                return true;
+            }
+
+            return UniversalComparer.Equals(original, current);
         }
     }
 }

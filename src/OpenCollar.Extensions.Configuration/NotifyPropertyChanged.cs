@@ -103,7 +103,9 @@ namespace OpenCollar.Extensions.Configuration
                 {
                     callback.DynamicInvoke(this, args);
                 }
+#pragma warning disable CA1031 // We don't know what might be thrown here.
                 catch(Exception ex)
+#pragma warning restore CA1031
                 {
                     exceptions.Add(ex);
                 }

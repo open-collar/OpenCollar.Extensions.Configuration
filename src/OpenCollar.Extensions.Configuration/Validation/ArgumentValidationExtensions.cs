@@ -29,7 +29,7 @@ namespace OpenCollar.Extensions.Configuration.Validation
     /// <summary>
     ///     Extension methods used in the validation of arguments.
     /// </summary>
-    public static class ArgumentValidationExtensions
+    internal static class ArgumentValidationExtensions
     {
         /// <summary>
         ///     Validates the specified argument value is a member of the enumeration type specified.

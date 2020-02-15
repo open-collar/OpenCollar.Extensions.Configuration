@@ -25,7 +25,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
-    public sealed class ConfigurationFixture : Disposable
+    internal sealed class ConfigurationFixture : Disposable
     {
         public ConfigurationFixture()
         {

@@ -21,20 +21,30 @@ using System;
 
 namespace OpenCollar.Extensions.Configuration.Validation
 {
-    /// <summary>An enumeration defining the validation that can be applied to an enum value.</summary>
+    /// <summary>
+    ///     An enumeration defining the validation that can be applied to an enum value.
+    /// </summary>
     [Flags]
-    public enum EnumIs
+    internal enum EnumIs
     {
-        /// <summary>No validation is applied.</summary>
+        /// <summary>
+        ///     No validation is applied.
+        /// </summary>
         None = 0,
 
-        /// <summary>The value is any valid member of the enum.</summary>
+        /// <summary>
+        ///     The value is any valid member of the enum.
+        /// </summary>
         ValidMember = 1,
 
-        /// <summary>The value is any non-zero value (typically <c>Unknown</c> = 0). </summary>
+        /// <summary>
+        ///     The value is any non-zero value (typically <c> Unknown </c> = 0).
+        /// </summary>
         NonZero = 2,
 
-        /// <summary>The value is any valid, non-zero, member of the enum (typically <c>Unknown</c> = 0). </summary>
+        /// <summary>
+        ///     The value is any valid, non-zero, member of the enum (typically <c> Unknown </c> = 0).
+        /// </summary>
         NonZeroValidMember = ValidMember | NonZero
     }
 }

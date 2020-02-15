@@ -24,6 +24,7 @@ using System.Linq;
 using System.Reflection;
 
 using Microsoft.Extensions.DependencyInjection;
+using OpenCollar.Extensions.Configuration.Validation;
 
 namespace OpenCollar.Extensions.Configuration
 {
@@ -32,12 +33,6 @@ namespace OpenCollar.Extensions.Configuration
     /// </summary>
     public static class ServiceCollectionExtensions
     {
-        /// <summary>
-        ///     A thread-safe dictionary of the property definition collections keyed on the type of the class that
-        ///     defines them.
-        /// </summary>
-        private static readonly ConcurrentDictionary<Type, PropertyDef> PropertyDefs = new ConcurrentDictionary<Type, PropertyDef>();
-
         /// <summary>
         ///     Add a new kind of configuration reader that represents values taken directly from the
         ///     <see cref="Microsoft.Extensions.Configuration.IConfigurationRoot" /> object in the service collection.
@@ -53,6 +48,8 @@ namespace OpenCollar.Extensions.Configuration
         public static void AddConfigurationReader<TConfigurationObject>(this IServiceCollection serviceCollection)
             where TConfigurationObject : IConfigurationObject
         {
+            serviceCollection.Validate(nameof(serviceCollection), ObjectIs.NotNull);
+
             // Check to see if the collection has the relevant configuration reader registered, and if not, create and
             // add a new instance.
 
@@ -130,12 +127,12 @@ namespace OpenCollar.Extensions.Configuration
                 var defaultValueAttributes = property.GetCustomAttributes(typeof(DefaultValueAttribute), true);
                 if(ReferenceEquals(defaultValueAttributes, null) || (defaultValueAttributes.Length <= 0))
                 {
-                    propertyDefs.Add(new PropertyDef(type, property));
+                    propertyDefs.Add(new PropertyDef(property));
                 }
                 else
                 {
                     var defaultValue = ((DefaultValueAttribute)defaultValueAttributes[0]).DefaultValue;
-                    propertyDefs.Add(new PropertyDef(type, property, defaultValue));
+                    propertyDefs.Add(new PropertyDef(property, defaultValue));
                 }
             }
 

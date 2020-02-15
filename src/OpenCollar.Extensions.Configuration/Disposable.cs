@@ -17,6 +17,8 @@
  * Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
+#pragma warning disable CA1063 // No finalizer is required, this is a base class and only the derived class knows the details of whether one should be implemnted.
+
 using System;
 using System.Threading;
 
@@ -60,6 +62,8 @@ namespace OpenCollar.Extensions.Configuration
             }
 
             Dispose(true);
+
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>

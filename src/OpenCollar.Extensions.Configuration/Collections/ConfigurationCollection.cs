@@ -39,7 +39,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="ConfigurationDictionaryBase{TKey,TElement}" />
     /// <seealso cref="IConfigurationCollection{TElement}" />
     [DebuggerDisplay("ConfigurationCollection[{Count}] ({CalculatePath()})")]
-    public class ConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IConfigurationCollection<TElement>
+    internal class ConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IConfigurationCollection<TElement>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationCollection{TElement}" /> class.
@@ -52,7 +52,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
         /// <param name="elements"> The elements with which to initialize to the collection. </param>
-        public ConfigurationCollection(IConfigurationParent? parent, PropertyDef propertyDef, IConfigurationRoot configurationRoot,
+        public ConfigurationCollection(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot,
             IEnumerable<TElement>? elements) : base(parent, propertyDef, configurationRoot, GetIndexedElements(elements))
         {
         }
@@ -70,7 +70,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="elements">
         ///     A parameter array containing the elements with which to initialize to the collection.
         /// </param>
-        public ConfigurationCollection(IConfigurationParent? parent, PropertyDef propertyDef, IConfigurationRoot configurationRoot, params TElement[]? elements)
+        public ConfigurationCollection(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot, params TElement[]? elements)
             : base(parent, propertyDef, configurationRoot, GetIndexedElements(elements))
         {
         }

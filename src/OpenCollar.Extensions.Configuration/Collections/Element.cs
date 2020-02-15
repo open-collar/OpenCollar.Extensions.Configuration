@@ -30,7 +30,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="ValueBase{T,T}" />
     /// <seealso cref="IEquatable{T}" />
     [DebuggerDisplay("Element[{Key,nq}={StringValue}] ({CalculatePath()})")]
-    public sealed class Element<TKey, TValue> : ValueBase<ConfigurationDictionaryBase<TKey, TValue>, TValue>, IEquatable<Element<TKey, TValue>>
+    internal sealed class Element<TKey, TValue> : ValueBase<ConfigurationDictionaryBase<TKey, TValue>, TValue>, IEquatable<Element<TKey, TValue>>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="Element{TKey,TValue}" /> class.
@@ -38,7 +38,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="propertyDef"> The definition of the property to represent. </param>
         /// <param name="parent"> The parent configuration dictionary for which this object represents a property. </param>
         /// <param name="key"> The key that identifies this element in the collection. </param>
-        internal Element(PropertyDef propertyDef, ConfigurationDictionaryBase<TKey, TValue> parent, TKey key) : base(propertyDef, parent)
+        internal Element(IPropertyDef propertyDef, ConfigurationDictionaryBase<TKey, TValue> parent, TKey key) : base(propertyDef, parent)
         {
             Key = key;
         }
@@ -62,7 +62,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     Gets the implementation details of the value object.
         /// </summary>
         /// <value> The implementation details of the value object. </value>
-        protected override Implementation ValueImplementation => _propertyDef.ElementImplementation!;
+        protected override IImplementation ValueImplementation => _propertyDef.ElementImplementation!;
 
         /// <summary>
         ///     Gets the path to this configuration object.
@@ -111,6 +111,11 @@ namespace OpenCollar.Extensions.Configuration.Collections
             }
 
             var other = obj as Element<TKey, TValue>;
+
+            if(ReferenceEquals(other, null))
+            {
+                return false;
+            }
 
             return Equals(other);
         }

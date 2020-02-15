@@ -14,52 +14,34 @@
  * You should have received a copy of the GNU General Public License along with
  * OpenCollar.Extensions.Configuration.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).
+ * Copyright © 2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
-
-using System;
-using System.ComponentModel;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
-    [JetBrains.Annotations.UsedImplicitly]
-    public sealed class ChildElementMock : IChildElement
+    internal sealed class NotifyPropertyChangedMock : NotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        private int _propertyA;
 
-        public bool IsDirty
+        public int IntPropertyA
+        {
+            get => _propertyA;
+            set => LastPropertyAssignmentWasChange = OnPropertyChanged(nameof(IntPropertyA), ref _propertyA, value);
+        }
+
+        public bool LastPropertyAssignmentWasChange
         {
             get; set;
         }
 
-        public bool IsReadOnly
+        public new void DisablePropertyChangedEvents()
         {
-            get; set;
+            base.DisablePropertyChangedEvents();
         }
 
-        public string Name
+        public new void EnablePropertyChangedEvents()
         {
-            get; set;
+            base.EnablePropertyChangedEvents();
         }
-
-        public PropertyDef PropertyDef
-        {
-            get; set;
-        }
-
-        public int Value
-        {
-            get; set;
-        }
-
-        public string CalculatePath() => throw new NotImplementedException();
-
-        public void Delete() => throw new NotImplementedException();
-
-        public void Dispose() => throw new NotImplementedException();
-
-        public void Load() => throw new NotImplementedException();
-
-        public void Save() => throw new NotImplementedException();
     }
 }
