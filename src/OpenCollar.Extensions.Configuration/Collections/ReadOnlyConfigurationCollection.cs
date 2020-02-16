@@ -136,13 +136,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
 
             if(arrayIndex < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_NumberTooSmall, nameof(arrayIndex)));
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_NumberTooSmall, nameof(arrayIndex)));
             }
 
             if((arrayIndex + Count) > array.Length)
             {
                 throw new ArgumentOutOfRangeException(nameof(array), array,
-                    string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArrayTooSmall, nameof(array), nameof(arrayIndex)));
+                    string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArrayTooSmall, nameof(array), nameof(arrayIndex)));
             }
 
             foreach(var item in this)

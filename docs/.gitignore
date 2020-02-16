@@ -1,1 +1,4 @@
-# All files should be included.
+# Generated files that should not be stored.
+!.gitignore
+*
+*.*

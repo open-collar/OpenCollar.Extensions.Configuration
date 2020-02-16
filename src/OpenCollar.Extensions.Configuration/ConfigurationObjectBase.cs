@@ -50,6 +50,7 @@ namespace OpenCollar.Extensions.Configuration
     ///     </para>
     /// </remarks>
     /// <seealso cref="IConfigurationObject" />
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class ConfigurationObjectBase<TInterface> : ConfigurationObjectBase, IEquatable<TInterface>
     {
         /// <summary>
@@ -137,6 +138,7 @@ namespace OpenCollar.Extensions.Configuration
     ///     </para>
     /// </remarks>
     [DebuggerDisplay("{ToString(),nq} ({CalculatePath()})")]
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class ConfigurationObjectBase : NotifyPropertyChanged, IConfigurationObject, IValueChanged, IConfigurationChild, IConfigurationParent
     {
         /// <summary>
@@ -197,7 +199,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        /// <exception cref="System.ArgumentNullException"> <paramref name="childPropertyDefs" /> is <see langword="null" />. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="childPropertyDefs" /> is <see langword="null" />. </exception>
         protected ConfigurationObjectBase(IEnumerable<IPropertyDef> childPropertyDefs, IConfigurationRoot configurationRoot, IConfigurationParent parent) : this(
             (PropertyDef?)null, configurationRoot, parent)
         {

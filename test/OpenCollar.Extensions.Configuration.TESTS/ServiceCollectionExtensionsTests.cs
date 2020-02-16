@@ -42,7 +42,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var configurationRoot = _configurationFixture.ConfigurationRoot;
 
             IServiceCollection servicesCollection = new ServiceCollection();
-            servicesCollection.AddSingleton<IConfigurationRoot>(configurationRoot);
+            servicesCollection.AddSingleton(configurationRoot);
 
             servicesCollection.AddConfigurationReader<IRootElement>();
 

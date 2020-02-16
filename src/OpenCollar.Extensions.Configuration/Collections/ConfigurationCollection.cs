@@ -141,13 +141,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
 
             if(arrayIndex < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_EnumValueNotEnum, nameof(arrayIndex)));
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_EnumValueNotEnum, nameof(arrayIndex)));
             }
 
             if((arrayIndex + Count) > array.Length)
             {
                 throw new ArgumentOutOfRangeException(nameof(array), array,
-                    string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArrayTooSmall, nameof(array), nameof(arrayIndex)));
+                    string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArrayTooSmall, nameof(array), nameof(arrayIndex)));
             }
 
             foreach(var item in this)
@@ -200,7 +200,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         {
             EnforceDisposed();
 
-            System.Diagnostics.Debug.Assert(PropertyDef.ElementImplementation != null);
+            Debug.Assert(PropertyDef.ElementImplementation != null);
 
             if(PropertyDef.ElementImplementation.ImplementationKind != ImplementationKind.Naive)
             {
@@ -215,13 +215,13 @@ namespace OpenCollar.Extensions.Configuration.Collections
 
             if(index < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(index), index, string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_NumberMustBeGreaterThanEqualZero, nameof(index)));
+                throw new ArgumentOutOfRangeException(nameof(index), index, string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_NumberMustBeGreaterThanEqualZero, nameof(index)));
             }
 
             if(index > InnerCount)
             {
                 throw new ArgumentOutOfRangeException(nameof(index), index,
-                    string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_MustBeLessThanOrEqualToCount, nameof(index)));
+                    string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_MustBeLessThanOrEqualToCount, nameof(index)));
             }
 
             if(index == Count)

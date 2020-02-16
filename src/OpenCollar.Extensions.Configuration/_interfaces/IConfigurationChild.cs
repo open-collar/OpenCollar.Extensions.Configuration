@@ -3,6 +3,7 @@
     /// <summary>
     ///     Defines the interface common to a objects that may belong to a configuration object.
     /// </summary>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     internal interface IConfigurationChild
     {
         /// <summary>

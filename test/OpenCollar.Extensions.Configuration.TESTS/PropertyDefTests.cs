@@ -210,7 +210,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var propertyDef = new PropertyDef(typeof(IRootElement).GetProperty(nameof(IRootElement.TimeSpanPropertyA), BindingFlags.Instance | BindingFlags.Public));
 
-            Assert.Equal(System.TimeSpan.FromSeconds(1550), propertyDef.ConvertStringToValue("PATH", "00:25:50"));
+            Assert.Equal(TimeSpan.FromSeconds(1550), propertyDef.ConvertStringToValue("PATH", "00:25:50"));
 
             Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", "NOT A DATE"); });
         }

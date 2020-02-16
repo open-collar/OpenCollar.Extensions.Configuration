@@ -9,7 +9,7 @@ namespace OpenCollar.Extensions.Configuration
     ///     A comparer for objects that implement interfaces derived from <see cref="IConfigurationObject" />.
     /// </summary>
     /// <seealso cref="IEqualityComparer{T}" />
-    internal class ConfigurationObjectComparer : IEqualityComparer<IConfigurationObject>
+    public class ConfigurationObjectComparer : IEqualityComparer<IConfigurationObject>
     {
         /// <summary>
         ///     Prevents a default instance of the <see cref="ConfigurationObjectComparer" /> class from being created.

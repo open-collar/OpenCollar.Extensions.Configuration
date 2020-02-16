@@ -34,7 +34,7 @@ namespace OpenCollar.Extensions.Configuration
     {
         /// <summary>
         ///     Add a new kind of configuration reader that represents values taken directly from the
-        ///     <see cref="Microsoft.Extensions.Configuration.IConfigurationRoot" /> object in the service collection.
+        ///     <see cref="IConfigurationRoot" /> object in the service collection.
         /// </summary>
         /// <param name="serviceCollection">
         ///     The service collection to which to add the configuration reader. This must not be <see langword="null" />.

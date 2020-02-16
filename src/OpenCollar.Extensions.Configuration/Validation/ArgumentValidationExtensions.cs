@@ -57,7 +57,7 @@ namespace OpenCollar.Extensions.Configuration.Validation
 
             if(!type.IsEnum)
             {
-                throw new ArgumentException(string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_EnumValueNotEnum, nameof(argumentValue)), nameof(argumentValue));
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_EnumValueNotEnum, nameof(argumentValue)), nameof(argumentValue));
             }
 
             if(validation == EnumIs.None)
@@ -68,13 +68,13 @@ namespace OpenCollar.Extensions.Configuration.Validation
             if(!Enum.IsDefined(typeof(EnumIs), validation))
             {
                 throw new ArgumentOutOfRangeException(nameof(validation), validation,
-                    string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ValidationKindWrong, nameof(validation), nameof(EnumIs)));
+                    string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ValidationKindWrong, nameof(validation), nameof(EnumIs)));
             }
 
             if(validation.HasFlag(EnumIs.ValidMember) && !Enum.IsDefined(type, argumentValue))
             {
                 throw new ArgumentOutOfRangeException(nameof(validation), validation,
-                    string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_EnumValueNotMember, argumentName, type.Namespace, type.Name));
+                    string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_EnumValueNotMember, argumentName, type.Namespace, type.Name));
             }
 
             if(validation.HasFlag(EnumIs.NonZero))
@@ -83,7 +83,7 @@ namespace OpenCollar.Extensions.Configuration.Validation
 
                 if(value == 0)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(validation), validation, string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ValueZero, argumentName));
+                    throw new ArgumentOutOfRangeException(nameof(validation), validation, string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ValueZero, argumentName));
                 }
             }
 
@@ -114,13 +114,13 @@ namespace OpenCollar.Extensions.Configuration.Validation
             if(validation.HasFlag(StringIs.NotNull) && isNull)
             {
                 var normalizedArgumentName = string.IsNullOrWhiteSpace(argumentName) ? Resources.Exceptions.Fragment_UnknownArgument : argumentName;
-                throw new ArgumentNullException(normalizedArgumentName, string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsNull, normalizedArgumentName));
+                throw new ArgumentNullException(normalizedArgumentName, string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsNull, normalizedArgumentName));
             }
 
             if(validation.HasFlag(StringIs.NotEmpty) && !isNull && argumentValue.Length <= 0)
             {
                 var normalizedArgumentName = string.IsNullOrWhiteSpace(argumentName) ? Resources.Exceptions.Fragment_UnknownArgument : argumentName;
-                throw new ArgumentException(string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsZeroLength, normalizedArgumentName), normalizedArgumentName);
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsZeroLength, normalizedArgumentName), normalizedArgumentName);
             }
 
 #pragma warning disable S2583 // Conditionally executed blocks should be reachable
@@ -128,7 +128,7 @@ namespace OpenCollar.Extensions.Configuration.Validation
 #pragma warning restore S2583 // Conditionally executed blocks should be reachable
             {
                 var normalizedArgumentName = string.IsNullOrWhiteSpace(argumentName) ? Resources.Exceptions.Fragment_UnknownArgument : argumentName;
-                throw new ArgumentException(string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsWhiteSpaceOnly, normalizedArgumentName), normalizedArgumentName);
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsWhiteSpaceOnly, normalizedArgumentName), normalizedArgumentName);
             }
 
             Contract.EndContractBlock();
@@ -157,7 +157,7 @@ namespace OpenCollar.Extensions.Configuration.Validation
             if(validation.HasFlag(ObjectIs.NotNull) && isNull)
             {
                 var normalizedArgumentName = string.IsNullOrWhiteSpace(argumentName) ? Resources.Exceptions.Fragment_UnknownArgument : argumentName;
-                throw new ArgumentNullException(normalizedArgumentName, string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsNull, normalizedArgumentName));
+                throw new ArgumentNullException(normalizedArgumentName, string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsNull, normalizedArgumentName));
             }
 
             Contract.EndContractBlock();
@@ -195,7 +195,7 @@ namespace OpenCollar.Extensions.Configuration.Validation
                 if(argumentValidation.HasFlag(ObjectIs.NotNull))
                 {
                     var normalizedArgumentName = string.IsNullOrWhiteSpace(argumentName) ? Resources.Exceptions.Fragment_UnknownArgument : argumentName;
-                    throw new ArgumentNullException(normalizedArgumentName, string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsNull, normalizedArgumentName));
+                    throw new ArgumentNullException(normalizedArgumentName, string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsNull, normalizedArgumentName));
                 }
 
                 return Array.Empty<T>();
@@ -211,7 +211,7 @@ namespace OpenCollar.Extensions.Configuration.Validation
                 {
                     var normalizedArgumentName = string.Concat(string.IsNullOrWhiteSpace(argumentName) ? Resources.Exceptions.Fragment_UnknownArgument : argumentName, "[",
                         index.ToString(@"D", CultureInfo.InvariantCulture), @"]");
-                    throw new ArgumentException(string.Format(System.Globalization.CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsNull, normalizedArgumentName), normalizedArgumentName);
+                    throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsNull, normalizedArgumentName), normalizedArgumentName);
                 }
 
                 ++index;

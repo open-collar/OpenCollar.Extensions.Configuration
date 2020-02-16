@@ -31,6 +31,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </summary>
     /// <seealso cref="INotifyPropertyChanged" />
     /// <seealso cref="IDisposable" />
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class NotifyPropertyChanged : Disposable, INotifyPropertyChanged
     {
         /// <summary>

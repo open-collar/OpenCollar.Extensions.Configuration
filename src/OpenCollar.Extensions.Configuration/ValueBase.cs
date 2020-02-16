@@ -94,12 +94,12 @@ namespace OpenCollar.Extensions.Configuration
             {
                 lock(_lock)
                 {
-                    if(!OpenCollar.Extensions.Configuration.PropertyDef.AreEqual(_originalValue, _currentValue))
+                    if(!Configuration.PropertyDef.AreEqual(_originalValue, _currentValue))
                     {
                         return true;
                     }
 
-                    if(!_isSaved && !OpenCollar.Extensions.Configuration.PropertyDef.AreEqual(_originalValue, default(TValue)))
+                    if(!_isSaved && !Configuration.PropertyDef.AreEqual(_originalValue, default(TValue)))
                     {
                         return true;
                     }
@@ -406,7 +406,7 @@ namespace OpenCollar.Extensions.Configuration
         {
             lock(_lock)
             {
-                if(OpenCollar.Extensions.Configuration.PropertyDef.AreEqual(_originalValue, value))
+                if(Configuration.PropertyDef.AreEqual(_originalValue, value))
                 {
                     return false;
                 }

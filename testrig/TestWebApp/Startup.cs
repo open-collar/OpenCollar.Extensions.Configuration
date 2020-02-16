@@ -24,19 +24,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using OpenCollar.Extensions.Configuration;
+using TestWebApp.Configuration;
 
 namespace TestWebApp
 {
     public class Startup
     {
+        private readonly IConfigurationRoot _configuration;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = (IConfigurationRoot)configuration;
-        }
-
-        public IConfigurationRoot Configuration
-        {
-            get;
+            // Capture the configuration object passed in when the application is started.
+            _configuration = (IConfigurationRoot)configuration;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,7 +67,7 @@ namespace TestWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddSingleton(Configuration);
+            services.AddSingleton(_configuration);
             services.AddConfigurationReader<IMyConfig>();
         }
     }

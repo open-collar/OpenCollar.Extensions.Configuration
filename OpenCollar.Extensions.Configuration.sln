@@ -18,6 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B709D989-2CBB-4947-8FB2-0A0ED44A6C52}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.gitignore = .gitignore
 		LICENSE = LICENSE
 		OpenCollar.Extensions.Configuration.sln.DotSettings = OpenCollar.Extensions.Configuration.sln.DotSettings
 		README.md = README.md
@@ -57,7 +58,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "media", "media", "{ADA32901
 		media\opencollar-logo.svg = media\opencollar-logo.svg
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCollar.Extensions.Configuration.Specs", "test\OpenCollar.Extensions.Configuration.Specs\OpenCollar.Extensions.Configuration.Specs.csproj", "{6AA5AAC7-1CE0-4CBC-BD51-2A1ECE38CAEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCollar.Extensions.Configuration.Specs", "test\OpenCollar.Extensions.Configuration.Specs\OpenCollar.Extensions.Configuration.Specs.csproj", "{6AA5AAC7-1CE0-4CBC-BD51-2A1ECE38CAEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

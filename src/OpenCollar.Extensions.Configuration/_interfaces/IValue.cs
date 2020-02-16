@@ -24,6 +24,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     The interface internally exposed by value objects.
     /// </summary>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     public interface IValue
     {
         /// <summary>

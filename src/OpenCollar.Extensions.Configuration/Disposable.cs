@@ -29,6 +29,7 @@ namespace OpenCollar.Extensions.Configuration
     ///     A base class for disposable objects.
     /// </summary>
     /// <seealso cref="IDisposable" />
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     public abstract class Disposable : IDisposable
     {
         /// <summary>

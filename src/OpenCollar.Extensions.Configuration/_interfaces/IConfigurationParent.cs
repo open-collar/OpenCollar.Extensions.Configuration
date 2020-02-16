@@ -3,6 +3,7 @@
     /// <summary>
     ///     The interface common to all objects that can be parents to others.
     /// </summary>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     public interface IConfigurationParent
     {
         /// <summary>

@@ -94,7 +94,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="context">
         ///     The <see cref="StreamingContext" /> that contains contextual information about the source or destination.
         /// </param>
-        /// <exception cref="System.ArgumentNullException"> <paramref name="info" /> is <see langword="null" />. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="info" /> is <see langword="null" />. </exception>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.Validate(nameof(info), ObjectIs.NotNull);

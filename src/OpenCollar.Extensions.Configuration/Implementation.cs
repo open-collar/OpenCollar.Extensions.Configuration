@@ -9,6 +9,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     The details of the implementation of a property or element.
     /// </summary>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     public sealed class Implementation : IImplementation
     {
         /// <summary>

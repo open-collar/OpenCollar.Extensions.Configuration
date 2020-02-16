@@ -428,7 +428,7 @@ namespace OpenCollar.Extensions.Configuration
                     $"Value could not be parsed as an 'Boolean'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
-            return Convert.ChangeType(stringRepresentation, Type, System.Globalization.CultureInfo.InvariantCulture);
+            return Convert.ChangeType(stringRepresentation, Type, CultureInfo.InvariantCulture);
         }
 
         /// <summary>

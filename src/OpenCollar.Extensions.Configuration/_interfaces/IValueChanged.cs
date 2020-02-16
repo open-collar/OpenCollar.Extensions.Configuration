@@ -3,6 +3,7 @@
     /// <summary>
     ///     The interface used internally to allow values to call back to their parents to signal that a value has changed.
     /// </summary>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     public interface IValueChanged
     {
         /// <summary>

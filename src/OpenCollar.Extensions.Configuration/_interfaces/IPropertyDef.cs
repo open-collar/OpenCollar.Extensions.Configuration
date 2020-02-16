@@ -25,6 +25,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     The definition of the interface of the class that defines a property of a configuration object.
     /// </summary>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     public interface IPropertyDef
     {
         /// <summary>

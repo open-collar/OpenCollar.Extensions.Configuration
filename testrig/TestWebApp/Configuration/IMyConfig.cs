@@ -18,11 +18,17 @@
  */
 
 using OpenCollar.Extensions.Configuration;
+using TestWebApp.Configuration;
 
-namespace TestWebApp
+namespace TestWebApp.Configuration
 {
     public interface IMyConfig : IConfigurationObject
     {
+        public IEnvironment Environment
+        {
+            get;
+        }
+
         public string ReadOnlyString
         {
             get;
