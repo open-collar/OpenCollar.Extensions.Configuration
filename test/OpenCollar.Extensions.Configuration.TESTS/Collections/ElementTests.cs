@@ -48,6 +48,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 Assert.True(elementA.Equals((object)elementA));
                 Assert.False(elementA.Equals((object)null));
                 Assert.False(elementA.Equals((object)elementB));
+                Assert.False(elementA.Equals("different type"));
             }
         }
 
@@ -55,7 +56,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         public void TestWithoutParent()
         {
             const string propertyName = "StringPropertyA";
-            var def = new PropertyDef( typeof(IRootElement).GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance));
+            var def = new PropertyDef(typeof(IRootElement).GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance));
 
             Assert.Throws<ArgumentNullException>(() =>
             {

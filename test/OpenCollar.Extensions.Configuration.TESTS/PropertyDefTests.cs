@@ -226,5 +226,17 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             Assert.Throws<ConfigurationException>(() => { propertyDef.ConvertStringToValue("PATH", null); });
         }
+
+        [Fact]
+        public void TestIsReadOnly()
+        {
+            var propertyDef = new PropertyDef(typeof(IRootElement).GetProperty(nameof(IRootElement.BooleanPropertyA), BindingFlags.Instance | BindingFlags.Public));
+
+            Assert.True(propertyDef.IsReadOnly);
+
+            propertyDef = new PropertyDef(typeof(IRootElement).GetProperty(nameof(IRootElement.BooleanPropertyB), BindingFlags.Instance | BindingFlags.Public));
+
+            Assert.False(propertyDef.IsReadOnly);
+        }
     }
 }

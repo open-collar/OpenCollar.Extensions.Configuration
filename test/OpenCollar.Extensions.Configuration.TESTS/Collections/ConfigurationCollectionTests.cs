@@ -338,7 +338,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         }
 
         [Fact]
-        public void InsertTests_Disctionary()
+        public void InsertTests_Dictionary()
         {
             var testContext = _propertyTestData.GetContext();
             var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
@@ -389,6 +389,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Throws<ArgumentOutOfRangeException>(() => { x.InsertCopy(x.Count + 1, a); });
 
             Assert.Throws<TypeMismatchException>(() => { x.Insert(1, a); });
+
+            x.InsertCopy(0, null);
+            Assert.Null(x[0]);
 
             x.Dispose();
             Assert.Throws<ObjectDisposedException>(() => x.InsertCopy(1, b));
@@ -446,6 +449,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Throws<ArgumentOutOfRangeException>(() => { x.InsertCopy(x.Count + 1, a); });
 
             Assert.Throws<TypeMismatchException>(() => { x.Insert(1, a); });
+
+            x.InsertCopy(0, null);
+            Assert.Null(x[0]);
 
             x.Dispose();
             Assert.Throws<ObjectDisposedException>(() => x.InsertCopy(1, b));
