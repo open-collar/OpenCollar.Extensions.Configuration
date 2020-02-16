@@ -6,6 +6,7 @@ configuration with events allowing for changing detection and more dynamic
 applications.
 
  * [API Documentation](https://open-collar.github.io/OpenCollar.Extensions.Configuration/)
+ * View package in [nuget.org](https://nuget.org) at: https://www.nuget.org/packages/OpenCollar.Extensions.Configuration/
 
 ## Set-up Developer Environment
 
@@ -36,14 +37,12 @@ There are no hard dependencies on tooling, all that is required is the
 
 ## Project Resources
 
-
 <table style="border-style: none; width: 100%;">
     <tr style="border-style: none;">
-        <td style="width: 20%; border-style: none;">
-        <td style="width: 20%; border-style: none;"><a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/actions"><img src="https://github.com/open-collar/OpenCollar.Extensions.Configuration/workflows/.NET%20Core/badge.svg"/></a></td>
-        <td style="width: 20%; border-style: none;">
-        <td style="width: 20%; border-style: none;"><a href="https://coveralls.io/github/open-collar/OpenCollar.Extensions.Configuration?branch=master"><img src="https://coveralls.io/repos/github/open-collar/OpenCollar.Extensions.Configuration/badge.svg?branch=master"/></a></td>
-        <td style="width: 20%; border-style: none;">
+        <td style="width: 25%; border-style: none;">Build:</td>
+        <td style="width: 25%; border-style: none;"><a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/actions"><img src="https://github.com/open-collar/OpenCollar.Extensions.Configuration/workflows/.NET%20Core/badge.svg"/></a></td>
+        <td style="width: 25%; border-style: none;"><a href="https://coveralls.io/github/open-collar/OpenCollar.Extensions.Configuration?branch=master"><img src="https://coveralls.io/repos/github/open-collar/OpenCollar.Extensions.Configuration/badge.svg?branch=master"/></a></td>
+        <td style="width: 25%; border-style: none;"><a href="https://open-collar.github.io/OpenCollar.Extensions.Configuration/articles/intro.html"><img src="https://img.shields.io/nuget/dt/OpenCollar.Extensions.Configuration"/></a></td>
     </tr>
 </table>
 

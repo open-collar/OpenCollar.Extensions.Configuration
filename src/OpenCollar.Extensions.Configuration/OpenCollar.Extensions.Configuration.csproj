@@ -16,7 +16,7 @@
         <Description>Support for automatic validation, update and strongly-typed access to configuration.</Description>
         <Copyright>Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).</Copyright>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <PackageProjectUrl>https://github.com/open-collar/OpenCollar.Extensions.Configuration</PackageProjectUrl>
+        <PackageProjectUrl>https://open-collar.github.io/OpenCollar.Extensions.Configuration/index.html</PackageProjectUrl>
         <PackageIcon>opencollar-icon-320x320x32.png</PackageIcon>
         <PackageIconUrl />
         <RepositoryUrl>https://github.com/open-collar/OpenCollar.Extensions.Configuration.git</RepositoryUrl>
