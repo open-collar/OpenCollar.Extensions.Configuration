@@ -2,10 +2,11 @@ Support for automatic validation, update and strongly-typed access to configurat
 
 <table style="border-style: none; width: 100%;">
     <tr style="border-style: none;">
-        <td style="width: 25%; border-style: none;">Build:</td>
-        <td style="width: 25%; border-style: none;"><a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/actions"><img src="https://github.com/open-collar/OpenCollar.Extensions.Configuration/workflows/.NET%20Core/badge.svg"/></a></td>
-        <td style="width: 25%; border-style: none;"><a href="https://coveralls.io/github/open-collar/OpenCollar.Extensions.Configuration?branch=master"><img src="https://coveralls.io/repos/github/open-collar/OpenCollar.Extensions.Configuration/badge.svg?branch=master"/></a></td>
-        <td style="width: 25%; border-style: none;"><a href="https://open-collar.github.io/OpenCollar.Extensions.Configuration/articles/intro.html"><img src="https://img.shields.io/nuget/dt/OpenCollar.Extensions.Configuration"/></a></td>
+        <td style="width: 20%; border-style: none;">Latest Build:</td>
+        <td style="width: 20%; border-style: none;"><a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/actions"><img src="https://img.shields.io/github/workflow/status/open-collar/OpenCollar.Extensions.Configuration/.NET Core"/></a></td>
+        <td style="width: 20%; border-style: none;"><a href="https://coveralls.io/github/open-collar/OpenCollar.Extensions.Configuration?branch=master"><img src="https://coveralls.io/repos/github/open-collar/OpenCollar.Extensions.Configuration/badge.svg?branch=master"/></a></td>
+        <td style="width: 20%; border-style: none;"><a href="https://www.nuget.org/packages/OpenCollar.Extensions.Configuration/"><img src="https://img.shields.io/nuget/vpre/OpenCollar.Extensions.Configuration?color=green"/></a></td>
+        <td style="width: 20%; border-style: none;"><a href="https://open-collar.github.io/OpenCollar.Extensions.Configuration/articles/intro.html"><img src="https://img.shields.io/nuget/dt/OpenCollar.Extensions.Configuration?color=green"/></a></td>
     </tr>
 </table>
 
