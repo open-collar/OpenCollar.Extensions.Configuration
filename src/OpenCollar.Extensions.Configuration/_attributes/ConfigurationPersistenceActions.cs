@@ -22,31 +22,32 @@ using System;
 namespace OpenCollar.Extensions.Configuration
 {
     /// <summary>
-    ///     An attribute that can be used to specify the default value to return if no value is defined in the
-    ///     configuration root.
+    ///     Defines the behavior of loading or saving for are particular property.
     /// </summary>
-    /// <seealso cref="Attribute" />
-    [AttributeUsage(AttributeTargets.Property)]
-    public sealed class DefaultValueAttribute : Attribute
+    [Flags]
+    public enum ConfigurationPersistenceActions
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="DefaultValueAttribute" /> class.
+        ///     Values will be neither loaded nor saved.
         /// </summary>
-        /// <param name="defaultValue">
-        ///     The default value to return if no value is defined in the configuration root. Can be <see langword="null" />.
-        /// </param>
-        public DefaultValueAttribute(object? defaultValue)
-        {
-            DefaultValue = defaultValue;
-        }
+        /// <remarks> To use this value a default value must be provided. </remarks>
+        Ignore = 0,
 
         /// <summary>
-        ///     Gets the default value.
+        ///     Values are loaded from the configuration service, but changes are never saved back to the configuration service.
         /// </summary>
-        /// <value> The default value to return if no value is defined in the configuration root. Can be <see langword="null" />. </value>
-        public object? DefaultValue
-        {
-            get;
-        }
+        LoadOnly = 1,
+
+        /// <summary>
+        ///     Values are never loaded from the configuration service, but changes are saved back to the configuration service.
+        /// </summary>
+        /// <remarks> To use this value a default value must be provided. </remarks>
+        SaveOnly = 2,
+
+        /// <summary>
+        ///     Values are loaded from the configuration service and changes are saved back to the configuration service.
+        /// </summary>
+        /// <remarks> This is the default behavior. </remarks>
+        LoadAndSave = LoadOnly | SaveOnly,
     }
 }

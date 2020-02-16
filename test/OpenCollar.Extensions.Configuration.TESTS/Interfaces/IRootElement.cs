@@ -19,6 +19,8 @@
 
 using System;
 using System.Reflection;
+using OpenCollar.Extensions.Configuration.Collections;
+using OpenCollar.Extensions.Configuration.TESTS.Interfaces;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
@@ -84,6 +86,24 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         // We would expect this to be implemented as a read/write property.
         [Path(PathIs.Root, "CustomRoot")]
         string CustomProperty
+        {
+            get; set;
+        }
+
+        [Configuration(Persistence = ConfigurationPersistenceActions.LoadOnly)]
+        string CustomValueA
+        {
+            get; set;
+        }
+
+        [Configuration(Persistence = ConfigurationPersistenceActions.SaveOnly, DefaultValue = "DEFAULT_VALUE")]
+        string CustomValueB
+        {
+            get; set;
+        }
+
+        [Configuration(Persistence = ConfigurationPersistenceActions.Ignore, DefaultValue = "DEFAULT_VALUE")]
+        string CustomValueC
         {
             get; set;
         }
@@ -173,7 +193,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         // We would expect this to be implemented as a read-only property.
-        [DefaultValue(999)]
+        [Configuration(DefaultValue = 999)]
         int Int32PropertyC
         {
             get;
@@ -221,6 +241,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             get;
         }
 
+        [Configuration(DefaultValue = null)]
+        IConfigurationCollection<IConfigurationCollection<IInert>> ReadOnlyCollection
+        {
+            get;
+        }
+
+        [Configuration(DefaultValue = null)]
+        IConfigurationCollection<IConfigurationDictionary<IInert>> ReadOnlyDictionary
+        {
+            get;
+        }
+
         // We would expect this to be implemented as a read-only property.
         sbyte SBytePropertyA
         {
@@ -252,7 +284,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         // We would expect this to be implemented as a read-only property.
-        [DefaultValue((float)123.456)]
+        [Configuration(DefaultValue = (float)123.456)]
         float? SinglePropertyWithDefault
         {
             get; set;

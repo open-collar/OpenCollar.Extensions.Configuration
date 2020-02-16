@@ -35,17 +35,10 @@ namespace OpenCollar.Extensions.Configuration
         ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
         /// </summary>
         /// <param name="propertyInfo"> The definition of the property. </param>
-        /// <param name="defaultValue"> The default value. </param>
-        internal PropertyDef(PropertyInfo propertyInfo, object? defaultValue) : this(propertyInfo)
-        {
-            HasDefaultValue = true;
-            DefaultValue = defaultValue;
-        }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
-        /// </summary>
-        /// <param name="propertyInfo"> The definition of the property. </param>
+        /// <exception cref="InvalidPropertyException">
+        ///     'ConfigurationValue' attribute on property specifies that persistence should only save values (not
+        ///     load), but no default value is provided.
+        /// </exception>
         internal PropertyDef(PropertyInfo propertyInfo)
         {
             PropertyInfo = propertyInfo;
@@ -73,12 +66,28 @@ namespace OpenCollar.Extensions.Configuration
             {
                 case ImplementationKind.ConfigurationCollection:
                 case ImplementationKind.ConfigurationDictionary:
-                    ElementImplementation = new Implementation(Implementation.Type, IsReadOnly);
-                    break;
-
                 case ImplementationKind.ConfigurationObject:
                     ElementImplementation = new Implementation(Implementation.Type, IsReadOnly);
                     break;
+            }
+
+            var configurationAttributes = propertyInfo.GetCustomAttributes<ConfigurationAttribute>(true).ToList();
+            if(configurationAttributes.Count > 0)
+            {
+                var attribute = configurationAttributes[0];
+                DefaultValue = attribute.DefaultValue;
+                HasDefaultValue = attribute.IsDefaultValueSet;
+                Persistence = attribute.Persistence;
+            }
+            else
+            {
+                Persistence = ConfigurationPersistenceActions.LoadAndSave;
+            }
+
+            if(!Persistence.HasFlag(ConfigurationPersistenceActions.LoadOnly) && !HasDefaultValue)
+            {
+                var propertyName = $"[{propertyInfo.DeclaringType.Namespace}.{propertyInfo.DeclaringType.Name}].{propertyInfo.Name}";
+                throw new InvalidPropertyException(propertyName, $"'ConfigurationValue' attribute on property \"{propertyName}\" specifies that persistence should only save or ignore values (not load), but no default value is provided.");
             }
         }
 
@@ -146,6 +155,11 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <value> The path section. </value>
         public string PathSection
+        {
+            get;
+        }
+
+        public ConfigurationPersistenceActions Persistence
         {
             get;
         }

@@ -37,7 +37,7 @@ There are no hard dependencies on tooling, all that is required is the
 ## Project Resources
 
 
-<table style="border-style: none;">
+<table style="border-style: none; width: 100%;">
     <tr style="border-style: none;">
         <td style="width: 20%; border-style: none;">
         <td style="width: 20%; border-style: none;"><a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/actions"><img src="https://github.com/open-collar/OpenCollar.Extensions.Configuration/workflows/.NET%20Core/badge.svg"/></a></td>

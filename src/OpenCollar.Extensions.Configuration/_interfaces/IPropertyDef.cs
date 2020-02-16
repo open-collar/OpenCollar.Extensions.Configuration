@@ -96,6 +96,15 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets or sets the policy for when to load and save values from the configuration service.
+        /// </summary>
+        /// <value> The policy for when to load and save values from the configuration service. </value>
+        public ConfigurationPersistenceActions Persistence
+        {
+            get;
+        }
+
+        /// <summary>
         ///     Gets the property information that defines the interface property.
         /// </summary>
         /// <value> The property information that defines the interface property. </value>

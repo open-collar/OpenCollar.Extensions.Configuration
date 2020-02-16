@@ -338,7 +338,64 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         }
 
         [Fact]
-        public void InsertTests()
+        public void InsertTests_Disctionary()
+        {
+            var testContext = _propertyTestData.GetContext();
+            var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
+                testContext.Configuration.ConfigurationRoot);
+
+            var a = testContext.GetChildElement("a");
+            var b = testContext.GetChildElement("b");
+            var c = testContext.GetChildElement("c");
+            var d = testContext.GetChildElement("d");
+            var e = testContext.GetChildElement("e");
+
+            x.AddCopy(a);
+            x.AddCopy(c);
+
+            var changes = new List<NotifyCollectionChangedAction>();
+            x.CollectionChanged += (sender, args) => { changes.Add(args.Action); };
+
+            x.InsertCopy(1, b);
+
+            Assert.Equal(2, changes.Count);
+            Assert.Equal(NotifyCollectionChangedAction.Add, changes[0]);
+            Assert.Equal(NotifyCollectionChangedAction.Move, changes[1]);
+
+            Assert.Equal(3, x.Count);
+
+            Assert.Equal(a, x[0], ConfigurationObjectComparer.Instance);
+            Assert.Equal(b, x[1], ConfigurationObjectComparer.Instance);
+            Assert.Equal(c, x[2], ConfigurationObjectComparer.Instance);
+
+            x.InsertCopy(x.Count, d);
+
+            Assert.Equal(4, x.Count);
+            Assert.Equal(a, x[0], ConfigurationObjectComparer.Instance);
+            Assert.Equal(b, x[1], ConfigurationObjectComparer.Instance);
+            Assert.Equal(c, x[2], ConfigurationObjectComparer.Instance);
+            Assert.Equal(d, x[3], ConfigurationObjectComparer.Instance);
+
+            x.InsertCopy(0, e);
+
+            Assert.Equal(5, x.Count);
+            Assert.Equal(e, x[0], ConfigurationObjectComparer.Instance);
+            Assert.Equal(a, x[1], ConfigurationObjectComparer.Instance);
+            Assert.Equal(b, x[2], ConfigurationObjectComparer.Instance);
+            Assert.Equal(c, x[3], ConfigurationObjectComparer.Instance);
+            Assert.Equal(d, x[4], ConfigurationObjectComparer.Instance);
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => { x.InsertCopy(-1, a); });
+            Assert.Throws<ArgumentOutOfRangeException>(() => { x.InsertCopy(x.Count + 1, a); });
+
+            Assert.Throws<TypeMismatchException>(() => { x.Insert(1, a); });
+
+            x.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => x.InsertCopy(1, b));
+        }
+
+        [Fact]
+        public void InsertTests_WithCollection()
         {
             var testContext = _propertyTestData.GetContext();
             var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,

@@ -280,12 +280,14 @@ namespace OpenCollar.Extensions.Configuration
         protected object? this[string name]
         {
             // TODO: Add validation.
+            [DebuggerStepThrough]
             get
             {
                 EnforceDisposed();
 
                 return PropertiesByName[name].Value;
             }
+            [DebuggerStepThrough]
             set
             {
                 EnforceDisposed();
@@ -323,6 +325,11 @@ namespace OpenCollar.Extensions.Configuration
         {
             EnforceDisposed();
 
+            if(!ReferenceEquals(PropertyDef, null) && !PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.SaveOnly))
+            {
+                return;
+            }
+
             foreach(var value in PropertiesByName.Values)
             {
                 value.DeleteValue(_configurationRoot);
@@ -339,8 +346,17 @@ namespace OpenCollar.Extensions.Configuration
         {
             EnforceDisposed();
 
+            if(!ReferenceEquals(PropertyDef, null) && !PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.LoadOnly))
+            {
+                return;
+            }
+
             foreach(var value in PropertiesByName.Values)
             {
+                if(!value.PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.LoadOnly))
+                {
+                    continue;
+                }
                 value.ReadValue(_configurationRoot);
             }
         }
@@ -368,8 +384,17 @@ namespace OpenCollar.Extensions.Configuration
         {
             EnforceDisposed();
 
+            if(!ReferenceEquals(PropertyDef, null) && !PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.SaveOnly))
+            {
+                return;
+            }
+
             foreach(var value in PropertiesByName.Values)
             {
+                if(!value.PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.SaveOnly))
+                {
+                    continue;
+                }
                 value.WriteValue(_configurationRoot);
             }
         }

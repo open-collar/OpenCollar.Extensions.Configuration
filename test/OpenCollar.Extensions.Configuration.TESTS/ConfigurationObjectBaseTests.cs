@@ -105,6 +105,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         [Fact]
+        public void TestDefaults()
+        {
+            var fixture = new ConfigurationFixture();
+
+            Assert.Equal("DEFAULT_VALUE", fixture.RootElement.CustomValueB);
+        }
+
+        [Fact]
         public void TestDelete()
         {
             var fixture = new ConfigurationFixture();
@@ -135,6 +143,40 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.False(y.Equals(x));
             Assert.False(x.Equals(z));
             Assert.False(x.Equals(null));
+        }
+
+        [Fact]
+        public void TestIgnore()
+        {
+            var fixture = new ConfigurationFixture();
+
+            Assert.Equal("VALUE THAT WILL BE IGNORED", fixture.ConfigurationRoot["CustomValueC"]);
+
+            Assert.Equal("DEFAULT_VALUE", fixture.RootElement.CustomValueC);
+
+            fixture.RootElement.CustomValueC = "new value";
+
+            Assert.Equal("new value", fixture.RootElement.CustomValueC);
+
+            fixture.RootElement.Save();
+
+            Assert.Equal("VALUE THAT WILL BE IGNORED", fixture.ConfigurationRoot["CustomValueC"]);
+        }
+
+        [Fact]
+        public void TestLoadOnly()
+        {
+            var fixture = new ConfigurationFixture();
+
+            Assert.Equal("CUSTOM-VALUE-A", fixture.ConfigurationRoot["CustomValueA"]);
+
+            fixture.RootElement.CustomValueA = "new value";
+
+            Assert.Equal("new value", fixture.RootElement.CustomValueA);
+
+            fixture.RootElement.Save();
+
+            Assert.Equal("CUSTOM-VALUE-A", fixture.ConfigurationRoot["CustomValueA"]);
         }
 
         [Fact]
@@ -379,6 +421,24 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.Equal("True", fixture.ConfigurationRoot["BooleanPropertyB"]);
             Assert.Equal("!", fixture.ConfigurationRoot["CharPropertyB"]);
             Assert.Equal("ABABAB", fixture.ConfigurationRoot["ChildCollection:3:Name"]);
+        }
+
+        [Fact]
+        public void TestSaveOnly()
+        {
+            var fixture = new ConfigurationFixture();
+
+            Assert.Null(fixture.ConfigurationRoot["CustomValueB"]);
+
+            Assert.Equal("DEFAULT_VALUE", fixture.RootElement.CustomValueB);
+
+            fixture.RootElement.CustomValueB = "new value";
+
+            Assert.Equal("new value", fixture.RootElement.CustomValueB);
+
+            fixture.RootElement.Save();
+
+            Assert.Equal("new value", fixture.ConfigurationRoot["CustomValueB"]);
         }
 
         [Fact]

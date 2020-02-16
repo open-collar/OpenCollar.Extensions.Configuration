@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Reflection;
+using OpenCollar.Extensions.Configuration.TESTS.Interfaces;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
@@ -196,16 +197,6 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             get; set;
         }
 
-        public IConfigurationCollection<IChildElement> ReadOnlyChildCollection
-        {
-            get;
-        }
-
-        public IConfigurationDictionary<IChildElement> ReadOnlyChildDictionary
-        {
-            get;
-        }
-
         public sbyte SBytePropertyA
         {
             get;
@@ -264,6 +255,44 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         public int Value
         {
             get; set;
+        }
+
+        public IConfigurationCollection<IChildElement> ReadOnlyChildCollection
+        {
+            get;
+        }
+
+        public IConfigurationDictionary<IChildElement> ReadOnlyChildDictionary
+        {
+            get;
+        }
+
+        public IConfigurationCollection<IConfigurationCollection<IInert>> ReadOnlyCollection
+        {
+            get;
+        }
+
+        public IConfigurationCollection<IConfigurationDictionary<IInert>> ReadOnlyDictionary
+        {
+            get;
+        }
+
+        public string CustomValueA
+        {
+            get;
+            set;
+        }
+
+        public string CustomValueB
+        {
+            get;
+            set;
+        }
+
+        public string CustomValueC
+        {
+            get;
+            set;
         }
 
         public string CalculatePath() => throw new NotImplementedException();

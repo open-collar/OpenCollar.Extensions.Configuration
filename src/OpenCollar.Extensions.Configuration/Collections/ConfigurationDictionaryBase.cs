@@ -262,9 +262,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the configuration root service from which values are read or to which all values will be written.
         /// </summary>
-        /// <value>
-        ///     The configuration root service from which values are read or to which all values will be written.
-        /// </value>
+        /// <value> The configuration root service from which values are read or to which all values will be written. </value>
         internal IConfigurationRoot ConfigurationRoot
         {
             get;
@@ -457,6 +455,11 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <exception cref="NotImplementedException"> </exception>
         public void Delete()
         {
+            if(!PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.SaveOnly))
+            {
+                return;
+            }
+
             foreach(var element in _orderedItems)
             {
                 element.DeleteValue(ConfigurationRoot);
@@ -591,6 +594,11 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </summary>
         public void Save()
         {
+            if(!PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.SaveOnly))
+            {
+                return;
+            }
+
             foreach(var element in _orderedItems)
             {
                 element.WriteValue(ConfigurationRoot);
@@ -650,11 +658,14 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
-        /// <param name="initializing">
-        ///     If set to <see langword="true" /> the element changed events are not fired.
-        /// </param>
+        /// <param name="initializing"> If set to <see langword="true" /> the element changed events are not fired. </param>
         internal void Load(bool initializing)
         {
+            if(!PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.LoadOnly))
+            {
+                return;
+            }
+
             var path = CalculatePath();
 
             // Iterate across all of the elements in the path and then delete those not in the dictionary, and then

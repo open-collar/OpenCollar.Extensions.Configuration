@@ -20,6 +20,7 @@
 #pragma warning disable CA1063 // No finalizer is required, this is a base class and only the derived class knows the details of whether one should be implemnted.
 
 using System;
+using System.Diagnostics;
 using System.Threading;
 
 namespace OpenCollar.Extensions.Configuration
@@ -83,6 +84,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <exception cref="ObjectDisposedException">
         ///     This method cannot be used after the object has been disposed of.
         /// </exception>
+        [DebuggerStepThrough]
         protected void EnforceDisposed()
         {
             if(_isDisposed != Disposed)

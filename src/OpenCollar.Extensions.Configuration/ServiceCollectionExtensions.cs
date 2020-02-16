@@ -132,16 +132,9 @@ namespace OpenCollar.Extensions.Configuration
                     continue;
                 }
 
-                var defaultValueAttributes = property.GetCustomAttributes(typeof(DefaultValueAttribute), true);
-                if(ReferenceEquals(defaultValueAttributes, null) || (defaultValueAttributes.Length <= 0))
-                {
-                    propertyDefs.Add(new PropertyDef(property));
-                }
-                else
-                {
-                    var defaultValue = ((DefaultValueAttribute)defaultValueAttributes[0]).DefaultValue;
-                    propertyDefs.Add(new PropertyDef(property, defaultValue));
-                }
+                var propertyDef = new PropertyDef(property);
+
+                propertyDefs.Add(propertyDef);
             }
 
             return propertyDefs;

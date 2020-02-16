@@ -20,4 +20,3 @@
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("OpenCollar.Extensions.Configuration.TESTS")]
-[assembly: InternalsVisibleTo("OpenCollar.Extensions.Configuration.Implementations")]
