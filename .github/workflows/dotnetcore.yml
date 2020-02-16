@@ -73,11 +73,6 @@ jobs:
       if: github.ref == 'refs/heads/master'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Package
-      if: github.ref == 'refs/heads/master'
-      run: |
-        dotnet pack --configuration: Release
       
     - name: Publish
       if: github.ref == 'refs/heads/master'
