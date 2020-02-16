@@ -1,4 +1,4 @@
-# Generated files that should not be stored.
-!.gitignore
-*
-*.*
+# All build output are to be captured - this is the mechanism by which we publish our
+# built documentation.
+*.yml
+.manifest
