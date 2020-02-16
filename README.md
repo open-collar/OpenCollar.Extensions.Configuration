@@ -35,7 +35,7 @@ There are no hard dependencies on tooling, all that is required is the
        VS editor for Markdown files;
      * [SpecFlow](https://specflow.org/) - acceptance testing;
 
-## Project Resources
+## Project
 
 <table style="border-style: none; width: 100%;">
     <tr style="border-style: none;">
@@ -57,3 +57,4 @@ There are no hard dependencies on tooling, all that is required is the
  * [Tutorial: Express your design intent more clearly with nullable and non-nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/nullable-reference-types);
  * [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
  * [Coveralls GitHub Action](https://github.com/marketplace/actions/coveralls-github-action)
+ * [Badges](https://shields.io/category/build)
