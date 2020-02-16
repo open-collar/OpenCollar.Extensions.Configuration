@@ -7,6 +7,51 @@ references:
   commentId: N:OpenCollar.Extensions.Configuration
   fullName: OpenCollar.Extensions.Configuration
   nameWithType: OpenCollar.Extensions.Configuration
+- uid: OpenCollar.Extensions.Configuration.ConfigurationAttribute
+  name: ConfigurationAttribute
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationAttribute.html
+  commentId: T:OpenCollar.Extensions.Configuration.ConfigurationAttribute
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationAttribute
+  nameWithType: ConfigurationAttribute
+- uid: OpenCollar.Extensions.Configuration.ConfigurationAttribute.#ctor
+  name: ConfigurationAttribute()
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationAttribute.html#OpenCollar_Extensions_Configuration_ConfigurationAttribute__ctor
+  commentId: M:OpenCollar.Extensions.Configuration.ConfigurationAttribute.#ctor
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationAttribute.ConfigurationAttribute()
+  nameWithType: ConfigurationAttribute.ConfigurationAttribute()
+- uid: OpenCollar.Extensions.Configuration.ConfigurationAttribute.#ctor*
+  name: ConfigurationAttribute
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationAttribute.html#OpenCollar_Extensions_Configuration_ConfigurationAttribute__ctor_
+  commentId: Overload:OpenCollar.Extensions.Configuration.ConfigurationAttribute.#ctor
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationAttribute.ConfigurationAttribute
+  nameWithType: ConfigurationAttribute.ConfigurationAttribute
+- uid: OpenCollar.Extensions.Configuration.ConfigurationAttribute.DefaultValue
+  name: DefaultValue
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationAttribute.html#OpenCollar_Extensions_Configuration_ConfigurationAttribute_DefaultValue
+  commentId: P:OpenCollar.Extensions.Configuration.ConfigurationAttribute.DefaultValue
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationAttribute.DefaultValue
+  nameWithType: ConfigurationAttribute.DefaultValue
+- uid: OpenCollar.Extensions.Configuration.ConfigurationAttribute.DefaultValue*
+  name: DefaultValue
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationAttribute.html#OpenCollar_Extensions_Configuration_ConfigurationAttribute_DefaultValue_
+  commentId: Overload:OpenCollar.Extensions.Configuration.ConfigurationAttribute.DefaultValue
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationAttribute.DefaultValue
+  nameWithType: ConfigurationAttribute.DefaultValue
+- uid: OpenCollar.Extensions.Configuration.ConfigurationAttribute.Persistence
+  name: Persistence
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationAttribute.html#OpenCollar_Extensions_Configuration_ConfigurationAttribute_Persistence
+  commentId: P:OpenCollar.Extensions.Configuration.ConfigurationAttribute.Persistence
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationAttribute.Persistence
+  nameWithType: ConfigurationAttribute.Persistence
+- uid: OpenCollar.Extensions.Configuration.ConfigurationAttribute.Persistence*
+  name: Persistence
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationAttribute.html#OpenCollar_Extensions_Configuration_ConfigurationAttribute_Persistence_
+  commentId: Overload:OpenCollar.Extensions.Configuration.ConfigurationAttribute.Persistence
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationAttribute.Persistence
+  nameWithType: ConfigurationAttribute.Persistence
 - uid: OpenCollar.Extensions.Configuration.ConfigurationException
   name: ConfigurationException
   href: api/OpenCollar.Extensions.Configuration.ConfigurationException.html
@@ -368,38 +413,36 @@ references:
   fullName.vb: OpenCollar.Extensions.Configuration.ConfigurationObjectBase(Of TInterface).InterfaceType
   nameWithType: ConfigurationObjectBase<TInterface>.InterfaceType
   nameWithType.vb: ConfigurationObjectBase(Of TInterface).InterfaceType
-- uid: OpenCollar.Extensions.Configuration.DefaultValueAttribute
-  name: DefaultValueAttribute
-  href: api/OpenCollar.Extensions.Configuration.DefaultValueAttribute.html
-  commentId: T:OpenCollar.Extensions.Configuration.DefaultValueAttribute
-  fullName: OpenCollar.Extensions.Configuration.DefaultValueAttribute
-  nameWithType: DefaultValueAttribute
-- uid: OpenCollar.Extensions.Configuration.DefaultValueAttribute.#ctor(System.Object)
-  name: DefaultValueAttribute(Object)
-  href: api/OpenCollar.Extensions.Configuration.DefaultValueAttribute.html#OpenCollar_Extensions_Configuration_DefaultValueAttribute__ctor_System_Object_
-  commentId: M:OpenCollar.Extensions.Configuration.DefaultValueAttribute.#ctor(System.Object)
-  fullName: OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValueAttribute(System.Object)
-  nameWithType: DefaultValueAttribute.DefaultValueAttribute(Object)
-- uid: OpenCollar.Extensions.Configuration.DefaultValueAttribute.#ctor*
-  name: DefaultValueAttribute
-  href: api/OpenCollar.Extensions.Configuration.DefaultValueAttribute.html#OpenCollar_Extensions_Configuration_DefaultValueAttribute__ctor_
-  commentId: Overload:OpenCollar.Extensions.Configuration.DefaultValueAttribute.#ctor
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValueAttribute
-  nameWithType: DefaultValueAttribute.DefaultValueAttribute
-- uid: OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValue
-  name: DefaultValue
-  href: api/OpenCollar.Extensions.Configuration.DefaultValueAttribute.html#OpenCollar_Extensions_Configuration_DefaultValueAttribute_DefaultValue
-  commentId: P:OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValue
-  fullName: OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValue
-  nameWithType: DefaultValueAttribute.DefaultValue
-- uid: OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValue*
-  name: DefaultValue
-  href: api/OpenCollar.Extensions.Configuration.DefaultValueAttribute.html#OpenCollar_Extensions_Configuration_DefaultValueAttribute_DefaultValue_
-  commentId: Overload:OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValue
-  isSpec: "True"
-  fullName: OpenCollar.Extensions.Configuration.DefaultValueAttribute.DefaultValue
-  nameWithType: DefaultValueAttribute.DefaultValue
+- uid: OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions
+  name: ConfigurationPersistenceActions
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.html
+  commentId: T:OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions
+  nameWithType: ConfigurationPersistenceActions
+- uid: OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.Ignore
+  name: Ignore
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.html#OpenCollar_Extensions_Configuration_ConfigurationPersistenceActions_Ignore
+  commentId: F:OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.Ignore
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.Ignore
+  nameWithType: ConfigurationPersistenceActions.Ignore
+- uid: OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.LoadAndSave
+  name: LoadAndSave
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.html#OpenCollar_Extensions_Configuration_ConfigurationPersistenceActions_LoadAndSave
+  commentId: F:OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.LoadAndSave
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.LoadAndSave
+  nameWithType: ConfigurationPersistenceActions.LoadAndSave
+- uid: OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.LoadOnly
+  name: LoadOnly
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.html#OpenCollar_Extensions_Configuration_ConfigurationPersistenceActions_LoadOnly
+  commentId: F:OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.LoadOnly
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.LoadOnly
+  nameWithType: ConfigurationPersistenceActions.LoadOnly
+- uid: OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.SaveOnly
+  name: SaveOnly
+  href: api/OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.html#OpenCollar_Extensions_Configuration_ConfigurationPersistenceActions_SaveOnly
+  commentId: F:OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.SaveOnly
+  fullName: OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.SaveOnly
+  nameWithType: ConfigurationPersistenceActions.SaveOnly
 - uid: OpenCollar.Extensions.Configuration.Disposable
   name: Disposable
   href: api/OpenCollar.Extensions.Configuration.Disposable.html
@@ -783,6 +826,81 @@ references:
   commentId: F:OpenCollar.Extensions.Configuration.ImplementationKind.Unknown
   fullName: OpenCollar.Extensions.Configuration.ImplementationKind.Unknown
   nameWithType: ImplementationKind.Unknown
+- uid: OpenCollar.Extensions.Configuration.InvalidPropertyException
+  name: InvalidPropertyException
+  href: api/OpenCollar.Extensions.Configuration.InvalidPropertyException.html
+  commentId: T:OpenCollar.Extensions.Configuration.InvalidPropertyException
+  fullName: OpenCollar.Extensions.Configuration.InvalidPropertyException
+  nameWithType: InvalidPropertyException
+- uid: OpenCollar.Extensions.Configuration.InvalidPropertyException.#ctor
+  name: InvalidPropertyException()
+  href: api/OpenCollar.Extensions.Configuration.InvalidPropertyException.html#OpenCollar_Extensions_Configuration_InvalidPropertyException__ctor
+  commentId: M:OpenCollar.Extensions.Configuration.InvalidPropertyException.#ctor
+  fullName: OpenCollar.Extensions.Configuration.InvalidPropertyException.InvalidPropertyException()
+  nameWithType: InvalidPropertyException.InvalidPropertyException()
+- uid: OpenCollar.Extensions.Configuration.InvalidPropertyException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  name: InvalidPropertyException(SerializationInfo, StreamingContext)
+  href: api/OpenCollar.Extensions.Configuration.InvalidPropertyException.html#OpenCollar_Extensions_Configuration_InvalidPropertyException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
+  commentId: M:OpenCollar.Extensions.Configuration.InvalidPropertyException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  fullName: OpenCollar.Extensions.Configuration.InvalidPropertyException.InvalidPropertyException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  nameWithType: InvalidPropertyException.InvalidPropertyException(SerializationInfo, StreamingContext)
+- uid: OpenCollar.Extensions.Configuration.InvalidPropertyException.#ctor(System.String)
+  name: InvalidPropertyException(String)
+  href: api/OpenCollar.Extensions.Configuration.InvalidPropertyException.html#OpenCollar_Extensions_Configuration_InvalidPropertyException__ctor_System_String_
+  commentId: M:OpenCollar.Extensions.Configuration.InvalidPropertyException.#ctor(System.String)
+  fullName: OpenCollar.Extensions.Configuration.InvalidPropertyException.InvalidPropertyException(System.String)
+  nameWithType: InvalidPropertyException.InvalidPropertyException(String)
+- uid: OpenCollar.Extensions.Configuration.InvalidPropertyException.#ctor(System.String,System.Exception)
+  name: InvalidPropertyException(String, Exception)
+  href: api/OpenCollar.Extensions.Configuration.InvalidPropertyException.html#OpenCollar_Extensions_Configuration_InvalidPropertyException__ctor_System_String_System_Exception_
+  commentId: M:OpenCollar.Extensions.Configuration.InvalidPropertyException.#ctor(System.String,System.Exception)
+  fullName: OpenCollar.Extensions.Configuration.InvalidPropertyException.InvalidPropertyException(System.String, System.Exception)
+  nameWithType: InvalidPropertyException.InvalidPropertyException(String, Exception)
+- uid: OpenCollar.Extensions.Configuration.InvalidPropertyException.#ctor(System.String,System.String)
+  name: InvalidPropertyException(String, String)
+  href: api/OpenCollar.Extensions.Configuration.InvalidPropertyException.html#OpenCollar_Extensions_Configuration_InvalidPropertyException__ctor_System_String_System_String_
+  commentId: M:OpenCollar.Extensions.Configuration.InvalidPropertyException.#ctor(System.String,System.String)
+  fullName: OpenCollar.Extensions.Configuration.InvalidPropertyException.InvalidPropertyException(System.String, System.String)
+  nameWithType: InvalidPropertyException.InvalidPropertyException(String, String)
+- uid: OpenCollar.Extensions.Configuration.InvalidPropertyException.#ctor(System.String,System.String,System.Exception)
+  name: InvalidPropertyException(String, String, Exception)
+  href: api/OpenCollar.Extensions.Configuration.InvalidPropertyException.html#OpenCollar_Extensions_Configuration_InvalidPropertyException__ctor_System_String_System_String_System_Exception_
+  commentId: M:OpenCollar.Extensions.Configuration.InvalidPropertyException.#ctor(System.String,System.String,System.Exception)
+  fullName: OpenCollar.Extensions.Configuration.InvalidPropertyException.InvalidPropertyException(System.String, System.String, System.Exception)
+  nameWithType: InvalidPropertyException.InvalidPropertyException(String, String, Exception)
+- uid: OpenCollar.Extensions.Configuration.InvalidPropertyException.#ctor*
+  name: InvalidPropertyException
+  href: api/OpenCollar.Extensions.Configuration.InvalidPropertyException.html#OpenCollar_Extensions_Configuration_InvalidPropertyException__ctor_
+  commentId: Overload:OpenCollar.Extensions.Configuration.InvalidPropertyException.#ctor
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.InvalidPropertyException.InvalidPropertyException
+  nameWithType: InvalidPropertyException.InvalidPropertyException
+- uid: OpenCollar.Extensions.Configuration.InvalidPropertyException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  name: GetObjectData(SerializationInfo, StreamingContext)
+  href: api/OpenCollar.Extensions.Configuration.InvalidPropertyException.html#OpenCollar_Extensions_Configuration_InvalidPropertyException_GetObjectData_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
+  commentId: M:OpenCollar.Extensions.Configuration.InvalidPropertyException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  fullName: OpenCollar.Extensions.Configuration.InvalidPropertyException.GetObjectData(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  nameWithType: InvalidPropertyException.GetObjectData(SerializationInfo, StreamingContext)
+- uid: OpenCollar.Extensions.Configuration.InvalidPropertyException.GetObjectData*
+  name: GetObjectData
+  href: api/OpenCollar.Extensions.Configuration.InvalidPropertyException.html#OpenCollar_Extensions_Configuration_InvalidPropertyException_GetObjectData_
+  commentId: Overload:OpenCollar.Extensions.Configuration.InvalidPropertyException.GetObjectData
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.InvalidPropertyException.GetObjectData
+  nameWithType: InvalidPropertyException.GetObjectData
+- uid: OpenCollar.Extensions.Configuration.InvalidPropertyException.PropertyName
+  name: PropertyName
+  href: api/OpenCollar.Extensions.Configuration.InvalidPropertyException.html#OpenCollar_Extensions_Configuration_InvalidPropertyException_PropertyName
+  commentId: P:OpenCollar.Extensions.Configuration.InvalidPropertyException.PropertyName
+  fullName: OpenCollar.Extensions.Configuration.InvalidPropertyException.PropertyName
+  nameWithType: InvalidPropertyException.PropertyName
+- uid: OpenCollar.Extensions.Configuration.InvalidPropertyException.PropertyName*
+  name: PropertyName
+  href: api/OpenCollar.Extensions.Configuration.InvalidPropertyException.html#OpenCollar_Extensions_Configuration_InvalidPropertyException_PropertyName_
+  commentId: Overload:OpenCollar.Extensions.Configuration.InvalidPropertyException.PropertyName
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.InvalidPropertyException.PropertyName
+  nameWithType: InvalidPropertyException.PropertyName
 - uid: OpenCollar.Extensions.Configuration.IPropertyDef
   name: IPropertyDef
   href: api/OpenCollar.Extensions.Configuration.IPropertyDef.html
@@ -919,6 +1037,19 @@ references:
   isSpec: "True"
   fullName: OpenCollar.Extensions.Configuration.IPropertyDef.PathSection
   nameWithType: IPropertyDef.PathSection
+- uid: OpenCollar.Extensions.Configuration.IPropertyDef.Persistence
+  name: Persistence
+  href: api/OpenCollar.Extensions.Configuration.IPropertyDef.html#OpenCollar_Extensions_Configuration_IPropertyDef_Persistence
+  commentId: P:OpenCollar.Extensions.Configuration.IPropertyDef.Persistence
+  fullName: OpenCollar.Extensions.Configuration.IPropertyDef.Persistence
+  nameWithType: IPropertyDef.Persistence
+- uid: OpenCollar.Extensions.Configuration.IPropertyDef.Persistence*
+  name: Persistence
+  href: api/OpenCollar.Extensions.Configuration.IPropertyDef.html#OpenCollar_Extensions_Configuration_IPropertyDef_Persistence_
+  commentId: Overload:OpenCollar.Extensions.Configuration.IPropertyDef.Persistence
+  isSpec: "True"
+  fullName: OpenCollar.Extensions.Configuration.IPropertyDef.Persistence
+  nameWithType: IPropertyDef.Persistence
 - uid: OpenCollar.Extensions.Configuration.IPropertyDef.PropertyInfo
   name: PropertyInfo
   href: api/OpenCollar.Extensions.Configuration.IPropertyDef.html#OpenCollar_Extensions_Configuration_IPropertyDef_PropertyInfo
