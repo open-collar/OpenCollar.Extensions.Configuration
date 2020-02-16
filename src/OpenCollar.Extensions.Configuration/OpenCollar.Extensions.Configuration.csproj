@@ -23,6 +23,8 @@
         <RepositoryType>GitHub</RepositoryType>
         <PackageTags>.net configuration</PackageTags>
         <NeutralLanguage>en-US</NeutralLanguage>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
