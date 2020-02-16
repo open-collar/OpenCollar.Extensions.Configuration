@@ -5,9 +5,11 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>OpenCollar.Extensions.Configuration | API Documentation </title>
+    <title>Enum ConfigurationPersistenceActions
+   | API Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="OpenCollar.Extensions.Configuration | API Documentation ">
+    <meta name="title" content="Enum ConfigurationPersistenceActions
+   | API Documentation ">
     <meta name="generator" content="docfx 2.48.1.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -76,11 +78,53 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="">
-<h1 id="opencollarextensionsconfiguration">OpenCollar.Extensions.Configuration</h1>
-
-<p>Support for automatic validation, update and strongly-typed access to configuration.</p>
-<h2 id="introduction">Introduction</h2>
+            <article class="content wrap" id="_content" data-uid="OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions">
+  
+  
+  <h1 id="OpenCollar_Extensions_Configuration_ConfigurationPersistenceActions" data-uid="OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions" class="text-break">Enum ConfigurationPersistenceActions
+  </h1>
+  <div class="markdown level0 summary"><p>Defines the behavior of loading or saving for are particular property.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="OpenCollar.Extensions.Configuration.html">OpenCollar.Extensions.Configuration</a></h6>
+  <h6><strong>Assembly</strong>: OpenCollar.Extensions.Configuration.dll</h6>
+  <h5 id="OpenCollar_Extensions_Configuration_ConfigurationPersistenceActions_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Flags]
+public enum ConfigurationPersistenceActions</code></pre>
+  </div>
+  <h3 id="fields">Fields
+  </h3>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    <thead>
+    <tbody>
+      <tr>
+        <td id="OpenCollar_Extensions_Configuration_ConfigurationPersistenceActions_Ignore">Ignore</td>
+        <td><p>Values will be neither loaded nor saved.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="OpenCollar_Extensions_Configuration_ConfigurationPersistenceActions_LoadAndSave">LoadAndSave</td>
+        <td><p>Values are loaded from the configuration service and changes are saved back to the configuration service.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="OpenCollar_Extensions_Configuration_ConfigurationPersistenceActions_LoadOnly">LoadOnly</td>
+        <td><p>Values are loaded from the configuration service, but changes are never saved back to the configuration service.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="OpenCollar_Extensions_Configuration_ConfigurationPersistenceActions_SaveOnly">SaveOnly</td>
+        <td><p>Values are never loaded from the configuration service, but changes are saved back to the configuration service.</p>
+</td>
+      </tr>
+    </tbody>
+  </thead></thead></table>
 </article>
           </div>
           
@@ -89,7 +133,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/master/docs-src/ApiDocs/articles/intro.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationPersistenceActions.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/6892f1982a93d36ddbffbe2cb57f4f7d95198171/src/OpenCollar.Extensions.Configuration/_attributes/ConfigurationPersistenceActions.cs/#L27" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
@@ -108,7 +155,7 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.150</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: BUILD_VERSION</span></div></div>
             
           </div>
         </div>
