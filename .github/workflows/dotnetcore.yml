@@ -75,10 +75,8 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Package
-      uses: actions@checkout@v1
       run: dotnet pack -configuration: Release
       
     - name: Publish
-      uses: actions@checkout@v1
       run: dotnet nuget push **/*.nupkg --api-key ${{secrets.NUGET_DEPLOY_KEY}} --source https://api.nuget.org/v3/index.json
 
