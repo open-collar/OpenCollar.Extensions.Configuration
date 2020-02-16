@@ -22,7 +22,9 @@ using System.Linq;
 using System.Reflection;
 
 using Microsoft.Extensions.Configuration;
-
+using Microsoft.Extensions.Configuration.Memory;
+using Microsoft.Extensions.DependencyInjection;
+using OpenCollar.Extensions.Configuration.TESTS.Interfaces;
 using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
@@ -34,6 +36,25 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         public ConfigurationObjectBaseTests(ConfigurationFixture configurationFixture)
         {
             _configurationFixture = configurationFixture;
+        }
+
+        public void TestBrokenAttribute()
+        {
+            var source = new MemoryConfigurationSource();
+
+            var provider = new MemoryConfigurationProvider(source);
+            var ConfigurationRoot = new ConfigurationRoot(new[] { provider });
+
+            IServiceCollection servicesCollection = new ServiceCollection();
+            servicesCollection.AddSingleton(ConfigurationRoot);
+            servicesCollection.AddConfigurationReader<IBrokenA>();
+
+            var Services = servicesCollection.BuildServiceProvider();
+
+            Assert.Throws<InvalidPropertyException>(() =>
+            {
+                var RootElement = Services.GetService<IBrokenA>();
+            });
         }
 
         [Fact]

@@ -22,6 +22,8 @@ public MyConstructor(IMyConfig config)
 }
 ```
 
+The interface to be implemented must be public.
+
 # Project
 
 ## Project Resources
