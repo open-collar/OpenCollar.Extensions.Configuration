@@ -32,7 +32,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             {
                 const string propertyName = "StringPropertyA";
                 var def = new PropertyDef(typeof(IRootElement).GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance));
-                var parent = new ConfigurationObjectMock(fixture.ConfigurationRoot, null);
+                var parent = new ConfigurationObjectMock(def, fixture.ConfigurationRoot, null);
                 var x = new PropertyValue<string>(def, parent);
 
                 Assert.NotNull(x);

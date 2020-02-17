@@ -271,7 +271,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the configuration root service from which values are read or to which all values will be written.
         /// </summary>
-        /// <value> The configuration root service from which values are read or to which all values will be written. </value>
+        /// <value>
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </value>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal IConfigurationRoot ConfigurationRoot
         {
@@ -625,7 +627,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
-        /// <param name="initializing"> If set to <see langword="true" /> the element changed events are not fired. </param>
+        /// <param name="initializing">
+        ///     If set to <see langword="true" /> the element changed events are not fired.
+        /// </param>
         internal void Load(bool initializing)
         {
             if(!PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.LoadOnly))
@@ -819,7 +823,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     break;
 
                 case ImplementationKind.ConfigurationObject:
-                    value = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, ConfigurationRoot, this);
+                    value = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, PropertyDef, ConfigurationRoot, this);
                     break;
 
                 default:

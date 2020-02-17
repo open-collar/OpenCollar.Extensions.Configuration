@@ -276,7 +276,7 @@ namespace OpenCollar.Extensions.Configuration
                         configurationObject = (_currentValue ?? _originalValue) as IConfigurationObject;
                         if(ReferenceEquals(configurationObject, null) || (configurationObject.GetType() != implementation.ImplementationType))
                         {
-                            Value = (TValue)Activator.CreateInstance(implementation.ImplementationType, configurationRoot, null);
+                            Value = (TValue)Activator.CreateInstance(implementation.ImplementationType, PropertyDef, configurationRoot, null);
                         }
                         else
                         {

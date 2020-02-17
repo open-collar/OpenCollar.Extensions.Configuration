@@ -57,11 +57,15 @@ namespace OpenCollar.Extensions.Configuration
         ///     Initializes a new instance of the <see cref="ConfigurationObjectBase{TInterface}" /> class. This is the
         ///     interface used when creating the root instance for the service collection.
         /// </summary>
+        /// <param name="propertyDef">
+        ///     The definition of the property defined by this object. This can be <see lang="null" /> if this object is
+        ///     the root of the hierarchy.
+        /// </param>
         /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        protected ConfigurationObjectBase(IConfigurationRoot configurationRoot, IConfigurationParent parent) : base(
+        protected ConfigurationObjectBase(IPropertyDef? propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent) : base(propertyDef,
         ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface)), configurationRoot, parent)
         {
             DisablePropertyChangedEvents();
@@ -179,6 +183,7 @@ namespace OpenCollar.Extensions.Configuration
         protected ConfigurationObjectBase(IPropertyDef? propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent)
         {
             configurationRoot.Validate(nameof(configurationRoot), ObjectIs.NotNull);
+
             _parent = parent;
             PropertyDef = propertyDef;
             _configurationRoot = configurationRoot;
@@ -189,14 +194,18 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationObjectBase" /> class.
         /// </summary>
+        /// <param name="propertyDef">
+        ///     The definition of the property defined by this object. This can be <see lang="null" /> if this object is
+        ///     the root of the hierarchy.
+        /// </param>
         /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
         /// <param name="childPropertyDefs"> A sequence containing the definitions of the properties to represent. </param>
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
         /// <exception cref="ArgumentNullException"> <paramref name="childPropertyDefs" /> is <see langword="null" />. </exception>
-        protected ConfigurationObjectBase(IEnumerable<IPropertyDef> childPropertyDefs, IConfigurationRoot configurationRoot, IConfigurationParent parent) :
-        this((PropertyDef?)null, configurationRoot, parent)
+        protected ConfigurationObjectBase(IPropertyDef? propertyDef, IEnumerable<IPropertyDef> childPropertyDefs, IConfigurationRoot configurationRoot, IConfigurationParent parent) :
+        this(propertyDef, configurationRoot, parent)
         {
             childPropertyDefs.Validate(nameof(childPropertyDefs), ObjectIs.NotNull);
 
@@ -299,17 +308,12 @@ namespace OpenCollar.Extensions.Configuration
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string CalculatePath()
         {
-            if(ReferenceEquals(PropertyDef, null))
+            if(!ReferenceEquals(_parent, null))
             {
-                if(!ReferenceEquals(_parent, null))
-                {
-                    return _parent.CalculatePath();
-                }
-
-                return string.Empty;
+                return _parent.CalculatePath();
             }
 
-            return PropertyDef.CalculatePath(_parent);
+            return string.Empty;
         }
 
         /// <summary>

@@ -67,7 +67,7 @@ namespace OpenCollar.Extensions.Configuration
             {
                 var configurationRoot = provider.GetService<IConfigurationRoot>();
 
-                var configurationObject = (TConfigurationObject)Activator.CreateInstance(implementationType, configurationRoot, null);
+                var configurationObject = (TConfigurationObject)Activator.CreateInstance(implementationType, null, configurationRoot, null);
 
                 configurationObject.Load();
 

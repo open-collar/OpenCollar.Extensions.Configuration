@@ -108,12 +108,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             Assert.Throws<TargetInvocationException>(() =>
             {
-                var y = Activator.CreateInstance(x.GetType(), (IConfigurationRoot)null, (IConfigurationParent)null);
+                var y = Activator.CreateInstance(x.GetType(), (IPropertyDef)null, (IConfigurationRoot)null, (IConfigurationParent)null);
             });
 
             try
             {
-                var y = Activator.CreateInstance(x.GetType(), (IConfigurationRoot)null, (IConfigurationParent)null);
+                var y = Activator.CreateInstance(x.GetType(), (IPropertyDef)null, (IConfigurationRoot)null, (IConfigurationParent)null);
             }
             catch(TargetInvocationException ex)
             {

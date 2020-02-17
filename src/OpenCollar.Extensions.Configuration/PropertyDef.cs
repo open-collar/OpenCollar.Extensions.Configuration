@@ -560,7 +560,7 @@ namespace OpenCollar.Extensions.Configuration
                     return (TElement)Activator.CreateInstance(implementation.ImplementationType, parent, this, configurationRoot, value);
 
                 case ImplementationKind.ConfigurationObject:
-                    var clone = Activator.CreateInstance(implementation.ImplementationType, configurationRoot, parent);
+                    var clone = Activator.CreateInstance(implementation.ImplementationType, this, configurationRoot, parent);
                     ((ConfigurationObjectBase<TElement>)clone).Clone(value);
                     return (TElement)clone;
             }

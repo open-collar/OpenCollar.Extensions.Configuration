@@ -157,7 +157,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="builder"> The type builder into which to add the generated code. </param>
         private void AddConstructor(TypeBuilder builder)
         {
-            var constructorArgumentTypes = new[] { typeof(IConfigurationRoot), typeof(IConfigurationParent) };
+            var constructorArgumentTypes = new[] { typeof(IPropertyDef), typeof(IConfigurationRoot), typeof(IConfigurationParent) };
 
             var baseConstructor = _baseClassType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null,
             constructorArgumentTypes, null);
@@ -172,6 +172,7 @@ namespace OpenCollar.Extensions.Configuration
             generator.Emit(OpCodes.Ldarg, 0);
             generator.Emit(OpCodes.Ldarg, 1);
             generator.Emit(OpCodes.Ldarg, 2);
+            generator.Emit(OpCodes.Ldarg, 3);
             generator.Emit(OpCodes.Call, baseConstructor);
             generator.Emit(OpCodes.Ret);
         }
