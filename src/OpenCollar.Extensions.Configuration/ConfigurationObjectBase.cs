@@ -278,6 +278,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <returns> A string containing the path to this configuration object. </returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         [UsedImplicitly]
         private string DisplayPath
         {
