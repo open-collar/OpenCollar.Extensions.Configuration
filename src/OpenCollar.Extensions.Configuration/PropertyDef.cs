@@ -532,6 +532,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     Copies the value of an element.
         /// </summary>
         /// <typeparam name="TElement"> The type of the element to copy. </typeparam>
+        /// <param name="implementation"> The details of the implementation for which to make a copy. </param>
         /// <param name="value"> The value to copy. </param>
         /// <param name="parent"> The parent object to which cloned configuration objects will belong. </param>
         /// <param name="configurationRoot">

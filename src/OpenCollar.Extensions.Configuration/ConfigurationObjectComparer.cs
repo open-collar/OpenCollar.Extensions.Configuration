@@ -91,6 +91,11 @@ namespace OpenCollar.Extensions.Configuration
         /// </returns>
         public int GetHashCode(IConfigurationObject obj)
         {
+            if(ReferenceEquals(obj, null))
+            {
+                return 0;
+            }
+
             var properties = GetConfigurationObjectProperties(obj.GetType());
 
             var hashcode = 1;
