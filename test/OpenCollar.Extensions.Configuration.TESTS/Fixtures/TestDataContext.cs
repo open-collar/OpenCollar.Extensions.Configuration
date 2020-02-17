@@ -49,19 +49,40 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
                 Configuration = new ConfigurationFixture();
             }
 
-            internal IPropertyDef BooleanPropertyDef { get; }
+            internal IPropertyDef BooleanPropertyDef
+            {
+                get;
+            }
 
-            internal IPropertyDef ChildConfigurationCollectionPropertyDef { get; }
+            internal IPropertyDef ChildConfigurationCollectionPropertyDef
+            {
+                get;
+            }
 
-            internal IPropertyDef ChildConfigurationDictionaryPropertyDef { get; }
+            internal IPropertyDef ChildConfigurationDictionaryPropertyDef
+            {
+                get;
+            }
 
-            internal Dictionary<string, IChildElement> ChildDictionary { get; }
+            internal Dictionary<string, IChildElement> ChildDictionary
+            {
+                get;
+            }
 
-            internal ConfigurationFixture Configuration { get; }
+            internal ConfigurationFixture Configuration
+            {
+                get;
+            }
 
-            internal IPropertyDef ReadOnlyChildConfigurationCollectionPropertyDef { get; }
+            internal IPropertyDef ReadOnlyChildConfigurationCollectionPropertyDef
+            {
+                get;
+            }
 
-            internal IPropertyDef ReadOnlyChildConfigurationDictionaryPropertyDef { get; }
+            internal IPropertyDef ReadOnlyChildConfigurationDictionaryPropertyDef
+            {
+                get;
+            }
 
             internal IChildElement GetChildElement(string name)
             {

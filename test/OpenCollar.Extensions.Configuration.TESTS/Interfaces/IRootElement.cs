@@ -36,149 +36,293 @@ namespace OpenCollar.Extensions.Configuration.TESTS
     public interface IRootElement : IConfigurationObject
     {
         // We would expect this to be implemented as a read-only property.
-        bool BooleanPropertyA { get; }
+        bool BooleanPropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        bool BooleanPropertyB { get; set; }
+        bool BooleanPropertyB
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        byte BytePropertyA { get; }
+        byte BytePropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        byte BytePropertyB { get; set; }
+        byte BytePropertyB
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        char CharPropertyA { get; }
+        char CharPropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        char CharPropertyB { get; set; }
+        char CharPropertyB
+        {
+            get; set;
+        }
 
         // TODO: THIS SHOULD NOT BE NULLABLE
-        IConfigurationCollection<IChildElement> ChildCollection { get; set; }
+        IConfigurationCollection<IChildElement> ChildCollection
+        {
+            get; set;
+        }
 
         // TODO: THIS SHOULD NOT BE NULLABLE
-        IConfigurationDictionary<IChildElement> ChildDictionary { get; set; }
+        IConfigurationDictionary<IChildElement> ChildDictionary
+        {
+            get; set;
+        }
+
+        IChildElement ChildElementProperty
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read/write property.
         [Path(PathIs.Root, "CustomRoot")]
-        string CustomProperty { get; set; }
+        string CustomProperty
+        {
+            get; set;
+        }
 
         [Configuration(Persistence = ConfigurationPersistenceActions.LoadOnly)]
-        string CustomValueA { get; set; }
+        string CustomValueA
+        {
+            get; set;
+        }
 
         [Configuration(Persistence = ConfigurationPersistenceActions.SaveOnly, DefaultValue = "DEFAULT_VALUE")]
-        string CustomValueB { get; set; }
+        string CustomValueB
+        {
+            get; set;
+        }
 
         [Configuration(Persistence = ConfigurationPersistenceActions.Ignore, DefaultValue = "DEFAULT_VALUE")]
-        string CustomValueC { get; set; }
+        string CustomValueC
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        DateTimeOffset DateTimeOffsetPropertyA { get; }
+        DateTimeOffset DateTimeOffsetPropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        DateTimeOffset DateTimeOffsetPropertyB { get; set; }
+        DateTimeOffset DateTimeOffsetPropertyB
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        DateTime DateTimePropertyA { get; }
+        DateTime DateTimePropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        DateTime DateTimePropertyB { get; set; }
+        DateTime DateTimePropertyB
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        decimal DecimalPropertyA { get; }
+        decimal DecimalPropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        decimal DecimalPropertyB { get; set; }
+        decimal DecimalPropertyB
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        double DoublePropertyA { get; }
+        double DoublePropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        double DoublePropertyB { get; set; }
+        double DoublePropertyB
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        BindingFlags EnumPropertyA { get; }
+        BindingFlags EnumPropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        BindingFlags EnumPropertyB { get; set; }
+        BindingFlags EnumPropertyB
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        short Int16PropertyA { get; }
+        short Int16PropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        short Int16PropertyB { get; set; }
+        short Int16PropertyB
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        int Int32PropertyA { get; }
+        int Int32PropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        int Int32PropertyB { get; set; }
+        int Int32PropertyB
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read-only property.
         [Configuration(DefaultValue = 999)]
-        int Int32PropertyC { get; }
+        int Int32PropertyC
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        int Int32PropertyD { get; }
+        int Int32PropertyD
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        long Int64PropertyA { get; }
+        long Int64PropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        long Int64PropertyB { get; set; }
+        long Int64PropertyB
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        NonFlagsEnum NonFlagsEnumPropertyA { get; }
+        NonFlagsEnum NonFlagsEnumPropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        NonFlagsEnum NonFlagsEnumPropertyB { get; set; }
+        NonFlagsEnum NonFlagsEnumPropertyB
+        {
+            get; set;
+        }
 
         // TODO: THIS SHOULD NOT BE NULLABLE
-        IConfigurationCollection<IChildElement> ReadOnlyChildCollection { get; }
+        IConfigurationCollection<IChildElement> ReadOnlyChildCollection
+        {
+            get;
+        }
 
         // TODO: THIS SHOULD NOT BE NULLABLE
-        IConfigurationDictionary<IChildElement> ReadOnlyChildDictionary { get; }
+        IConfigurationDictionary<IChildElement> ReadOnlyChildDictionary
+        {
+            get;
+        }
 
         [Configuration(DefaultValue = null)]
-        IConfigurationCollection<IConfigurationCollection<IInert>> ReadOnlyCollection { get; }
+        IConfigurationCollection<IConfigurationCollection<IInert>> ReadOnlyCollection
+        {
+            get;
+        }
 
         [Configuration(DefaultValue = null)]
-        IConfigurationCollection<IConfigurationDictionary<IInert>> ReadOnlyDictionary { get; }
+        IConfigurationCollection<IConfigurationDictionary<IInert>> ReadOnlyDictionary
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        sbyte SBytePropertyA { get; }
+        sbyte SBytePropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        sbyte SBytePropertyB { get; set; }
+        sbyte SBytePropertyB
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        float SinglePropertyA { get; }
+        float SinglePropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        float SinglePropertyB { get; set; }
+        float SinglePropertyB
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        float SinglePropertyNoDefault { get; set; }
+        float SinglePropertyNoDefault
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read-only property.
         [Configuration(DefaultValue = (float)123.456)]
-        float? SinglePropertyWithDefault { get; set; }
+        float? SinglePropertyWithDefault
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        string StringPropertyA { get; }
+        string StringPropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        string StringPropertyB { get; set; }
+        string StringPropertyB
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        string StringPropertyC { get; set; }
+        string StringPropertyC
+        {
+            get; set;
+        }
 
         // We would expect this to be implemented as a read-only property.
-        TimeSpan TimeSpanPropertyA { get; }
+        TimeSpan TimeSpanPropertyA
+        {
+            get;
+        }
 
         // We would expect this to be implemented as a read/write property.
-        TimeSpan TimeSpanPropertyB { get; set; }
-
-        IChildElement ChildElementProperty { get; set; }
+        TimeSpan TimeSpanPropertyB
+        {
+            get; set;
+        }
     }
 }

@@ -22,13 +22,13 @@ using System.Diagnostics;
 
 namespace OpenCollar.Extensions.Configuration.Validation
 {
-    /// <summary> Enables writing abbreviations for contracts that get copied to other methods </summary>
+    /// <summary>
+    ///     Enables writing abbreviations for contracts that get copied to other methods
+    /// </summary>
     /// <remarks>
     ///     Taken from this
     ///     <see href="http://geekswithblogs.net/terje/archive/2010/10/14/making-static-code-analysis-and-code-contracts-work-together-or.aspx">
-    ///         Making
-    ///         Static Code Analysis and Code Contracts work together, or the CA1062 problem
-    ///     </see>
+    ///     Making Static Code Analysis and Code Contracts work together, or the CA1062 problem </see>
     /// </remarks>
     [AttributeUsage(AttributeTargets.Method)]
     [Conditional("CONTRACTS_FULL")]

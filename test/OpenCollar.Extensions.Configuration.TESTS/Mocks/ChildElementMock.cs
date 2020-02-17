@@ -18,6 +18,7 @@
  */
 
 #pragma warning disable CS0067 // Interface requirement
+
 using System;
 using System.ComponentModel;
 
@@ -28,17 +29,32 @@ namespace OpenCollar.Extensions.Configuration.TESTS
     [UsedImplicitly]
     internal sealed class ChildElementMock : IChildElement
     {
-        public bool IsReadOnly { get; set; }
+        public bool IsReadOnly
+        {
+            get; set;
+        }
 
-        public IPropertyDef PropertyDef { get; set; }
+        public IPropertyDef PropertyDef
+        {
+            get; set;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool IsDirty { get; set; }
+        public bool IsDirty
+        {
+            get; set;
+        }
 
-        public string Name { get; set; }
+        public string Name
+        {
+            get; set;
+        }
 
-        public int Value { get; set; }
+        public int Value
+        {
+            get; set;
+        }
 
         public void Delete() => throw new NotImplementedException();
 

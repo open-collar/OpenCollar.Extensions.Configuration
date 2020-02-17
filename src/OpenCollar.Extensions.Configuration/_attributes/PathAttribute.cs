@@ -27,36 +27,49 @@ namespace OpenCollar.Extensions.Configuration
 #pragma warning disable CA1717 // Just because it ends in an S doesn't mean it is a plural!
 
     /// <summary>
-    ///     An enumeration of the ways in which the string supplied to the <see cref="PathAttribute"> Path </see> attribute can be used to create a
-    ///     full path.
+    ///     An enumeration of the ways in which the string supplied to the <see cref="PathAttribute"> Path </see>
+    ///     attribute can be used to create a full path.
     /// </summary>
     public enum PathIs
     {
         /// <summary>
-        ///     The usage of the path is unknown or undefined. Use of this value will usually result in an error; it is provided to as sentinel to detect
-        ///     accidental usages.
+        ///     The usage of the path is unknown or undefined. Use of this value will usually result in an error; it is
+        ///     provided to as sentinel to detect accidental usages.
         /// </summary>
         Unknown = 0,
 
-        /// <summary> The path is treated as a root and any previous context is ignored. </summary>
+        /// <summary>
+        ///     The path is treated as a root and any previous context is ignored.
+        /// </summary>
         Root,
 
-        /// <summary> The path is treated as a suffix to be applied (as part of colon delimited list) to the existing path context. </summary>
+        /// <summary>
+        ///     The path is treated as a suffix to be applied (as part of colon delimited list) to the existing path context.
+        /// </summary>
         Suffix
     }
 
 #pragma warning restore CA1717
 
-    /// <summary> Defines an attribute used to indicate the path to the configuration value(s) underlying a class or individual property. </summary>
-    /// <seealso cref="Attribute"/>
+    /// <summary>
+    ///     Defines an attribute used to indicate the path to the configuration value(s) underlying a class or
+    ///     individual property.
+    /// </summary>
+    /// <seealso cref="Attribute" />
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
     public sealed class PathAttribute : Attribute
     {
-        /// <summary> Initializes a new instance of the <see cref="PathAttribute"/> class. </summary>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="PathAttribute" /> class.
+        /// </summary>
         /// <param name="usage"> The usage. </param>
         /// <param name="path"> The path. </param>
-        /// <exception cref="ArgumentException"> <paramref name="path"/> must contain a valid path or fragment of a path. </exception>
-        /// <exception cref="ArgumentOutOfRangeException"> <paramref name="usage"/> does not contain a valid value. </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="path" /> must contain a valid path or fragment of a path.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     <paramref name="usage" /> does not contain a valid value.
+        /// </exception>
         public PathAttribute(PathIs usage, string path)
         {
             if(string.IsNullOrWhiteSpace(path))
@@ -79,12 +92,22 @@ namespace OpenCollar.Extensions.Configuration
             Path = path;
         }
 
-        /// <summary> Gets the full path or fragment of a path specified. </summary>
+        /// <summary>
+        ///     Gets the full path or fragment of a path specified.
+        /// </summary>
         /// <value> The full path or fragment of a path specified. </value>
-        internal string Path { get; }
+        internal string Path
+        {
+            get;
+        }
 
-        /// <summary> Gets the usage of the path or fragment of a path specified. </summary>
+        /// <summary>
+        ///     Gets the usage of the path or fragment of a path specified.
+        /// </summary>
         /// <value> The usage of the path or fragment of a path specified. </value>
-        internal PathIs Usage { get; }
+        internal PathIs Usage
+        {
+            get;
+        }
     }
 }

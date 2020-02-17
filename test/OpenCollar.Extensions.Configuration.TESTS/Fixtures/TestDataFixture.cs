@@ -44,17 +44,35 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             };
         }
 
-        public IPropertyDef ChildConfigurationCollectionPropertyDef { get; }
+        public IPropertyDef ChildConfigurationCollectionPropertyDef
+        {
+            get;
+        }
 
-        public IPropertyDef ChildConfigurationDictionaryPropertyDef { get; }
+        public IPropertyDef ChildConfigurationDictionaryPropertyDef
+        {
+            get;
+        }
 
-        public IPropertyDef ReadOnlyChildConfigurationCollectionPropertyDef { get; }
+        public IPropertyDef ReadOnlyChildConfigurationCollectionPropertyDef
+        {
+            get;
+        }
 
-        public IPropertyDef ReadOnlyChildConfigurationDictionaryPropertyDef { get; }
+        public IPropertyDef ReadOnlyChildConfigurationDictionaryPropertyDef
+        {
+            get;
+        }
 
-        private IPropertyDef BooleanPropertyDef { get; }
+        private IPropertyDef BooleanPropertyDef
+        {
+            get;
+        }
 
-        private IChildElement[] Data { get; }
+        private IChildElement[] Data
+        {
+            get;
+        }
 
         internal TestDataContext GetContext()
         {

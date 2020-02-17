@@ -21,22 +21,31 @@ using System;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary> An attribute that can be used to specify the default value to return if no value is defined in the configuration root. </summary>
-    /// <seealso cref="Attribute"/>
+    /// <summary>
+    ///     An attribute that can be used to specify the default value to return if no value is defined in the
+    ///     configuration root.
+    /// </summary>
+    /// <seealso cref="Attribute" />
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class ConfigurationAttribute : Attribute
     {
-        /// <summary> The default value to return if no value is defined in the configuration root. Can be <see langword="null"/>. </summary>
+        /// <summary>
+        ///     The default value to return if no value is defined in the configuration root. Can be <see langword="null" />.
+        /// </summary>
         private object? _defaultValue;
 
-        /// <summary> Initializes a new instance of the <see cref="ConfigurationAttribute"/> class. </summary>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationAttribute" /> class.
+        /// </summary>
         public ConfigurationAttribute()
         {
             Persistence = ConfigurationPersistenceActions.LoadAndSave;
         }
 
-        /// <summary> Gets the default value. </summary>
-        /// <value> The default value to return if no value is defined in the configuration root. Can be <see langword="null"/>. </value>
+        /// <summary>
+        ///     Gets the default value.
+        /// </summary>
+        /// <value> The default value to return if no value is defined in the configuration root. Can be <see langword="null" />. </value>
         public object? DefaultValue
         {
             get => _defaultValue;
@@ -47,12 +56,24 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        /// <summary> Gets or sets the policy for when to load and save values from the configuration service. </summary>
+        /// <summary>
+        ///     Gets or sets the policy for when to load and save values from the configuration service.
+        /// </summary>
         /// <value> The policy for when to load and save values from the configuration service. </value>
-        public ConfigurationPersistenceActions Persistence { get; set; }
+        public ConfigurationPersistenceActions Persistence
+        {
+            get; set;
+        }
 
-        /// <summary> Gets a value indicating whether the <see cref="DefaultValue"/> property has been set. </summary>
-        /// <value> <see langword="true"/> if the <see cref="DefaultValue"/> property has been set; otherwise, <see langword="false"/>. </value>
-        internal bool IsDefaultValueSet { get; private set; }
+        /// <summary>
+        ///     Gets a value indicating whether the <see cref="DefaultValue" /> property has been set.
+        /// </summary>
+        /// <value>
+        ///     <see langword="true" /> if the <see cref="DefaultValue" /> property has been set; otherwise, <see langword="false" />.
+        /// </value>
+        internal bool IsDefaultValueSet
+        {
+            get; private set;
+        }
     }
 }

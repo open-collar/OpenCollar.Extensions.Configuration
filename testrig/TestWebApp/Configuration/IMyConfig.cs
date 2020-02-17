@@ -23,10 +23,24 @@ namespace TestWebApp.Configuration
 {
     public interface IMyConfig : IConfigurationObject
     {
-        public IEnvironment Environment { get; }
+        public IEnvironment Environment
+        {
+            get;
+        }
 
-        public string ReadOnlyString { get; }
+        public IConfigurationDictionary<string> Random
+        {
+            get;
+        }
 
-        public string ReadWriteString { get; set; }
+        public string ReadOnlyString
+        {
+            get;
+        }
+
+        public string ReadWriteString
+        {
+            get; set;
+        }
     }
 }

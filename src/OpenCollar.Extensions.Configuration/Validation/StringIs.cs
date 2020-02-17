@@ -23,32 +23,51 @@ namespace OpenCollar.Extensions.Configuration.Validation
 {
 #pragma warning disable S2342 // Rename this enumeration to match the regular expression: '^([A-Z]{1,3}[a-z0-9]+)*([A-Z]{2})?s$'.
 
-    /// <summary> Defines the type of validation to apply to a <see cref="string"/> argument. </summary>
+    /// <summary>
+    ///     Defines the type of validation to apply to a <see cref="string" /> argument.
+    /// </summary>
     [Flags]
     internal enum StringIs
     {
-        /// <summary> The validation to perform is unknown or undefined. This value must never be used. </summary>
+        /// <summary>
+        ///     The validation to perform is unknown or undefined. This value must never be used.
+        /// </summary>
         None = ObjectIs.None,
 
-        /// <summary> The argument being validated must not be <see langword="null"/>. </summary>
+        /// <summary>
+        ///     The argument being validated must not be <see langword="null" />.
+        /// </summary>
         NotNull = ObjectIs.NotNull,
 
-        /// <summary> The argument being validated must not have a length of zero or less. </summary>
+        /// <summary>
+        ///     The argument being validated must not have a length of zero or less.
+        /// </summary>
         NotEmpty = 2,
 
-        /// <summary> The argument being validated must not contain only white space characters. </summary>
+        /// <summary>
+        ///     The argument being validated must not contain only white space characters.
+        /// </summary>
         NotWhiteSpace = 4,
 
-        /// <summary> The argument being validated must not be <see langword="null"/> or have a length of zero or less. </summary>
+        /// <summary>
+        ///     The argument being validated must not be <see langword="null" /> or have a length of zero or less.
+        /// </summary>
         NotNullOrEmpty = NotNull | NotEmpty,
 
-        /// <summary> The argument being validated must not be <see langword="null"/> or contain only white space characters. </summary>
+        /// <summary>
+        ///     The argument being validated must not be <see langword="null" /> or contain only white space characters.
+        /// </summary>
         NotNullOrWhiteSpace = NotNull | NotWhiteSpace,
 
-        /// <summary> The argument being validated must not be <see langword="null"/>, have a length of zero or less or contain only white space characters. </summary>
+        /// <summary>
+        ///     The argument being validated must not be <see langword="null" />, have a length of zero or less or
+        ///     contain only white space characters.
+        /// </summary>
         NotNullEmptyOrWhiteSpace = NotNull | NotEmpty | NotWhiteSpace,
 
-        /// <summary> The argument being validated must not have a length of zero or less or contain only white space characters. </summary>
+        /// <summary>
+        ///     The argument being validated must not have a length of zero or less or contain only white space characters.
+        /// </summary>
         NotEmptyOrWhiteSpace = NotEmpty | NotWhiteSpace
     }
 }

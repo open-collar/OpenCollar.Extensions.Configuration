@@ -9,19 +9,29 @@ using Microsoft.Extensions.Configuration;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary> A class used to build implementations of <see cref="IConfigurationObject"/> interfaces. </summary>
+    /// <summary>
+    ///     A class used to build implementations of <see cref="IConfigurationObject" /> interfaces.
+    /// </summary>
     internal class ConfigurationObjectTypeBuilder
     {
-        /// <summary> The type of the <see cref="ConfigurationObjectBase{T}"/> class. </summary>
+        /// <summary>
+        ///     The type of the <see cref="ConfigurationObjectBase{T}" /> class.
+        /// </summary>
         private readonly Type _baseClassType;
 
-        /// <summary> The type of the interface to implement. </summary>
+        /// <summary>
+        ///     The type of the interface to implement.
+        /// </summary>
         private readonly Type _interfaceType;
 
-        /// <summary> The definitions of the interface's properties. </summary>
+        /// <summary>
+        ///     The definitions of the interface's properties.
+        /// </summary>
         private readonly PropertyDef[] _propertyDefs;
 
-        /// <summary> Initializes a new instance of the <see cref="ConfigurationObjectTypeBuilder"/> class. </summary>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationObjectTypeBuilder" /> class.
+        /// </summary>
         /// <param name="interfaceType"> The type of the interface. </param>
         /// <param name="propertyDefs"> The definitions of the interface's properties.. </param>
         public ConfigurationObjectTypeBuilder(Type interfaceType, IEnumerable<PropertyDef> propertyDefs)
@@ -33,7 +43,9 @@ namespace OpenCollar.Extensions.Configuration
             _baseClassType = typeof(ConfigurationObjectBase<>).MakeGenericType(_interfaceType);
         }
 
-        /// <summary> Generates this instance. </summary>
+        /// <summary>
+        ///     Generates this instance.
+        /// </summary>
         /// <returns> </returns>
         public Type Generate()
         {
@@ -44,6 +56,17 @@ namespace OpenCollar.Extensions.Configuration
             var builder = GetTypeBuilder();
 
             builder.AddInterfaceImplementation(_interfaceType);
+
+            // Debugger display attribute to aid debugging.
+            var debuggerDisplayString = "\\{" + _interfaceType.Name + "\\}: {CalculatePath()}";
+            var debuggerDisplayAttributeConstructor = typeof(DebuggerDisplayAttribute).GetConstructor(new[] { typeof(string) });
+            var debuggerDisplayAttributeBuilder = new CustomAttributeBuilder(debuggerDisplayAttributeConstructor, new object[] { debuggerDisplayString });
+            builder.SetCustomAttribute(debuggerDisplayAttributeBuilder);
+
+            // Debugger step through to make the class behave more like a POCO
+            var debuggerStepThroughAttributeConstructor = typeof(DebuggerStepThroughAttribute).GetConstructor(Array.Empty<Type>());
+            var debuggerStepThroughAttributeBuilder = new CustomAttributeBuilder(debuggerStepThroughAttributeConstructor, Array.Empty<object>());
+            builder.SetCustomAttribute(debuggerStepThroughAttributeBuilder);
 
             AddConstructor(builder);
 
@@ -57,7 +80,9 @@ namespace OpenCollar.Extensions.Configuration
             return objectTypeInfo;
         }
 
-        /// <summary> Adds the property. </summary>
+        /// <summary>
+        ///     Adds the property.
+        /// </summary>
         /// <param name="builder"> The type builder into which to add generated code. </param>
         /// <param name="propertyDef"> The definition of the property for which to generate code. </param>
         /// <param name="indexerDef"> The definition of the indexer in the base class that represents the property. </param>
@@ -75,7 +100,32 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        /// <summary> Writes the code implementing a property setter. </summary>
+        /// <summary>
+        ///     Writes the code implementing a property getter.
+        /// </summary>
+        /// <param name="propertyDef"> The definition of the property for which to generate code. </param>
+        /// <param name="indexerDef"> The definition of the indexer in the base class that represents the property. </param>
+        /// <param name="propertyBuilder"> The property builder with which to generate code. </param>
+        /// <param name="getMethodBuilder"> The get method builder. </param>
+        private static void AddPropertyGet(PropertyDef propertyDef, PropertyInfo indexerDef, PropertyBuilder propertyBuilder, MethodBuilder getMethodBuilder)
+        {
+            var ilGenerator = getMethodBuilder.GetILGenerator();
+
+            ilGenerator.Emit(OpCodes.Ldarg_0);
+            ilGenerator.Emit(OpCodes.Ldstr, propertyDef.PropertyName);
+            ilGenerator.EmitCall(OpCodes.Call, indexerDef.GetMethod, new[] { typeof(string) });
+            if(propertyDef.Type != typeof(object))
+            {
+                ilGenerator.Emit(propertyDef.Type.IsValueType ? OpCodes.Unbox_Any : OpCodes.Castclass, propertyDef.Type);
+            }
+
+            ilGenerator.Emit(OpCodes.Ret);
+            propertyBuilder.SetGetMethod(getMethodBuilder);
+        }
+
+        /// <summary>
+        ///     Writes the code implementing a property setter.
+        /// </summary>
         /// <param name="builder"> The type builder into which to add generated code. </param>
         /// <param name="propertyDef"> The definition of the property for which to generate code. </param>
         /// <param name="indexerDef"> The definition of the indexer in the base class that represents the property. </param>
@@ -101,28 +151,9 @@ namespace OpenCollar.Extensions.Configuration
             propertyBuilder.SetSetMethod(setMethodBuilder);
         }
 
-        /// <summary> Writes the code implementing a property getter. </summary>
-        /// <param name="propertyDef"> The definition of the property for which to generate code. </param>
-        /// <param name="indexerDef"> The definition of the indexer in the base class that represents the property. </param>
-        /// <param name="propertyBuilder"> The property builder with which to generate code. </param>
-        /// <param name="getMethodBuilder"> The get method builder. </param>
-        private static void AddPropertyGet(PropertyDef propertyDef, PropertyInfo indexerDef, PropertyBuilder propertyBuilder, MethodBuilder getMethodBuilder)
-        {
-            var ilGenerator = getMethodBuilder.GetILGenerator();
-
-            ilGenerator.Emit(OpCodes.Ldarg_0);
-            ilGenerator.Emit(OpCodes.Ldstr, propertyDef.PropertyName);
-            ilGenerator.EmitCall(OpCodes.Call, indexerDef.GetMethod, new[] { typeof(string) });
-            if(propertyDef.Type != typeof(object))
-            {
-                ilGenerator.Emit(propertyDef.Type.IsValueType ? OpCodes.Unbox_Any : OpCodes.Castclass, propertyDef.Type);
-            }
-
-            ilGenerator.Emit(OpCodes.Ret);
-            propertyBuilder.SetGetMethod(getMethodBuilder);
-        }
-
-        /// <summary> Adds the constructor for the generated class. </summary>
+        /// <summary>
+        ///     Adds the constructor for the generated class.
+        /// </summary>
         /// <param name="builder"> The type builder into which to add the generated code. </param>
         private void AddConstructor(TypeBuilder builder)
         {
@@ -145,7 +176,9 @@ namespace OpenCollar.Extensions.Configuration
             generator.Emit(OpCodes.Ret);
         }
 
-        /// <summary> Gets the type builder. </summary>
+        /// <summary>
+        ///     Gets the type builder.
+        /// </summary>
         /// <returns> </returns>
         private TypeBuilder GetTypeBuilder()
         {

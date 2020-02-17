@@ -28,19 +28,16 @@ using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 {
-    /// <summary> Tests for the <see cref="ConfigurationDictionary{TElement}"/> class. </summary>
+    /// <summary>
+    ///     Tests for the <see cref="ConfigurationDictionary{TElement}" /> class.
+    /// </summary>
     public sealed class ConfigurationDictionaryTests : IClassFixture<TestDataFixture>
     {
+        private readonly TestDataFixture _propertyTestData;
+
         public ConfigurationDictionaryTests(TestDataFixture propertyDefFixture)
         {
             _propertyTestData = propertyDefFixture;
-        }
-
-        private readonly TestDataFixture _propertyTestData;
-
-        private static KeyValuePair<string, IChildElement> Get(string key, IChildElement value)
-        {
-            return new KeyValuePair<string, IChildElement>(key, value);
         }
 
         [Fact]
@@ -543,7 +540,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Throws<ObjectDisposedException>(() => x.Remove(a));
         }
 
-        /// <summary> Tests for the constructor. </summary>
+        /// <summary>
+        ///     Tests for the constructor.
+        /// </summary>
         [Fact]
         public void TestConstructor()
         {
@@ -693,6 +692,11 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
             x.Dispose();
             Assert.Throws<ObjectDisposedException>(() => x.Values);
+        }
+
+        private static KeyValuePair<string, IChildElement> Get(string key, IChildElement value)
+        {
+            return new KeyValuePair<string, IChildElement>(key, value);
         }
     }
 }

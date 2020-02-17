@@ -25,12 +25,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 {
     public sealed class ServiceCollectionExtensionsTests : IClassFixture<ConfigurationFixture>
     {
+        private readonly ConfigurationFixture _configurationFixture;
+
         public ServiceCollectionExtensionsTests(ConfigurationFixture configurationFixture)
         {
             _configurationFixture = configurationFixture;
         }
-
-        private readonly ConfigurationFixture _configurationFixture;
 
         [Fact]
         public void TestAddService()

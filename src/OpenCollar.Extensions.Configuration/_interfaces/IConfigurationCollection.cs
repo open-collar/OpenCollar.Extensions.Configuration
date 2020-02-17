@@ -22,17 +22,28 @@ using System.Collections.Specialized;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary> Represents a collection of values stored in a property. </summary>
-    /// <typeparam name="TElement"> The type of the array element. This must be nullable if the type is a reference type and can be <see langword="null"/>. </typeparam>
+    /// <summary>
+    ///     Represents a collection of values stored in a property.
+    /// </summary>
+    /// <typeparam name="TElement">
+    ///     The type of the array element. This must be nullable if the type is a reference type and can be <see langword="null" />.
+    /// </typeparam>
     public interface IConfigurationCollection<TElement> : IList<TElement>, IEnumerable<TElement>, INotifyCollectionChanged
     {
-        /// <summary> Adds a new value with the key specified, copying the properties and elements from the value give, returning the new value. </summary>
+        /// <summary>
+        ///     Adds a new value with the key specified, copying the properties and elements from the value give,
+        ///     returning the new value.
+        /// </summary>
         /// <param name="value"> The value to copy. </param>
         /// <returns> The newly added element. </returns>
-        /// <remarks> Used to add objects and collections that have been constructed externally using alternate implementations. </remarks>
+        /// <remarks>
+        ///     Used to add objects and collections that have been constructed externally using alternate implementations.
+        /// </remarks>
         TElement AddCopy(TElement value);
 
-        /// <summary> Adds a new value with the key specified, returning the new value. </summary>
+        /// <summary>
+        ///     Adds a new value with the key specified, returning the new value.
+        /// </summary>
         /// <returns> The newly added element. </returns>
         TElement AddNew();
     }

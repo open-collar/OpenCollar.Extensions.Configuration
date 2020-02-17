@@ -3,6 +3,9 @@
     public interface IInert : IConfigurationObject
     {
         [Configuration(DefaultValue = "Default Value")]
-        string Name { get; set; }
+        string Name
+        {
+            get; set;
+        }
     }
 }

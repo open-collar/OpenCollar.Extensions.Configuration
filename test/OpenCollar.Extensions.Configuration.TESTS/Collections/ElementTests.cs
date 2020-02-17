@@ -61,7 +61,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             {
                 var x = new Element<string, string>(def, null, "TEST")
                 {
-                Value = "TESTVALUE"
+                    Value = "TESTVALUE"
                 };
             });
         }

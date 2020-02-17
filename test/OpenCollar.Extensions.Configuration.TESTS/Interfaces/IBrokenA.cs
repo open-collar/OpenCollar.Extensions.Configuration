@@ -3,6 +3,9 @@
     public interface IBrokenA : IConfigurationObject
     {
         [Configuration(Persistence = ConfigurationPersistenceActions.Ignore)]
-        string BrokenProperty { get; set; }
+        string BrokenProperty
+        {
+            get; set;
+        }
     }
 }

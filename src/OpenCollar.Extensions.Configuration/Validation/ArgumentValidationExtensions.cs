@@ -28,21 +28,28 @@ using OpenCollar.Extensions.Configuration.Resources;
 
 namespace OpenCollar.Extensions.Configuration.Validation
 {
-    /// <summary> Extension methods used in the validation of arguments. </summary>
+    /// <summary>
+    ///     Extension methods used in the validation of arguments.
+    /// </summary>
     internal static class ArgumentValidationExtensions
     {
-        /// <summary> Validates the specified argument value is a member of the enumeration type specified. </summary>
+        /// <summary>
+        ///     Validates the specified argument value is a member of the enumeration type specified.
+        /// </summary>
         /// <typeparam name="TEnum"> The type of the enumeration to which the argument must belong. </typeparam>
         /// <param name="argumentValue"> The value of the argument to validate. </param>
         /// <param name="argumentName"> The name of the argument to validate. </param>
         /// <param name="validation"> The type of validation to perform. </param>
-        /// <exception cref="ArgumentException"> <paramref name="argumentValue"/> must be an of an enum type </exception>
+        /// <exception cref="ArgumentException"> <paramref name="argumentValue" /> must be an of an enum type </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     The value provided in <paramref name="validation"/> was not a valid member of the <see cref="EnumIs"/>
-        ///     enum.
+        ///     The value provided in <paramref name="validation" /> was not a valid member of the <see cref="EnumIs" /> enum.
         /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException"> The value provided in <paramref name="argumentValue"/> was not a valid member of the enum. </exception>
-        /// <exception cref="ArgumentOutOfRangeException"> The value provided in <paramref name="argumentValue"/> was zero. </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     The value provided in <paramref name="argumentValue" /> was not a valid member of the enum.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     The value provided in <paramref name="argumentValue" /> was zero.
+        /// </exception>
         [AssertionMethod]
         [ContractArgumentValidator]
         public static void Validate<TEnum>(this TEnum argumentValue, [NotNull] [InvokerParameterName] string argumentName, EnumIs validation)
@@ -87,11 +94,14 @@ namespace OpenCollar.Extensions.Configuration.Validation
             Contract.EndContractBlock();
         }
 
-        /// <summary> Validates the value of the specified argument according to the rules defined in <paramref name="validation"/> . </summary>
+        /// <summary>
+        ///     Validates the value of the specified argument according to the rules defined in
+        ///     <paramref name="validation" /> .
+        /// </summary>
         /// <param name="argumentValue"> The value of the argument to validate. </param>
         /// <param name="argumentName"> The name of the argument to validate (used in error messages). </param>
         /// <param name="validation"> The type of validation to perform. </param>
-        /// <exception cref="ArgumentNullException"> The argument is <see langword="null"/>. </exception>
+        /// <exception cref="ArgumentNullException"> The argument is <see langword="null" />. </exception>
         /// <exception cref="ArgumentException"> The argument is zero-length. </exception>
         /// <exception cref="ArgumentException"> The argument contains only white space characters. </exception>
         [AssertionMethod]
@@ -131,12 +141,15 @@ namespace OpenCollar.Extensions.Configuration.Validation
             Contract.EndContractBlock();
         }
 
-        /// <summary> Validates the value of the specified argument according to the rules defined in <paramref name="validation"/> . </summary>
+        /// <summary>
+        ///     Validates the value of the specified argument according to the rules defined in
+        ///     <paramref name="validation" /> .
+        /// </summary>
         /// <typeparam name="T"> The type of the value. </typeparam>
         /// <param name="argumentValue"> The value of the argument to validate. </param>
         /// <param name="argumentName"> The name of the argument to validate (used in error messages). </param>
         /// <param name="validation"> The type of validation to perform. </param>
-        /// <exception cref="ArgumentNullException"> The argument is <see langword="null"/>. </exception>
+        /// <exception cref="ArgumentNullException"> The argument is <see langword="null" />. </exception>
         [AssertionMethod]
         [ContractArgumentValidator]
         [ContractAbbreviator]
@@ -159,17 +172,20 @@ namespace OpenCollar.Extensions.Configuration.Validation
         }
 
         /// <summary>
-        ///     Validates the value of the specified enumerable argument according to the rules defined in <paramref name="argumentValue"/> and
-        ///     <paramref name="elementValidation"/> and returns containing the validated argument as an array.
+        ///     Validates the value of the specified enumerable argument according to the rules defined in
+        ///     <paramref name="argumentValue" /> and <paramref name="elementValidation" /> and returns containing the
+        ///     validated argument as an array.
         /// </summary>
         /// <typeparam name="T"> The type of the elements in the argument. </typeparam>
         /// <param name="argumentValue"> The value of the argument to validate. </param>
         /// <param name="argumentName"> The name of the argument to validate (used in error messages). </param>
         /// <param name="argumentValidation"> The type of validation to perform on the argument. </param>
-        /// <param name="elementValidation"> The type of validation to perform on the elements contained in the argument sequence. </param>
+        /// <param name="elementValidation">
+        ///     The type of validation to perform on the elements contained in the argument sequence.
+        /// </param>
         /// <returns> The contents of the argument, in an array. </returns>
-        /// <exception cref="ArgumentNullException"> The argument is <see langword="null"/>. </exception>
-        /// <exception cref="ArgumentException"> An element in the argument is <see langword="null"/>. </exception>
+        /// <exception cref="ArgumentNullException"> The argument is <see langword="null" />. </exception>
+        /// <exception cref="ArgumentException"> An element in the argument is <see langword="null" />. </exception>
         [AssertionMethod]
         [ContractArgumentValidator]
         [ContractAbbreviator]

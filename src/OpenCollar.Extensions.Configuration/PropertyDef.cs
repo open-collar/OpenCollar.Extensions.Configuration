@@ -27,15 +27,19 @@ using Microsoft.Extensions.Configuration;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary> The definition of a property of a configuration object. </summary>
+    /// <summary>
+    ///     The definition of a property of a configuration object.
+    /// </summary>
     [DebuggerDisplay("PropertyDef[{" + nameof(PropertyName) + "}]")]
     internal class PropertyDef : IPropertyDef
     {
-        /// <summary> Initializes a new instance of the <see cref="PropertyDef"/> class. </summary>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
+        /// </summary>
         /// <param name="propertyInfo"> The definition of the property. </param>
         /// <exception cref="InvalidPropertyException">
-        ///     'ConfigurationValue' attribute on property specifies that persistence should only save values (not load),
-        ///     but no default value is provided.
+        ///     'ConfigurationValue' attribute on property specifies that persistence should only save values (not
+        ///     load), but no default value is provided.
         /// </exception>
         internal PropertyDef(PropertyInfo propertyInfo)
         {
@@ -90,56 +94,134 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        /// <summary> Gets or sets the default value. </summary>
-        /// <value> The default value. Can be <see langword="null"/>. </value>
-        public object? DefaultValue { get; }
-
-        /// <summary> Gets the details of the specific implementation of this property. </summary>
-        /// <value> The details of the specific implementation of this property. </value>
-        public IImplementation? ElementImplementation { get; }
-
-        /// <summary> Gets a value indicating whether the property represented by this instance has default a value. </summary>
-        /// <value> <see langword="true"/> if the property represented by this instance has default a value; otherwise, <see langword="false"/>. </value>
-        public bool HasDefaultValue { get; }
-
-        /// <summary> Gets the details of the specific implementation of this property. </summary>
-        /// <value> The details of the specific implementation of this property. </value>
-        public IImplementation Implementation { get; }
-
-        /// <summary> Gets a value indicating whether this instance is read only. </summary>
-        /// <value> <see langword="true"/> if the property is read only; otherwise, <see langword="false"/> for an editable property. </value>
-        public bool IsReadOnly { get; }
-
-        /// <summary> Gets the path modifier. </summary>
-        /// <value> The path modifier. </value>
-        public PathIs PathModifier { get; }
-
-        /// <summary> Gets the path section. </summary>
-        /// <value> The path section. </value>
-        public string PathSection { get; }
-
-        public ConfigurationPersistenceActions Persistence { get; }
-
-        /// <summary> Gets the property information that defines the interface property. </summary>
-        /// <value> The property information that defines the interface property. </value>
-        public PropertyInfo PropertyInfo { get; }
-
-        /// <summary> Gets the name of the property represented by this object. </summary>
-        /// <value> The name of the property represented by this object. </value>
-        public string PropertyName { get; }
-
-        /// <summary> Gets the type of the value held in the property. </summary>
-        /// <value> The type of the value held in the property. </value>
-        public Type Type { get; }
+        /// <summary>
+        ///     Gets or sets the default value.
+        /// </summary>
+        /// <value> The default value. Can be <see langword="null" />. </value>
+        public object? DefaultValue
+        {
+            get;
+        }
 
         /// <summary>
-        ///     Gets the basic type represented by the type of the property (for example by <c> int? </c> would have an underlying type of
-        ///     <see cref="int"/> ).
+        ///     Gets the details of the specific implementation of this property.
+        /// </summary>
+        /// <value> The details of the specific implementation of this property. </value>
+        public IImplementation? ElementImplementation
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets a value indicating whether the property represented by this instance has default a value.
+        /// </summary>
+        /// <value>
+        ///     <see langword="true" /> if the property represented by this instance has default a value; otherwise, <see langword="false" />.
+        /// </value>
+        public bool HasDefaultValue
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the details of the specific implementation of this property.
+        /// </summary>
+        /// <value> The details of the specific implementation of this property. </value>
+        public IImplementation Implementation
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets a value indicating whether this instance is read only.
+        /// </summary>
+        /// <value>
+        ///     <see langword="true" /> if the property is read only; otherwise, <see langword="false" /> for an
+        ///     editable property.
+        /// </value>
+        public bool IsReadOnly
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the path modifier.
+        /// </summary>
+        /// <value> The path modifier. </value>
+        public PathIs PathModifier
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the path section.
+        /// </summary>
+        /// <value> The path section. </value>
+        public string PathSection
+        {
+            get;
+        }
+
+        public ConfigurationPersistenceActions Persistence
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the property information that defines the interface property.
+        /// </summary>
+        /// <value> The property information that defines the interface property. </value>
+        public PropertyInfo PropertyInfo
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the name of the property represented by this object.
+        /// </summary>
+        /// <value> The name of the property represented by this object. </value>
+        public string PropertyName
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the type of the value held in the property.
+        /// </summary>
+        /// <value> The type of the value held in the property. </value>
+        public Type Type
+        {
+            get;
+        }
+
+        /// <summary>
+        ///     Gets the basic type represented by the type of the property (for example by <c> int? </c> would have an
+        ///     underlying type of <see cref="int" /> ).
         /// </summary>
         /// <returns> The basic type represented by the type given. </returns>
-        public Type UnderlyingType { get; }
+        public Type UnderlyingType
+        {
+            get;
+        }
 
-        /// <summary> Gets the path to this configuration object. </summary>
+        /// <summary>
+        ///     Gets the basic type represented by the type given.
+        /// </summary>
+        /// <param name="type"> The type for which to find the underlying type. </param>
+        /// <returns> </returns>
+        public static Type GetUnderlyingType(Type type)
+        {
+            if(type.IsConstructedGenericType && (type.GetGenericTypeDefinition() == typeof(Nullable<>)))
+            {
+                type = type.GetGenericArguments()[0];
+            }
+
+            return type;
+        }
+
+        /// <summary>
+        ///     Gets the path to this configuration object.
+        /// </summary>
         /// <returns> A string containing the path to this configuration object. </returns>
         public string CalculatePath(IConfigurationParent? parent)
         {
@@ -157,42 +239,9 @@ namespace OpenCollar.Extensions.Configuration
             return PathSection;
         }
 
-        /// <summary> Copies the value of an element. </summary>
-        /// <typeparam name="TElement"> The type of the element to copy. </typeparam>
-        /// <param name="value"> The value to copy. </param>
-        /// <param name="parent"> The parent object to which cloned configuration objects will belong. </param>
-        /// <param name="configurationRoot"> The configuration root from which cloned configuration objects are to be populated. </param>
-        /// <returns> The newly copied element. </returns>
-        public TElement CopyValue<TElement>(IImplementation implementation, TElement value, IConfigurationParent parent, IConfigurationRoot configurationRoot)
-        {
-            if(ReferenceEquals(value, null))
-            {
-                return default!;
-            }
-
-            if(ReferenceEquals(ElementImplementation, null))
-            {
-                return value;
-            }
-
-            switch(implementation.ImplementationKind)
-            {
-                case ImplementationKind.ConfigurationCollection:
-                    return (TElement)Activator.CreateInstance(implementation.ImplementationType, parent, this, configurationRoot, value);
-
-                case ImplementationKind.ConfigurationDictionary:
-                    return (TElement)Activator.CreateInstance(implementation.ImplementationType, parent, this, configurationRoot, value);
-
-                case ImplementationKind.ConfigurationObject:
-                    var clone = Activator.CreateInstance(implementation.ImplementationType, configurationRoot, parent);
-                    ((ConfigurationObjectBase<TElement>)clone).Clone(value);
-                    return (TElement)clone;
-            }
-
-            return value;
-        }
-
-        /// <summary> Parses a string value into the type defined by the property definition. </summary>
+        /// <summary>
+        ///     Parses a string value into the type defined by the property definition.
+        /// </summary>
         /// <param name="path"> The path to the value being converted (used in error messages). </param>
         /// <param name="stringRepresentation"> The string to parse. </param>
         /// <returns> The string parsed as the type of this property. </returns>
@@ -386,7 +435,9 @@ namespace OpenCollar.Extensions.Configuration
             return Convert.ChangeType(stringRepresentation, Type, CultureInfo.InvariantCulture);
         }
 
-        /// <summary> Given a value that can be assigned to the property represented, returns a string equivalent. </summary>
+        /// <summary>
+        ///     Given a value that can be assigned to the property represented, returns a string equivalent.
+        /// </summary>
         /// <param name="value"> The value. </param>
         /// <returns> The string equivalent of the value given. </returns>
         public string? ConvertValueToString(object? value)
@@ -477,23 +528,51 @@ namespace OpenCollar.Extensions.Configuration
             return value.ToString();
         }
 
-        /// <summary> Gets the basic type represented by the type given. </summary>
-        /// <param name="type"> The type for which to find the underlying type. </param>
-        /// <returns> </returns>
-        public static Type GetUnderlyingType(Type type)
+        /// <summary>
+        ///     Copies the value of an element.
+        /// </summary>
+        /// <typeparam name="TElement"> The type of the element to copy. </typeparam>
+        /// <param name="value"> The value to copy. </param>
+        /// <param name="parent"> The parent object to which cloned configuration objects will belong. </param>
+        /// <param name="configurationRoot">
+        ///     The configuration root from which cloned configuration objects are to be populated.
+        /// </param>
+        /// <returns> The newly copied element. </returns>
+        public TElement CopyValue<TElement>(IImplementation implementation, TElement value, IConfigurationParent parent, IConfigurationRoot configurationRoot)
         {
-            if(type.IsConstructedGenericType && (type.GetGenericTypeDefinition() == typeof(Nullable<>)))
+            if(ReferenceEquals(value, null))
             {
-                type = type.GetGenericArguments()[0];
+                return default!;
             }
 
-            return type;
+            if(ReferenceEquals(ElementImplementation, null))
+            {
+                return value;
+            }
+
+            switch(implementation.ImplementationKind)
+            {
+                case ImplementationKind.ConfigurationCollection:
+                    return (TElement)Activator.CreateInstance(implementation.ImplementationType, parent, this, configurationRoot, value);
+
+                case ImplementationKind.ConfigurationDictionary:
+                    return (TElement)Activator.CreateInstance(implementation.ImplementationType, parent, this, configurationRoot, value);
+
+                case ImplementationKind.ConfigurationObject:
+                    var clone = Activator.CreateInstance(implementation.ImplementationType, configurationRoot, parent);
+                    ((ConfigurationObjectBase<TElement>)clone).Clone(value);
+                    return (TElement)clone;
+            }
+
+            return value;
         }
 
-        /// <summary> Determines whether the current value is the same as the original value. </summary>
+        /// <summary>
+        ///     Determines whether the current value is the same as the original value.
+        /// </summary>
         /// <param name="original"> The original value. </param>
         /// <param name="current"> The current value. </param>
-        /// <returns> <see langword="true"/> if the values are the same; otherwise, <see langword="false"/>. </returns>
+        /// <returns> <see langword="true" /> if the values are the same; otherwise, <see langword="false" />. </returns>
         internal static bool AreEqual(object? original, object? current)
         {
             if(ReferenceEquals(original, current))

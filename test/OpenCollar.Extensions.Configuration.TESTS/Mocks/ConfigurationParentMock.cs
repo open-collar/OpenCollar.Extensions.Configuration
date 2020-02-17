@@ -21,11 +21,20 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 {
     internal sealed class ConfigurationParentMock : IConfigurationParent
     {
-        public string Path { get; set; }
+        public bool IsReadOnly
+        {
+            get; set;
+        }
 
-        public bool IsReadOnly { get; set; }
+        public string Path
+        {
+            get; set;
+        }
 
-        public IPropertyDef PropertyDef { get; }
+        public IPropertyDef PropertyDef
+        {
+            get;
+        }
 
         public string CalculatePath()
         {

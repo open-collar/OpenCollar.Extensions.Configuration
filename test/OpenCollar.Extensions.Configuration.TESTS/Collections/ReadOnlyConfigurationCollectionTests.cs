@@ -27,15 +27,17 @@ using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 {
-    /// <summary> Tests for the <see cref="ReadOnlyConfigurationCollection{TElement}"/> class. </summary>
+    /// <summary>
+    ///     Tests for the <see cref="ReadOnlyConfigurationCollection{TElement}" /> class.
+    /// </summary>
     public sealed class ReadOnlyConfigurationCollectionTests : IClassFixture<TestDataFixture>
     {
+        private readonly TestDataFixture _propertyTestData;
+
         public ReadOnlyConfigurationCollectionTests(TestDataFixture propertyDefFixture)
         {
             _propertyTestData = propertyDefFixture;
         }
-
-        private readonly TestDataFixture _propertyTestData;
 
         [Fact]
         public void AddAndRetrieveTests()
@@ -359,7 +361,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             Assert.Equal(333, ((IChildElement)newElement).Value);
         }
 
-        /// <summary> Tests for the constructor. </summary>
+        /// <summary>
+        ///     Tests for the constructor.
+        /// </summary>
         [Fact]
         public void TestConstructor()
         {

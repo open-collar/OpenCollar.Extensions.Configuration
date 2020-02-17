@@ -33,12 +33,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 {
     public class ConfigurationObjectBaseTests : IClassFixture<ConfigurationFixture>
     {
+        private readonly ConfigurationFixture _configurationFixture;
+
         public ConfigurationObjectBaseTests(ConfigurationFixture configurationFixture)
         {
             _configurationFixture = configurationFixture;
         }
-
-        private readonly ConfigurationFixture _configurationFixture;
 
         public void TestBrokenAttribute()
         {
@@ -462,27 +462,6 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             fixture.RootElement.Save();
 
             Assert.Equal("new value", fixture.ConfigurationRoot["CustomValueB"]);
-        }
-
-        [Fact]
-        public void TestToString()
-        {
-            var x = _configurationFixture.RootElement;
-
-            var y = x.ChildCollection;
-
-            var z1 = y[0];
-
-            var z2 = y[1];
-
-            Assert.IsAssignableFrom<IConfigurationObject>(x);
-            Assert.IsAssignableFrom<IConfigurationObject>(z1);
-
-            Assert.NotEqual(z1.ToString(), z2.ToString());
-
-            Assert.Equal("OpenCollar.Extensions.Configuration.TESTS.IRootElement: \"\"", x.ToString());
-            Assert.Equal("OpenCollar.Extensions.Configuration.TESTS.IChildElement: \"ChildCollection:0\"", z1.ToString());
-            Assert.Equal("OpenCollar.Extensions.Configuration.TESTS.IChildElement: \"ChildCollection:1\"", z2.ToString());
         }
     }
 }

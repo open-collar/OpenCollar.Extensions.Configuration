@@ -31,7 +31,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var source = new MemoryConfigurationSource()
             {
-            InitialData = new[]
+                InitialData = new[]
             {
             new KeyValuePair<string, string>(nameof(IRootElement.CharPropertyA), "a"),
             new KeyValuePair<string, string>(nameof(IRootElement.CharPropertyB), "B"),
@@ -94,11 +94,20 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             RootElement = Services.GetService<IRootElement>();
         }
 
-        internal IConfigurationRoot ConfigurationRoot { get; }
+        internal IConfigurationRoot ConfigurationRoot
+        {
+            get;
+        }
 
-        internal IRootElement RootElement { get; }
+        internal IRootElement RootElement
+        {
+            get;
+        }
 
-        internal ServiceProvider Services { get; }
+        internal ServiceProvider Services
+        {
+            get;
+        }
 
         protected override void Dispose(bool disposing)
         {

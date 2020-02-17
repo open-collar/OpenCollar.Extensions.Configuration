@@ -29,12 +29,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 {
     public sealed class PropertyDefTests : IClassFixture<TestDataFixture>
     {
+        private readonly TestDataFixture _propertyTestData;
+
         public PropertyDefTests(TestDataFixture propertyDefFixture)
         {
             _propertyTestData = propertyDefFixture;
         }
-
-        private readonly TestDataFixture _propertyTestData;
 
         [Fact]
         public void TestCalculatePath()
@@ -268,18 +268,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             collection.AddCopy(new ChildElementMock()
             {
-            Name = "NAME-1",
-            Value = 1
+                Name = "NAME-1",
+                Value = 1
             });
             collection.AddCopy(new ChildElementMock()
             {
-            Name = "NAME-2",
-            Value = 2
+                Name = "NAME-2",
+                Value = 2
             });
             collection.AddCopy(new ChildElementMock()
             {
-            Name = "NAME-3",
-            Value = 3
+                Name = "NAME-3",
+                Value = 3
             });
 
             var copy = propertyDef.CopyValue<ConfigurationCollection<IChildElement>>(propertyDef.Implementation, collection, null, root);
@@ -307,18 +307,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             dictionary.AddCopy("A", new ChildElementMock()
             {
-            Name = "NAME-1",
-            Value = 1
+                Name = "NAME-1",
+                Value = 1
             });
             dictionary.AddCopy("B", new ChildElementMock()
             {
-            Name = "NAME-2",
-            Value = 2
+                Name = "NAME-2",
+                Value = 2
             });
             dictionary.AddCopy("C", new ChildElementMock()
             {
-            Name = "NAME-3",
-            Value = 3
+                Name = "NAME-3",
+                Value = 3
             });
 
             var copy = propertyDef.CopyValue<ConfigurationDictionary<IChildElement>>(propertyDef.Implementation, dictionary, null, root);
@@ -344,8 +344,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             var child = new ChildElementMock()
             {
-            Name = "NAME-1",
-            Value = 1
+                Name = "NAME-1",
+                Value = 1
             };
 
             var copy = propertyDef.CopyValue<IChildElement>(propertyDef.Implementation, child, null, root);

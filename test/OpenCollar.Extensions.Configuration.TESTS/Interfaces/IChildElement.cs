@@ -21,8 +21,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 {
     public interface IChildElement : IConfigurationObject
     {
-        string Name { get; set; }
+        string Name
+        {
+            get; set;
+        }
 
-        int Value { get; set; }
+        int Value
+        {
+            get; set;
+        }
     }
 }

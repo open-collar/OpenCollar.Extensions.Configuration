@@ -23,44 +23,79 @@ using Microsoft.Extensions.Configuration;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary> The interface internally exposed by value objects. </summary>
+    /// <summary>
+    ///     The interface internally exposed by value objects.
+    /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IValue
     {
-        /// <summary> Gets a value indicating whether this property has unsaved changes. </summary>
-        /// <value> <see langword="true"/> if this property has unsaved changes; otherwise, <see langword="false"/>. </value>
-        bool IsDirty { get; }
+        /// <summary>
+        ///     Gets a value indicating whether this property has unsaved changes.
+        /// </summary>
+        /// <value> <see langword="true" /> if this property has unsaved changes; otherwise, <see langword="false" />. </value>
+        bool IsDirty
+        {
+            get;
+        }
 
-        /// <summary> Gets the parent object to which this value belongs. </summary>
+        /// <summary>
+        ///     Gets the parent object to which this value belongs.
+        /// </summary>
         /// <value> The parent object to which this value belongs. </value>
-        IValueChanged Parent { get; }
+        IValueChanged Parent
+        {
+            get;
+        }
 
-        /// <summary> Gets the colon-delimited path to the underlying configuration value. </summary>
+        /// <summary>
+        ///     Gets the colon-delimited path to the underlying configuration value.
+        /// </summary>
         /// <value> The colon-delimited path to the underlying configuration value. </value>
-        string Path { get; }
+        string Path
+        {
+            get;
+        }
 
-        /// <summary> Gets the definition of the property represented by this value. </summary>
+        /// <summary>
+        ///     Gets the definition of the property represented by this value.
+        /// </summary>
         /// <value> The definition of the property represented by this value. </value>
-        IPropertyDef PropertyDef { get; }
+        IPropertyDef PropertyDef
+        {
+            get;
+        }
 
-        /// <summary> Gets or sets the value of the property represented by this instance. </summary>
+        /// <summary>
+        ///     Gets or sets the value of the property represented by this instance.
+        /// </summary>
         /// <value> The value of the property. </value>
-        object? Value { get; set; }
+        object? Value
+        {
+            get; set;
+        }
 
-        /// <summary> Reads the value of the value identified by <see cref="PropertyDef"/> from the configuration root given. </summary>
+        /// <summary>
+        ///     Reads the value of the value identified by <see cref="PropertyDef" /> from the configuration root given.
+        /// </summary>
         /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
         void DeleteValue(IConfigurationRoot configurationRoot);
 
-        /// <summary> Reads the value of the value identified by <see cref="PropertyDef"/> from the configuration root given. </summary>
+        /// <summary>
+        ///     Reads the value of the value identified by <see cref="PropertyDef" /> from the configuration root given.
+        /// </summary>
         /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
         void ReadValue(IConfigurationRoot configurationRoot);
 
-        /// <summary> Sets the value without firing any events. </summary>
+        /// <summary>
+        ///     Sets the value without firing any events.
+        /// </summary>
         /// <param name="value"> The new value. </param>
-        /// <returns> <see langword="true"/> if the value has changed; otherwise, <see langword="false"/>. </returns>
+        /// <returns> <see langword="true" /> if the value has changed; otherwise, <see langword="false" />. </returns>
         bool SetValue(object? value);
 
-        /// <summary> Writes the value to the configuration store. </summary>
+        /// <summary>
+        ///     Writes the value to the configuration store.
+        /// </summary>
         /// <param name="configurationRoot"> The configuration root to which to write the value. </param>
         void WriteValue(IConfigurationRoot configurationRoot);
     }

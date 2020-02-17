@@ -31,6 +31,12 @@ namespace TestWebApp.Pages
         public IndexModel(ILogger<IndexModel> logger, IMyConfig config)
         {
             _logger = logger;
+
+            var x = config.ReadOnlyString;
+
+            var environment = config.Environment;
+
+            var version = environment.Version;
         }
 
         public void OnGet()
