@@ -36,11 +36,13 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     The value assigned to <see cref="_isDisposed" /> if the class has been disposed of.
         /// </summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private const int Disposed = 1;
 
         /// <summary>
         ///     The value assigned to <see cref="_isDisposed" /> if the class has not been disposed of.
         /// </summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private const int NotDisposed = 0;
 
         /// <summary>

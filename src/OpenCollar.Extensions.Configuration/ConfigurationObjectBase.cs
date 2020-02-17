@@ -142,6 +142,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     The constructed types for properties.
         /// </summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private static readonly ConcurrentDictionary<Type, Type> _propertyTypes = new ConcurrentDictionary<Type, Type>();
 
         /// <summary>
