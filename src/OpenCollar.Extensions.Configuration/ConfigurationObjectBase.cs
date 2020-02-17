@@ -442,6 +442,8 @@ namespace OpenCollar.Extensions.Configuration
                 PropertiesByName.Clear();
                 _propertiesByPath.Clear();
             }
+
+            base.Dispose(disposing);
         }
 
         /// <summary>
