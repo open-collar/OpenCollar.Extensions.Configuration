@@ -19,62 +19,43 @@
 
 using System;
 using System.Diagnostics;
-using OpenCollar.Extensions.Configuration.Validation;
+
 using Microsoft.Extensions.Configuration;
+
+using OpenCollar.Extensions.Configuration.Resources;
+using OpenCollar.Extensions.Configuration.Validation;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>
-    ///     A class used to represent a property on an interface and its location in the configuration model.
-    /// </summary>
-    /// <typeparam name="TParent">
-    ///     The type of the parent object. Must implement <See cref="IValueChanged" /> interface.
-    /// </typeparam>
+    /// <summary> A class used to represent a property on an interface and its location in the configuration model. </summary>
+    /// <typeparam name="TParent"> The type of the parent object. Must implement <See cref="IValueChanged"/> interface. </typeparam>
     /// <typeparam name="TValue"> The type of the contained value. </typeparam>
-    [DebuggerDisplay("ValueBase[{Path,nq}={StringValue}] ({CalculatePath()})")]
+    [DebuggerDisplay("ValueBase<{typeof(TValue).Name,nq}>[{Path,nq}={StringValue}] ({CalculatePath()})")]
     internal abstract class ValueBase<TParent, TValue> : IValue, IConfigurationParent where TParent : class, IValueChanged, IConfigurationParent
     {
-        /// <summary>
-        ///     The parent for which this object represents a value.
-        /// </summary>
-        protected readonly TParent _parent;
-
-        /// <summary>
-        ///     The definition of the property represented by this value.
-        /// </summary>
-        protected readonly IPropertyDef _propertyDef;
-
-        /// <summary>
-        ///     A lock token used to control concurrent access to the <see cref="_currentValue" /> and
-        ///     <see cref="_originalValue" /> fields.
-        /// </summary>
+        /// <summary> A lock token used to control concurrent access to the <see cref="_currentValue"/> and <see cref="_originalValue"/> fields. </summary>
         private readonly object _lock = new object();
 
-        /// <summary>
-        ///     The current (unsaved) value held in this property.
-        /// </summary>
-        /// <remarks>
-        ///     This will be used to compare against the <see cref="_originalValue" /> to determine whether the value
-        ///     has changed/
-        /// </remarks>
+        /// <summary> The parent for which this object represents a value. </summary>
+        protected readonly TParent _parent;
+
+        /// <summary> The definition of the property represented by this value. </summary>
+        protected readonly IPropertyDef _propertyDef;
+
+        /// <summary> The current (unsaved) value held in this property. </summary>
+        /// <remarks> This will be used to compare against the <see cref="_originalValue"/> to determine whether the value has changed/ </remarks>
         private TValue _currentValue;
 
-        /// <summary>
-        ///     A flag that indicates whether or not the current value has been saved.
-        /// </summary>
+        /// <summary> A flag that indicates whether or not the current value has been saved. </summary>
         private bool _isSaved;
 
-        /// <summary>
-        ///     The original (saved) value of the property.
-        /// </summary>
+        /// <summary> The original (saved) value of the property. </summary>
         private TValue _originalValue;
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ValueBase{TParent, TValue}" /> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="ValueBase{TParent, TValue}"/> class. </summary>
         /// <param name="propertyDef"> The definition of the property to represent. </param>
         /// <param name="parent"> The parent configuration object for which this object represents a property. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="parent" /> is <see langword="null" />. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="parent"/> is <see langword="null"/>. </exception>
         internal ValueBase(IPropertyDef propertyDef, TParent parent)
         {
             parent.Validate(nameof(parent), ObjectIs.NotNull);
@@ -84,10 +65,8 @@ namespace OpenCollar.Extensions.Configuration
             _isSaved = false;
         }
 
-        /// <summary>
-        ///     Gets a value indicating whether this property has unsaved changes.
-        /// </summary>
-        /// <value> <see langword="true" /> if this property has unsaved changes; otherwise, <see langword="false" />. </value>
+        /// <summary> Gets a value indicating whether this property has unsaved changes. </summary>
+        /// <value> <see langword="true"/> if this property has unsaved changes; otherwise, <see langword="false"/>. </value>
         public bool IsDirty
         {
             get
@@ -116,36 +95,15 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        /// <summary>
-        ///     Gets a value indicating whether this container is read-only.
-        /// </summary>
-        /// <value> <see langword="true" /> if this container is read-only; otherwise, <see langword="false" />. </value>
-        public abstract bool IsReadOnly
-        {
-            get;
-        }
-
-        /// <summary>
-        ///     Gets the parent object to which this value belongs.
-        /// </summary>
+        /// <summary> Gets the parent object to which this value belongs. </summary>
         /// <value> The parent object to which this value belongs. </value>
         public TParent Parent => _parent;
 
-        /// <summary>
-        ///     Gets the colon-delimited path to the underlying configuration value.
-        /// </summary>
+        /// <summary> Gets the colon-delimited path to the underlying configuration value. </summary>
         /// <value> The colon-delimited path to the underlying configuration value. </value>
         public string Path => CalculatePath();
 
-        /// <summary>
-        ///     Gets the definition of the property represented by this value.
-        /// </summary>
-        /// <value> The definition of the property represented by this value. </value>
-        public IPropertyDef PropertyDef => _propertyDef;
-
-        /// <summary>
-        ///     Gets or sets the value represented by this instance.
-        /// </summary>
+        /// <summary> Gets or sets the value represented by this instance. </summary>
         /// <value> The value of the property. </value>
         /// <exception cref="NotImplementedException"> This value is read-only. </exception>
         public TValue Value
@@ -155,7 +113,7 @@ namespace OpenCollar.Extensions.Configuration
             {
                 if(_parent.IsReadOnly)
                 {
-                    throw new NotImplementedException(Resources.Exceptions.ValueIsReadOnly);
+                    throw new NotImplementedException(Exceptions.ValueIsReadOnly);
                 }
 
                 if(!SetValue(value))
@@ -166,38 +124,7 @@ namespace OpenCollar.Extensions.Configuration
                 _parent.OnValueChanged(this, this);
             }
         }
-
-        /// <summary>
-        ///     Gets a value indicating whether this property has unsaved changes.
-        /// </summary>
-        /// <value> <see langword="true" /> if this property has unsaved changes; otherwise, <see langword="false" />. </value>
-        bool IValue.IsDirty => IsDirty;
-
-        /// <summary>
-        ///     Gets the parent object to which this value belongs.
-        /// </summary>
-        /// <value> The parent object to which this value belongs. </value>
-        IValueChanged IValue.Parent => Parent;
-
-        /// <summary>
-        ///     Gets the colon-delimited path to the underlying configuration value.
-        /// </summary>
-        /// <value> The colon-delimited path to the underlying configuration value. </value>
-        string IValue.Path => Path;
-
-        /// <summary>
-        ///     Gets or sets the value represented by this instance.
-        /// </summary>
-        /// <value> The value of the property. </value>
-        object? IValue.Value
-        {
-            get => Value;
-            set => Value = (TValue)value;
-        }
-
-        /// <summary>
-        ///     Gets or sets the value of the property, represented as a string.
-        /// </summary>
+        /// <summary> Gets or sets the value of the property, represented as a string. </summary>
         /// <value> The value of the property, represented as a string. </value>
         internal string? StringValue
         {
@@ -205,24 +132,63 @@ namespace OpenCollar.Extensions.Configuration
             set => Value = (TValue)_propertyDef.ConvertStringToValue(Path, value);
         }
 
-        /// <summary>
-        ///     Gets the implementation details of the value object.
-        /// </summary>
+        /// <summary> Gets the implementation details of the value object. </summary>
         /// <value> The implementation details of the value object. </value>
-        protected abstract IImplementation ValueImplementation
-        {
-            get;
-        }
+        protected abstract IImplementation ValueImplementation { get; }
 
-        /// <summary>
-        ///     Gets the full path for this value.
-        /// </summary>
+        /// <summary> Gets a value indicating whether this container is read-only. </summary>
+        /// <value> <see langword="true"/> if this container is read-only; otherwise, <see langword="false"/>. </value>
+        public abstract bool IsReadOnly { get; }
+
+        /// <summary> Gets the full path for this value. </summary>
         /// <returns> The full path for this value </returns>
         public abstract string CalculatePath();
 
-        /// <summary>
-        ///     Reads the value of the value identified by <see cref="PropertyDef" /> from the configuration root given.
-        /// </summary>
+        /// <summary> Gets the definition of the property represented by this value. </summary>
+        /// <value> The definition of the property represented by this value. </value>
+        public IPropertyDef PropertyDef => _propertyDef;
+
+        /// <summary> Gets a value indicating whether this property has unsaved changes. </summary>
+        /// <value> <see langword="true"/> if this property has unsaved changes; otherwise, <see langword="false"/>. </value>
+        bool IValue.IsDirty => IsDirty;
+
+        /// <summary> Gets the parent object to which this value belongs. </summary>
+        /// <value> The parent object to which this value belongs. </value>
+        IValueChanged IValue.Parent => Parent;
+
+        /// <summary> Gets the colon-delimited path to the underlying configuration value. </summary>
+        /// <value> The colon-delimited path to the underlying configuration value. </value>
+        string IValue.Path => Path;
+
+        /// <summary> Gets or sets the value represented by this instance. </summary>
+        /// <value> The value of the property. </value>
+        object? IValue.Value
+        {
+            get => Value;
+            set => Value = (TValue)value;
+        }
+
+        /// <summary> Sets the value without firing any events. </summary>
+        /// <param name="value"> The new value. </param>
+        /// <returns> <see langword="true"/> if the value has changed; otherwise, <see langword="false"/>. </returns>
+        public bool SetValue(object? value)
+        {
+            return SetValue((TValue)value);
+        }
+
+        /// <summary> Reads the value of the value identified by <see cref="PropertyDef"/> from the configuration root given. </summary>
+        /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
+        void IValue.DeleteValue(IConfigurationRoot configurationRoot) => DeleteValue(configurationRoot);
+
+        /// <summary> Reads the value of the value identified by <see cref="PropertyDef"/> from the configuration root given. </summary>
+        /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
+        void IValue.ReadValue(IConfigurationRoot configurationRoot) => ReadValue(configurationRoot);
+
+        /// <summary> Writes the value to the configuration store. </summary>
+        /// <param name="configurationRoot"> The configuration root to which to write the value. </param>
+        void IValue.WriteValue(IConfigurationRoot configurationRoot) => WriteValue(configurationRoot);
+
+        /// <summary> Reads the value of the value identified by <see cref="PropertyDef"/> from the configuration root given. </summary>
         /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
         public void DeleteValue(IConfigurationRoot configurationRoot)
         {
@@ -233,16 +199,11 @@ namespace OpenCollar.Extensions.Configuration
             else
             {
                 var value = _currentValue as IConfigurationObject;
-                if(!ReferenceEquals(value, null))
-                {
-                    value.Delete();
-                }
+                value?.Delete();
             }
         }
 
-        /// <summary>
-        ///     Reads the value of the value identified by <see cref="PropertyDef" /> from the configuration root given.
-        /// </summary>
+        /// <summary> Reads the value of the value identified by <see cref="PropertyDef"/> from the configuration root given. </summary>
         /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
         public void ReadValue(IConfigurationRoot configurationRoot)
         {
@@ -314,19 +275,7 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        /// <summary>
-        ///     Sets the value without firing any events.
-        /// </summary>
-        /// <param name="value"> The new value. </param>
-        /// <returns> <see langword="true" /> if the value has changed; otherwise, <see langword="false" />. </returns>
-        public bool SetValue(object? value)
-        {
-            return SetValue((TValue)value);
-        }
-
-        /// <summary>
-        ///     Writes the value to the configuration store.
-        /// </summary>
+        /// <summary> Writes the value to the configuration store. </summary>
         /// <param name="configurationRoot"> The configuration root to which to write the value. </param>
         public void WriteValue(IConfigurationRoot configurationRoot)
         {
@@ -367,27 +316,7 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        /// <summary>
-        ///     Reads the value of the value identified by <see cref="PropertyDef" /> from the configuration root given.
-        /// </summary>
-        /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
-        void IValue.DeleteValue(IConfigurationRoot configurationRoot) => DeleteValue(configurationRoot);
-
-        /// <summary>
-        ///     Reads the value of the value identified by <see cref="PropertyDef" /> from the configuration root given.
-        /// </summary>
-        /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
-        void IValue.ReadValue(IConfigurationRoot configurationRoot) => ReadValue(configurationRoot);
-
-        /// <summary>
-        ///     Writes the value to the configuration store.
-        /// </summary>
-        /// <param name="configurationRoot"> The configuration root to which to write the value. </param>
-        void IValue.WriteValue(IConfigurationRoot configurationRoot) => WriteValue(configurationRoot);
-
-        /// <summary>
-        ///     Called when the current value has been saved to he underlying configuration source.
-        /// </summary>
+        /// <summary> Called when the current value has been saved to he underlying configuration source. </summary>
         internal void Saved()
         {
             lock(_lock)
@@ -397,11 +326,9 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        /// <summary>
-        ///     Sets the value without firing any events.
-        /// </summary>
+        /// <summary> Sets the value without firing any events. </summary>
         /// <param name="value"> The new value. </param>
-        /// <returns> <see langword="true" /> if the value has changed; otherwise, <see langword="false" />. </returns>
+        /// <returns> <see langword="true"/> if the value has changed; otherwise, <see langword="false"/>. </returns>
         internal bool SetValue(TValue value)
         {
             lock(_lock)
@@ -414,10 +341,7 @@ namespace OpenCollar.Extensions.Configuration
                 _currentValue = value;
 
                 var child = value as IConfigurationChild;
-                if(!ReferenceEquals(child, null))
-                {
-                    child.SetParent(this);
-                }
+                child?.SetParent(this);
 
                 return true;
             }

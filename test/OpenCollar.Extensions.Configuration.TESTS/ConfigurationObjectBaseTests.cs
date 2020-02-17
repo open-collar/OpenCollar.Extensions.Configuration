@@ -24,19 +24,21 @@ using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Memory;
 using Microsoft.Extensions.DependencyInjection;
+
 using OpenCollar.Extensions.Configuration.TESTS.Interfaces;
+
 using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
     public class ConfigurationObjectBaseTests : IClassFixture<ConfigurationFixture>
     {
-        private readonly ConfigurationFixture _configurationFixture;
-
         public ConfigurationObjectBaseTests(ConfigurationFixture configurationFixture)
         {
             _configurationFixture = configurationFixture;
         }
+
+        private readonly ConfigurationFixture _configurationFixture;
 
         public void TestBrokenAttribute()
         {

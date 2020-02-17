@@ -21,14 +21,14 @@ using System;
 
 namespace OpenCollar.Extensions.Configuration.Validation
 {
-    /// <summary>
-    ///     Used to mark properties and arguments as having been validated as not being <see langword="null" />.
-    /// </summary>
-    /// <seealso cref="Attribute" />
+    /// <summary> Used to mark properties and arguments as having been validated as not being <see langword="null"/>. </summary>
+    /// <seealso cref="Attribute"/>
     /// <remarks>
     ///     Taken from this
     ///     <see href="http://geekswithblogs.net/terje/archive/2010/10/14/making-static-code-analysis-and-code-contracts-work-together-or.aspx">
-    ///     Making Static Code Analysis and Code Contracts work together, or the CA1062 problem </see>
+    ///         Making
+    ///         Static Code Analysis and Code Contracts work together, or the CA1062 problem
+    ///     </see>
     /// </remarks>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Field)]
     internal sealed class ValidatedNotNullAttribute : Attribute

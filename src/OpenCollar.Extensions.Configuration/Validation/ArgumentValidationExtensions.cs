@@ -24,40 +24,36 @@ using System.Globalization;
 
 using JetBrains.Annotations;
 
+using OpenCollar.Extensions.Configuration.Resources;
+
 namespace OpenCollar.Extensions.Configuration.Validation
 {
-    /// <summary>
-    ///     Extension methods used in the validation of arguments.
-    /// </summary>
+    /// <summary> Extension methods used in the validation of arguments. </summary>
     internal static class ArgumentValidationExtensions
     {
-        /// <summary>
-        ///     Validates the specified argument value is a member of the enumeration type specified.
-        /// </summary>
+        /// <summary> Validates the specified argument value is a member of the enumeration type specified. </summary>
         /// <typeparam name="TEnum"> The type of the enumeration to which the argument must belong. </typeparam>
         /// <param name="argumentValue"> The value of the argument to validate. </param>
         /// <param name="argumentName"> The name of the argument to validate. </param>
         /// <param name="validation"> The type of validation to perform. </param>
-        /// <exception cref="ArgumentException"> <paramref name="argumentValue" /> must be an of an enum type </exception>
+        /// <exception cref="ArgumentException"> <paramref name="argumentValue"/> must be an of an enum type </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     The value provided in <paramref name="validation" /> was not a valid member of the <see cref="EnumIs" /> enum.
+        ///     The value provided in <paramref name="validation"/> was not a valid member of the <see cref="EnumIs"/>
+        ///     enum.
         /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        ///     The value provided in <paramref name="argumentValue" /> was not a valid member of the enum.
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        ///     The value provided in <paramref name="argumentValue" /> was zero.
-        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException"> The value provided in <paramref name="argumentValue"/> was not a valid member of the enum. </exception>
+        /// <exception cref="ArgumentOutOfRangeException"> The value provided in <paramref name="argumentValue"/> was zero. </exception>
         [AssertionMethod]
         [ContractArgumentValidator]
         public static void Validate<TEnum>(this TEnum argumentValue, [NotNull] [InvokerParameterName] string argumentName, EnumIs validation)
-            where TEnum : struct
+        where TEnum : struct
         {
             var type = typeof(TEnum);
 
             if(!type.IsEnum)
             {
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_EnumValueNotEnum, nameof(argumentValue)), nameof(argumentValue));
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Exceptions.Validate_EnumValueNotEnum, nameof(argumentValue)),
+                nameof(argumentValue));
             }
 
             if(validation == EnumIs.None)
@@ -68,13 +64,13 @@ namespace OpenCollar.Extensions.Configuration.Validation
             if(!Enum.IsDefined(typeof(EnumIs), validation))
             {
                 throw new ArgumentOutOfRangeException(nameof(validation), validation,
-                    string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ValidationKindWrong, nameof(validation), nameof(EnumIs)));
+                string.Format(CultureInfo.CurrentCulture, Exceptions.Validate_ValidationKindWrong, nameof(validation), nameof(EnumIs)));
             }
 
             if(validation.HasFlag(EnumIs.ValidMember) && !Enum.IsDefined(type, argumentValue))
             {
                 throw new ArgumentOutOfRangeException(nameof(validation), validation,
-                    string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_EnumValueNotMember, argumentName, type.Namespace, type.Name));
+                string.Format(CultureInfo.CurrentCulture, Exceptions.Validate_EnumValueNotMember, argumentName, type.Namespace, type.Name));
             }
 
             if(validation.HasFlag(EnumIs.NonZero))
@@ -83,28 +79,26 @@ namespace OpenCollar.Extensions.Configuration.Validation
 
                 if(value == 0)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(validation), validation, string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ValueZero, argumentName));
+                    throw new ArgumentOutOfRangeException(nameof(validation), validation,
+                    string.Format(CultureInfo.CurrentCulture, Exceptions.Validate_ValueZero, argumentName));
                 }
             }
 
             Contract.EndContractBlock();
         }
 
-        /// <summary>
-        ///     Validates the value of the specified argument according to the rules defined in
-        ///     <paramref name="validation" /> .
-        /// </summary>
+        /// <summary> Validates the value of the specified argument according to the rules defined in <paramref name="validation"/> . </summary>
         /// <param name="argumentValue"> The value of the argument to validate. </param>
         /// <param name="argumentName"> The name of the argument to validate (used in error messages). </param>
         /// <param name="validation"> The type of validation to perform. </param>
-        /// <exception cref="ArgumentNullException"> The argument is <see langword="null" />. </exception>
+        /// <exception cref="ArgumentNullException"> The argument is <see langword="null"/>. </exception>
         /// <exception cref="ArgumentException"> The argument is zero-length. </exception>
         /// <exception cref="ArgumentException"> The argument contains only white space characters. </exception>
         [AssertionMethod]
         [ContractArgumentValidator]
         [ContractAbbreviator]
         public static void Validate([AssertionCondition(AssertionConditionType.IS_NOT_NULL)] [ValidatedNotNull]
-            this string argumentValue, [NotNull] [InvokerParameterName] string argumentName, StringIs validation)
+        this string argumentValue, [NotNull] [InvokerParameterName] string argumentName, StringIs validation)
         {
             /*
              * We should test "validation", but that would be an expensive thing to do for something that could be
@@ -113,41 +107,41 @@ namespace OpenCollar.Extensions.Configuration.Validation
             var isNull = ReferenceEquals(argumentValue, null);
             if(validation.HasFlag(StringIs.NotNull) && isNull)
             {
-                var normalizedArgumentName = string.IsNullOrWhiteSpace(argumentName) ? Resources.Exceptions.Fragment_UnknownArgument : argumentName;
-                throw new ArgumentNullException(normalizedArgumentName, string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsNull, normalizedArgumentName));
+                var normalizedArgumentName = string.IsNullOrWhiteSpace(argumentName) ? Exceptions.Fragment_UnknownArgument : argumentName;
+                throw new ArgumentNullException(normalizedArgumentName,
+                string.Format(CultureInfo.CurrentCulture, Exceptions.Validate_ArgumentIsNull, normalizedArgumentName));
             }
 
             if(validation.HasFlag(StringIs.NotEmpty) && !isNull && argumentValue.Length <= 0)
             {
-                var normalizedArgumentName = string.IsNullOrWhiteSpace(argumentName) ? Resources.Exceptions.Fragment_UnknownArgument : argumentName;
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsZeroLength, normalizedArgumentName), normalizedArgumentName);
+                var normalizedArgumentName = string.IsNullOrWhiteSpace(argumentName) ? Exceptions.Fragment_UnknownArgument : argumentName;
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Exceptions.Validate_ArgumentIsZeroLength, normalizedArgumentName),
+                normalizedArgumentName);
             }
 
 #pragma warning disable S2583 // Conditionally executed blocks should be reachable
             if(validation.HasFlag(StringIs.NotWhiteSpace) && !isNull && argumentValue.Length > 0 && string.IsNullOrWhiteSpace(argumentValue))
 #pragma warning restore S2583 // Conditionally executed blocks should be reachable
             {
-                var normalizedArgumentName = string.IsNullOrWhiteSpace(argumentName) ? Resources.Exceptions.Fragment_UnknownArgument : argumentName;
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsWhiteSpaceOnly, normalizedArgumentName), normalizedArgumentName);
+                var normalizedArgumentName = string.IsNullOrWhiteSpace(argumentName) ? Exceptions.Fragment_UnknownArgument : argumentName;
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Exceptions.Validate_ArgumentIsWhiteSpaceOnly, normalizedArgumentName),
+                normalizedArgumentName);
             }
 
             Contract.EndContractBlock();
         }
 
-        /// <summary>
-        ///     Validates the value of the specified argument according to the rules defined in
-        ///     <paramref name="validation" /> .
-        /// </summary>
+        /// <summary> Validates the value of the specified argument according to the rules defined in <paramref name="validation"/> . </summary>
         /// <typeparam name="T"> The type of the value. </typeparam>
         /// <param name="argumentValue"> The value of the argument to validate. </param>
         /// <param name="argumentName"> The name of the argument to validate (used in error messages). </param>
         /// <param name="validation"> The type of validation to perform. </param>
-        /// <exception cref="ArgumentNullException"> The argument is <see langword="null" />. </exception>
+        /// <exception cref="ArgumentNullException"> The argument is <see langword="null"/>. </exception>
         [AssertionMethod]
         [ContractArgumentValidator]
         [ContractAbbreviator]
         public static void Validate<T>([AssertionCondition(AssertionConditionType.IS_NOT_NULL)] [NoEnumeration] [ValidatedNotNull]
-            this T argumentValue, [NotNull] [InvokerParameterName] string argumentName, ObjectIs validation) where T : class
+        this T argumentValue, [NotNull] [InvokerParameterName] string argumentName, ObjectIs validation) where T : class
         {
             /*
              * We should test "validation", but that would be an expensive thing to do for something that could be
@@ -156,34 +150,32 @@ namespace OpenCollar.Extensions.Configuration.Validation
             var isNull = ReferenceEquals(argumentValue, null);
             if(validation.HasFlag(ObjectIs.NotNull) && isNull)
             {
-                var normalizedArgumentName = string.IsNullOrWhiteSpace(argumentName) ? Resources.Exceptions.Fragment_UnknownArgument : argumentName;
-                throw new ArgumentNullException(normalizedArgumentName, string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsNull, normalizedArgumentName));
+                var normalizedArgumentName = string.IsNullOrWhiteSpace(argumentName) ? Exceptions.Fragment_UnknownArgument : argumentName;
+                throw new ArgumentNullException(normalizedArgumentName,
+                string.Format(CultureInfo.CurrentCulture, Exceptions.Validate_ArgumentIsNull, normalizedArgumentName));
             }
 
             Contract.EndContractBlock();
         }
 
         /// <summary>
-        ///     Validates the value of the specified enumerable argument according to the rules defined in
-        ///     <paramref name="argumentValue" /> and <paramref name="elementValidation" /> and returns containing the
-        ///     validated argument as an array.
+        ///     Validates the value of the specified enumerable argument according to the rules defined in <paramref name="argumentValue"/> and
+        ///     <paramref name="elementValidation"/> and returns containing the validated argument as an array.
         /// </summary>
         /// <typeparam name="T"> The type of the elements in the argument. </typeparam>
         /// <param name="argumentValue"> The value of the argument to validate. </param>
         /// <param name="argumentName"> The name of the argument to validate (used in error messages). </param>
         /// <param name="argumentValidation"> The type of validation to perform on the argument. </param>
-        /// <param name="elementValidation">
-        ///     The type of validation to perform on the elements contained in the argument sequence.
-        /// </param>
+        /// <param name="elementValidation"> The type of validation to perform on the elements contained in the argument sequence. </param>
         /// <returns> The contents of the argument, in an array. </returns>
-        /// <exception cref="ArgumentNullException"> The argument is <see langword="null" />. </exception>
-        /// <exception cref="ArgumentException"> An element in the argument is <see langword="null" />. </exception>
+        /// <exception cref="ArgumentNullException"> The argument is <see langword="null"/>. </exception>
+        /// <exception cref="ArgumentException"> An element in the argument is <see langword="null"/>. </exception>
         [AssertionMethod]
         [ContractArgumentValidator]
         [ContractAbbreviator]
         public static T[] Validate<T>([ItemCanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] [ValidatedNotNull]
-            this IEnumerable<T> argumentValue, [NotNull] [InvokerParameterName] string argumentName, ObjectIs argumentValidation, ObjectIs elementValidation)
-            where T : class
+        this IEnumerable<T> argumentValue, [NotNull] [InvokerParameterName] string argumentName, ObjectIs argumentValidation, ObjectIs elementValidation)
+        where T : class
         {
             /*
              * We should test "validation", but that would be an expensive thing to do for something that could be
@@ -194,8 +186,9 @@ namespace OpenCollar.Extensions.Configuration.Validation
             {
                 if(argumentValidation.HasFlag(ObjectIs.NotNull))
                 {
-                    var normalizedArgumentName = string.IsNullOrWhiteSpace(argumentName) ? Resources.Exceptions.Fragment_UnknownArgument : argumentName;
-                    throw new ArgumentNullException(normalizedArgumentName, string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsNull, normalizedArgumentName));
+                    var normalizedArgumentName = string.IsNullOrWhiteSpace(argumentName) ? Exceptions.Fragment_UnknownArgument : argumentName;
+                    throw new ArgumentNullException(normalizedArgumentName,
+                    string.Format(CultureInfo.CurrentCulture, Exceptions.Validate_ArgumentIsNull, normalizedArgumentName));
                 }
 
                 return Array.Empty<T>();
@@ -209,9 +202,10 @@ namespace OpenCollar.Extensions.Configuration.Validation
             {
                 if(checkElements && ReferenceEquals(element, null))
                 {
-                    var normalizedArgumentName = string.Concat(string.IsNullOrWhiteSpace(argumentName) ? Resources.Exceptions.Fragment_UnknownArgument : argumentName, "[",
-                        index.ToString(@"D", CultureInfo.InvariantCulture), @"]");
-                    throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.Exceptions.Validate_ArgumentIsNull, normalizedArgumentName), normalizedArgumentName);
+                    var normalizedArgumentName = string.Concat(string.IsNullOrWhiteSpace(argumentName) ? Exceptions.Fragment_UnknownArgument : argumentName,
+                    "[", index.ToString(@"D", CultureInfo.InvariantCulture), @"]");
+                    throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Exceptions.Validate_ArgumentIsNull, normalizedArgumentName),
+                    normalizedArgumentName);
                 }
 
                 ++index;

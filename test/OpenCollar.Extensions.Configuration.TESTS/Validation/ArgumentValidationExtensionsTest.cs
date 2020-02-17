@@ -28,6 +28,67 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Validation
 {
     public class ArgumentValidationExtensionsTest
     {
+        [Theory]
+        [InlineData("x")]
+        [InlineData(null)]
+        [InlineData("/r/n/t ")]
+        [InlineData("")]
+        public void TestStringValidation(string argumentName)
+        {
+            string x = null;
+
+            // Check that errors can be thrown even if the argument name is null or empty.
+            Assert.Throws<ArgumentNullException>(() => x.Validate(null, StringIs.NotNull));
+            Assert.Throws<ArgumentNullException>(() => x.Validate(string.Empty, StringIs.NotNull));
+
+            // Check that unknown doesn't throw in any circumstance.
+            ((string)null).Validate(argumentName, StringIs.None);
+            string.Empty.Validate(argumentName, StringIs.None);
+            " \r\t\n".Validate(argumentName, StringIs.None);
+            "TEST".Validate(argumentName, StringIs.None);
+
+            // Check null validation
+            Assert.Throws<ArgumentNullException>(() => x.Validate(argumentName, StringIs.NotNull));
+            x.Validate(argumentName, StringIs.NotEmpty);
+
+            // ReSharper disable once HeuristicUnreachableCode
+            x.Validate(argumentName, StringIs.NotWhiteSpace);
+            Assert.Throws<ArgumentNullException>(() => x.Validate(argumentName, StringIs.NotNullOrEmpty));
+            Assert.Throws<ArgumentNullException>(() => x.Validate(argumentName, StringIs.NotNullOrWhiteSpace));
+            x.Validate(argumentName, StringIs.NotEmptyOrWhiteSpace);
+            Assert.Throws<ArgumentNullException>(() => x.Validate(argumentName, StringIs.NotNullEmptyOrWhiteSpace));
+
+            // Check non-empty/null/whitespace strings
+            x = "TEST";
+            x.Validate(argumentName, StringIs.NotNull);
+            x.Validate(argumentName, StringIs.NotEmpty);
+            x.Validate(argumentName, StringIs.NotWhiteSpace);
+            x.Validate(argumentName, StringIs.NotNullOrEmpty);
+            x.Validate(argumentName, StringIs.NotNullOrWhiteSpace);
+            x.Validate(argumentName, StringIs.NotEmptyOrWhiteSpace);
+            x.Validate(argumentName, StringIs.NotNullEmptyOrWhiteSpace);
+
+            // Check empty strings
+            x = string.Empty;
+            x.Validate(argumentName, StringIs.NotNull);
+            Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotEmpty));
+            x.Validate(argumentName, StringIs.NotWhiteSpace);
+            Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotNullOrEmpty));
+            x.Validate(argumentName, StringIs.NotNullOrWhiteSpace);
+            Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotEmptyOrWhiteSpace));
+            Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotNullEmptyOrWhiteSpace));
+
+            // Check whitespace strings
+            x = "\r\n\t ";
+            x.Validate(argumentName, StringIs.NotNull);
+            x.Validate(argumentName, StringIs.NotEmpty);
+            Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotWhiteSpace));
+            x.Validate(argumentName, StringIs.NotNullOrEmpty);
+            Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotNullOrWhiteSpace));
+            Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotEmptyOrWhiteSpace));
+            Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotNullEmptyOrWhiteSpace));
+        }
+
         [Fact]
         public void TestEnumerableValidation()
         {
@@ -92,67 +153,6 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Validation
             x.Validate("x", ObjectIs.NotNull);
             x.Validate(null, ObjectIs.NotNull);
             x.Validate(string.Empty, ObjectIs.NotNull);
-        }
-
-        [Theory]
-        [InlineData("x")]
-        [InlineData(null)]
-        [InlineData("/r/n/t ")]
-        [InlineData("")]
-        public void TestStringValidation(string argumentName)
-        {
-            string x = null;
-
-            // Check that errors can be thrown even if the argument name is null or empty.
-            Assert.Throws<ArgumentNullException>(() => x.Validate(null, StringIs.NotNull));
-            Assert.Throws<ArgumentNullException>(() => x.Validate(string.Empty, StringIs.NotNull));
-
-            // Check that unknown doesn't throw in any circumstance.
-            ((string)null).Validate(argumentName, StringIs.None);
-            string.Empty.Validate(argumentName, StringIs.None);
-            " \r\t\n".Validate(argumentName, StringIs.None);
-            "TEST".Validate(argumentName, StringIs.None);
-
-            // Check null validation
-            Assert.Throws<ArgumentNullException>(() => x.Validate(argumentName, StringIs.NotNull));
-            x.Validate(argumentName, StringIs.NotEmpty);
-
-            // ReSharper disable once HeuristicUnreachableCode
-            x.Validate(argumentName, StringIs.NotWhiteSpace);
-            Assert.Throws<ArgumentNullException>(() => x.Validate(argumentName, StringIs.NotNullOrEmpty));
-            Assert.Throws<ArgumentNullException>(() => x.Validate(argumentName, StringIs.NotNullOrWhiteSpace));
-            x.Validate(argumentName, StringIs.NotEmptyOrWhiteSpace);
-            Assert.Throws<ArgumentNullException>(() => x.Validate(argumentName, StringIs.NotNullEmptyOrWhiteSpace));
-
-            // Check non-empty/null/whitespace strings
-            x = "TEST";
-            x.Validate(argumentName, StringIs.NotNull);
-            x.Validate(argumentName, StringIs.NotEmpty);
-            x.Validate(argumentName, StringIs.NotWhiteSpace);
-            x.Validate(argumentName, StringIs.NotNullOrEmpty);
-            x.Validate(argumentName, StringIs.NotNullOrWhiteSpace);
-            x.Validate(argumentName, StringIs.NotEmptyOrWhiteSpace);
-            x.Validate(argumentName, StringIs.NotNullEmptyOrWhiteSpace);
-
-            // Check empty strings
-            x = string.Empty;
-            x.Validate(argumentName, StringIs.NotNull);
-            Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotEmpty));
-            x.Validate(argumentName, StringIs.NotWhiteSpace);
-            Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotNullOrEmpty));
-            x.Validate(argumentName, StringIs.NotNullOrWhiteSpace);
-            Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotEmptyOrWhiteSpace));
-            Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotNullEmptyOrWhiteSpace));
-
-            // Check whitespace strings
-            x = "\r\n\t ";
-            x.Validate(argumentName, StringIs.NotNull);
-            x.Validate(argumentName, StringIs.NotEmpty);
-            Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotWhiteSpace));
-            x.Validate(argumentName, StringIs.NotNullOrEmpty);
-            Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotNullOrWhiteSpace));
-            Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotEmptyOrWhiteSpace));
-            Assert.Throws<ArgumentException>(() => x.Validate(argumentName, StringIs.NotNullEmptyOrWhiteSpace));
         }
     }
 }

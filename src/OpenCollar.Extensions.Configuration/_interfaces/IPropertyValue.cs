@@ -19,18 +19,11 @@
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>
-    ///     The non-generic interface of a <see cref="PropertyValue{TValue}" /> object.S
-    /// </summary>
+    /// <summary> The non-generic interface of a <see cref="PropertyValue{TValue}"/> object.S </summary>
     internal interface IPropertyValue
     {
-        /// <summary>
-        ///     Gets the name of the property represented by this object.
-        /// </summary>
+        /// <summary> Gets the name of the property represented by this object. </summary>
         /// <value> The name of the property represented by this object. </value>
-        string PropertyName
-        {
-            get;
-        }
+        string PropertyName { get; }
     }
 }

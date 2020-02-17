@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 
@@ -6,19 +7,13 @@ using OpenCollar.Extensions.Configuration.Collections;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>
-    ///     The details of the implementation of a property or element.
-    /// </summary>
-    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    /// <summary> The details of the implementation of a property or element. </summary>
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class Implementation : IImplementation
     {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="Implementation" /> class.
-        /// </summary>
+        /// <summary> Initializes a new instance of the <see cref="Implementation"/> class. </summary>
         /// <param name="underlyingType"> The underlying type of the property or collection represented. </param>
-        /// <param name="isReadOnly">
-        ///     If set to <see langword="true" /> the property or collection is treated as a read-only.
-        /// </param>
+        /// <param name="isReadOnly"> If set to <see langword="true"/> the property or collection is treated as a read-only. </param>
         internal Implementation(Type underlyingType, bool isReadOnly)
         {
             ImplementationKind = GetImplementationKind(underlyingType);
@@ -36,11 +31,11 @@ namespace OpenCollar.Extensions.Configuration
                     elementType = underlyingType.GenericTypeArguments.First();
                     if(isReadOnly)
                     {
-                        ImplementationType = typeof(ReadOnlyConfigurationCollection<>).MakeGenericType(new[] { elementType });
+                        ImplementationType = typeof(ReadOnlyConfigurationCollection<>).MakeGenericType(elementType);
                     }
                     else
                     {
-                        ImplementationType = typeof(ConfigurationCollection<>).MakeGenericType(new[] { elementType });
+                        ImplementationType = typeof(ConfigurationCollection<>).MakeGenericType(elementType);
                     }
 
                     Type = elementType;
@@ -50,11 +45,11 @@ namespace OpenCollar.Extensions.Configuration
                     elementType = underlyingType.GenericTypeArguments.First();
                     if(isReadOnly)
                     {
-                        ImplementationType = typeof(ReadOnlyConfigurationDictionary<>).MakeGenericType(new[] { elementType });
+                        ImplementationType = typeof(ReadOnlyConfigurationDictionary<>).MakeGenericType(elementType);
                     }
                     else
                     {
-                        ImplementationType = typeof(ConfigurationDictionary<>).MakeGenericType(new[] { elementType });
+                        ImplementationType = typeof(ConfigurationDictionary<>).MakeGenericType(elementType);
                     }
 
                     Type = elementType;
@@ -67,38 +62,19 @@ namespace OpenCollar.Extensions.Configuration
             }
         }
 
-        /// <summary>
-        ///     Gets the kind of the implementation to use to instantiate values.
-        /// </summary>
+        /// <summary> Gets the kind of the implementation to use to instantiate values. </summary>
         /// <value> The kind of the implementation to use to instantiate values. </value>
-        public ImplementationKind ImplementationKind
-        {
-            get;
-        }
+        public ImplementationKind ImplementationKind { get; }
 
-        /// <summary>
-        ///     Gets the type of the object that implements values ( <see langword="null" /> if the property is naive).
-        /// </summary>
-        /// <value>
-        ///     The type of the object that implements values ( <see langword="null" /> if the property is naive).
-        /// </value>
-        public Type? ImplementationType
-        {
-            get;
-        }
+        /// <summary> Gets the type of the object that implements values ( <see langword="null"/> if the property is naive). </summary>
+        /// <value> The type of the object that implements values ( <see langword="null"/> if the property is naive). </value>
+        public Type? ImplementationType { get; }
 
-        /// <summary>
-        ///     Gets the type of the value represented (the type of the property).
-        /// </summary>
+        /// <summary> Gets the type of the value represented (the type of the property). </summary>
         /// <value> The type of the value represented (the type of the property). </value>
-        public Type Type
-        {
-            get;
-        }
+        public Type Type { get; }
 
-        /// <summary>
-        ///     Gets the kind of the implementation required for the type given.
-        /// </summary>
+        /// <summary> Gets the kind of the implementation required for the type given. </summary>
         /// <param name="type"> The type for which the implementation kind is required. </param>
         /// <returns> </returns>
         private static ImplementationKind GetImplementationKind(Type type)
@@ -121,11 +97,9 @@ namespace OpenCollar.Extensions.Configuration
             return ImplementationKind.Naive;
         }
 
-        /// <summary>
-        ///     Determines whether the specified type is a is configuration collection.
-        /// </summary>
+        /// <summary> Determines whether the specified type is a is configuration collection. </summary>
         /// <param name="type"> The type to verify. </param>
-        /// <returns> <see langword="true" /> if the type is configuration collection; otherwise, <see langword="false" />. </returns>
+        /// <returns> <see langword="true"/> if the type is configuration collection; otherwise, <see langword="false"/>. </returns>
         private static bool IsConfigurationCollection(Type type)
         {
             if(!type.IsConstructedGenericType)
@@ -145,11 +119,9 @@ namespace OpenCollar.Extensions.Configuration
             return typeof(IConfigurationObject).IsAssignableFrom(arguments[0]);
         }
 
-        /// <summary>
-        ///     Determines whether the specified type is a is configuration dictionary.
-        /// </summary>
+        /// <summary> Determines whether the specified type is a is configuration dictionary. </summary>
         /// <param name="type"> The type to verify. </param>
-        /// <returns> <see langword="true" /> if the type is configuration dictionary; otherwise, <see langword="false" />. </returns>
+        /// <returns> <see langword="true"/> if the type is configuration dictionary; otherwise, <see langword="false"/>. </returns>
         private static bool IsConfigurationDictionary(Type type)
         {
             if(!type.IsConstructedGenericType)

@@ -18,43 +18,27 @@
  */
 
 #pragma warning disable CS0067 // Interface requirement
-
 using System;
 using System.ComponentModel;
 
+using JetBrains.Annotations;
+
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
-    [JetBrains.Annotations.UsedImplicitly]
+    [UsedImplicitly]
     internal sealed class ChildElementMock : IChildElement
     {
+        public bool IsReadOnly { get; set; }
+
+        public IPropertyDef PropertyDef { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool IsDirty
-        {
-            get; set;
-        }
+        public bool IsDirty { get; set; }
 
-        public bool IsReadOnly
-        {
-            get; set;
-        }
+        public string Name { get; set; }
 
-        public string Name
-        {
-            get; set;
-        }
-
-        public IPropertyDef PropertyDef
-        {
-            get; set;
-        }
-
-        public int Value
-        {
-            get; set;
-        }
-
-        public string CalculatePath() => throw new NotImplementedException();
+        public int Value { get; set; }
 
         public void Delete() => throw new NotImplementedException();
 
@@ -63,5 +47,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         public void Load() => throw new NotImplementedException();
 
         public void Save() => throw new NotImplementedException();
+
+        public string CalculatePath() => throw new NotImplementedException();
     }
 }

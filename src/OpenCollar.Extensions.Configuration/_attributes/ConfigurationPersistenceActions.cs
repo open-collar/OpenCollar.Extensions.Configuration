@@ -21,32 +21,22 @@ using System;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>
-    ///     Defines the behavior of loading or saving for are particular property.
-    /// </summary>
+    /// <summary> Defines the behavior of loading or saving for are particular property. </summary>
     [Flags]
     public enum ConfigurationPersistenceActions
     {
-        /// <summary>
-        ///     Values will be neither loaded nor saved.
-        /// </summary>
+        /// <summary> Values will be neither loaded nor saved. </summary>
         /// <remarks> To use this value a default value must be provided. </remarks>
         Ignore = 0,
 
-        /// <summary>
-        ///     Values are loaded from the configuration service, but changes are never saved back to the configuration service.
-        /// </summary>
+        /// <summary> Values are loaded from the configuration service, but changes are never saved back to the configuration service. </summary>
         LoadOnly = 1,
 
-        /// <summary>
-        ///     Values are never loaded from the configuration service, but changes are saved back to the configuration service.
-        /// </summary>
+        /// <summary> Values are never loaded from the configuration service, but changes are saved back to the configuration service. </summary>
         /// <remarks> To use this value a default value must be provided. </remarks>
         SaveOnly = 2,
 
-        /// <summary>
-        ///     Values are loaded from the configuration service and changes are saved back to the configuration service.
-        /// </summary>
+        /// <summary> Values are loaded from the configuration service and changes are saved back to the configuration service. </summary>
         /// <remarks> This is the default behavior. </remarks>
         LoadAndSave = LoadOnly | SaveOnly,
     }

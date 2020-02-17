@@ -17,10 +17,6 @@
  * Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
-using System.Collections.Generic;
-
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Memory;
 using Microsoft.Extensions.DependencyInjection;
 
 using Xunit;
@@ -29,12 +25,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 {
     public sealed class ServiceCollectionExtensionsTests : IClassFixture<ConfigurationFixture>
     {
-        private readonly ConfigurationFixture _configurationFixture;
-
         public ServiceCollectionExtensionsTests(ConfigurationFixture configurationFixture)
         {
             _configurationFixture = configurationFixture;
         }
+
+        private readonly ConfigurationFixture _configurationFixture;
 
         [Fact]
         public void TestAddService()

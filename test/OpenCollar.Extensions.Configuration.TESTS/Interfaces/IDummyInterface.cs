@@ -21,29 +21,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 {
     internal interface IDummyInterface
     {
-        IRootElement a
-        {
-            get; set;
-        }
+        IRootElement a { get; set; }
 
-        IRootElement b
-        {
-            get; set;
-        }
+        IRootElement b { get; set; }
 
-        IRootElement c
-        {
-            get; set;
-        }
+        IRootElement c { get; set; }
 
-        IRootElement d
-        {
-            get; set;
-        }
+        IRootElement d { get; set; }
 
-        IRootElement e
-        {
-            get; set;
-        }
+        IRootElement e { get; set; }
     }
 }

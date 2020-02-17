@@ -26,12 +26,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 {
     public sealed class ConfigurationObjectComparerTests : IClassFixture<TestDataFixture>
     {
-        private readonly TestDataFixture _propertyTestData;
-
         public ConfigurationObjectComparerTests(TestDataFixture propertyDefFixture)
         {
             _propertyTestData = propertyDefFixture;
         }
+
+        private readonly TestDataFixture _propertyTestData;
 
         [Fact]
         public void TestCompareComparableTypes()
@@ -39,7 +39,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var testContext = _propertyTestData.GetContext();
 
             var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
-                testContext.Configuration.ConfigurationRoot);
+            testContext.Configuration.ConfigurationRoot);
 
             var customObjectA = testContext.GetChildElement("a");
             var configObjectA = x.AddCopy(customObjectA);
@@ -74,7 +74,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var testContext = _propertyTestData.GetContext();
 
             var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
-                testContext.Configuration.ConfigurationRoot);
+            testContext.Configuration.ConfigurationRoot);
 
             var customObjectA = testContext.GetChildElement("a");
             var configObjectA = x.AddCopy(customObjectA);
@@ -98,7 +98,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var testContext = _propertyTestData.GetContext();
 
             var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
-                testContext.Configuration.ConfigurationRoot);
+            testContext.Configuration.ConfigurationRoot);
 
             var customObjectA = testContext.GetChildElement("a");
             var configObjectA = x.AddCopy(customObjectA);

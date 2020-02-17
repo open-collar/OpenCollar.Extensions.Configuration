@@ -24,6 +24,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using OpenCollar.Extensions.Configuration;
+
 using TestWebApp.Configuration;
 
 namespace TestWebApp

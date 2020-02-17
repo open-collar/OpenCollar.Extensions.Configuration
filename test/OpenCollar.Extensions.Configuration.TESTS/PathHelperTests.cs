@@ -29,7 +29,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.Equal(string.Empty, PathHelper.CalculatePath());
             Assert.Equal(string.Empty, PathHelper.CalculatePath(string.Empty));
             Assert.Equal(string.Empty, PathHelper.CalculatePath(null));
-            Assert.Equal(string.Empty, PathHelper.CalculatePath(new string[0]));
+            Assert.Equal(string.Empty, PathHelper.CalculatePath());
             Assert.Equal("A:B", PathHelper.CalculatePath("A", "B"));
             Assert.Equal("A:B", PathHelper.CalculatePath("A", string.Empty, "B"));
             Assert.Equal("A:B", PathHelper.CalculatePath("A", null, "B"));

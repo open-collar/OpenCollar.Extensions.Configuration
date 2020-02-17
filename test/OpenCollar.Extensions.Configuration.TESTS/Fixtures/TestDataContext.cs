@@ -39,50 +39,29 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
 
                 ChildDictionary = new Dictionary<string, IChildElement>()
                 {
-                    { propertyTestData.Data[0].PropertyDef().PropertyName, propertyTestData.Data[0] },
-                    { propertyTestData.Data[1].PropertyDef().PropertyName, propertyTestData.Data[1] },
-                    { propertyTestData.Data[2].PropertyDef().PropertyName, propertyTestData.Data[2] },
-                    { propertyTestData.Data[3].PropertyDef().PropertyName, propertyTestData.Data[3] },
-                    { propertyTestData.Data[4].PropertyDef().PropertyName, propertyTestData.Data[4] }
+                { propertyTestData.Data[0].PropertyDef().PropertyName, propertyTestData.Data[0] },
+                { propertyTestData.Data[1].PropertyDef().PropertyName, propertyTestData.Data[1] },
+                { propertyTestData.Data[2].PropertyDef().PropertyName, propertyTestData.Data[2] },
+                { propertyTestData.Data[3].PropertyDef().PropertyName, propertyTestData.Data[3] },
+                { propertyTestData.Data[4].PropertyDef().PropertyName, propertyTestData.Data[4] }
                 };
 
                 Configuration = new ConfigurationFixture();
             }
 
-            internal IPropertyDef BooleanPropertyDef
-            {
-                get;
-            }
+            internal IPropertyDef BooleanPropertyDef { get; }
 
-            internal IPropertyDef ChildConfigurationCollectionPropertyDef
-            {
-                get;
-            }
+            internal IPropertyDef ChildConfigurationCollectionPropertyDef { get; }
 
-            internal IPropertyDef ChildConfigurationDictionaryPropertyDef
-            {
-                get;
-            }
+            internal IPropertyDef ChildConfigurationDictionaryPropertyDef { get; }
 
-            internal Dictionary<string, IChildElement> ChildDictionary
-            {
-                get;
-            }
+            internal Dictionary<string, IChildElement> ChildDictionary { get; }
 
-            internal ConfigurationFixture Configuration
-            {
-                get;
-            }
+            internal ConfigurationFixture Configuration { get; }
 
-            internal IPropertyDef ReadOnlyChildConfigurationCollectionPropertyDef
-            {
-                get;
-            }
+            internal IPropertyDef ReadOnlyChildConfigurationCollectionPropertyDef { get; }
 
-            internal IPropertyDef ReadOnlyChildConfigurationDictionaryPropertyDef
-            {
-                get;
-            }
+            internal IPropertyDef ReadOnlyChildConfigurationDictionaryPropertyDef { get; }
 
             internal IChildElement GetChildElement(string name)
             {

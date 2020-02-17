@@ -33,7 +33,7 @@ namespace ApiDocs
         {
             var options = new FileServerOptions()
             {
-                EnableDefaultFiles = true
+            EnableDefaultFiles = true
             };
             options.StaticFileOptions.DefaultContentType = @"text/html";
             options.StaticFileOptions.ServeUnknownFileTypes = true;

@@ -33,13 +33,12 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         {
             using(var fixture = new ConfigurationFixture())
             {
-                var def = new PropertyDef(
-                    typeof(IRootElement).GetProperty(nameof(IRootElement.StringPropertyA), BindingFlags.Public | BindingFlags.Instance));
+                var def = new PropertyDef(typeof(IRootElement).GetProperty(nameof(IRootElement.StringPropertyA), BindingFlags.Public | BindingFlags.Instance));
 
                 var elementA = new Element<string, IChildElement>(def, (ConfigurationDictionaryBase<string, IChildElement>)fixture.RootElement.ChildDictionary,
-                    "TEST1");
+                "TEST1");
                 var elementB = new Element<string, IChildElement>(def, (ConfigurationDictionaryBase<string, IChildElement>)fixture.RootElement.ChildDictionary,
-                    "TEST2");
+                "TEST2");
 
                 Assert.True(elementA.Equals(elementA));
                 Assert.False(elementA.Equals((Element<string, IChildElement>)null));
@@ -62,7 +61,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             {
                 var x = new Element<string, string>(def, null, "TEST")
                 {
-                    Value = "TESTVALUE"
+                Value = "TESTVALUE"
                 };
             });
         }
@@ -74,8 +73,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             {
                 var parentObject = fixture.RootElement;
 
-                var def = new PropertyDef(
-                    typeof(IRootElement).GetProperty(nameof(IRootElement.ChildDictionary), BindingFlags.Public | BindingFlags.Instance));
+                var def = new PropertyDef(typeof(IRootElement).GetProperty(nameof(IRootElement.ChildDictionary), BindingFlags.Public | BindingFlags.Instance));
 
                 var x = new Element<string, IChildElement>(def, (ConfigurationDictionaryBase<string, IChildElement>)parentObject.ChildDictionary, "TEST");
 

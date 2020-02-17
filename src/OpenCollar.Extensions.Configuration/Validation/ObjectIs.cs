@@ -23,20 +23,14 @@ namespace OpenCollar.Extensions.Configuration.Validation
 {
 #pragma warning disable S2342 // Rename this enumeration to match the regular expression: '^([A-Z]{1,3}[a-z0-9]+)*([A-Z]{2})?s$'.
 
-    /// <summary>
-    ///     Defines the type of validation to apply to an <see cref="object" /> argument.
-    /// </summary>
+    /// <summary> Defines the type of validation to apply to an <see cref="object"/> argument. </summary>
     [Flags]
     internal enum ObjectIs
     {
-        /// <summary>
-        ///     The validation to perform is unknown or undefined. This value must never be used.
-        /// </summary>
+        /// <summary> The validation to perform is unknown or undefined. This value must never be used. </summary>
         None = 0,
 
-        /// <summary>
-        ///     The argument being validated must not be <see langword="null" />.
-        /// </summary>
+        /// <summary> The argument being validated must not be <see langword="null"/>. </summary>
         NotNull = 1
     }
 }

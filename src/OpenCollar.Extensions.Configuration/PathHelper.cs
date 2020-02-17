@@ -21,25 +21,17 @@ using System.Text;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>
-    ///     Defines the context in which the configuration object is being constructed.
-    /// </summary>
+    /// <summary> Defines the context in which the configuration object is being constructed. </summary>
     internal static class PathHelper
     {
-        /// <summary>
-        ///     The string used to delimit the sections of the path.
-        /// </summary>
+        /// <summary> The string used to delimit the sections of the path. </summary>
         public const string PathDelimiter = ":";
 
-        /// <summary>
-        ///     Returns the sections of a path concatentated into a fully delimited path.
-        /// </summary>
-        /// <param name="sections">
-        ///     The sections of the path to generate. <see langword="null" /> or zero-length sections are ignored.
-        /// </param>
+        /// <summary> Returns the sections of a path concatentated into a fully delimited path. </summary>
+        /// <param name="sections"> The sections of the path to generate. <see langword="null"/> or zero-length sections are ignored. </param>
         /// <returns>
-        ///     A string containing the sections of path given, delimited using <see cref="PathDelimiter" />. Will be an
-        ///     empty string if no valid sections are supplied.
+        ///     A string containing the sections of path given, delimited using <see cref="PathDelimiter"/>. Will be an empty string if no valid sections are
+        ///     supplied.
         /// </returns>
         public static string CalculatePath(params string[] sections)
         {

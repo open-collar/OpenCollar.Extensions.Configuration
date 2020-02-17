@@ -21,31 +21,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using OpenCollar.Extensions.Configuration.Validation;
 
 namespace OpenCollar.Extensions.Configuration
 {
-    /// <summary>
-    ///     Extensions to the <see cref="IServiceCollection" /> type allowing configuration objects to be registered.
-    /// </summary>
+    /// <summary> Extensions to the <see cref="IServiceCollection"/> type allowing configuration objects to be registered. </summary>
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        ///     Add a new kind of configuration reader that represents values taken directly from the
-        ///     <see cref="IConfigurationRoot" /> object in the service collection.
+        ///     Add a new kind of configuration reader that represents values taken directly from the <see cref="IConfigurationRoot"/> object in the service
+        ///     collection.
         /// </summary>
-        /// <param name="serviceCollection">
-        ///     The service collection to which to add the configuration reader. This must not be <see langword="null" />.
-        /// </param>
+        /// <param name="serviceCollection"> The service collection to which to add the configuration reader. This must not be <see langword="null"/>. </param>
         /// <typeparam name="TConfigurationObject">
         ///     The interface through which consumers will access the configuration. This must be derived from the
-        ///     <see cref="IConfigurationObject" /> interface.
+        ///     <see cref="IConfigurationObject"/> interface.
         /// </typeparam>
-        /// <exception type="System.ArgumentNullException"> <paramref name="serviceCollection" /> was <see langword="null" />. </exception>
+        /// <exception type="System.ArgumentNullException"> <paramref name="serviceCollection"/> was <see langword="null"/>. </exception>
         public static void AddConfigurationReader<TConfigurationObject>(this IServiceCollection serviceCollection)
-            where TConfigurationObject : IConfigurationObject
+        where TConfigurationObject : IConfigurationObject
         {
             serviceCollection.Validate(nameof(serviceCollection), ObjectIs.NotNull);
 
@@ -75,16 +73,12 @@ namespace OpenCollar.Extensions.Configuration
             serviceCollection.Add(descriptor);
         }
 
-        /// <summary>
-        ///     Creates the type of the configuration object.
-        /// </summary>
-        /// <typeparam name="TConfigurationObject">
-        ///     The type of the interface to be implemented by the configuration object to create.
-        /// </typeparam>
+        /// <summary> Creates the type of the configuration object. </summary>
+        /// <typeparam name="TConfigurationObject"> The type of the interface to be implemented by the configuration object to create. </typeparam>
         /// <returns> An implementation of the interface specified that can be used to interact with the configuration. </returns>
         /// <exception cref="InvalidOperationException">
-        ///     Type specifies more than one 'Path' attribute and so cannot be processed. - or - Property specifies more
-        ///     than one 'Path' attribute and so cannot be processed.
+        ///     Type specifies more than one 'Path' attribute and so cannot be processed. - or - Property specifies more than one 'Path' attribute and so cannot
+        ///     be processed.
         /// </exception>
         internal static Type GenerateConfigurationObjectType<TConfigurationObject>() where TConfigurationObject : IConfigurationObject
         {
@@ -93,14 +87,12 @@ namespace OpenCollar.Extensions.Configuration
             return GenerateConfigurationObjectType(type);
         }
 
-        /// <summary>
-        ///     Creates the type of the configuration object.
-        /// </summary>
+        /// <summary> Creates the type of the configuration object. </summary>
         /// <param name="type"> The type of the interface to be implemented by the configuration object to create. </param>
         /// <returns> An implementation of the interface specified that can be used to interact with the configuration. </returns>
         /// <exception cref="InvalidOperationException">
-        ///     Type specifies more than one 'Path' attribute and so cannot be processed. - or - Property specifies more
-        ///     than one 'Path' attribute and so cannot be processed.
+        ///     Type specifies more than one 'Path' attribute and so cannot be processed. - or - Property specifies more than one 'Path' attribute and so cannot
+        ///     be processed.
         /// </exception>
         internal static Type GenerateConfigurationObjectType(Type type)
         {
@@ -111,14 +103,10 @@ namespace OpenCollar.Extensions.Configuration
             return builder.Generate();
         }
 
-        /// <summary>
-        ///     Gets the configuration object definition.
-        /// </summary>
+        /// <summary> Gets the configuration object definition. </summary>
         /// <param name="type"> The type of the object to define. </param>
         /// <returns> A list of the property definitions for the type specified. </returns>
-        /// <exception cref="InvalidOperationException">
-        ///     Type '{type.Namespace}.{type.Name}' specifies more than one 'Path' attribute and so cannot be processed.
-        /// </exception>
+        /// <exception cref="InvalidOperationException"> Type '{type.Namespace}.{type.Name}' specifies more than one 'Path' attribute and so cannot be processed. </exception>
         internal static List<PropertyDef> GetConfigurationObjectDefinition(Type type)
         {
             // TODO: Circular reference detection - for this version.

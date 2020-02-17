@@ -27,53 +27,34 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
     {
         public TestDataFixture()
         {
-            BooleanPropertyDef = new PropertyDef(
-                typeof(IRootElement).GetProperty("BooleanPropertyA", BindingFlags.Instance | BindingFlags.Public));
+            BooleanPropertyDef = new PropertyDef(typeof(IRootElement).GetProperty("BooleanPropertyA", BindingFlags.Instance | BindingFlags.Public));
             ChildConfigurationDictionaryPropertyDef = new PropertyDef(
-                typeof(IRootElement).GetProperty("ChildDictionary", BindingFlags.Instance | BindingFlags.Public));
+            typeof(IRootElement).GetProperty("ChildDictionary", BindingFlags.Instance | BindingFlags.Public));
             ChildConfigurationCollectionPropertyDef = new PropertyDef(
-                typeof(IRootElement).GetProperty("ChildCollection", BindingFlags.Instance | BindingFlags.Public));
+            typeof(IRootElement).GetProperty("ChildCollection", BindingFlags.Instance | BindingFlags.Public));
             ReadOnlyChildConfigurationDictionaryPropertyDef = new PropertyDef(
-                typeof(IRootElement).GetProperty("ReadOnlyChildDictionary", BindingFlags.Instance | BindingFlags.Public));
+            typeof(IRootElement).GetProperty("ReadOnlyChildDictionary", BindingFlags.Instance | BindingFlags.Public));
             ReadOnlyChildConfigurationCollectionPropertyDef = new PropertyDef(
-                typeof(IRootElement).GetProperty("ReadOnlyChildCollection", BindingFlags.Instance | BindingFlags.Public));
+            typeof(IRootElement).GetProperty("ReadOnlyChildCollection", BindingFlags.Instance | BindingFlags.Public));
 
             Data = new[]
             {
-                GetConfigurationObject("a", 0, false), GetConfigurationObject("b", 1, false), GetConfigurationObject("c", 2, false),
-                GetConfigurationObject("d", 3, false), GetConfigurationObject("e", 4, true)
+            GetConfigurationObject("a", 0, false), GetConfigurationObject("b", 1, false), GetConfigurationObject("c", 2, false),
+            GetConfigurationObject("d", 3, false), GetConfigurationObject("e", 4, true)
             };
         }
 
-        public IPropertyDef ChildConfigurationCollectionPropertyDef
-        {
-            get;
-        }
+        public IPropertyDef ChildConfigurationCollectionPropertyDef { get; }
 
-        public IPropertyDef ChildConfigurationDictionaryPropertyDef
-        {
-            get;
-        }
+        public IPropertyDef ChildConfigurationDictionaryPropertyDef { get; }
 
-        public IPropertyDef ReadOnlyChildConfigurationCollectionPropertyDef
-        {
-            get;
-        }
+        public IPropertyDef ReadOnlyChildConfigurationCollectionPropertyDef { get; }
 
-        public IPropertyDef ReadOnlyChildConfigurationDictionaryPropertyDef
-        {
-            get;
-        }
+        public IPropertyDef ReadOnlyChildConfigurationDictionaryPropertyDef { get; }
 
-        private IPropertyDef BooleanPropertyDef
-        {
-            get;
-        }
+        private IPropertyDef BooleanPropertyDef { get; }
 
-        private IChildElement[] Data
-        {
-            get;
-        }
+        private IChildElement[] Data { get; }
 
         internal TestDataContext GetContext()
         {
