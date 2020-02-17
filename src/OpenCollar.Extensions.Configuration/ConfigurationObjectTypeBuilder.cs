@@ -58,7 +58,7 @@ namespace OpenCollar.Extensions.Configuration
             builder.AddInterfaceImplementation(_interfaceType);
 
             // Debugger display attribute to aid debugging.
-            var debuggerDisplayString = "\\{" + _interfaceType.Name + "\\}: {CalculatePath()}";
+            var debuggerDisplayString = "\\{" + _interfaceType.Name + "\\}: {DisplayPath}";
             var debuggerDisplayAttributeConstructor = typeof(DebuggerDisplayAttribute).GetConstructor(new[] { typeof(string) });
             var debuggerDisplayAttributeBuilder = new CustomAttributeBuilder(debuggerDisplayAttributeConstructor, new object[] { debuggerDisplayString });
             builder.SetCustomAttribute(debuggerDisplayAttributeBuilder);

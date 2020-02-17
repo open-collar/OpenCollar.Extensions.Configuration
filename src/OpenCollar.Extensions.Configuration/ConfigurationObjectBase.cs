@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-
+using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
 
 using OpenCollar.Extensions.Configuration.Validation;
@@ -270,6 +270,31 @@ namespace OpenCollar.Extensions.Configuration
         [EditorBrowsable(EditorBrowsableState.Never)]
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected IDictionary<string, IValue> PropertiesByName => _propertiesByName;
+
+        /// <summary>
+        ///     Gets the path to this configuration object.
+        /// </summary>
+        /// <returns> A string containing the path to this configuration object. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [UsedImplicitly]
+        private string DisplayPath
+        {
+            get
+            {
+                if(!ReferenceEquals(_parent, null))
+                {
+                    return _parent.CalculatePath();
+                }
+
+                if(!ReferenceEquals(PropertyDef, null))
+                {
+                    return PropertyDef.CalculatePath(null);
+                }
+
+                return string.Empty;
+            }
+        }
 
         /// <summary>
         ///     Gets or sets the value of the property with the specified name.
