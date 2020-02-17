@@ -82,14 +82,6 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Gets the type of the interface implemented by this object.
-        /// </summary>
-        /// <value> The type of the interface implemented by this object. </value>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected override Type InterfaceType => typeof(TInterface);
-
-        /// <summary>
         ///     Indicates whether the current object is equal to another object of the same type.
         /// </summary>
         /// <param name="other"> An object to compare with this object. </param>
@@ -261,17 +253,6 @@ namespace OpenCollar.Extensions.Configuration
         [EditorBrowsable(EditorBrowsableState.Never)]
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected IEnumerable<IValue> Values => PropertiesByName.Values;
-
-        /// <summary>
-        ///     Gets the type of the interface implemented by this object.
-        /// </summary>
-        /// <value> The type of the interface implemented by this object. </value>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected abstract Type InterfaceType
-        {
-            get;
-        }
 
         /// <summary>
         ///     Gets a dictionary of property values keyed on the name of the property it represents (case sensitive).
