@@ -40,6 +40,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             _configurationFixture = configurationFixture;
         }
 
+        [Fact]
         public void TestBrokenAttribute()
         {
             var source = new MemoryConfigurationSource();
@@ -49,13 +50,10 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             IServiceCollection servicesCollection = new ServiceCollection();
             servicesCollection.AddSingleton(ConfigurationRoot);
-            servicesCollection.AddConfigurationReader<IBrokenA>();
-
-            var Services = servicesCollection.BuildServiceProvider();
 
             Assert.Throws<InvalidPropertyException>(() =>
             {
-                var RootElement = Services.GetService<IBrokenA>();
+                servicesCollection.AddConfigurationReader<IBrokenA>();
             });
         }
 
