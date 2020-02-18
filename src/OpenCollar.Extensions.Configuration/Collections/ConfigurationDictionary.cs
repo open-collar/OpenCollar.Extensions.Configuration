@@ -33,7 +33,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <typeparam name="TElement"> The type of the element. </typeparam>
     /// <seealso cref="ConfigurationDictionaryBase{TKey,TElement}" />
     /// <seealso cref="IConfigurationDictionary{TElement}" />
-    [DebuggerDisplay("\\{ConfigurationDictionary<{typeof(TElement).Name,nq}>\\}: \"{CalculatePath(),nq}\"")]
+    [DebuggerDisplay("\\{ConfigurationDictionary<{typeof(TElement).Name,nq}>\\}: \"{" + nameof(CalculatePath) + "(),nq}\"")]
     internal class ConfigurationDictionary<TElement> : ConfigurationDictionaryBase<string, TElement>, IConfigurationDictionary<TElement>
     {
         /// <summary>

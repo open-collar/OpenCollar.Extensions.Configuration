@@ -82,24 +82,6 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
-        ///     Gets the path modifier.
-        /// </summary>
-        /// <value> The path modifier. </value>
-        PathIs PathModifier
-        {
-            get;
-        }
-
-        /// <summary>
-        ///     Gets the path section.
-        /// </summary>
-        /// <value> The path section. </value>
-        string PathSection
-        {
-            get;
-        }
-
-        /// <summary>
         ///     Gets or sets the policy for when to load and save values from the configuration service.
         /// </summary>
         /// <value> The policy for when to load and save values from the configuration service. </value>
@@ -131,16 +113,6 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         /// <value> The type of the value held in the property. </value>
         Type Type
-        {
-            get;
-        }
-
-        /// <summary>
-        ///     Gets the basic type represented by the type of the property (for example by <c> int? </c> would have an
-        ///     underlying type of <see cref="int" /> ).
-        /// </summary>
-        /// <returns> The basic type represented by the type given. </returns>
-        Type UnderlyingType
         {
             get;
         }

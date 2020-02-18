@@ -70,6 +70,15 @@ namespace OpenCollar.Extensions.Configuration.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An item with the same key has already been added: {0}..
+        /// </summary>
+        internal static string DuplicateKey {
+            get {
+                return ResourceManager.GetString("DuplicateKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to One or more change event handlers threw an exception..
         /// </summary>
         internal static string EventHandlerThrewException {

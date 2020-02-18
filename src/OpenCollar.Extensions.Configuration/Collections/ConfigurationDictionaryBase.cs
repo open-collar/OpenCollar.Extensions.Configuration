@@ -514,8 +514,32 @@ namespace OpenCollar.Extensions.Configuration.Collections
             EnforceDisposed();
             EnforceReadOnly();
 
-            NotifyCollectionChangedEventArgs? args = null;
+            var args = RemoveInner(item);
 
+            if(ReferenceEquals(args, null))
+            {
+                return false;
+            }
+
+            OnPropertyChanged(nameof(Count));
+            OnCollectionChanged(args);
+            return true;
+        }
+
+
+        /// <summary>
+        ///     Removes the first occurrence of a specific object from the <see cref="ICollection{T}" />.
+        /// </summary>
+        /// <param name="item"> The object to remove from the <see cref="ICollection{T}" />. </param>
+        /// <returns>
+        ///     <see langword="true" /> if <paramref name="item" /> was successfully removed from the
+        ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />. This method also returns
+        ///     <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="ICollection{T}" />.
+        /// </returns>
+        private NotifyCollectionChangedEventArgs RemoveInner(TElement item)
+        {
+            // Assumes all validation has been performed.  Does not fire any events.
+            
             Lock.EnterWriteLock();
             try
             {
@@ -523,10 +547,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 {
                     if(UniversalComparer.Equals(element.Value.Value, item))
                     {
-                        if(!_itemsByKey.Remove(element.Key, out var removedElement))
-                        {
-                            Debug.Assert(false, "We assume the element can be removed if it can be found.");
-                        }
+                        _itemsByKey.Remove(element.Key, out var removedElement);
 
                         var n = 0;
                         foreach(var orderedElement in _orderedItems.ToArray())
@@ -534,8 +555,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                             if(UniversalComparer.Equals(orderedElement.Value, item))
                             {
                                 _orderedItems.RemoveAt(n);
-                                args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, removedElement, n);
-                                break;
+                                return new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, removedElement, n);
                             }
 
                             ++n;
@@ -548,14 +568,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 Lock.ExitWriteLock();
             }
 
-            if(ReferenceEquals(args, null))
-            {
-                return false;
-            }
-
-            OnPropertyChanged(nameof(Count));
-            OnCollectionChanged(args);
-            return true;
+            return null;
         }
 
         /// <summary>
@@ -646,40 +659,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
             var updatedValues = new List<Element<TKey, TElement>>();
             var newValues = new List<Element<TKey, TElement>>();
 
-            if(initializing)
-            {
-                _disableReadOnly.Value = _disableReadOnly.Value + 1; // TODO: What about config changes after load
-            }
+            InnerLoad(initializing, existingValues, newValues, updatedValues);
 
-            try
-            {
-                foreach(var pair in existingValues)
-                {
-                    Element<TKey, TElement> value;
-                    if(!_itemsByKey.TryGetValue(pair.Key, out value))
-                    {
-                        // If the value is a configuration object of some sort then create or reuse the existing value.
-                        value = new Element<TKey, TElement>(PropertyDef, this, pair.Key);
-                        newValues.Add(value);
-
-                        value.ReadValue(ConfigurationRoot);
-
-                        // Add/update the value in the updated values list.
-                        value.Saved();
-                    }
-
-                    updatedValues.Add(value);
-                }
-            }
-            finally
-            {
-                if(initializing)
-                {
-                    _disableReadOnly.Value = _disableReadOnly.Value - 1;
-                }
-            }
-
-            // TODO: How should we deal with values that weren;t added from the source but were added by the consumer at runtime?  Flags?
+            // TODO: How should we deal with values that weren't added from the source but were added by the consumer at runtime?  Flags?
             var deletedValues = _orderedItems.ToArray().Except(updatedValues).ToList();
 
             if((deletedValues.Count > 0) || (newValues.Count > 0))
@@ -711,6 +693,50 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 if(newValues.Count > 0)
                 {
                     OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, newValues.Select(p => p.Value).ToList()));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Loads all of the properties from the configuration sources, overwriting any unsaved changes.
+        /// </summary>
+        /// <param name="initializing">If set to <see langword="true" /> the element changed events are not fired.</param>
+        /// <param name="existingValues">A list of the existing values.</param>
+        /// <param name="newValues">A list to which to add the new values.</param>
+        /// <param name="updatedValues">A list to which to add the updated values.</param>
+        private void InnerLoad(bool initializing, List<KeyValuePair<TKey, IConfigurationSection>> existingValues, List<Element<TKey, TElement>> newValues, List<Element<TKey, TElement>> updatedValues)
+        {
+            // Assumes validation has already been performed.
+
+            if(initializing)
+            {
+                _disableReadOnly.Value = _disableReadOnly.Value + 1; // TODO: What about config changes after load
+            }
+
+            try
+            {
+                foreach(var pair in existingValues)
+                {
+                    if(!_itemsByKey.TryGetValue(pair.Key, out var value))
+                    {
+                        // If the value is a configuration object of some sort then create or reuse the existing value.
+                        value = new Element<TKey, TElement>(PropertyDef, this, pair.Key);
+                        newValues.Add(value);
+
+                        value.ReadValue(ConfigurationRoot);
+
+                        // Add/update the value in the updated values list.
+                        value.Saved();
+                    }
+
+                    updatedValues.Add(value);
+                }
+            }
+            finally
+            {
+                if(initializing)
+                {
+                    _disableReadOnly.Value = _disableReadOnly.Value - 1;
                 }
             }
         }
@@ -801,7 +827,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 return;
             }
 
-            throw new ArgumentException($"An item with the same key has already been added: {key}.", nameof(value));
+            throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, Exceptions.DuplicateKey, key), nameof(value));
         }
 
         /// <summary>

@@ -25,7 +25,7 @@
 
             var coA = a as IConfigurationObject;
             var coB = b as IConfigurationObject;
-            if(!ReferenceEquals(coA, null) && !ReferenceEquals(coA, null))
+            if(!ReferenceEquals(coA, null) && !ReferenceEquals(coB, null))
             {
 #pragma warning disable CS8604 // Possible null reference argument.
                 return ConfigurationObjectComparer.Instance.Equals(coA, coB);

@@ -248,11 +248,11 @@ namespace OpenCollar.Extensions.Configuration
         {
             var implementation = ValueImplementation;
 
-            // TODO: How should we deal with values that weren;t added from the source but were added by the consumer at runtime?  Flags?
+            // TODO: How should we deal with values that weren't added from the source but were added by the consumer at runtime?  Flags?
 
             lock(_lock)
             {
-                // If the value is a configuration object of some sort then create or reuse the existing value;
+                // If the value is a configuration object of some sort then create or reuse the existing value.
                 IConfigurationObject? configurationObject;
                 switch(implementation.ImplementationKind)
                 {

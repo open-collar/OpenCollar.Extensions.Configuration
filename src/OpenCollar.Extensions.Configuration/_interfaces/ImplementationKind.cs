@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 
+using JetBrains.Annotations;
+
 using OpenCollar.Extensions.Configuration.Collections;
 
 namespace OpenCollar.Extensions.Configuration
@@ -13,6 +15,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     The implementation is unknown or undefined.
         /// </summary>
+        [UsedImplicitly]
         Unknown = 0,
 
         /// <summary>

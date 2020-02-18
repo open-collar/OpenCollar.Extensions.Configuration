@@ -34,7 +34,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     ///     an element is added or removed.
     /// </summary>
     /// <typeparam name="TElement"> The type of the element. </typeparam>
-    [DebuggerDisplay("\\{ReadOnlyConfigurationCollection<{typeof(TElement).Name,nq}>\\}: \"{CalculatePath(),nq}\"")]
+    [DebuggerDisplay("\\{ReadOnlyConfigurationCollection<{typeof(TElement).Name,nq}>\\}: \"{" + nameof(CalculatePath) + "(),nq}\"")]
     internal sealed class ReadOnlyConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IReadOnlyCollection<TElement>,
     IConfigurationCollection<TElement>
     {

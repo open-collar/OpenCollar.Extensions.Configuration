@@ -32,7 +32,7 @@ namespace OpenCollar.Extensions.Configuration
         public const string PathDelimiter = ":";
 
         /// <summary>
-        ///     Returns the sections of a path concatentated into a fully delimited path.
+        ///     Returns the sections of a path concatenated into a fully delimited path.
         /// </summary>
         /// <param name="sections">
         ///     The sections of the path to generate. <see langword="null" /> or zero-length sections are ignored.

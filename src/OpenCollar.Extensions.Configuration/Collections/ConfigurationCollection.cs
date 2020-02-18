@@ -40,7 +40,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <typeparam name="TElement"> The type of the element. </typeparam>
     /// <seealso cref="ConfigurationDictionaryBase{TKey,TElement}" />
     /// <seealso cref="IConfigurationCollection{TElement}" />
-    [DebuggerDisplay("\\{ConfigurationCollection<{typeof(TElement).Name,nq}>\\}: \"{CalculatePath(),nq}\"")]
+    [DebuggerDisplay("\\{ConfigurationCollection<{typeof(TElement).Name,nq}>\\}: \"{" + nameof(CalculatePath) + "(),nq}\"")]
     internal class ConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IConfigurationCollection<TElement>
     {
         /// <summary>
@@ -236,6 +236,19 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 return;
             }
 
+            InnerInsert(index, item);
+        }
+
+
+        /// <summary>
+        ///     Inserts an item at the specified index.
+        /// </summary>
+        /// <param name="index"> The zero-based index of the location at which the item should be inserted. </param>
+        /// <param name="item"> The item to insert. </param>
+        private void InnerInsert(int index, TElement item)
+        {
+            // Assumes that the arguments have been validated.
+
             var n = 0;
             var events = new List<NotifyCollectionChangedEventArgs>();
             Lock.EnterWriteLock();
@@ -250,7 +263,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 {
                     list.Insert(index, new Element<int, TElement>(PropertyDef, this, index)
                     {
-                        Value = item
+                    Value = item
                     });
                 }
                 finally
@@ -290,6 +303,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="item"> The item to insert. </param>
         public TElement InsertCopy(int index, TElement item)
         {
+            Debug.Assert(PropertyDef.ElementImplementation != null, "PropertyDef.ElementImplementation != null");
+
             var copy = PropertyDef.CopyValue(PropertyDef.ElementImplementation, item, this, ConfigurationRoot);
 
             Insert(index, copy);

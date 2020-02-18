@@ -189,4 +189,8 @@
   <data name="ValueIsReadOnly" xml:space="preserve">
     <value>This value is read-only.</value>
   </data>
+  <data name="DuplicateKey" xml:space="preserve">
+      <value>An item with the same key has already been added: {0}.</value>
+      <comment>{0} - The duplicated key.</comment>
+  </data>
 </root>

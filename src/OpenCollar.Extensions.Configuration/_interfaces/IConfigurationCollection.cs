@@ -28,7 +28,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <typeparam name="TElement">
     ///     The type of the array element. This must be nullable if the type is a reference type and can be <see langword="null" />.
     /// </typeparam>
-    public interface IConfigurationCollection<TElement> : IList<TElement>, IEnumerable<TElement>, INotifyCollectionChanged
+    public interface IConfigurationCollection<TElement> : IList<TElement>,  INotifyCollectionChanged
     {
         /// <summary>
         ///     Adds a new value with the key specified, copying the properties and elements from the value give,

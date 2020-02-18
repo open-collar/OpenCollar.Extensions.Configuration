@@ -32,7 +32,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <typeparam name="TElement"> The type of the element. </typeparam>
     /// <seealso cref="ConfigurationDictionaryBase{TKey,TElement}" />
     /// <seealso cref="IConfigurationDictionary{TElement}" />
-    [DebuggerDisplay("\\{ReadOnlyConfigurationDictionary<{typeof(TElement).Name,nq}>\\}: \"{CalculatePath(),nq}\"")]
+    [DebuggerDisplay("\\{ReadOnlyConfigurationDictionary<{typeof(TElement).Name,nq}>\\}: \"{" + nameof(CalculatePath) + "(),nq}\"")]
     internal sealed class ReadOnlyConfigurationDictionary<TElement> : ConfigurationDictionary<TElement>, IReadOnlyDictionary<string, TElement>
     {
         /// <summary>
@@ -66,21 +66,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </param>
         public ReadOnlyConfigurationDictionary(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot,
         params KeyValuePair<string, TElement>[]? elements) : base(parent, propertyDef, configurationRoot, elements)
-        {
-        }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.
-        /// </summary>
-        /// <param name="parent">
-        ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
-        /// </param>
-        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
-        /// <param name="configurationRoot">
-        ///     The configuration root service from which values are read or to which all values will be written.
-        /// </param>
-        public ReadOnlyConfigurationDictionary(IConfigurationParent? parent, PropertyDef propertyDef, IConfigurationRoot configurationRoot) : base(parent,
-        propertyDef, configurationRoot)
         {
         }
 
