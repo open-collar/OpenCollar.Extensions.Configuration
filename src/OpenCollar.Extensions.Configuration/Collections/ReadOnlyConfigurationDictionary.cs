@@ -33,7 +33,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="ConfigurationDictionaryBase{TKey,TElement}" />
     /// <seealso cref="IConfigurationDictionary{TElement}" />
     [DebuggerDisplay("\\{ReadOnlyConfigurationDictionary<{typeof(TElement).Name,nq}>\\}: \"{" + nameof(CalculatePath) + "(),nq}\"")]
-    internal sealed class ReadOnlyConfigurationDictionary<TElement> : ConfigurationDictionary<TElement>, IReadOnlyDictionary<string, TElement>
+    internal sealed class ReadOnlyConfigurationDictionary<TElement> : ConfigurationDictionary<TElement>, IReadOnlyConfigurationDictionary<TElement>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationDictionary{TElement}" /> class.

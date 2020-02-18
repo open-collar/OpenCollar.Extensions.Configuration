@@ -235,25 +235,25 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         // TODO: THIS SHOULD NOT BE NULLABLE
-        IConfigurationCollection<IChildElement> ReadOnlyChildCollection
+        IReadOnlyConfigurationCollection<IChildElement> ReadOnlyChildCollection
         {
             get;
         }
 
         // TODO: THIS SHOULD NOT BE NULLABLE
-        IConfigurationDictionary<IChildElement> ReadOnlyChildDictionary
+        IReadOnlyConfigurationDictionary<IChildElement> ReadOnlyChildDictionary
         {
             get;
         }
 
         [Configuration(DefaultValue = null)]
-        IConfigurationCollection<IConfigurationCollection<IInert>> ReadOnlyCollection
+        IReadOnlyConfigurationCollection<IConfigurationCollection<IInert>> ReadOnlyCollection
         {
             get;
         }
 
         [Configuration(DefaultValue = null)]
-        IConfigurationCollection<IConfigurationDictionary<IInert>> ReadOnlyDictionary
+        IReadOnlyConfigurationCollection<IConfigurationDictionary<IInert>> ReadOnlyDictionary
         {
             get;
         }

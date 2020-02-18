@@ -17,12 +17,9 @@ namespace OpenCollar.Extensions.Configuration
         ///     Initializes a new instance of the <see cref="Implementation" /> class.
         /// </summary>
         /// <param name="underlyingType"> The underlying type of the property or collection represented. </param>
-        /// <param name="isReadOnly">
-        ///     If set to <see langword="true" /> the property or collection is treated as a read-only.
-        /// </param>
-        internal Implementation(Type underlyingType, bool isReadOnly)
+        internal Implementation(Type underlyingType)
         {
-            ImplementationKind = GetImplementationKind(underlyingType);
+            ImplementationKind = GetImplementationKind(underlyingType, out var isReadOnlyColectionType);
 
             Type elementType;
 
@@ -35,7 +32,7 @@ namespace OpenCollar.Extensions.Configuration
 
                 case ImplementationKind.ConfigurationCollection:
                     elementType = underlyingType.GenericTypeArguments.First();
-                    if(isReadOnly)
+                    if(isReadOnlyColectionType)
                     {
                         ImplementationType = typeof(ReadOnlyConfigurationCollection<>).MakeGenericType(elementType);
                     }
@@ -49,7 +46,7 @@ namespace OpenCollar.Extensions.Configuration
 
                 case ImplementationKind.ConfigurationDictionary:
                     elementType = underlyingType.GenericTypeArguments.First();
-                    if(isReadOnly)
+                    if(isReadOnlyColectionType)
                     {
                         ImplementationType = typeof(ReadOnlyConfigurationDictionary<>).MakeGenericType(elementType);
                     }
@@ -101,71 +98,61 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the kind of the implementation required for the type given.
         /// </summary>
         /// <param name="type"> The type for which the implementation kind is required. </param>
+        /// <param name="isReadOnly">
+        ///     Returns a value which, if set to <see langword="true" />, indicates that the implementation is read-only.
+        /// </param>
         /// <returns> </returns>
-        private static ImplementationKind GetImplementationKind(Type type)
+        private static ImplementationKind GetImplementationKind(Type type, out bool isReadOnly)
         {
-            if(IsConfigurationDictionary(type))
+            if(type.IsConstructedGenericType)
             {
-                return ImplementationKind.ConfigurationDictionary;
-            }
+                var genericType = type.GetGenericTypeDefinition();
 
-            if(IsConfigurationCollection(type))
-            {
-                return ImplementationKind.ConfigurationCollection;
+                if(genericType == typeof(IReadOnlyConfigurationDictionary<>))
+                {
+                    if(type.GetGenericArguments().Length == 1)
+                    {
+                        isReadOnly = true;
+                        return ImplementationKind.ConfigurationDictionary;
+                    }
+                }
+
+                if(genericType == typeof(IConfigurationDictionary<>))
+                {
+                    if(type.GetGenericArguments().Length == 1)
+                    {
+                        isReadOnly = false;
+                        return ImplementationKind.ConfigurationDictionary;
+                    }
+                }
+
+                if(genericType == typeof(IReadOnlyConfigurationCollection<>))
+                {
+                    if(type.GetGenericArguments().Length == 1)
+                    {
+                        isReadOnly = true;
+                        return ImplementationKind.ConfigurationCollection;
+                    }
+                }
+
+                if(genericType == typeof(IConfigurationCollection<>))
+                {
+                    if(type.GetGenericArguments().Length == 1)
+                    {
+                        isReadOnly = false;
+                        return ImplementationKind.ConfigurationCollection;
+                    }
+                }
             }
 
             if(typeof(IConfigurationObject).IsAssignableFrom(type))
             {
+                isReadOnly = false;
                 return ImplementationKind.ConfigurationObject;
             }
 
+            isReadOnly = false;
             return ImplementationKind.Naive;
-        }
-
-        /// <summary>
-        ///     Determines whether the specified type is a is configuration collection.
-        /// </summary>
-        /// <param name="type"> The type to verify. </param>
-        /// <returns> <see langword="true" /> if the type is configuration collection; otherwise, <see langword="false" />. </returns>
-        private static bool IsConfigurationCollection(Type type)
-        {
-            if(!type.IsConstructedGenericType)
-            {
-                return false;
-            }
-
-            if(type.GetGenericTypeDefinition() != typeof(IConfigurationCollection<>))
-            {
-                return false;
-            }
-
-            var arguments = type.GetGenericArguments();
-
-            return arguments.Length == 1;
-        }
-
-        /// <summary>
-        ///     Determines whether the specified type is a is configuration dictionary.
-        /// </summary>
-        /// <param name="type"> The type to verify. </param>
-        /// <returns> <see langword="true" /> if the type is configuration dictionary; otherwise, <see langword="false" />. </returns>
-        private static bool IsConfigurationDictionary(Type type)
-        {
-            if(!type.IsConstructedGenericType)
-            {
-                return false;
-            }
-
-            if(type.GetGenericTypeDefinition() != typeof(IConfigurationDictionary<>))
-            {
-                return false;
-            }
-
-            var arguments = type.GetGenericArguments();
-
-            Debug.Assert(arguments.Length == 1);
-
-            return arguments.Length == 1;
         }
     }
 }

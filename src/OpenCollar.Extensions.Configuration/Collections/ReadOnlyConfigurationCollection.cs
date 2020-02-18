@@ -35,8 +35,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// </summary>
     /// <typeparam name="TElement"> The type of the element. </typeparam>
     [DebuggerDisplay("\\{ReadOnlyConfigurationCollection<{typeof(TElement).Name,nq}>\\}: \"{" + nameof(CalculatePath) + "(),nq}\"")]
-    internal sealed class ReadOnlyConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IReadOnlyCollection<TElement>,
-    IConfigurationCollection<TElement>
+    internal sealed class ReadOnlyConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IReadOnlyConfigurationCollection<TElement>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ReadOnlyConfigurationCollection{TElement}" /> class.

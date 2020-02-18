@@ -63,13 +63,13 @@ namespace OpenCollar.Extensions.Configuration
                 PathSection = PropertyName;
             }
 
-            Implementation = new Implementation(UnderlyingType, IsReadOnly);
+            Implementation = new Implementation(UnderlyingType);
             switch(Implementation.ImplementationKind)
             {
                 case ImplementationKind.ConfigurationCollection:
                 case ImplementationKind.ConfigurationDictionary:
                 case ImplementationKind.ConfigurationObject:
-                    ElementImplementation = new Implementation(Implementation.Type, IsReadOnly);
+                    ElementImplementation = new Implementation(Implementation.Type);
                     break;
             }
 

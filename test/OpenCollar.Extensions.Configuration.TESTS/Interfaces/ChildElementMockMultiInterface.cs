@@ -269,22 +269,22 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             get; set;
         }
 
-        public IConfigurationCollection<IChildElement> ReadOnlyChildCollection
+        public IReadOnlyConfigurationCollection<IChildElement> ReadOnlyChildCollection
         {
             get;
         }
 
-        public IConfigurationDictionary<IChildElement> ReadOnlyChildDictionary
+        public IReadOnlyConfigurationDictionary<IChildElement> ReadOnlyChildDictionary
         {
             get;
         }
 
-        public IConfigurationCollection<IConfigurationCollection<IInert>> ReadOnlyCollection
+        public IReadOnlyConfigurationCollection<IConfigurationCollection<IInert>> ReadOnlyCollection
         {
             get;
         }
 
-        public IConfigurationCollection<IConfigurationDictionary<IInert>> ReadOnlyDictionary
+        public IReadOnlyConfigurationCollection<IConfigurationDictionary<IInert>> ReadOnlyDictionary
         {
             get;
         }
