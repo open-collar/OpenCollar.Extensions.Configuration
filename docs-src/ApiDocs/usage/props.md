@@ -23,6 +23,8 @@ public interface IMyConfig : IConfigurationObject
 }
 ```
 
+To make properties read-only the define only a getter.
+
 ## Read-only
 
 ### Read-Only Collections
