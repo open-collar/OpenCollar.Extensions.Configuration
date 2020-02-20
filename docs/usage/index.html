@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>OpenCollar.Extensions.Configuration | API Documentation </title>
+    <title>Basics | API Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="OpenCollar.Extensions.Configuration | API Documentation ">
+    <meta name="title" content="Basics | API Documentation ">
     <meta name="generator" content="docfx 2.48.1.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -77,9 +77,9 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="opencollarextensionsconfiguration">OpenCollar.Extensions.Configuration</h1>
+<h1 id="basics">Basics</h1>
 
-<p>The primary purpose of the libarary is to provide a strongly typed, validated
+<p>The purpose of the libarary is to provide a strongly typed, validated
 wrapper around the values exposed as key/value pairs by configuration
 providers in the
 <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-3.1">Microsoft.Extensions.Configuration</a>
@@ -127,7 +127,7 @@ object for the application must also be registered as a service.</p>
     ...
 }
 </code></pre>
-<p>Later, when needed the configuration reader will be available as a service:</p>
+<p>Later, when needed, the configuration reader is available as a service:</p>
 <pre><code>public MyConstructor(IMyConfig config)
 {
     var version = config.Environment.Version;
@@ -141,7 +141,8 @@ configuration or from property changes made by code) to be detected.</p>
 <p>Similary collections and dictionaries implement the
 <a href="https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netstandard-2.1">INotifyCollectionChanged</a>
 interface, similarly allowing changes to be detected, regardless of origin.</p>
-<h2 id="attributes">Attributes</h2>
+<p>See &quot;<a href="/usage/events.md">Events</a>&quot; for a more detailed review of the events and when they are raised.</p>
+<h2 id="fine-contol">Fine Contol</h2>
 <p>Fine control over properties is provided by three attributes:</p>
 <ul>
 <li><a href="https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.ConfigurationAttribute.html"><code>ConfigurationAttribute</code></a> -
@@ -149,6 +150,8 @@ basic control over default value, loading and saving.</li>
 <li><a href="https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.PathAttribute.html"><code>PathAttribute</code></a> -
 the naming and path to the underlying configuration key.</li>
 </ul>
+<p>The &quot;<a href="/usage/control.md">Fine Control</a>&quot; article looks in more depth at how attributes can be used to
+control the way in which configuration data is used.</p>
 </article>
           </div>
           
@@ -157,7 +160,7 @@ the naming and path to the underlying configuration key.</li>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/master/docs-src/ApiDocs/articles/intro.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/master/docs-src/ApiDocs/usage/index.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
@@ -176,7 +179,7 @@ the naming and path to the underlying configuration key.</li>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.173</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.174</span></div></div>
             
           </div>
         </div>
