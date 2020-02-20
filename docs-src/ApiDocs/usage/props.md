@@ -27,12 +27,12 @@ public interface IMyConfig : IConfigurationObject
 
 ### Read-Only Collections
 
-![UML Diagram of the ReadOnlyConfigurationCollection<> class](..\images\uml-diagrams\Collections\ReadOnlyConfigurationCollection\ReadOnlyConfigurationCollection.svg)
+![UML Diagram of the ReadOnlyConfigurationCollection<> class](../images/uml-diagrams/Collections/ReadOnlyConfigurationCollection/ReadOnlyConfigurationCollection.svg)
 
 
 ### Read-Only Dictionaries
 
-![UML Diagram of the ReadOnlyConfigurationDictionary<> class](..\images\uml-diagrams\Collections\ReadOnlyConfigurationDictionary\ReadOnlyConfigurationDictionary.svg)
+![UML Diagram of the ReadOnlyConfigurationDictionary<> class](../images/uml-diagrams/Collections/ReadOnlyConfigurationDictionary/ReadOnlyConfigurationDictionary.svg)
 
 ## Read-write
 
