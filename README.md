@@ -134,7 +134,7 @@ There are no hard dependencies on tooling, all that is required is the
        VS editor for Markdown files;
      * [SpecFlow](https://specflow.org/) - acceptance testing;
  * Visual Studio Code Extensions:
-   * [PlantUML](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml) - UML diagram generation.
+   * [Jebbs PlantUML](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml) - UML diagram generation.
 
 ## Reference
 

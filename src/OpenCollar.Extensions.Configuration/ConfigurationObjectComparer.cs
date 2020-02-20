@@ -8,6 +8,10 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     A comparer for objects that implement interfaces derived from <see cref="IConfigurationObject" />.
     /// </summary>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/ConfigurationObjectComparer/ConfigurationObjectComparer.svg" />
+    /// </remarks>
     /// <seealso cref="IEqualityComparer{T}" />
     public class ConfigurationObjectComparer : IEqualityComparer<IConfigurationObject>
     {

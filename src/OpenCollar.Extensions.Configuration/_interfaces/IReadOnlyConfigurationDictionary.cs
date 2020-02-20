@@ -25,6 +25,10 @@ namespace OpenCollar.Extensions.Configuration
     ///     Defines a read-only dictionary containing configuration items and keyed on the element name.
     /// </summary>
     /// <typeparam name="TElement"> The type of the elements contained in the dictionary. </typeparam>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_interfaces/IReadOnlyConfigurationDictionary/IReadOnlyConfigurationDictionary.svg" />
+    /// </remarks>
     /// <seealso cref="System.Collections.Generic.IReadOnlyDictionary{TKey, TElement}" />
     /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationDictionary{TElement}" />
     public interface IReadOnlyConfigurationDictionary<TElement> : IConfigurationDictionary<TElement>, IReadOnlyDictionary<string, TElement>

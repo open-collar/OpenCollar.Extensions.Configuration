@@ -27,6 +27,10 @@ namespace OpenCollar.Extensions.Configuration
     /// <typeparam name="TElement">
     ///     The type of the array element. This must be nullable if the type is a reference type and can be <see langword="null" />.
     /// </typeparam>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_interfaces/IReadOnlyConfigurationCollection/IReadOnlyConfigurationCollection.svg" />
+    /// </remarks>
     /// <seealso cref="System.Collections.Generic.IReadOnlyCollection{TElement}" />
     /// <seealso cref="IReadOnlyCollection{TElement}" />
     /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationCollection{TElement}" />

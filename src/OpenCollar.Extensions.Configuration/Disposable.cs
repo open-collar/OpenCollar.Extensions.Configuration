@@ -29,6 +29,10 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     A base class for disposable objects.
     /// </summary>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/Disposable/Disposable.svg" />
+    /// </remarks>
     /// <seealso cref="IDisposable" />
     [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class Disposable : IDisposable

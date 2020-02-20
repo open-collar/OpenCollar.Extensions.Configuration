@@ -26,6 +26,10 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     The interface internally exposed by value objects.
     /// </summary>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_interfaces/IValue/IValue.svg" />
+    /// </remarks>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IValue
     {

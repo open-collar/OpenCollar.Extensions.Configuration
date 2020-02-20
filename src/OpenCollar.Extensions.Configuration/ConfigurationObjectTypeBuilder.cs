@@ -12,6 +12,10 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     A class used to build implementations of <see cref="IConfigurationObject" /> interfaces.
     /// </summary>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/ConfigurationObjectTypeBuilder/ConfigurationObjectTypeBuilder.svg" />
+    /// </remarks>
     internal class ConfigurationObjectTypeBuilder
     {
         /// <summary>

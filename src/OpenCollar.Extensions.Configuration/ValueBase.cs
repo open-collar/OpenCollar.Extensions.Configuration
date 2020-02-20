@@ -33,6 +33,10 @@ namespace OpenCollar.Extensions.Configuration
     /// <typeparam name="TParent">
     ///     The type of the parent object. Must implement <See cref="IValueChanged" /> interface.
     /// </typeparam>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/ValueBase/ValueBase.svg" />
+    /// </remarks>
     /// <typeparam name="TValue"> The type of the contained value. </typeparam>
     [DebuggerDisplay("ValueBase<{typeof(TValue).Name,nq}>[{Path,nq}={StringValue}] ({CalculatePath()})")]
     internal abstract class ValueBase<TParent, TValue> : IValue, IConfigurationParent where TParent : class, IValueChanged, IConfigurationParent

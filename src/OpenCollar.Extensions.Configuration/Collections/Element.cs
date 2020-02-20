@@ -27,6 +27,10 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// </summary>
     /// <typeparam name="TKey"> The type of the key. </typeparam>
     /// <typeparam name="TValue"> The type of the value. </typeparam>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/Collections/Element/Element.svg" />
+    /// </remarks>
     /// <seealso cref="ValueBase{T,T}" />
     /// <seealso cref="IEquatable{T}" />
     [DebuggerDisplay("Element<{typeof(TElement).Name,nq}>[{Key,nq}={StringValue}] ({CalculatePath()})")]

@@ -26,9 +26,15 @@ namespace OpenCollar.Extensions.Configuration.Validation
     /// </summary>
     /// <seealso cref="Attribute" />
     /// <remarks>
-    ///     Taken from this
-    ///     <see href="http://geekswithblogs.net/terje/archive/2010/10/14/making-static-code-analysis-and-code-contracts-work-together-or.aspx">
-    ///     Making Static Code Analysis and Code Contracts work together, or the CA1062 problem </see>
+    ///     <para>
+    ///         Taken from this
+    ///         <see href="http://geekswithblogs.net/terje/archive/2010/10/14/making-static-code-analysis-and-code-contracts-work-together-or.aspx">
+    ///         Making Static Code Analysis and Code Contracts work together, or the CA1062 problem </see>
+    ///     </para>
+    ///     <para>
+    ///         The following UML has been generated directly from the source code using
+    ///         <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/Validation/StringIs/StringIs.svg" />
+    ///     </para>
     /// </remarks>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Field)]
     internal sealed class ValidatedNotNullAttribute : Attribute

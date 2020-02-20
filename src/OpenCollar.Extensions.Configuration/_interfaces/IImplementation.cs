@@ -25,6 +25,10 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     The details of the implementation of a property or element.
     /// </summary>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_interfaces/IImplementation/IImplementation.svg" />
+    /// </remarks>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IImplementation
     {

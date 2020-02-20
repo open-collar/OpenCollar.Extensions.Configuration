@@ -26,6 +26,10 @@ namespace OpenCollar.Extensions.Configuration.Validation
     /// <summary>
     ///     Defines the type of validation to apply to a <see cref="string" /> argument.
     /// </summary>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/Validation/StringIs/StringIs.svg" />
+    /// </remarks>
     [Flags]
     internal enum StringIs
     {

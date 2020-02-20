@@ -31,6 +31,10 @@ namespace OpenCollar.Extensions.Configuration
     ///     A base class providing an implementation of the <see cref="INotifyPropertyChanged" /> interface (and the
     ///     <see cref="IDisposable" /> interface.
     /// </summary>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/NotifyPropertyChanged/NotifyPropertyChanged.svg" />
+    /// </remarks>
     /// <seealso cref="INotifyPropertyChanged" />
     /// <seealso cref="IDisposable" />
     [EditorBrowsable(EditorBrowsableState.Never)]

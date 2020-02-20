@@ -30,6 +30,10 @@ namespace OpenCollar.Extensions.Configuration.Validation
     ///     <see href="http://geekswithblogs.net/terje/archive/2010/10/14/making-static-code-analysis-and-code-contracts-work-together-or.aspx">
     ///     Making Static Code Analysis and Code Contracts work together, or the CA1062 problem </see>
     /// </remarks>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/Validation/ContractAbbreviatorAttribute/ContractAbbreviatorAttribute.svg" />
+    /// </remarks>
     [AttributeUsage(AttributeTargets.Method)]
     [Conditional("CONTRACTS_FULL")]
     internal sealed class ContractAbbreviatorAttribute : Attribute

@@ -31,6 +31,10 @@ namespace OpenCollar.Extensions.Configuration.Validation
     /// <summary>
     ///     Extension methods used in the validation of arguments.
     /// </summary>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/Validation/ArgumentValidationExtensions/ArgumentValidationExtensions.svg" />
+    /// </remarks>
     internal static class ArgumentValidationExtensions
     {
         /// <summary>

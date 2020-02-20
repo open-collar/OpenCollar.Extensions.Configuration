@@ -36,6 +36,10 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// </summary>
     /// <typeparam name="TKey"> The type of the key. </typeparam>
     /// <typeparam name="TElement"> The type of the element. </typeparam>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/Collections/ConfigurationDictionaryBase/ConfigurationDictionaryBase.svg" />
+    /// </remarks>
     /// <seealso cref="IConfigurationObject" />
     /// <seealso cref="IDictionary{TKey,TValue}" />
     /// <seealso cref="INotifyCollectionChanged" />
@@ -271,9 +275,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the configuration root service from which values are read or to which all values will be written.
         /// </summary>
-        /// <value>
-        ///     The configuration root service from which values are read or to which all values will be written.
-        /// </value>
+        /// <value> The configuration root service from which values are read or to which all values will be written. </value>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal IConfigurationRoot ConfigurationRoot
         {
@@ -526,51 +528,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
             return true;
         }
 
-
-        /// <summary>
-        ///     Removes the first occurrence of a specific object from the <see cref="ICollection{T}" />.
-        /// </summary>
-        /// <param name="item"> The object to remove from the <see cref="ICollection{T}" />. </param>
-        /// <returns>
-        ///     <see langword="true" /> if <paramref name="item" /> was successfully removed from the
-        ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />. This method also returns
-        ///     <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="ICollection{T}" />.
-        /// </returns>
-        private NotifyCollectionChangedEventArgs RemoveInner(TElement item)
-        {
-            // Assumes all validation has been performed.  Does not fire any events.
-            
-            Lock.EnterWriteLock();
-            try
-            {
-                foreach(var element in _itemsByKey.ToArray())
-                {
-                    if(UniversalComparer.Equals(element.Value.Value, item))
-                    {
-                        _itemsByKey.Remove(element.Key, out var removedElement);
-
-                        var n = 0;
-                        foreach(var orderedElement in _orderedItems.ToArray())
-                        {
-                            if(UniversalComparer.Equals(orderedElement.Value, item))
-                            {
-                                _orderedItems.RemoveAt(n);
-                                return new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, removedElement, n);
-                            }
-
-                            ++n;
-                        }
-                    }
-                }
-            }
-            finally
-            {
-                Lock.ExitWriteLock();
-            }
-
-            return null;
-        }
-
         /// <summary>
         ///     Saves this current values for each property back to the configuration sources.
         /// </summary>
@@ -640,9 +597,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
-        /// <param name="initializing">
-        ///     If set to <see langword="true" /> the element changed events are not fired.
-        /// </param>
+        /// <param name="initializing"> If set to <see langword="true" /> the element changed events are not fired. </param>
         internal void Load(bool initializing)
         {
             if(!PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.LoadOnly))
@@ -693,50 +648,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 if(newValues.Count > 0)
                 {
                     OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, newValues.Select(p => p.Value).ToList()));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Loads all of the properties from the configuration sources, overwriting any unsaved changes.
-        /// </summary>
-        /// <param name="initializing">If set to <see langword="true" /> the element changed events are not fired.</param>
-        /// <param name="existingValues">A list of the existing values.</param>
-        /// <param name="newValues">A list to which to add the new values.</param>
-        /// <param name="updatedValues">A list to which to add the updated values.</param>
-        private void InnerLoad(bool initializing, List<KeyValuePair<TKey, IConfigurationSection>> existingValues, List<Element<TKey, TElement>> newValues, List<Element<TKey, TElement>> updatedValues)
-        {
-            // Assumes validation has already been performed.
-
-            if(initializing)
-            {
-                _disableReadOnly.Value = _disableReadOnly.Value + 1; // TODO: What about config changes after load
-            }
-
-            try
-            {
-                foreach(var pair in existingValues)
-                {
-                    if(!_itemsByKey.TryGetValue(pair.Key, out var value))
-                    {
-                        // If the value is a configuration object of some sort then create or reuse the existing value.
-                        value = new Element<TKey, TElement>(PropertyDef, this, pair.Key);
-                        newValues.Add(value);
-
-                        value.ReadValue(ConfigurationRoot);
-
-                        // Add/update the value in the updated values list.
-                        value.Saved();
-                    }
-
-                    updatedValues.Add(value);
-                }
-            }
-            finally
-            {
-                if(initializing)
-                {
-                    _disableReadOnly.Value = _disableReadOnly.Value - 1;
                 }
             }
         }
@@ -1056,6 +967,50 @@ namespace OpenCollar.Extensions.Configuration.Collections
         }
 
         /// <summary>
+        ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
+        /// </summary>
+        /// <param name="initializing"> If set to <see langword="true" /> the element changed events are not fired. </param>
+        /// <param name="existingValues"> A list of the existing values. </param>
+        /// <param name="newValues"> A list to which to add the new values. </param>
+        /// <param name="updatedValues"> A list to which to add the updated values. </param>
+        private void InnerLoad(bool initializing, List<KeyValuePair<TKey, IConfigurationSection>> existingValues, List<Element<TKey, TElement>> newValues, List<Element<TKey, TElement>> updatedValues)
+        {
+            // Assumes validation has already been performed.
+
+            if(initializing)
+            {
+                _disableReadOnly.Value = _disableReadOnly.Value + 1; // TODO: What about config changes after load
+            }
+
+            try
+            {
+                foreach(var pair in existingValues)
+                {
+                    if(!_itemsByKey.TryGetValue(pair.Key, out var value))
+                    {
+                        // If the value is a configuration object of some sort then create or reuse the existing value.
+                        value = new Element<TKey, TElement>(PropertyDef, this, pair.Key);
+                        newValues.Add(value);
+
+                        value.ReadValue(ConfigurationRoot);
+
+                        // Add/update the value in the updated values list.
+                        value.Saved();
+                    }
+
+                    updatedValues.Add(value);
+                }
+            }
+            finally
+            {
+                if(initializing)
+                {
+                    _disableReadOnly.Value = _disableReadOnly.Value - 1;
+                }
+            }
+        }
+
+        /// <summary>
         ///     Removes all items from the <see cref="ICollection{T}" />.
         /// </summary>
         /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
@@ -1101,6 +1056,50 @@ namespace OpenCollar.Extensions.Configuration.Collections
         {
             var token = ConfigurationRoot.GetReloadToken();
             token.RegisterChangeCallback(OnSectionChanged, ConfigurationRoot);
+        }
+
+        /// <summary>
+        ///     Removes the first occurrence of a specific object from the <see cref="ICollection{T}" />.
+        /// </summary>
+        /// <param name="item"> The object to remove from the <see cref="ICollection{T}" />. </param>
+        /// <returns>
+        ///     <see langword="true" /> if <paramref name="item" /> was successfully removed from the
+        ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />. This method also returns
+        ///     <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="ICollection{T}" />.
+        /// </returns>
+        private NotifyCollectionChangedEventArgs RemoveInner(TElement item)
+        {
+            // Assumes all validation has been performed. Does not fire any events.
+
+            Lock.EnterWriteLock();
+            try
+            {
+                foreach(var element in _itemsByKey.ToArray())
+                {
+                    if(UniversalComparer.Equals(element.Value.Value, item))
+                    {
+                        _itemsByKey.Remove(element.Key, out var removedElement);
+
+                        var n = 0;
+                        foreach(var orderedElement in _orderedItems.ToArray())
+                        {
+                            if(UniversalComparer.Equals(orderedElement.Value, item))
+                            {
+                                _orderedItems.RemoveAt(n);
+                                return new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, removedElement, n);
+                            }
+
+                            ++n;
+                        }
+                    }
+                }
+            }
+            finally
+            {
+                Lock.ExitWriteLock();
+            }
+
+            return null;
         }
     }
 }

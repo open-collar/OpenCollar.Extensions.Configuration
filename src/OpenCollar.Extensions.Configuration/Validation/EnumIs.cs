@@ -24,6 +24,10 @@ namespace OpenCollar.Extensions.Configuration.Validation
     /// <summary>
     ///     An enumeration defining the validation that can be applied to an enum value.
     /// </summary>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/Validation/EnumIs/EnumIs.svg" />
+    /// </remarks>
     [Flags]
     internal enum EnumIs
     {

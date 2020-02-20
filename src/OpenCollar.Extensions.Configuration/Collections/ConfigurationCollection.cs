@@ -38,6 +38,10 @@ namespace OpenCollar.Extensions.Configuration.Collections
     ///     is added or removed.
     /// </summary>
     /// <typeparam name="TElement"> The type of the element. </typeparam>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/Collections/ConfigurationCollection/ConfigurationCollection.svg" />
+    /// </remarks>
     /// <seealso cref="ConfigurationDictionaryBase{TKey,TElement}" />
     /// <seealso cref="IConfigurationCollection{TElement}" />
     [DebuggerDisplay("\\{ConfigurationCollection<{typeof(TElement).Name,nq}>\\}: \"{" + nameof(CalculatePath) + "(),nq}\"")]
@@ -239,63 +243,6 @@ namespace OpenCollar.Extensions.Configuration.Collections
             InnerInsert(index, item);
         }
 
-
-        /// <summary>
-        ///     Inserts an item at the specified index.
-        /// </summary>
-        /// <param name="index"> The zero-based index of the location at which the item should be inserted. </param>
-        /// <param name="item"> The item to insert. </param>
-        private void InnerInsert(int index, TElement item)
-        {
-            // Assumes that the arguments have been validated.
-
-            var n = 0;
-            var events = new List<NotifyCollectionChangedEventArgs>();
-            Lock.EnterWriteLock();
-            try
-            {
-                var entries = new KeyValuePair<int, Element<int, TElement>>[InnerCount];
-                InnerCopyTo(entries, 0);
-
-                var list = new List<Element<int, TElement>>(entries.Select(k => k.Value));
-                DisableCollectionChangedEvents();
-                try
-                {
-                    list.Insert(index, new Element<int, TElement>(PropertyDef, this, index)
-                    {
-                    Value = item
-                    });
-                }
-                finally
-                {
-                    EnableCollectionChangedEvents();
-                }
-
-                events.Add(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
-                foreach(var element in list.ToArray())
-                {
-                    if(n > index)
-                    {
-                        list[n].Key = n;
-                        events.Add(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Move, element, n, n - 1));
-                    }
-
-                    ++n;
-                }
-
-                Replace(list);
-            }
-            finally
-            {
-                Lock.ExitWriteLock();
-            }
-
-            foreach(var args in events)
-            {
-                OnCollectionChanged(args);
-            }
-        }
-
         /// <summary>
         ///     Inserts an item at the specified index.
         /// </summary>
@@ -380,6 +327,62 @@ namespace OpenCollar.Extensions.Configuration.Collections
         internal override int ConvertStringToKey(string key)
         {
             return int.Parse(key, NumberStyles.Integer, CultureInfo.InvariantCulture);
+        }
+
+        /// <summary>
+        ///     Inserts an item at the specified index.
+        /// </summary>
+        /// <param name="index"> The zero-based index of the location at which the item should be inserted. </param>
+        /// <param name="item"> The item to insert. </param>
+        private void InnerInsert(int index, TElement item)
+        {
+            // Assumes that the arguments have been validated.
+
+            var n = 0;
+            var events = new List<NotifyCollectionChangedEventArgs>();
+            Lock.EnterWriteLock();
+            try
+            {
+                var entries = new KeyValuePair<int, Element<int, TElement>>[InnerCount];
+                InnerCopyTo(entries, 0);
+
+                var list = new List<Element<int, TElement>>(entries.Select(k => k.Value));
+                DisableCollectionChangedEvents();
+                try
+                {
+                    list.Insert(index, new Element<int, TElement>(PropertyDef, this, index)
+                    {
+                        Value = item
+                    });
+                }
+                finally
+                {
+                    EnableCollectionChangedEvents();
+                }
+
+                events.Add(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
+                foreach(var element in list.ToArray())
+                {
+                    if(n > index)
+                    {
+                        list[n].Key = n;
+                        events.Add(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Move, element, n, n - 1));
+                    }
+
+                    ++n;
+                }
+
+                Replace(list);
+            }
+            finally
+            {
+                Lock.ExitWriteLock();
+            }
+
+            foreach(var args in events)
+            {
+                OnCollectionChanged(args);
+            }
         }
     }
 }

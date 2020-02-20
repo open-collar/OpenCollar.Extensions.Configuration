@@ -34,6 +34,10 @@ namespace OpenCollar.Extensions.Configuration.Collections
     ///     an element is added or removed.
     /// </summary>
     /// <typeparam name="TElement"> The type of the element. </typeparam>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/Collections/ReadOnlyConfigurationCollection/ReadOnlyConfigurationCollection.svg" />
+    /// </remarks>
     [DebuggerDisplay("\\{ReadOnlyConfigurationCollection<{typeof(TElement).Name,nq}>\\}: \"{" + nameof(CalculatePath) + "(),nq}\"")]
     internal sealed class ReadOnlyConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IReadOnlyConfigurationCollection<TElement>
     {

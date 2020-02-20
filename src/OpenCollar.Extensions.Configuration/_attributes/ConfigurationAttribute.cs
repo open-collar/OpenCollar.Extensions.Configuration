@@ -25,6 +25,10 @@ namespace OpenCollar.Extensions.Configuration
     ///     An attribute that can be used to specify the default value to return if no value is defined in the
     ///     configuration root.
     /// </summary>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_attributes/ConfigurationAttribute/ConfigurationAttribute.svg" />
+    /// </remarks>
     /// <seealso cref="Attribute" />
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class ConfigurationAttribute : Attribute

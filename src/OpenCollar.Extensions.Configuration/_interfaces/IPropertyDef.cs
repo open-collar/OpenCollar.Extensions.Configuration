@@ -28,6 +28,10 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     The definition of the interface of the class that defines a property of a configuration object.
     /// </summary>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_interfaces/IPropertyDef/IPropertyDef.svg" />
+    /// </remarks>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IPropertyDef
     {

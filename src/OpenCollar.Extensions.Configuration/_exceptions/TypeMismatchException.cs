@@ -6,6 +6,10 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     An exception thrown when an object of the wrong type is added to a collection or assigned to a property.
     /// </summary>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_exceptions/TypeMismatchException/TypeMismatchException.svg" />
+    /// </remarks>
     /// <seealso cref="Exception" />
     [Serializable]
     public class TypeMismatchException : ConfigurationException

@@ -32,6 +32,10 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     Extensions to the <see cref="IServiceCollection" /> type allowing configuration objects to be registered.
     /// </summary>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/ServiceCollectionExtensions/ServiceCollectionExtensions.svg" />
+    /// </remarks>
     public static class ServiceCollectionExtensions
     {
         /// <summary>

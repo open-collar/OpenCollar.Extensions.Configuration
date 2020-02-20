@@ -28,7 +28,11 @@ namespace OpenCollar.Extensions.Configuration
     /// <typeparam name="TElement">
     ///     The type of the array element. This must be nullable if the type is a reference type and can be <see langword="null" />.
     /// </typeparam>
-    public interface IConfigurationCollection<TElement> : IList<TElement>,  INotifyCollectionChanged
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_interfaces/IConfigurationCollection/IConfigurationCollection.svg" />
+    /// </remarks>
+    public interface IConfigurationCollection<TElement> : IList<TElement>, INotifyCollectionChanged
     {
         /// <summary>
         ///     Adds a new value with the key specified, copying the properties and elements from the value give,

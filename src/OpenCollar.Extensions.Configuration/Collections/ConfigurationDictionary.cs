@@ -31,6 +31,10 @@ namespace OpenCollar.Extensions.Configuration.Collections
     ///     A dictionary of configuration objects, keyed on the name of the object.
     /// </summary>
     /// <typeparam name="TElement"> The type of the element. </typeparam>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/Collections/ConfigurationDictionary/ConfigurationDictionary.svg" />
+    /// </remarks>
     /// <seealso cref="ConfigurationDictionaryBase{TKey,TElement}" />
     /// <seealso cref="IConfigurationDictionary{TElement}" />
     [DebuggerDisplay("\\{ConfigurationDictionary<{typeof(TElement).Name,nq}>\\}: \"{" + nameof(CalculatePath) + "(),nq}\"")]

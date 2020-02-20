@@ -24,6 +24,10 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     Defines the behavior of loading or saving for are particular property.
     /// </summary>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_attributes/ConfigurationPersistenceActions/ConfigurationPersistenceActions.svg" />
+    /// </remarks>
     [Flags]
     public enum ConfigurationPersistenceActions
     {

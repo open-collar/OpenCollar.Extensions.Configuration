@@ -8,6 +8,10 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     An exception thrown when a property is incorrectly defined..
     /// </summary>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_exceptions/InvalidPropertyException/InvalidPropertyException.svg" />
+    /// </remarks>
     /// <seealso cref="Exception" />
     [Serializable]
     public class InvalidPropertyException : Exception

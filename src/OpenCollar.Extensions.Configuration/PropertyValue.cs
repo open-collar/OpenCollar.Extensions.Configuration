@@ -24,6 +24,10 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     A class used to represent a property on an interface and its location in the configuration model.
     /// </summary>
+    /// <remarks>
+    ///     The following UML has been generated directly from the source code using
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/PropertyValue/PropertyValue.svg" />
+    /// </remarks>
     [DebuggerDisplay("PropertyValue<{typeof(TValue).Name,nq}>[{PropertyName,nq}={StringValue}] ({CalculatePath()})")]
     internal sealed class PropertyValue<TValue> : ValueBase<ConfigurationObjectBase, TValue>, IPropertyValue
     {
