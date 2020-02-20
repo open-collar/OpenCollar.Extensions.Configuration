@@ -1,0 +1,25 @@
+@startuml
+class "ConfigurationDictionary`1"<TElement> {
+    + ConfigurationDictionary(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:IEnumerable<KeyValuePair<string, TElement>>?)
+    + ConfigurationDictionary(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:KeyValuePair<string, TElement>[]?)
+    + Add(item:KeyValuePair<string, TElement>) : void
+    + <<new>> Add(key:string, element:TElement) : void
+    + AddCopy(item:KeyValuePair<string, TElement>) : void
+    + Contains(element:TElement) : bool
+    + CopyTo(array:KeyValuePair<string, TElement>[], arrayIndex:int) : void
+    + GetEnumerator() : IEnumerator<KeyValuePair<string, TElement>>
+    + Remove(item:KeyValuePair<string, TElement>) : bool
+    Add(key:string, value:TElement) : void
+    AddNew(key:string) : TElement
+    Contains(item:KeyValuePair<string, TElement>) : bool
+    GetEnumerator() : IEnumerator
+}
+class "ConfigurationDictionaryBase`2"<T1,T2> {
+}
+class "IConfigurationDictionary`1"<T> {
+}
+class "IDictionary`2"<T1,T2> {
+}
+"ConfigurationDictionaryBase`2" "<string,TElement>" <|-- "ConfigurationDictionary`1"
+"IConfigurationDictionary`1" "<TElement>" <|-- "ConfigurationDictionary`1"
+@enduml

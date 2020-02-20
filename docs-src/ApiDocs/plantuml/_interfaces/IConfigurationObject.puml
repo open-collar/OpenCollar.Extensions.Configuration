@@ -1,0 +1,10 @@
+@startuml
+interface IConfigurationObject {
+    IsDirty : bool <<get>>
+    Delete() : void
+    Load() : void
+    Save() : void
+}
+IDisposable <|-- IConfigurationObject
+INotifyPropertyChanged <|-- IConfigurationObject
+@enduml

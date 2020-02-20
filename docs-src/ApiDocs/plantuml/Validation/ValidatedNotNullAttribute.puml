@@ -1,0 +1,5 @@
+@startuml
+class ValidatedNotNullAttribute <<sealed>> {
+}
+Attribute <|-- ValidatedNotNullAttribute
+@enduml

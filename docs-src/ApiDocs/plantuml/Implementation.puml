@@ -1,0 +1,8 @@
+@startuml
+class Implementation <<sealed>> {
+    + ImplementationType : Type? <<get>>
+}
+IImplementation <|-- Implementation
+Implementation --> "ImplementationKind" ImplementationKind
+Implementation --> "Type" Type
+@enduml

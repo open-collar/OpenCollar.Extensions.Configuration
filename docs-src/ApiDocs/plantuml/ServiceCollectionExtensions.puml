@@ -1,0 +1,5 @@
+@startuml
+class ServiceCollectionExtensions <<static>> {
+    + {static} AddConfigurationReader(serviceCollection:IServiceCollection) : void
+}
+@enduml

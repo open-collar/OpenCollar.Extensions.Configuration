@@ -1,0 +1,10 @@
+@startuml
+interface "IConfigurationCollection`1"<TElement> {
+    AddCopy(value:TElement) : TElement
+    AddNew() : TElement
+}
+class "IList`1"<T> {
+}
+"IList`1" "<TElement>" <|-- "IConfigurationCollection`1"
+INotifyCollectionChanged <|-- "IConfigurationCollection`1"
+@enduml

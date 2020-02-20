@@ -1,0 +1,16 @@
+@startuml
+class "Element`2"<TKey,TValue> <<sealed>> {
+    + Key : TKey <<get>> <<internal set>>
+    + <<override>> IsReadOnly : bool <<get>>
+    + <<override>> CalculatePath() : string
+    + Equals(other:Element<TKey, TValue>) : bool
+    + <<override>> Equals(obj:object) : bool
+    + <<override>> GetHashCode() : int
+}
+class "ValueBase`2"<T1,T2> {
+}
+class "IEquatable`1"<T> {
+}
+"ValueBase`2" "<ConfigurationDictionaryBase<TKey, TValue>,TValue>" <|-- "Element`2"
+"IEquatable`1" "<Element<TKey, TValue>>" <|-- "Element`2"
+@enduml

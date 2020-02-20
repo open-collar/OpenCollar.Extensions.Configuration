@@ -1,0 +1,7 @@
+@startuml
+interface IImplementation {
+    ImplementationType : Type? <<get>>
+}
+IImplementation --> "ImplementationKind" ImplementationKind
+IImplementation --> "Type" Type
+@enduml

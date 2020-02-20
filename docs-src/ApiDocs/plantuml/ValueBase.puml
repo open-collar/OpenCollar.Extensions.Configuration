@@ -1,0 +1,24 @@
+@startuml
+abstract class "ValueBase`2"<TParent,TValue> {
+    + IsDirty : bool <<get>>
+    + {abstract} IsReadOnly : bool <<get>>
+    + Parent : TParent <<get>>
+    + Path : string <<get>>
+    + Value : TValue <<get>> <<set>>
+    IsDirty : bool <<get>>
+    Path : string <<get>>
+    Value : object? <<get>> <<set>>
+    + {abstract} CalculatePath() : string
+    + DeleteValue(configurationRoot:IConfigurationRoot) : void
+    + ReadValue(configurationRoot:IConfigurationRoot) : void
+    + SetValue(value:object?) : bool
+    + WriteValue(configurationRoot:IConfigurationRoot) : void
+    DeleteValue(configurationRoot:IConfigurationRoot) : void
+    ReadValue(configurationRoot:IConfigurationRoot) : void
+    WriteValue(configurationRoot:IConfigurationRoot) : void
+}
+IValue <|-- "ValueBase`2"
+IConfigurationParent <|-- "ValueBase`2"
+"ValueBase`2" --> "PropertyDef" IPropertyDef
+"ValueBase`2" --> "Parent" IValueChanged
+@enduml

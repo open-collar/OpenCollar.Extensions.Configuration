@@ -1,0 +1,13 @@
+@startuml
+interface IValue {
+    IsDirty : bool <<get>>
+    Path : string <<get>>
+    Value : object? <<get>> <<set>>
+    DeleteValue(configurationRoot:IConfigurationRoot) : void
+    ReadValue(configurationRoot:IConfigurationRoot) : void
+    SetValue(value:object?) : bool
+    WriteValue(configurationRoot:IConfigurationRoot) : void
+}
+IValue --> "Parent" IValueChanged
+IValue --> "PropertyDef" IPropertyDef
+@enduml

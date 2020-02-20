@@ -1,0 +1,11 @@
+@startuml
+interface "IConfigurationDictionary`1"<TElement> {
+    AddCopy(key:string, value:TElement) : TElement
+    AddNew(key:string) : TElement
+    Contains(element:TElement) : bool
+}
+class "IDictionary`2"<T1,T2> {
+}
+"IDictionary`2" "<string,TElement>" <|-- "IConfigurationDictionary`1"
+INotifyCollectionChanged <|-- "IConfigurationDictionary`1"
+@enduml

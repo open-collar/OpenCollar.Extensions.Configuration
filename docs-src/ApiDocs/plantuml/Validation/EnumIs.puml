@@ -1,0 +1,8 @@
+@startuml
+enum EnumIs {
+    None= 0,
+    ValidMember= 1,
+    NonZero= 2,
+    NonZeroValidMember= ValidMember | NonZero,
+}
+@enduml

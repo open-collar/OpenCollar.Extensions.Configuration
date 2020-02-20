@@ -1,0 +1,10 @@
+@startuml
+class ConfigurationObjectComparer {
+    + Equals(x:IConfigurationObject, y:IConfigurationObject) : bool
+    + GetHashCode(obj:IConfigurationObject) : int
+}
+class "IEqualityComparer`1"<T> {
+}
+"IEqualityComparer`1" "<IConfigurationObject>" <|-- ConfigurationObjectComparer
+ConfigurationObjectComparer o-> "Instance" ConfigurationObjectComparer
+@enduml

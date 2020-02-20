@@ -1,0 +1,10 @@
+@startuml
+class TypeMismatchException {
+    + TypeMismatchException()
+    + TypeMismatchException(message:string)
+    + TypeMismatchException(configurationPath:string, message:string)
+    + TypeMismatchException(message:string, innerException:Exception)
+    + TypeMismatchException(configurationPath:string, message:string, innerException:Exception)
+}
+ConfigurationException <|-- TypeMismatchException
+@enduml

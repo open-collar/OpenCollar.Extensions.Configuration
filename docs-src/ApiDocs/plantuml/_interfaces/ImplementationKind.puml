@@ -1,0 +1,9 @@
+@startuml
+enum ImplementationKind {
+    Unknown= 0,
+    Naive,
+    ConfigurationObject,
+    ConfigurationCollection,
+    ConfigurationDictionary,
+}
+@enduml

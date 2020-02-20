@@ -1,0 +1,24 @@
+@startuml
+class "ReadOnlyConfigurationCollection`1"<TElement> <<sealed>> {
+    + ReadOnlyConfigurationCollection(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:IEnumerable<TElement>?)
+    + ReadOnlyConfigurationCollection(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:TElement[]?)
+    + Add(item:TElement) : void
+    + AddCopy(value:TElement) : TElement
+    + AddNew() : TElement
+    + Contains(item:TElement) : bool
+    + CopyTo(array:TElement[], arrayIndex:int) : void
+    + GetEnumerator() : IEnumerator<TElement>
+    + IndexOf(item:TElement) : int
+    + Insert(index:int, item:TElement) : void
+    + RemoveAt(index:int) : void
+    GetEnumerator() : IEnumerator
+}
+class "ConfigurationDictionaryBase`2"<T1,T2> {
+}
+class "IReadOnlyConfigurationCollection`1"<T> {
+}
+class "IList`1"<T> {
+}
+"ConfigurationDictionaryBase`2" "<int,TElement>" <|-- "ReadOnlyConfigurationCollection`1"
+"IReadOnlyConfigurationCollection`1" "<TElement>" <|-- "ReadOnlyConfigurationCollection`1"
+@enduml

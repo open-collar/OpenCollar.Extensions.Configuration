@@ -1,0 +1,6 @@
+@startuml
+abstract class Disposable {
+    + Dispose() : void
+}
+IDisposable <|-- Disposable
+@enduml

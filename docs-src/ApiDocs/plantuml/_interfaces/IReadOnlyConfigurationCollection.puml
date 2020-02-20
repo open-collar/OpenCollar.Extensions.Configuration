@@ -1,0 +1,10 @@
+@startuml
+interface "IReadOnlyConfigurationCollection`1"<TElement> {
+}
+class "IConfigurationCollection`1"<T> {
+}
+class "IReadOnlyCollection`1"<T> {
+}
+"IConfigurationCollection`1" "<TElement>" <|-- "IReadOnlyConfigurationCollection`1"
+"IReadOnlyCollection`1" "<TElement>" <|-- "IReadOnlyConfigurationCollection`1"
+@enduml

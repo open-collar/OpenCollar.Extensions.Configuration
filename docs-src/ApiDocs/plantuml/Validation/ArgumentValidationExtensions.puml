@@ -1,0 +1,8 @@
+@startuml
+class ArgumentValidationExtensions <<static>> {
+    + {static} Validate(argumentValue:TEnum, argumentName:string, validation:EnumIs) : void
+    + {static} Validate(argumentValue:string, argumentName:string, validation:StringIs) : void
+    + {static} Validate(argumentValue:T, argumentName:string, validation:ObjectIs) : void
+    + {static} Validate(argumentValue:IEnumerable<T>, argumentName:string, argumentValidation:ObjectIs, elementValidation:ObjectIs) : T[]
+}
+@enduml

@@ -1,0 +1,6 @@
+@startuml
+class ConfigurationObjectTypeBuilder {
+    + ConfigurationObjectTypeBuilder(interfaceType:Type, propertyDefs:IEnumerable<PropertyDef>)
+    + Generate() : Type
+}
+@enduml

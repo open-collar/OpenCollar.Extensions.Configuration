@@ -1,0 +1,7 @@
+@startuml
+interface IConfigurationParent {
+    IsReadOnly : bool <<get>>
+    PropertyDef : IPropertyDef? <<get>>
+    CalculatePath() : string
+}
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+abstract class "ConfigurationObjectBase`1"<TInterface> {
+    + Equals(other:TInterface) : bool
+}
+abstract class ConfigurationObjectBase {
+    + SetParent(parent:IConfigurationParent?) : void
+    + IsDirty : bool <<get>>
+    + Delete() : void
+    + Load() : void
+    + Save() : void
+    + IsReadOnly : bool <<get>>
+    + PropertyDef : IPropertyDef? <<get>>
+    + CalculatePath() : string
+    + OnValueChanged(oldValue:IValue, newValue:IValue) : void
+}
+class "IEquatable`1"<T> {
+}
+ConfigurationObjectBase <|-- "ConfigurationObjectBase`1"
+"IEquatable`1" "<TInterface>" <|-- "ConfigurationObjectBase`1"
+NotifyPropertyChanged <|-- ConfigurationObjectBase
+IConfigurationObject <|-- ConfigurationObjectBase
+IValueChanged <|-- ConfigurationObjectBase
+IConfigurationChild <|-- ConfigurationObjectBase
+IConfigurationParent <|-- ConfigurationObjectBase
+@enduml

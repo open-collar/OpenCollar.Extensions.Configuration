@@ -1,0 +1,25 @@
+@startuml
+class "ConfigurationCollection`1"<TElement> {
+    + ConfigurationCollection(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:IEnumerable<TElement>?)
+    + ConfigurationCollection(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:TElement[]?)
+    + Add(item:TElement) : void
+    + AddCopy(value:TElement) : TElement
+    + AddNew() : TElement
+    + Contains(item:TElement) : bool
+    + CopyTo(array:TElement[], arrayIndex:int) : void
+    + GetEnumerator() : IEnumerator<TElement>
+    + IndexOf(item:TElement) : int
+    + Insert(index:int, item:TElement) : void
+    + InsertCopy(index:int, item:TElement) : TElement
+    + <<override>> Remove(item:TElement) : bool
+    + <<override>> Remove(index:int) : bool
+    + RemoveAt(index:int) : void
+    GetEnumerator() : IEnumerator
+}
+class "ConfigurationDictionaryBase`2"<T1,T2> {
+}
+class "IConfigurationCollection`1"<T> {
+}
+"ConfigurationDictionaryBase`2" "<int,TElement>" <|-- "ConfigurationCollection`1"
+"IConfigurationCollection`1" "<TElement>" <|-- "ConfigurationCollection`1"
+@enduml

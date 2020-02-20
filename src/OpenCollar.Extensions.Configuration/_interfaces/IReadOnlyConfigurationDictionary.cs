@@ -25,7 +25,7 @@ namespace OpenCollar.Extensions.Configuration
     ///     Defines a read-only dictionary containing configuration items and keyed on the element name.
     /// </summary>
     /// <typeparam name="TElement"> The type of the elements contained in the dictionary. </typeparam>
-    /// <seealso cref="System.Collections.Generic.IReadOnlyDictionary{System.String, TElement}" />
+    /// <seealso cref="System.Collections.Generic.IReadOnlyDictionary{TKey, TElement}" />
     /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationDictionary{TElement}" />
     public interface IReadOnlyConfigurationDictionary<TElement> : IConfigurationDictionary<TElement>, IReadOnlyDictionary<string, TElement>
     {

@@ -1,0 +1,8 @@
+@startuml
+class ConfigurationAttribute <<sealed>> {
+    + ConfigurationAttribute()
+    + DefaultValue : object? <<get>> <<set>>
+}
+Attribute <|-- ConfigurationAttribute
+ConfigurationAttribute --> "Persistence" ConfigurationPersistenceActions
+@enduml

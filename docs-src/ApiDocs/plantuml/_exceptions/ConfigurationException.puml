@@ -1,0 +1,12 @@
+@startuml
+class ConfigurationException {
+    + ConfigurationException()
+    + ConfigurationException(message:string)
+    + ConfigurationException(configurationPath:string?, message:string)
+    + ConfigurationException(message:string, innerException:Exception)
+    + ConfigurationException(configurationPath:string?, message:string, innerException:Exception)
+    + ConfigurationPath : string? <<get>> <<set>>
+    + <<override>> GetObjectData(info:SerializationInfo, context:StreamingContext) : void
+}
+Exception <|-- ConfigurationException
+@enduml

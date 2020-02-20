@@ -1,0 +1,12 @@
+@startuml
+class "PropertyValue`1"<TValue> <<sealed>> {
+    + PropertyValue(propertyDef:PropertyDef, parent:ConfigurationObjectBase)
+    + <<override>> IsReadOnly : bool <<get>>
+    + PropertyName : string <<get>>
+    + <<override>> CalculatePath() : string
+}
+class "ValueBase`2"<T1,T2> {
+}
+"ValueBase`2" "<ConfigurationObjectBase,TValue>" <|-- "PropertyValue`1"
+IPropertyValue <|-- "PropertyValue`1"
+@enduml

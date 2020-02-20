@@ -1,0 +1,5 @@
+@startuml
+interface IValueChanged {
+    OnValueChanged(oldValue:IValue, newValue:IValue) : void
+}
+@enduml

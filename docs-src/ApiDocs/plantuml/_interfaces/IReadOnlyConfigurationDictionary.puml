@@ -1,0 +1,10 @@
+@startuml
+interface "IReadOnlyConfigurationDictionary`1"<TElement> {
+}
+class "IConfigurationDictionary`1"<T> {
+}
+class "IReadOnlyDictionary`2"<T1,T2> {
+}
+"IConfigurationDictionary`1" "<TElement>" <|-- "IReadOnlyConfigurationDictionary`1"
+"IReadOnlyDictionary`2" "<string,TElement>" <|-- "IReadOnlyConfigurationDictionary`1"
+@enduml

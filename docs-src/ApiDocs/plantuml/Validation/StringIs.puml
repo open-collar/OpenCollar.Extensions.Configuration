@@ -1,0 +1,12 @@
+@startuml
+enum StringIs {
+    None= ObjectIs.None,
+    NotNull= ObjectIs.NotNull,
+    NotEmpty= 2,
+    NotWhiteSpace= 4,
+    NotNullOrEmpty= NotNull | NotEmpty,
+    NotNullOrWhiteSpace= NotNull | NotWhiteSpace,
+    NotNullEmptyOrWhiteSpace= NotNull | NotEmpty | NotWhiteSpace,
+    NotEmptyOrWhiteSpace= NotEmpty | NotWhiteSpace,
+}
+@enduml

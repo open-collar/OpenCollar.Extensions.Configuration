@@ -1,0 +1,6 @@
+@startuml
+class PathHelper <<static>> {
+    + <<const>> PathDelimiter : string = ":"
+    + {static} CalculatePath(sections:string[]) : string
+}
+@enduml

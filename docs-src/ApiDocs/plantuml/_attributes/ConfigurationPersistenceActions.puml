@@ -1,0 +1,8 @@
+@startuml
+enum ConfigurationPersistenceActions {
+    Ignore= 0,
+    LoadOnly= 1,
+    SaveOnly= 2,
+    LoadAndSave= LoadOnly | SaveOnly,
+}
+@enduml

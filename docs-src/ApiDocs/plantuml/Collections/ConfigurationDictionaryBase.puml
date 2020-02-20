@@ -1,0 +1,32 @@
+@startuml
+abstract class "ConfigurationDictionaryBase`2"<TKey,TElement> {
+    +  <<event>> CollectionChanged : NotifyCollectionChangedEventHandler? 
+    + Count : int <<get>>
+    + IsDirty : bool <<get>>
+    + IsReadOnly : bool <<get>>
+    + AddCopy(key:TKey, value:TElement) : TElement
+    + CalculatePath() : string
+    + Clear() : void
+    + ContainsKey(key:TKey) : bool
+    + Delete() : void
+    + Load() : void
+    + OnValueChanged(oldValue:IValue, newValue:IValue) : void
+    + <<virtual>> Remove(key:TKey) : bool
+    + <<virtual>> Remove(item:TElement) : bool
+    + Save() : void
+    + SetParent(parent:IConfigurationParent?) : void
+    + TryGetValue(key:TKey, value:TElement) : bool
+}
+class "ICollection`1"<T> {
+}
+class "Element`2"<T1,T2> {
+}
+NotifyPropertyChanged <|-- "ConfigurationDictionaryBase`2"
+IConfigurationObject <|-- "ConfigurationDictionaryBase`2"
+IValueChanged <|-- "ConfigurationDictionaryBase`2"
+IConfigurationChild <|-- "ConfigurationDictionaryBase`2"
+IConfigurationParent <|-- "ConfigurationDictionaryBase`2"
+"ConfigurationDictionaryBase`2" --> "Keys<TKey>" "ICollection`1"
+"ConfigurationDictionaryBase`2" --> "PropertyDef" IPropertyDef
+"ConfigurationDictionaryBase`2" --> "Values<TElement>" "ICollection`1"
+@enduml

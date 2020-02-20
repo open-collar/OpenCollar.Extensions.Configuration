@@ -1,0 +1,5 @@
+@startuml
+class UniversalComparer <<static>> {
+    + <<new>> {static} Equals(a:object?, b:object?) : bool
+}
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+interface IConfigurationChild {
+    SetParent(parent:IConfigurationParent?) : void
+}
+@enduml

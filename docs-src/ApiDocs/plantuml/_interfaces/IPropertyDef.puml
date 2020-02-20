@@ -1,0 +1,17 @@
+@startuml
+interface IPropertyDef {
+    DefaultValue : object? <<get>>
+    ElementImplementation : IImplementation? <<get>>
+    HasDefaultValue : bool <<get>>
+    IsReadOnly : bool <<get>>
+    PropertyName : string <<get>>
+    CalculatePath(parent:IConfigurationParent?) : string
+    ConvertStringToValue(path:string, stringRepresentation:string?) : object?
+    ConvertValueToString(value:object?) : string?
+    + CopyValue(implementation:IImplementation, value:TElement, parent:IConfigurationParent, configurationRoot:IConfigurationRoot) : TElement
+}
+IPropertyDef --> "Implementation" IImplementation
+IPropertyDef --> "Persistence" ConfigurationPersistenceActions
+IPropertyDef --> "PropertyInfo" PropertyInfo
+IPropertyDef --> "Type" Type
+@enduml

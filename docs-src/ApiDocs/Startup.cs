@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Http;
 
 namespace ApiDocs
 {
@@ -37,8 +38,15 @@ namespace ApiDocs
             };
             options.StaticFileOptions.DefaultContentType = @"text/html";
             options.StaticFileOptions.ServeUnknownFileTypes = true;
-            options.StaticFileOptions.FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, @"..", @"..", @"docs"));
+            var path = System.IO.Path.GetFullPath(Path.Combine(env.ContentRootPath, @"..", @"..", @"docs"));
+            options.StaticFileOptions.FileProvider = new PhysicalFileProvider(path);
             options.DefaultFilesOptions.DefaultFileNames.Add(@"index.html");
+
+            options.StaticFileOptions.OnPrepareResponse = ctx =>
+            {
+                ctx.Context.Response.Headers.Append("Cache-Control", $"no-store");
+            };
+
             app.UseFileServer(options);
         }
 

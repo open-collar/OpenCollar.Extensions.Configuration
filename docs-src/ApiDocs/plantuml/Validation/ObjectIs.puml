@@ -1,0 +1,6 @@
+@startuml
+enum ObjectIs {
+    None= 0,
+    NotNull= 1,
+}
+@enduml

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="102px" preserveAspectRatio="none" style="width:229px;height:102px;" version="1.1" viewBox="0 0 229 102" width="229px" zoomAndPan="magnify"><defs><filter height="300%" id="fcpj3h91nowm6" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--class PathHelper--><rect fill="#FEFECE" filter="url(#fcpj3h91nowm6)" height="83.8594" id="PathHelper" style="stroke: #A80036; stroke-width: 1.5;" width="212" x="6" y="8"/><ellipse cx="76.75" cy="28.0938" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M79.5156,23.9688 Q79.6719,23.75 79.8594,23.6406 Q80.0469,23.5313 80.2656,23.5313 Q80.6406,23.5313 80.875,23.7969 Q81.1094,24.0469 81.1094,24.6563 L81.1094,26.1094 Q81.1094,26.7188 80.875,26.9844 Q80.6406,27.25 80.2656,27.25 Q79.9219,27.25 79.7188,27.0469 Q79.5156,26.8594 79.4063,26.3438 Q79.3594,25.9844 79.1719,25.7969 Q78.8438,25.4219 78.2344,25.2031 Q77.625,24.9844 77,24.9844 Q76.2344,24.9844 75.5938,25.3125 Q74.9688,25.6406 74.4688,26.3906 Q73.9844,27.1406 73.9844,28.1719 L73.9844,29.2656 Q73.9844,30.5 74.875,31.3281 Q75.7656,32.1406 77.3594,32.1406 Q78.2969,32.1406 78.9531,31.8906 Q79.3438,31.7344 79.7656,31.2969 Q80.0313,31.0313 80.1719,30.9531 Q80.3281,30.875 80.5313,30.875 Q80.8594,30.875 81.1094,31.1406 Q81.375,31.3906 81.375,31.7344 Q81.375,32.0781 81.0313,32.4844 Q80.5313,33.0625 79.7344,33.3906 Q78.6563,33.8438 77.3594,33.8438 Q75.8438,33.8438 74.6406,33.2188 Q73.6563,32.7188 72.9688,31.6563 Q72.2813,30.5781 72.2813,29.2969 L72.2813,28.1406 Q72.2813,26.8125 72.8906,25.6719 Q73.5156,24.5156 74.6094,23.9063 Q75.7031,23.2813 76.9375,23.2813 Q77.6719,23.2813 78.3125,23.4531 Q78.9688,23.6094 79.5156,23.9688 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="42" x="107.25" y="25.457">«static»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="62" x="97.25" y="40.5508">PathHelper</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="217" y1="48.1875" y2="48.1875"/><ellipse cx="17" cy="59.1875" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="162" x="26" y="63.6064">«const» PathDelimiter : string = ":"</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="217" y1="70.0234" y2="70.0234"/><ellipse cx="17" cy="81.0234" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="186" x="26" y="85.4424">CalculatePath(sections:string[]) : string</text><!--
+@startuml
+class PathHelper <<static>> {
+    + <<const>> PathDelimiter : string = ":"
+    + {static} CalculatePath(sections:string[]) : string
+}
+@enduml
+
+PlantUML version 1.2019.09(Mon Aug 26 17:19:51 BST 2019)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 13.0.2+8
+Operating System: Windows 10
+OS Version: 10.0
+Default Encoding: Cp1252
+Language: en
+Country: GB
+--></g></svg>

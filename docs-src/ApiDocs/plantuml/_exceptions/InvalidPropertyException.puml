@@ -1,0 +1,12 @@
+@startuml
+class InvalidPropertyException {
+    + InvalidPropertyException()
+    + InvalidPropertyException(message:string)
+    + InvalidPropertyException(propertyName:string?, message:string)
+    + InvalidPropertyException(message:string, innerException:Exception)
+    + InvalidPropertyException(propertyName:string?, message:string, innerException:Exception)
+    + PropertyName : string? <<get>> <<set>>
+    + <<override>> GetObjectData(info:SerializationInfo, context:StreamingContext) : void
+}
+Exception <|-- InvalidPropertyException
+@enduml

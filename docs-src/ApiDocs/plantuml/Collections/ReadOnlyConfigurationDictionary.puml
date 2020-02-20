@@ -1,0 +1,19 @@
+@startuml
+class "ReadOnlyConfigurationDictionary`1"<TElement> <<sealed>> {
+    + ReadOnlyConfigurationDictionary(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:IEnumerable<KeyValuePair<string, TElement>>?)
+    + ReadOnlyConfigurationDictionary(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:KeyValuePair<string, TElement>[]?)
+    GetEnumerator() : IEnumerator
+}
+class "ConfigurationDictionary`1"<T> {
+}
+class "IReadOnlyConfigurationDictionary`1"<T> {
+}
+class "IEnumerable`1"<T> {
+}
+class "IReadOnlyDictionary`2"<T1,T2> {
+}
+"ConfigurationDictionary`1" "<TElement>" <|-- "ReadOnlyConfigurationDictionary`1"
+"IReadOnlyConfigurationDictionary`1" "<TElement>" <|-- "ReadOnlyConfigurationDictionary`1"
+"ReadOnlyConfigurationDictionary`1" --> "Keys<string>" "IEnumerable`1"
+"ReadOnlyConfigurationDictionary`1" --> "Values<TElement>" "IEnumerable`1"
+@enduml

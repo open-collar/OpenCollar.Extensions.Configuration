@@ -1,0 +1,419 @@
+@startuml
+abstract class "ConfigurationObjectBase`1"<TInterface> {
+    + Equals(other:TInterface) : bool
+}
+abstract class ConfigurationObjectBase {
+    + SetParent(parent:IConfigurationParent?) : void
+    + IsDirty : bool <<get>>
+    + Delete() : void
+    + Load() : void
+    + Save() : void
+    + IsReadOnly : bool <<get>>
+    + PropertyDef : IPropertyDef? <<get>>
+    + CalculatePath() : string
+    + OnValueChanged(oldValue:IValue, newValue:IValue) : void
+}
+class "IEquatable`1"<T> {
+}
+ConfigurationObjectBase <|-- "ConfigurationObjectBase`1"
+"IEquatable`1" "<TInterface>" <|-- "ConfigurationObjectBase`1"
+NotifyPropertyChanged <|-- ConfigurationObjectBase
+IConfigurationObject <|-- ConfigurationObjectBase
+IValueChanged <|-- ConfigurationObjectBase
+IConfigurationChild <|-- ConfigurationObjectBase
+IConfigurationParent <|-- ConfigurationObjectBase
+class ConfigurationObjectComparer {
+    + Equals(x:IConfigurationObject, y:IConfigurationObject) : bool
+    + GetHashCode(obj:IConfigurationObject) : int
+}
+class "IEqualityComparer`1"<T> {
+}
+"IEqualityComparer`1" "<IConfigurationObject>" <|-- ConfigurationObjectComparer
+ConfigurationObjectComparer o-> "Instance" ConfigurationObjectComparer
+class ConfigurationObjectTypeBuilder {
+    + ConfigurationObjectTypeBuilder(interfaceType:Type, propertyDefs:IEnumerable<PropertyDef>)
+    + Generate() : Type
+}
+abstract class Disposable {
+    + Dispose() : void
+}
+IDisposable <|-- Disposable
+class Implementation <<sealed>> {
+    + ImplementationType : Type? <<get>>
+}
+IImplementation <|-- Implementation
+Implementation --> "ImplementationKind" ImplementationKind
+Implementation --> "Type" Type
+abstract class NotifyPropertyChanged {
+    +  <<event>> PropertyChanged : PropertyChangedEventHandler? 
+}
+Disposable <|-- NotifyPropertyChanged
+INotifyPropertyChanged <|-- NotifyPropertyChanged
+class PathHelper <<static>> {
+    + <<const>> PathDelimiter : string = ":"
+    + {static} CalculatePath(sections:string[]) : string
+}
+class PropertyDef {
+    + DefaultValue : object? <<get>>
+    + ElementImplementation : IImplementation? <<get>>
+    + HasDefaultValue : bool <<get>>
+    + IsReadOnly : bool <<get>>
+    + PathSection : string <<get>>
+    + PropertyName : string <<get>>
+    + {static} GetUnderlyingType(type:Type) : Type
+    + CalculatePath(parent:IConfigurationParent?) : string
+    + ConvertStringToValue(path:string, stringRepresentation:string?) : object?
+    + ConvertValueToString(value:object?) : string?
+    + CopyValue(implementation:IImplementation, value:TElement, parent:IConfigurationParent, configurationRoot:IConfigurationRoot) : TElement
+}
+IPropertyDef <|-- PropertyDef
+PropertyDef --> "Implementation" IImplementation
+PropertyDef --> "PathModifier" PathIs
+PropertyDef --> "Persistence" ConfigurationPersistenceActions
+PropertyDef --> "PropertyInfo" PropertyInfo
+PropertyDef --> "Type" Type
+PropertyDef --> "UnderlyingType" Type
+class "PropertyValue`1"<TValue> <<sealed>> {
+    + PropertyValue(propertyDef:PropertyDef, parent:ConfigurationObjectBase)
+    + <<override>> IsReadOnly : bool <<get>>
+    + PropertyName : string <<get>>
+    + <<override>> CalculatePath() : string
+}
+class "ValueBase`2"<T1,T2> {
+}
+"ValueBase`2" "<ConfigurationObjectBase,TValue>" <|-- "PropertyValue`1"
+IPropertyValue <|-- "PropertyValue`1"
+class ServiceCollectionExtensions <<static>> {
+    + {static} AddConfigurationReader(serviceCollection:IServiceCollection) : void
+}
+class UniversalComparer <<static>> {
+    + <<new>> {static} Equals(a:object?, b:object?) : bool
+}
+abstract class "ValueBase`2"<TParent,TValue> {
+    + IsDirty : bool <<get>>
+    + {abstract} IsReadOnly : bool <<get>>
+    + Parent : TParent <<get>>
+    + Path : string <<get>>
+    + Value : TValue <<get>> <<set>>
+    IsDirty : bool <<get>>
+    Path : string <<get>>
+    Value : object? <<get>> <<set>>
+    + {abstract} CalculatePath() : string
+    + DeleteValue(configurationRoot:IConfigurationRoot) : void
+    + ReadValue(configurationRoot:IConfigurationRoot) : void
+    + SetValue(value:object?) : bool
+    + WriteValue(configurationRoot:IConfigurationRoot) : void
+    DeleteValue(configurationRoot:IConfigurationRoot) : void
+    ReadValue(configurationRoot:IConfigurationRoot) : void
+    WriteValue(configurationRoot:IConfigurationRoot) : void
+}
+IValue <|-- "ValueBase`2"
+IConfigurationParent <|-- "ValueBase`2"
+"ValueBase`2" --> "PropertyDef" IPropertyDef
+"ValueBase`2" --> "Parent" IValueChanged
+class "ConfigurationCollection`1"<TElement> {
+    + ConfigurationCollection(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:IEnumerable<TElement>?)
+    + ConfigurationCollection(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:TElement[]?)
+    + Add(item:TElement) : void
+    + AddCopy(value:TElement) : TElement
+    + AddNew() : TElement
+    + Contains(item:TElement) : bool
+    + CopyTo(array:TElement[], arrayIndex:int) : void
+    + GetEnumerator() : IEnumerator<TElement>
+    + IndexOf(item:TElement) : int
+    + Insert(index:int, item:TElement) : void
+    + InsertCopy(index:int, item:TElement) : TElement
+    + <<override>> Remove(item:TElement) : bool
+    + <<override>> Remove(index:int) : bool
+    + RemoveAt(index:int) : void
+    GetEnumerator() : IEnumerator
+}
+class "ConfigurationDictionaryBase`2"<T1,T2> {
+}
+class "IConfigurationCollection`1"<T> {
+}
+"ConfigurationDictionaryBase`2" "<int,TElement>" <|-- "ConfigurationCollection`1"
+"IConfigurationCollection`1" "<TElement>" <|-- "ConfigurationCollection`1"
+class "ConfigurationDictionary`1"<TElement> {
+    + ConfigurationDictionary(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:IEnumerable<KeyValuePair<string, TElement>>?)
+    + ConfigurationDictionary(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:KeyValuePair<string, TElement>[]?)
+    + Add(item:KeyValuePair<string, TElement>) : void
+    + <<new>> Add(key:string, element:TElement) : void
+    + AddCopy(item:KeyValuePair<string, TElement>) : void
+    + Contains(element:TElement) : bool
+    + CopyTo(array:KeyValuePair<string, TElement>[], arrayIndex:int) : void
+    + GetEnumerator() : IEnumerator<KeyValuePair<string, TElement>>
+    + Remove(item:KeyValuePair<string, TElement>) : bool
+    Add(key:string, value:TElement) : void
+    AddNew(key:string) : TElement
+    Contains(item:KeyValuePair<string, TElement>) : bool
+    GetEnumerator() : IEnumerator
+}
+class "ConfigurationDictionaryBase`2"<T1,T2> {
+}
+class "IConfigurationDictionary`1"<T> {
+}
+class "IDictionary`2"<T1,T2> {
+}
+"ConfigurationDictionaryBase`2" "<string,TElement>" <|-- "ConfigurationDictionary`1"
+"IConfigurationDictionary`1" "<TElement>" <|-- "ConfigurationDictionary`1"
+abstract class "ConfigurationDictionaryBase`2"<TKey,TElement> {
+    +  <<event>> CollectionChanged : NotifyCollectionChangedEventHandler? 
+    + Count : int <<get>>
+    + IsDirty : bool <<get>>
+    + IsReadOnly : bool <<get>>
+    + AddCopy(key:TKey, value:TElement) : TElement
+    + CalculatePath() : string
+    + Clear() : void
+    + ContainsKey(key:TKey) : bool
+    + Delete() : void
+    + Load() : void
+    + OnValueChanged(oldValue:IValue, newValue:IValue) : void
+    + <<virtual>> Remove(key:TKey) : bool
+    + <<virtual>> Remove(item:TElement) : bool
+    + Save() : void
+    + SetParent(parent:IConfigurationParent?) : void
+    + TryGetValue(key:TKey, value:TElement) : bool
+}
+class "ICollection`1"<T> {
+}
+class "Element`2"<T1,T2> {
+}
+NotifyPropertyChanged <|-- "ConfigurationDictionaryBase`2"
+IConfigurationObject <|-- "ConfigurationDictionaryBase`2"
+IValueChanged <|-- "ConfigurationDictionaryBase`2"
+IConfigurationChild <|-- "ConfigurationDictionaryBase`2"
+IConfigurationParent <|-- "ConfigurationDictionaryBase`2"
+"ConfigurationDictionaryBase`2" --> "Keys<TKey>" "ICollection`1"
+"ConfigurationDictionaryBase`2" --> "PropertyDef" IPropertyDef
+"ConfigurationDictionaryBase`2" --> "Values<TElement>" "ICollection`1"
+class "Element`2"<TKey,TValue> <<sealed>> {
+    + Key : TKey <<get>> <<internal set>>
+    + <<override>> IsReadOnly : bool <<get>>
+    + <<override>> CalculatePath() : string
+    + Equals(other:Element<TKey, TValue>) : bool
+    + <<override>> Equals(obj:object) : bool
+    + <<override>> GetHashCode() : int
+}
+class "ValueBase`2"<T1,T2> {
+}
+class "IEquatable`1"<T> {
+}
+"ValueBase`2" "<ConfigurationDictionaryBase<TKey, TValue>,TValue>" <|-- "Element`2"
+"IEquatable`1" "<Element<TKey, TValue>>" <|-- "Element`2"
+class "ReadOnlyConfigurationCollection`1"<TElement> <<sealed>> {
+    + ReadOnlyConfigurationCollection(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:IEnumerable<TElement>?)
+    + ReadOnlyConfigurationCollection(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:TElement[]?)
+    + Add(item:TElement) : void
+    + AddCopy(value:TElement) : TElement
+    + AddNew() : TElement
+    + Contains(item:TElement) : bool
+    + CopyTo(array:TElement[], arrayIndex:int) : void
+    + GetEnumerator() : IEnumerator<TElement>
+    + IndexOf(item:TElement) : int
+    + Insert(index:int, item:TElement) : void
+    + RemoveAt(index:int) : void
+    GetEnumerator() : IEnumerator
+}
+class "ConfigurationDictionaryBase`2"<T1,T2> {
+}
+class "IReadOnlyConfigurationCollection`1"<T> {
+}
+class "IList`1"<T> {
+}
+"ConfigurationDictionaryBase`2" "<int,TElement>" <|-- "ReadOnlyConfigurationCollection`1"
+"IReadOnlyConfigurationCollection`1" "<TElement>" <|-- "ReadOnlyConfigurationCollection`1"
+class "ReadOnlyConfigurationDictionary`1"<TElement> <<sealed>> {
+    + ReadOnlyConfigurationDictionary(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:IEnumerable<KeyValuePair<string, TElement>>?)
+    + ReadOnlyConfigurationDictionary(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:KeyValuePair<string, TElement>[]?)
+    GetEnumerator() : IEnumerator
+}
+class "ConfigurationDictionary`1"<T> {
+}
+class "IReadOnlyConfigurationDictionary`1"<T> {
+}
+class "IEnumerable`1"<T> {
+}
+class "IReadOnlyDictionary`2"<T1,T2> {
+}
+"ConfigurationDictionary`1" "<TElement>" <|-- "ReadOnlyConfigurationDictionary`1"
+"IReadOnlyConfigurationDictionary`1" "<TElement>" <|-- "ReadOnlyConfigurationDictionary`1"
+"ReadOnlyConfigurationDictionary`1" --> "Keys<string>" "IEnumerable`1"
+"ReadOnlyConfigurationDictionary`1" --> "Values<TElement>" "IEnumerable`1"
+class Exceptions {
+}
+class ArgumentValidationExtensions <<static>> {
+    + {static} Validate(argumentValue:TEnum, argumentName:string, validation:EnumIs) : void
+    + {static} Validate(argumentValue:string, argumentName:string, validation:StringIs) : void
+    + {static} Validate(argumentValue:T, argumentName:string, validation:ObjectIs) : void
+    + {static} Validate(argumentValue:IEnumerable<T>, argumentName:string, argumentValidation:ObjectIs, elementValidation:ObjectIs) : T[]
+}
+class ContractAbbreviatorAttribute <<sealed>> {
+}
+Attribute <|-- ContractAbbreviatorAttribute
+enum EnumIs {
+    None= 0,
+    ValidMember= 1,
+    NonZero= 2,
+    NonZeroValidMember= ValidMember | NonZero,
+}
+enum ObjectIs {
+    None= 0,
+    NotNull= 1,
+}
+enum StringIs {
+    None= ObjectIs.None,
+    NotNull= ObjectIs.NotNull,
+    NotEmpty= 2,
+    NotWhiteSpace= 4,
+    NotNullOrEmpty= NotNull | NotEmpty,
+    NotNullOrWhiteSpace= NotNull | NotWhiteSpace,
+    NotNullEmptyOrWhiteSpace= NotNull | NotEmpty | NotWhiteSpace,
+    NotEmptyOrWhiteSpace= NotEmpty | NotWhiteSpace,
+}
+class ValidatedNotNullAttribute <<sealed>> {
+}
+Attribute <|-- ValidatedNotNullAttribute
+class ConfigurationAttribute <<sealed>> {
+    + ConfigurationAttribute()
+    + DefaultValue : object? <<get>> <<set>>
+}
+Attribute <|-- ConfigurationAttribute
+ConfigurationAttribute --> "Persistence" ConfigurationPersistenceActions
+enum ConfigurationPersistenceActions {
+    Ignore= 0,
+    LoadOnly= 1,
+    SaveOnly= 2,
+    LoadAndSave= LoadOnly | SaveOnly,
+}
+enum PathIs {
+    Unknown= 0,
+    Root,
+    Suffix,
+}
+class PathAttribute <<sealed>> {
+    + PathAttribute(usage:PathIs, path:string)
+}
+Attribute <|-- PathAttribute
+class ConfigurationException {
+    + ConfigurationException()
+    + ConfigurationException(message:string)
+    + ConfigurationException(configurationPath:string?, message:string)
+    + ConfigurationException(message:string, innerException:Exception)
+    + ConfigurationException(configurationPath:string?, message:string, innerException:Exception)
+    + ConfigurationPath : string? <<get>> <<set>>
+    + <<override>> GetObjectData(info:SerializationInfo, context:StreamingContext) : void
+}
+Exception <|-- ConfigurationException
+class InvalidPropertyException {
+    + InvalidPropertyException()
+    + InvalidPropertyException(message:string)
+    + InvalidPropertyException(propertyName:string?, message:string)
+    + InvalidPropertyException(message:string, innerException:Exception)
+    + InvalidPropertyException(propertyName:string?, message:string, innerException:Exception)
+    + PropertyName : string? <<get>> <<set>>
+    + <<override>> GetObjectData(info:SerializationInfo, context:StreamingContext) : void
+}
+Exception <|-- InvalidPropertyException
+class TypeMismatchException {
+    + TypeMismatchException()
+    + TypeMismatchException(message:string)
+    + TypeMismatchException(configurationPath:string, message:string)
+    + TypeMismatchException(message:string, innerException:Exception)
+    + TypeMismatchException(configurationPath:string, message:string, innerException:Exception)
+}
+ConfigurationException <|-- TypeMismatchException
+interface IConfigurationChild {
+    SetParent(parent:IConfigurationParent?) : void
+}
+interface "IConfigurationCollection`1"<TElement> {
+    AddCopy(value:TElement) : TElement
+    AddNew() : TElement
+}
+class "IList`1"<T> {
+}
+"IList`1" "<TElement>" <|-- "IConfigurationCollection`1"
+INotifyCollectionChanged <|-- "IConfigurationCollection`1"
+interface "IConfigurationDictionary`1"<TElement> {
+    AddCopy(key:string, value:TElement) : TElement
+    AddNew(key:string) : TElement
+    Contains(element:TElement) : bool
+}
+class "IDictionary`2"<T1,T2> {
+}
+"IDictionary`2" "<string,TElement>" <|-- "IConfigurationDictionary`1"
+INotifyCollectionChanged <|-- "IConfigurationDictionary`1"
+interface IConfigurationObject {
+    IsDirty : bool <<get>>
+    Delete() : void
+    Load() : void
+    Save() : void
+}
+IDisposable <|-- IConfigurationObject
+INotifyPropertyChanged <|-- IConfigurationObject
+interface IConfigurationParent {
+    IsReadOnly : bool <<get>>
+    PropertyDef : IPropertyDef? <<get>>
+    CalculatePath() : string
+}
+interface IImplementation {
+    ImplementationType : Type? <<get>>
+}
+IImplementation --> "ImplementationKind" ImplementationKind
+IImplementation --> "Type" Type
+enum ImplementationKind {
+    Unknown= 0,
+    Naive,
+    ConfigurationObject,
+    ConfigurationCollection,
+    ConfigurationDictionary,
+}
+interface IPropertyDef {
+    DefaultValue : object? <<get>>
+    ElementImplementation : IImplementation? <<get>>
+    HasDefaultValue : bool <<get>>
+    IsReadOnly : bool <<get>>
+    PropertyName : string <<get>>
+    CalculatePath(parent:IConfigurationParent?) : string
+    ConvertStringToValue(path:string, stringRepresentation:string?) : object?
+    ConvertValueToString(value:object?) : string?
+    + CopyValue(implementation:IImplementation, value:TElement, parent:IConfigurationParent, configurationRoot:IConfigurationRoot) : TElement
+}
+IPropertyDef --> "Implementation" IImplementation
+IPropertyDef --> "Persistence" ConfigurationPersistenceActions
+IPropertyDef --> "PropertyInfo" PropertyInfo
+IPropertyDef --> "Type" Type
+interface IPropertyValue {
+    PropertyName : string <<get>>
+}
+interface "IReadOnlyConfigurationCollection`1"<TElement> {
+}
+class "IConfigurationCollection`1"<T> {
+}
+class "IReadOnlyCollection`1"<T> {
+}
+"IConfigurationCollection`1" "<TElement>" <|-- "IReadOnlyConfigurationCollection`1"
+"IReadOnlyCollection`1" "<TElement>" <|-- "IReadOnlyConfigurationCollection`1"
+interface "IReadOnlyConfigurationDictionary`1"<TElement> {
+}
+class "IConfigurationDictionary`1"<T> {
+}
+class "IReadOnlyDictionary`2"<T1,T2> {
+}
+"IConfigurationDictionary`1" "<TElement>" <|-- "IReadOnlyConfigurationDictionary`1"
+"IReadOnlyDictionary`2" "<string,TElement>" <|-- "IReadOnlyConfigurationDictionary`1"
+interface IValue {
+    IsDirty : bool <<get>>
+    Path : string <<get>>
+    Value : object? <<get>> <<set>>
+    DeleteValue(configurationRoot:IConfigurationRoot) : void
+    ReadValue(configurationRoot:IConfigurationRoot) : void
+    SetValue(value:object?) : bool
+    WriteValue(configurationRoot:IConfigurationRoot) : void
+}
+IValue --> "Parent" IValueChanged
+IValue --> "PropertyDef" IPropertyDef
+interface IValueChanged {
+    OnValueChanged(oldValue:IValue, newValue:IValue) : void
+}
+@enduml

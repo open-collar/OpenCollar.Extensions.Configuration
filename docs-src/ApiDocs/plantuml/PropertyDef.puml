@@ -1,0 +1,22 @@
+@startuml
+class PropertyDef {
+    + DefaultValue : object? <<get>>
+    + ElementImplementation : IImplementation? <<get>>
+    + HasDefaultValue : bool <<get>>
+    + IsReadOnly : bool <<get>>
+    + PathSection : string <<get>>
+    + PropertyName : string <<get>>
+    + {static} GetUnderlyingType(type:Type) : Type
+    + CalculatePath(parent:IConfigurationParent?) : string
+    + ConvertStringToValue(path:string, stringRepresentation:string?) : object?
+    + ConvertValueToString(value:object?) : string?
+    + CopyValue(implementation:IImplementation, value:TElement, parent:IConfigurationParent, configurationRoot:IConfigurationRoot) : TElement
+}
+IPropertyDef <|-- PropertyDef
+PropertyDef --> "Implementation" IImplementation
+PropertyDef --> "PathModifier" PathIs
+PropertyDef --> "Persistence" ConfigurationPersistenceActions
+PropertyDef --> "PropertyInfo" PropertyInfo
+PropertyDef --> "Type" Type
+PropertyDef --> "UnderlyingType" Type
+@enduml
