@@ -17,26 +17,23 @@
  * Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
+using System.Collections.Generic;
+
 namespace OpenCollar.Extensions.Configuration
 {
     /// <summary>
-    ///     The non-generic interface of a <see cref="PropertyValue{TValue}" /> object.S
+    ///     Defines a read-only dictionary containing configuration items and keyed on the element name.
     /// </summary>
+    /// <typeparam name="TElement">
+    ///     The type of the elements contained in the dictionary.
+    /// </typeparam>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/interfaces/IPropertyValue/IPropertyValue.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/.interfaces/IReadOnlyConfigurationDictionary/IReadOnlyConfigurationDictionary.svg" />
     /// </remarks>
-    internal interface IPropertyValue
+    /// <seealso cref="System.Collections.Generic.IReadOnlyDictionary{TKey, TElement}" />
+    /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationDictionary{TElement}" />
+    public interface IReadOnlyConfigurationDictionary<TElement> : IConfigurationDictionary<TElement>, IReadOnlyDictionary<string, TElement>
     {
-        /// <summary>
-        ///     Gets the name of the property represented by this object.
-        /// </summary>
-        /// <value>
-        ///     The name of the property represented by this object.
-        /// </value>
-        string PropertyName
-        {
-            get;
-        }
     }
 }

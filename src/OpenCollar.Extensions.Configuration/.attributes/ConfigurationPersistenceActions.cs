@@ -22,12 +22,13 @@ using System;
 namespace OpenCollar.Extensions.Configuration
 {
     /// <summary>
-    ///     Defines the behavior of loading or saving for are particular property.
+    ///     Defines the behavior when loading or saving the value for any particular property.
     /// </summary>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/attributes/ConfigurationPersistenceActions/ConfigurationPersistenceActions.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/.attributes/ConfigurationPersistenceActions/ConfigurationPersistenceActions.svg" />
     /// </remarks>
+    /// <seealso cref="ConfigurationAttribute" />
     [Flags]
     public enum ConfigurationPersistenceActions
     {

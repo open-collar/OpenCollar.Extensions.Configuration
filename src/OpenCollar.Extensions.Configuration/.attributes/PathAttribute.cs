@@ -31,10 +31,17 @@ namespace OpenCollar.Extensions.Configuration
     ///     individual property.
     /// </summary>
     /// <remarks>
-    ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/attributes/PathAttribute/PathAttribute.svg" />
+    ///     <para>
+    ///         The <c> usage </c> and <c> path </c> arguments of the constructor can be used to determine whether this
+    ///         property is read from a path relative to the parent or from an absolute path.
+    ///     </para>
+    ///     <para>
+    ///         The following UML has been generated directly from the source code using
+    ///         <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/.attributes/PathAttribute/PathAttribute.svg" />
+    ///     </para>
     /// </remarks>
     /// <seealso cref="Attribute" />
+    /// <seealso cref="PathIs" />
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
     public sealed class PathAttribute : Attribute
     {

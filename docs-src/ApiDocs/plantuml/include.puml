@@ -3,15 +3,15 @@ abstract class "ConfigurationObjectBase`1"<TInterface> {
     + Equals(other:TInterface) : bool
 }
 abstract class ConfigurationObjectBase {
-    + SetParent(parent:IConfigurationParent?) : void
     + IsDirty : bool <<get>>
-    + Delete() : void
-    + Load() : void
-    + Save() : void
     + IsReadOnly : bool <<get>>
     + PropertyDef : IPropertyDef? <<get>>
     + CalculatePath() : string
+    + Delete() : void
+    + Load() : void
     + OnValueChanged(oldValue:IValue, newValue:IValue) : void
+    + Save() : void
+    + SetParent(parent:IConfigurationParent?) : void
 }
 class "IEquatable`1"<T> {
 }
@@ -111,6 +111,148 @@ IValue <|-- "ValueBase`2"
 IConfigurationParent <|-- "ValueBase`2"
 "ValueBase`2" --> "PropertyDef" IPropertyDef
 "ValueBase`2" --> "Parent" IValueChanged
+class ConfigurationAttribute <<sealed>> {
+    + ConfigurationAttribute()
+    + DefaultValue : object? <<get>> <<set>>
+}
+Attribute <|-- ConfigurationAttribute
+ConfigurationAttribute --> "Persistence" ConfigurationPersistenceActions
+enum ConfigurationPersistenceActions {
+    Ignore= 0,
+    LoadOnly= 1,
+    SaveOnly= 2,
+    LoadAndSave= LoadOnly | SaveOnly,
+}
+class PathAttribute <<sealed>> {
+    + PathAttribute(usage:PathIs, path:string)
+}
+Attribute <|-- PathAttribute
+enum PathIs {
+    Unknown= 0,
+    Root,
+    Suffix,
+}
+class ConfigurationException {
+    + ConfigurationException()
+    + ConfigurationException(message:string)
+    + ConfigurationException(configurationPath:string?, message:string)
+    + ConfigurationException(message:string, innerException:Exception)
+    + ConfigurationException(configurationPath:string?, message:string, innerException:Exception)
+    + ConfigurationPath : string? <<get>> <<set>>
+    + <<override>> GetObjectData(info:SerializationInfo, context:StreamingContext) : void
+}
+Exception <|-- ConfigurationException
+class InvalidPropertyException {
+    + InvalidPropertyException()
+    + InvalidPropertyException(message:string)
+    + InvalidPropertyException(propertyName:string?, message:string)
+    + InvalidPropertyException(message:string, innerException:Exception)
+    + InvalidPropertyException(propertyName:string?, message:string, innerException:Exception)
+    + PropertyName : string? <<get>> <<set>>
+    + <<override>> GetObjectData(info:SerializationInfo, context:StreamingContext) : void
+}
+Exception <|-- InvalidPropertyException
+class TypeMismatchException {
+    + TypeMismatchException()
+    + TypeMismatchException(message:string)
+    + TypeMismatchException(configurationPath:string, message:string)
+    + TypeMismatchException(message:string, innerException:Exception)
+    + TypeMismatchException(configurationPath:string, message:string, innerException:Exception)
+}
+ConfigurationException <|-- TypeMismatchException
+interface IConfigurationChild {
+    SetParent(parent:IConfigurationParent?) : void
+}
+interface "IConfigurationCollection`1"<TElement> {
+    AddCopy(value:TElement) : TElement
+    AddNew() : TElement
+}
+class "IList`1"<T> {
+}
+"IList`1" "<TElement>" <|-- "IConfigurationCollection`1"
+INotifyCollectionChanged <|-- "IConfigurationCollection`1"
+interface "IConfigurationDictionary`1"<TElement> {
+    AddCopy(key:string, value:TElement) : TElement
+    AddNew(key:string) : TElement
+    Contains(element:TElement) : bool
+}
+class "IDictionary`2"<T1,T2> {
+}
+"IDictionary`2" "<string,TElement>" <|-- "IConfigurationDictionary`1"
+INotifyCollectionChanged <|-- "IConfigurationDictionary`1"
+interface IConfigurationObject {
+    IsDirty : bool <<get>>
+    Delete() : void
+    Load() : void
+    Save() : void
+}
+IDisposable <|-- IConfigurationObject
+INotifyPropertyChanged <|-- IConfigurationObject
+interface IConfigurationParent {
+    IsReadOnly : bool <<get>>
+    PropertyDef : IPropertyDef? <<get>>
+    CalculatePath() : string
+}
+interface IImplementation {
+    ImplementationType : Type? <<get>>
+}
+IImplementation --> "ImplementationKind" ImplementationKind
+IImplementation --> "Type" Type
+enum ImplementationKind {
+    Unknown= 0,
+    Naive,
+    ConfigurationObject,
+    ConfigurationCollection,
+    ConfigurationDictionary,
+}
+interface IPropertyDef {
+    DefaultValue : object? <<get>>
+    ElementImplementation : IImplementation? <<get>>
+    HasDefaultValue : bool <<get>>
+    IsReadOnly : bool <<get>>
+    PropertyName : string <<get>>
+    CalculatePath(parent:IConfigurationParent?) : string
+    ConvertStringToValue(path:string, stringRepresentation:string?) : object?
+    ConvertValueToString(value:object?) : string?
+    + CopyValue(implementation:IImplementation, value:TElement, parent:IConfigurationParent, configurationRoot:IConfigurationRoot) : TElement
+}
+IPropertyDef --> "Implementation" IImplementation
+IPropertyDef --> "Persistence" ConfigurationPersistenceActions
+IPropertyDef --> "PropertyInfo" PropertyInfo
+IPropertyDef --> "Type" Type
+interface IPropertyValue {
+    PropertyName : string <<get>>
+}
+interface "IReadOnlyConfigurationCollection`1"<TElement> {
+}
+class "IConfigurationCollection`1"<T> {
+}
+class "IReadOnlyCollection`1"<T> {
+}
+"IConfigurationCollection`1" "<TElement>" <|-- "IReadOnlyConfigurationCollection`1"
+"IReadOnlyCollection`1" "<TElement>" <|-- "IReadOnlyConfigurationCollection`1"
+interface "IReadOnlyConfigurationDictionary`1"<TElement> {
+}
+class "IConfigurationDictionary`1"<T> {
+}
+class "IReadOnlyDictionary`2"<T1,T2> {
+}
+"IConfigurationDictionary`1" "<TElement>" <|-- "IReadOnlyConfigurationDictionary`1"
+"IReadOnlyDictionary`2" "<string,TElement>" <|-- "IReadOnlyConfigurationDictionary`1"
+interface IValue {
+    IsDirty : bool <<get>>
+    Path : string <<get>>
+    Value : object? <<get>> <<set>>
+    DeleteValue(configurationRoot:IConfigurationRoot) : void
+    ReadValue(configurationRoot:IConfigurationRoot) : void
+    SetValue(value:object?) : bool
+    WriteValue(configurationRoot:IConfigurationRoot) : void
+}
+IValue --> "Parent" IValueChanged
+IValue --> "PropertyDef" IPropertyDef
+interface IValueChanged {
+    OnValueChanged(oldValue:IValue, newValue:IValue) : void
+}
 class "ConfigurationCollection`1"<TElement> {
     + ConfigurationCollection(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:IEnumerable<TElement>?)
     + ConfigurationCollection(parent:IConfigurationParent?, propertyDef:IPropertyDef, configurationRoot:IConfigurationRoot, elements:TElement[]?)
@@ -274,146 +416,4 @@ enum StringIs {
 class ValidatedNotNullAttribute <<sealed>> {
 }
 Attribute <|-- ValidatedNotNullAttribute
-class ConfigurationAttribute <<sealed>> {
-    + ConfigurationAttribute()
-    + DefaultValue : object? <<get>> <<set>>
-}
-Attribute <|-- ConfigurationAttribute
-ConfigurationAttribute --> "Persistence" ConfigurationPersistenceActions
-enum ConfigurationPersistenceActions {
-    Ignore= 0,
-    LoadOnly= 1,
-    SaveOnly= 2,
-    LoadAndSave= LoadOnly | SaveOnly,
-}
-enum PathIs {
-    Unknown= 0,
-    Root,
-    Suffix,
-}
-class PathAttribute <<sealed>> {
-    + PathAttribute(usage:PathIs, path:string)
-}
-Attribute <|-- PathAttribute
-class ConfigurationException {
-    + ConfigurationException()
-    + ConfigurationException(message:string)
-    + ConfigurationException(configurationPath:string?, message:string)
-    + ConfigurationException(message:string, innerException:Exception)
-    + ConfigurationException(configurationPath:string?, message:string, innerException:Exception)
-    + ConfigurationPath : string? <<get>> <<set>>
-    + <<override>> GetObjectData(info:SerializationInfo, context:StreamingContext) : void
-}
-Exception <|-- ConfigurationException
-class InvalidPropertyException {
-    + InvalidPropertyException()
-    + InvalidPropertyException(message:string)
-    + InvalidPropertyException(propertyName:string?, message:string)
-    + InvalidPropertyException(message:string, innerException:Exception)
-    + InvalidPropertyException(propertyName:string?, message:string, innerException:Exception)
-    + PropertyName : string? <<get>> <<set>>
-    + <<override>> GetObjectData(info:SerializationInfo, context:StreamingContext) : void
-}
-Exception <|-- InvalidPropertyException
-class TypeMismatchException {
-    + TypeMismatchException()
-    + TypeMismatchException(message:string)
-    + TypeMismatchException(configurationPath:string, message:string)
-    + TypeMismatchException(message:string, innerException:Exception)
-    + TypeMismatchException(configurationPath:string, message:string, innerException:Exception)
-}
-ConfigurationException <|-- TypeMismatchException
-interface IConfigurationChild {
-    SetParent(parent:IConfigurationParent?) : void
-}
-interface "IConfigurationCollection`1"<TElement> {
-    AddCopy(value:TElement) : TElement
-    AddNew() : TElement
-}
-class "IList`1"<T> {
-}
-"IList`1" "<TElement>" <|-- "IConfigurationCollection`1"
-INotifyCollectionChanged <|-- "IConfigurationCollection`1"
-interface "IConfigurationDictionary`1"<TElement> {
-    AddCopy(key:string, value:TElement) : TElement
-    AddNew(key:string) : TElement
-    Contains(element:TElement) : bool
-}
-class "IDictionary`2"<T1,T2> {
-}
-"IDictionary`2" "<string,TElement>" <|-- "IConfigurationDictionary`1"
-INotifyCollectionChanged <|-- "IConfigurationDictionary`1"
-interface IConfigurationObject {
-    IsDirty : bool <<get>>
-    Delete() : void
-    Load() : void
-    Save() : void
-}
-IDisposable <|-- IConfigurationObject
-INotifyPropertyChanged <|-- IConfigurationObject
-interface IConfigurationParent {
-    IsReadOnly : bool <<get>>
-    PropertyDef : IPropertyDef? <<get>>
-    CalculatePath() : string
-}
-interface IImplementation {
-    ImplementationType : Type? <<get>>
-}
-IImplementation --> "ImplementationKind" ImplementationKind
-IImplementation --> "Type" Type
-enum ImplementationKind {
-    Unknown= 0,
-    Naive,
-    ConfigurationObject,
-    ConfigurationCollection,
-    ConfigurationDictionary,
-}
-interface IPropertyDef {
-    DefaultValue : object? <<get>>
-    ElementImplementation : IImplementation? <<get>>
-    HasDefaultValue : bool <<get>>
-    IsReadOnly : bool <<get>>
-    PropertyName : string <<get>>
-    CalculatePath(parent:IConfigurationParent?) : string
-    ConvertStringToValue(path:string, stringRepresentation:string?) : object?
-    ConvertValueToString(value:object?) : string?
-    + CopyValue(implementation:IImplementation, value:TElement, parent:IConfigurationParent, configurationRoot:IConfigurationRoot) : TElement
-}
-IPropertyDef --> "Implementation" IImplementation
-IPropertyDef --> "Persistence" ConfigurationPersistenceActions
-IPropertyDef --> "PropertyInfo" PropertyInfo
-IPropertyDef --> "Type" Type
-interface IPropertyValue {
-    PropertyName : string <<get>>
-}
-interface "IReadOnlyConfigurationCollection`1"<TElement> {
-}
-class "IConfigurationCollection`1"<T> {
-}
-class "IReadOnlyCollection`1"<T> {
-}
-"IConfigurationCollection`1" "<TElement>" <|-- "IReadOnlyConfigurationCollection`1"
-"IReadOnlyCollection`1" "<TElement>" <|-- "IReadOnlyConfigurationCollection`1"
-interface "IReadOnlyConfigurationDictionary`1"<TElement> {
-}
-class "IConfigurationDictionary`1"<T> {
-}
-class "IReadOnlyDictionary`2"<T1,T2> {
-}
-"IConfigurationDictionary`1" "<TElement>" <|-- "IReadOnlyConfigurationDictionary`1"
-"IReadOnlyDictionary`2" "<string,TElement>" <|-- "IReadOnlyConfigurationDictionary`1"
-interface IValue {
-    IsDirty : bool <<get>>
-    Path : string <<get>>
-    Value : object? <<get>> <<set>>
-    DeleteValue(configurationRoot:IConfigurationRoot) : void
-    ReadValue(configurationRoot:IConfigurationRoot) : void
-    SetValue(value:object?) : bool
-    WriteValue(configurationRoot:IConfigurationRoot) : void
-}
-IValue --> "Parent" IValueChanged
-IValue --> "PropertyDef" IPropertyDef
-interface IValueChanged {
-    OnValueChanged(oldValue:IValue, newValue:IValue) : void
-}
 @enduml

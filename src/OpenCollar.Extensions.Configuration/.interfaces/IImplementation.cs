@@ -17,48 +17,52 @@
  * Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).
  */
 
+using System;
 using System.ComponentModel;
-
-using JetBrains.Annotations;
-
-using OpenCollar.Extensions.Configuration.Collections;
 
 namespace OpenCollar.Extensions.Configuration
 {
     /// <summary>
-    ///     Defines the way in which the value returned by a property is implemented.
+    ///     The details of the implementation of a property or element.
     /// </summary>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/interfaces/ImplementationKind/ImplementationKind.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/.interfaces/IImplementation/IImplementation.svg" />
     /// </remarks>
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public enum ImplementationKind
+    public interface IImplementation
     {
         /// <summary>
-        ///     The implementation is unknown or undefined.
+        ///     Gets the kind of the implementation to use to instantiate values.
         /// </summary>
-        [UsedImplicitly]
-        Unknown = 0,
+        /// <value>
+        ///     The kind of the implementation to use to instantiate values.
+        /// </value>
+        ImplementationKind ImplementationKind
+        {
+            get;
+        }
 
         /// <summary>
-        ///     The implementation is the naive type (i.e. nothing special is required).
+        ///     Gets the type of the object that implements values ( <see langword="null" /> if the property is naive).
         /// </summary>
-        Naive,
+        /// <value>
+        ///     The type of the object that implements values ( <see langword="null" /> if the property is naive).
+        /// </value>
+        Type? ImplementationType
+        {
+            get;
+        }
 
         /// <summary>
-        ///     The implementation is derived from <see cref="ConfigurationObjectBase{TInterface}" />.
+        ///     Gets the type of the value represented (the type of the property).
         /// </summary>
-        ConfigurationObject,
-
-        /// <summary>
-        ///     The implementation is derived from <see cref="ConfigurationCollection{TElement}" />.
-        /// </summary>
-        ConfigurationCollection,
-
-        /// <summary>
-        ///     The implementation is derived from <see cref="ConfigurationDictionary{TInterface}" />.
-        /// </summary>
-        ConfigurationDictionary
+        /// <value>
+        ///     The type of the value represented (the type of the property).
+        /// </value>
+        Type Type
+        {
+            get;
+        }
     }
 }

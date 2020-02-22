@@ -26,10 +26,21 @@ namespace OpenCollar.Extensions.Configuration
     ///     configuration root.
     /// </summary>
     /// <remarks>
-    ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/attributes/ConfigurationAttribute/ConfigurationAttribute.svg" />
+    ///     <para>
+    ///         Use the <see cref="DefaultValue" /> property of this attribute to manage the default value for
+    ///         configuration items that do not require and underlying setting.
+    ///     </para>
+    ///     <para>
+    ///         The <see cref="Persistence" /> property of this attribute can be used to control whether values are read
+    ///         or written to and from the underlying configuration source.
+    ///     </para>
+    ///     <para>
+    ///         The following UML has been generated directly from the source code using
+    ///         <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/.attributes/ConfigurationAttribute/ConfigurationAttribute.svg" />
+    ///     </para>
     /// </remarks>
     /// <seealso cref="Attribute" />
+    /// <seealso cref="ConfigurationPersistenceActions" />
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class ConfigurationAttribute : Attribute
     {

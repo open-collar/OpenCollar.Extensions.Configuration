@@ -8,7 +8,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </summary>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/exceptions/TypeMismatchException/TypeMismatchException.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/.exceptions/TypeMismatchException/TypeMismatchException.svg" />
     /// </remarks>
     /// <seealso cref="Exception" />
     [Serializable]

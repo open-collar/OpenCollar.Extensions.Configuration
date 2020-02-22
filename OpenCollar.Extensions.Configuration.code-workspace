@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"csharp2plantuml.inputPath": "/src/OpenCollar.Extensions.Configuration",
+		"csharp2plantuml.outputPath": "../../docs-src/ApiDocs/plantuml",
+		"plantuml.diagramsRoot": "docs-src/ApiDocs/plantuml",
+		"plantuml.exportOutDir": "docs-src/ApiDocs/images/uml-diagrams",
+		"plantuml.exportFormat": "svg",
+		"plantuml.includepaths": ["docs-src/ApiDocs/plantuml"]
+	}
+}

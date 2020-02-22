@@ -38,6 +38,29 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Include=".attributes\ConfigurationAttribute.cs" />
+      <Compile Include=".attributes\ConfigurationPersistenceActions.cs" />
+      <Compile Include=".attributes\PathAttribute.cs" />
+      <Compile Include=".attributes\PathIs.cs" />
+      <Compile Include=".exceptions\ConfigurationException.cs" />
+      <Compile Include=".exceptions\InvalidPropertyException.cs" />
+      <Compile Include=".exceptions\TypeMismatchException.cs" />
+      <Compile Include=".interfaces\IConfigurationChild.cs" />
+      <Compile Include=".interfaces\IConfigurationCollection.cs" />
+      <Compile Include=".interfaces\IConfigurationDictionary.cs" />
+      <Compile Include=".interfaces\IConfigurationObject.cs" />
+      <Compile Include=".interfaces\IConfigurationParent.cs" />
+      <Compile Include=".interfaces\IImplementation.cs" />
+      <Compile Include=".interfaces\ImplementationKind.cs" />
+      <Compile Include=".interfaces\IPropertyDef.cs" />
+      <Compile Include=".interfaces\IPropertyValue.cs" />
+      <Compile Include=".interfaces\IReadOnlyConfigurationCollection.cs" />
+      <Compile Include=".interfaces\IReadOnlyConfigurationDictionary.cs" />
+      <Compile Include=".interfaces\IValue.cs" />
+      <Compile Include=".interfaces\IValueChanged.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
         <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
             <PrivateAssets>all</PrivateAssets>

@@ -1,9 +1,4 @@
 @startuml
-enum PathIs {
-    Unknown= 0,
-    Root,
-    Suffix,
-}
 class PathAttribute <<sealed>> {
     + PathAttribute(usage:PathIs, path:string)
 }

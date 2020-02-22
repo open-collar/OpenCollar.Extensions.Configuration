@@ -3,15 +3,15 @@ abstract class "ConfigurationObjectBase`1"<TInterface> {
     + Equals(other:TInterface) : bool
 }
 abstract class ConfigurationObjectBase {
-    + SetParent(parent:IConfigurationParent?) : void
     + IsDirty : bool <<get>>
-    + Delete() : void
-    + Load() : void
-    + Save() : void
     + IsReadOnly : bool <<get>>
     + PropertyDef : IPropertyDef? <<get>>
     + CalculatePath() : string
+    + Delete() : void
+    + Load() : void
     + OnValueChanged(oldValue:IValue, newValue:IValue) : void
+    + Save() : void
+    + SetParent(parent:IConfigurationParent?) : void
 }
 class "IEquatable`1"<T> {
 }

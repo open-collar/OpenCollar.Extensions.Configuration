@@ -31,7 +31,7 @@ namespace OpenCollar.Extensions.Configuration
     /// <seealso cref="IDictionary{TKey,TValue}" />
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/interfaces/IConfigurationDictionary/IConfigurationDictionary.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/.interfaces/IConfigurationDictionary/IConfigurationDictionary.svg" />
     /// </remarks>
     public interface IConfigurationDictionary<TElement> : IDictionary<string, TElement>, INotifyCollectionChanged
     {
