@@ -27,7 +27,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </summary>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_interfaces/IImplementation/IImplementation.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/interfaces/IImplementation/IImplementation.svg" />
     /// </remarks>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IImplementation
@@ -35,7 +35,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the kind of the implementation to use to instantiate values.
         /// </summary>
-        /// <value> The kind of the implementation to use to instantiate values. </value>
+        /// <value>
+        ///     The kind of the implementation to use to instantiate values.
+        /// </value>
         ImplementationKind ImplementationKind
         {
             get;
@@ -55,7 +57,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the type of the value represented (the type of the property).
         /// </summary>
-        /// <value> The type of the value represented (the type of the property). </value>
+        /// <value>
+        ///     The type of the value represented (the type of the property).
+        /// </value>
         Type Type
         {
             get;

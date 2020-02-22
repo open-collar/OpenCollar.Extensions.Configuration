@@ -32,7 +32,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </summary>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_attributes/PathAttribute/PathAttribute.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/attributes/PathAttribute/PathAttribute.svg" />
     /// </remarks>
     /// <seealso cref="Attribute" />
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
@@ -41,8 +41,12 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Initializes a new instance of the <see cref="PathAttribute" /> class.
         /// </summary>
-        /// <param name="usage"> The usage. </param>
-        /// <param name="path"> The path. </param>
+        /// <param name="usage">
+        ///     The usage.
+        /// </param>
+        /// <param name="path">
+        ///     The path.
+        /// </param>
         /// <exception cref="ArgumentException">
         ///     <paramref name="path" /> must contain a valid path or fragment of a path.
         /// </exception>
@@ -74,7 +78,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the full path or fragment of a path specified.
         /// </summary>
-        /// <value> The full path or fragment of a path specified. </value>
+        /// <value>
+        ///     The full path or fragment of a path specified.
+        /// </value>
         internal string Path
         {
             get;
@@ -83,7 +89,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the usage of the path or fragment of a path specified.
         /// </summary>
-        /// <value> The usage of the path or fragment of a path specified. </value>
+        /// <value>
+        ///     The usage of the path or fragment of a path specified.
+        /// </value>
         internal PathIs Usage
         {
             get;

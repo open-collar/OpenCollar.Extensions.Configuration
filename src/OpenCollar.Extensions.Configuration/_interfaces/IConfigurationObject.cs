@@ -27,7 +27,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </summary>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_interfaces/IConfigurationObject/IConfigurationObject.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/interfaces/IConfigurationObject/IConfigurationObject.svg" />
     /// </remarks>
     public interface IConfigurationObject : IDisposable, INotifyPropertyChanged
     {

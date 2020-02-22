@@ -30,7 +30,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </summary>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_interfaces/IPropertyDef/IPropertyDef.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/interfaces/IPropertyDef/IPropertyDef.svg" />
     /// </remarks>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IPropertyDef
@@ -38,7 +38,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets or sets the default value.
         /// </summary>
-        /// <value> The default value. Can be <see langword="null" />. </value>
+        /// <value>
+        ///     The default value. Can be <see langword="null" />.
+        /// </value>
         object? DefaultValue
         {
             get;
@@ -47,7 +49,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the details of the specific implementation of this property.
         /// </summary>
-        /// <value> The details of the specific implementation of this property. </value>
+        /// <value>
+        ///     The details of the specific implementation of this property.
+        /// </value>
         IImplementation? ElementImplementation
         {
             get;
@@ -67,7 +71,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the details of the specific implementation of this property.
         /// </summary>
-        /// <value> The details of the specific implementation of this property. </value>
+        /// <value>
+        ///     The details of the specific implementation of this property.
+        /// </value>
         IImplementation Implementation
         {
             get;
@@ -88,7 +94,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets or sets the policy for when to load and save values from the configuration service.
         /// </summary>
-        /// <value> The policy for when to load and save values from the configuration service. </value>
+        /// <value>
+        ///     The policy for when to load and save values from the configuration service.
+        /// </value>
         public ConfigurationPersistenceActions Persistence
         {
             get;
@@ -97,7 +105,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the property information that defines the interface property.
         /// </summary>
-        /// <value> The property information that defines the interface property. </value>
+        /// <value>
+        ///     The property information that defines the interface property.
+        /// </value>
         PropertyInfo PropertyInfo
         {
             get;
@@ -106,7 +116,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the name of the property represented by this object.
         /// </summary>
-        /// <value> The name of the property represented by this object. </value>
+        /// <value>
+        ///     The name of the property represented by this object.
+        /// </value>
         string PropertyName
         {
             get;
@@ -115,7 +127,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the type of the value held in the property.
         /// </summary>
-        /// <value> The type of the value held in the property. </value>
+        /// <value>
+        ///     The type of the value held in the property.
+        /// </value>
         Type Type
         {
             get;
@@ -124,36 +138,60 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the path to this configuration object.
         /// </summary>
-        /// <returns> A string containing the path to this configuration object. </returns>
+        /// <returns>
+        ///     A string containing the path to this configuration object.
+        /// </returns>
         string CalculatePath(IConfigurationParent? parent);
 
         /// <summary>
         ///     Parses a string value into the type defined by the property definition.
         /// </summary>
-        /// <param name="path"> The path to the value being converted (used in error messages). </param>
-        /// <param name="stringRepresentation"> The string to parse. </param>
-        /// <returns> The string parsed as the type of this property. </returns>
-        /// <exception cref="ConfigurationException"> Value could not be converted. </exception>
+        /// <param name="path">
+        ///     The path to the value being converted (used in error messages).
+        /// </param>
+        /// <param name="stringRepresentation">
+        ///     The string to parse.
+        /// </param>
+        /// <returns>
+        ///     The string parsed as the type of this property.
+        /// </returns>
+        /// <exception cref="ConfigurationException">
+        ///     Value could not be converted.
+        /// </exception>
         object? ConvertStringToValue(string path, string? stringRepresentation);
 
         /// <summary>
         ///     Given a value that can be assigned to the property represented, returns a string equivalent.
         /// </summary>
-        /// <param name="value"> The value. </param>
-        /// <returns> The string equivalent of the value given. </returns>
+        /// <param name="value">
+        ///     The value.
+        /// </param>
+        /// <returns>
+        ///     The string equivalent of the value given.
+        /// </returns>
         string? ConvertValueToString(object? value);
 
         /// <summary>
         ///     Copies the value of an element.
         /// </summary>
-        /// <typeparam name="TElement"> The type of the element to copy. </typeparam>
-        /// <param name="implementation"> The details of the implementation for which to make a copy. </param>
-        /// <param name="value"> The value to copy. </param>
-        /// <param name="parent"> The parent object to which cloned configuration objects will belong. </param>
+        /// <typeparam name="TElement">
+        ///     The type of the element to copy.
+        /// </typeparam>
+        /// <param name="implementation">
+        ///     The details of the implementation for which to make a copy.
+        /// </param>
+        /// <param name="value">
+        ///     The value to copy.
+        /// </param>
+        /// <param name="parent">
+        ///     The parent object to which cloned configuration objects will belong.
+        /// </param>
         /// <param name="configurationRoot">
         ///     The configuration root from which cloned configuration objects are to be populated.
         /// </param>
-        /// <returns> The newly copied element. </returns>
+        /// <returns>
+        ///     The newly copied element.
+        /// </returns>
         public TElement CopyValue<TElement>(IImplementation implementation, TElement value, IConfigurationParent parent, IConfigurationRoot configurationRoot);
     }
 }

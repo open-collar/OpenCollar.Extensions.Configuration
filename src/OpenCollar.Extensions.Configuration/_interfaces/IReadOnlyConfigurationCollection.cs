@@ -29,7 +29,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </typeparam>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_interfaces/IReadOnlyConfigurationCollection/IReadOnlyConfigurationCollection.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/interfaces/IReadOnlyConfigurationCollection/IReadOnlyConfigurationCollection.svg" />
     /// </remarks>
     /// <seealso cref="System.Collections.Generic.IReadOnlyCollection{TElement}" />
     /// <seealso cref="IReadOnlyCollection{TElement}" />

@@ -23,16 +23,22 @@ public interface IMyConfig : IConfigurationObject
 }
 ```
 
-To make properties read-only the define only a getter.
-
 ## Read-only
 
+To make properties read-only then define only a getter.
+
 ### Read-Only Collections
+
+To make a collection read-only use the [IReadOnlyConfigurationCollection](/api/OpenCollar.Extensions.Configuration.IReadOnlyConfigurationCollection-1.html)
+interface.
 
 ![UML Diagram of the ReadOnlyConfigurationCollection<> class](../images/uml-diagrams/Collections/ReadOnlyConfigurationCollection/ReadOnlyConfigurationCollection.svg)
 
 
 ### Read-Only Dictionaries
+
+To make a collection read-only use the [IReadOnlyConfigurationDictionary](/api/OpenCollar.Extensions.Configuration.IReadOnlyConfigurationDictionary-1.html)
+interface.
 
 ![UML Diagram of the ReadOnlyConfigurationDictionary<> class](../images/uml-diagrams/Collections/ReadOnlyConfigurationDictionary/ReadOnlyConfigurationDictionary.svg)
 

@@ -28,7 +28,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </summary>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_interfaces/IValue/IValue.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/interfaces/IValue/IValue.svg" />
     /// </remarks>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IValue
@@ -36,7 +36,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets a value indicating whether this property has unsaved changes.
         /// </summary>
-        /// <value> <see langword="true" /> if this property has unsaved changes; otherwise, <see langword="false" />. </value>
+        /// <value>
+        ///     <see langword="true" /> if this property has unsaved changes; otherwise, <see langword="false" />.
+        /// </value>
         bool IsDirty
         {
             get;
@@ -45,7 +47,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the parent object to which this value belongs.
         /// </summary>
-        /// <value> The parent object to which this value belongs. </value>
+        /// <value>
+        ///     The parent object to which this value belongs.
+        /// </value>
         IValueChanged Parent
         {
             get;
@@ -54,7 +58,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the colon-delimited path to the underlying configuration value.
         /// </summary>
-        /// <value> The colon-delimited path to the underlying configuration value. </value>
+        /// <value>
+        ///     The colon-delimited path to the underlying configuration value.
+        /// </value>
         string Path
         {
             get;
@@ -63,7 +69,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the definition of the property represented by this value.
         /// </summary>
-        /// <value> The definition of the property represented by this value. </value>
+        /// <value>
+        ///     The definition of the property represented by this value.
+        /// </value>
         IPropertyDef PropertyDef
         {
             get;
@@ -72,7 +80,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets or sets the value of the property represented by this instance.
         /// </summary>
-        /// <value> The value of the property. </value>
+        /// <value>
+        ///     The value of the property.
+        /// </value>
         object? Value
         {
             get; set;
@@ -81,26 +91,36 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Reads the value of the value identified by <see cref="PropertyDef" /> from the configuration root given.
         /// </summary>
-        /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
+        /// <param name="configurationRoot">
+        ///     The configuration root from which to read the value.
+        /// </param>
         void DeleteValue(IConfigurationRoot configurationRoot);
 
         /// <summary>
         ///     Reads the value of the value identified by <see cref="PropertyDef" /> from the configuration root given.
         /// </summary>
-        /// <param name="configurationRoot"> The configuration root from which to read the value. </param>
+        /// <param name="configurationRoot">
+        ///     The configuration root from which to read the value.
+        /// </param>
         void ReadValue(IConfigurationRoot configurationRoot);
 
         /// <summary>
         ///     Sets the value without firing any events.
         /// </summary>
-        /// <param name="value"> The new value. </param>
-        /// <returns> <see langword="true" /> if the value has changed; otherwise, <see langword="false" />. </returns>
+        /// <param name="value">
+        ///     The new value.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> if the value has changed; otherwise, <see langword="false" />.
+        /// </returns>
         bool SetValue(object? value);
 
         /// <summary>
         ///     Writes the value to the configuration store.
         /// </summary>
-        /// <param name="configurationRoot"> The configuration root to which to write the value. </param>
+        /// <param name="configurationRoot">
+        ///     The configuration root to which to write the value.
+        /// </param>
         void WriteValue(IConfigurationRoot configurationRoot);
     }
 }

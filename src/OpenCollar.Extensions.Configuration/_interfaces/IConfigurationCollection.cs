@@ -30,7 +30,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </typeparam>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_interfaces/IConfigurationCollection/IConfigurationCollection.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/interfaces/IConfigurationCollection/IConfigurationCollection.svg" />
     /// </remarks>
     public interface IConfigurationCollection<TElement> : IList<TElement>, INotifyCollectionChanged
     {
@@ -38,8 +38,12 @@ namespace OpenCollar.Extensions.Configuration
         ///     Adds a new value with the key specified, copying the properties and elements from the value give,
         ///     returning the new value.
         /// </summary>
-        /// <param name="value"> The value to copy. </param>
-        /// <returns> The newly added element. </returns>
+        /// <param name="value">
+        ///     The value to copy.
+        /// </param>
+        /// <returns>
+        ///     The newly added element.
+        /// </returns>
         /// <remarks>
         ///     Used to add objects and collections that have been constructed externally using alternate implementations.
         /// </remarks>
@@ -48,7 +52,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Adds a new value with the key specified, returning the new value.
         /// </summary>
-        /// <returns> The newly added element. </returns>
+        /// <returns>
+        ///     The newly added element.
+        /// </returns>
         TElement AddNew();
     }
 }

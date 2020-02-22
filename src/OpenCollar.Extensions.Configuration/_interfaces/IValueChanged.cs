@@ -7,7 +7,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </summary>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_interfaces/IValueChanged/IValueChanged.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/interfaces/IValueChanged/IValueChanged.svg" />
     /// </remarks>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IValueChanged
@@ -15,8 +15,12 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Called when a value has changed.
         /// </summary>
-        /// <param name="oldValue"> The old value. </param>
-        /// <param name="newValue"> The new value. </param>
+        /// <param name="oldValue">
+        ///     The old value.
+        /// </param>
+        /// <param name="newValue">
+        ///     The new value.
+        /// </param>
         void OnValueChanged(IValue oldValue, IValue newValue);
     }
 }

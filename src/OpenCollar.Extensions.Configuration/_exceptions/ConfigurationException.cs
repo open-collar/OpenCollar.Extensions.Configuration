@@ -10,7 +10,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </summary>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_exceptions/ConfigurationException/ConfigurationException.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/exceptions/ConfigurationException/ConfigurationException.svg" />
     /// </remarks>
     /// <seealso cref="Exception" />
     [Serializable]
@@ -26,7 +26,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationException" /> class.
         /// </summary>
-        /// <param name="message"> The message that describes the error. </param>
+        /// <param name="message">
+        ///     The message that describes the error.
+        /// </param>
         public ConfigurationException(string message) : base(message)
         {
         }
@@ -34,8 +36,12 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationException" /> class.
         /// </summary>
-        /// <param name="configurationPath"> The path to the configuration affected. </param>
-        /// <param name="message"> The message that describes the error. </param>
+        /// <param name="configurationPath">
+        ///     The path to the configuration affected.
+        /// </param>
+        /// <param name="message">
+        ///     The message that describes the error.
+        /// </param>
         public ConfigurationException(string? configurationPath, string message) : base(message)
         {
             ConfigurationPath = configurationPath;
@@ -44,7 +50,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationException" /> class.
         /// </summary>
-        /// <param name="message"> The error message that explains the reason for the exception. </param>
+        /// <param name="message">
+        ///     The error message that explains the reason for the exception.
+        /// </param>
         /// <param name="innerException">
         ///     The exception that is the cause of the current exception, or <see langword="null" /> if no inner
         ///     exception is specified.
@@ -56,8 +64,12 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationException" /> class.
         /// </summary>
-        /// <param name="message"> The error message that explains the reason for the exception. </param>
-        /// <param name="configurationPath"> The path to the configuration affected. </param>
+        /// <param name="message">
+        ///     The error message that explains the reason for the exception.
+        /// </param>
+        /// <param name="configurationPath">
+        ///     The path to the configuration affected.
+        /// </param>
         /// <param name="innerException">
         ///     The exception that is the cause of the current exception, or <see langword="null" /> if no inner
         ///     exception is specified.
@@ -84,7 +96,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets or sets the path to the configuration affected.
         /// </summary>
-        /// <value> The path to the configuration affected. </value>
+        /// <value>
+        ///     The path to the configuration affected.
+        /// </value>
         public string? ConfigurationPath
         {
             get; set;
@@ -99,7 +113,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="context">
         ///     The <see cref="StreamingContext" /> that contains contextual information about the source or destination.
         /// </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="info" /> is <see langword="null" />. </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="info" /> is <see langword="null" />.
+        /// </exception>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.Validate(nameof(info), ObjectIs.NotNull);

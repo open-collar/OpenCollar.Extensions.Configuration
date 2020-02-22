@@ -24,14 +24,16 @@ namespace OpenCollar.Extensions.Configuration
     /// </summary>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_interfaces/IPropertyValue/IPropertyValue.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/interfaces/IPropertyValue/IPropertyValue.svg" />
     /// </remarks>
     internal interface IPropertyValue
     {
         /// <summary>
         ///     Gets the name of the property represented by this object.
         /// </summary>
-        /// <value> The name of the property represented by this object. </value>
+        /// <value>
+        ///     The name of the property represented by this object.
+        /// </value>
         string PropertyName
         {
             get;

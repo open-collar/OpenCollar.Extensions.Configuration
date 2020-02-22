@@ -27,7 +27,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </summary>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_attributes/ConfigurationAttribute/ConfigurationAttribute.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/attributes/ConfigurationAttribute/ConfigurationAttribute.svg" />
     /// </remarks>
     /// <seealso cref="Attribute" />
     [AttributeUsage(AttributeTargets.Property)]
@@ -49,7 +49,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the default value.
         /// </summary>
-        /// <value> The default value to return if no value is defined in the configuration root. Can be <see langword="null" />. </value>
+        /// <value>
+        ///     The default value to return if no value is defined in the configuration root. Can be <see langword="null" />.
+        /// </value>
         public object? DefaultValue
         {
             get => _defaultValue;
@@ -63,7 +65,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets or sets the policy for when to load and save values from the configuration service.
         /// </summary>
-        /// <value> The policy for when to load and save values from the configuration service. </value>
+        /// <value>
+        ///     The policy for when to load and save values from the configuration service.
+        /// </value>
         public ConfigurationPersistenceActions Persistence
         {
             get; set;

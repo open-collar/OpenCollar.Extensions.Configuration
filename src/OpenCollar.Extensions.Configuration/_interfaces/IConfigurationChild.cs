@@ -7,7 +7,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </summary>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_interfaces/IConfigurationChild/IConfigurationChild.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/interfaces/IConfigurationChild/IConfigurationChild.svg" />
     /// </remarks>
     [EditorBrowsable(EditorBrowsableState.Never)]
     internal interface IConfigurationChild
@@ -15,7 +15,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Sets the parent of a configuration object.
         /// </summary>
-        /// <param name="parent"> The new parent object. </param>
+        /// <param name="parent">
+        ///     The new parent object.
+        /// </param>
         void SetParent(IConfigurationParent? parent);
     }
 }

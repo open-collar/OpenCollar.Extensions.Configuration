@@ -25,11 +25,13 @@ namespace OpenCollar.Extensions.Configuration
     /// <summary>
     ///     Defines a dictionary containing configuration items and keyed on the element name.
     /// </summary>
-    /// <typeparam name="TElement"> The type of the elements contained in the dictionary. </typeparam>
+    /// <typeparam name="TElement">
+    ///     The type of the elements contained in the dictionary.
+    /// </typeparam>
     /// <seealso cref="IDictionary{TKey,TValue}" />
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_interfaces/IConfigurationDictionary/IConfigurationDictionary.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/interfaces/IConfigurationDictionary/IConfigurationDictionary.svg" />
     /// </remarks>
     public interface IConfigurationDictionary<TElement> : IDictionary<string, TElement>, INotifyCollectionChanged
     {
@@ -37,9 +39,15 @@ namespace OpenCollar.Extensions.Configuration
         ///     Adds a new value with the key specified, copying the properties and elements from the value give,
         ///     returning the new value.
         /// </summary>
-        /// <param name="key"> The key identifying the value to add. </param>
-        /// <param name="value"> The value to copy. </param>
-        /// <returns> The newly added element. </returns>
+        /// <param name="key">
+        ///     The key identifying the value to add.
+        /// </param>
+        /// <param name="value">
+        ///     The value to copy.
+        /// </param>
+        /// <returns>
+        ///     The newly added element.
+        /// </returns>
         /// <remarks>
         ///     Used to add objects and collections that have been constructed externally using alternate implementations.
         /// </remarks>
@@ -48,15 +56,23 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Adds a new value with the key specified, returning the new value.
         /// </summary>
-        /// <param name="key"> The key identifying the value to add. </param>
-        /// <returns> The newly added element. </returns>
+        /// <param name="key">
+        ///     The key identifying the value to add.
+        /// </param>
+        /// <returns>
+        ///     The newly added element.
+        /// </returns>
         TElement AddNew(string key);
 
         /// <summary>
         ///     Determines whether this dictionary contains the element specified.
         /// </summary>
-        /// <param name="element"> The element for which to check. </param>
-        /// <returns> <see langword="true" /> if the dictionary contains the specified element; otherwise, <see langword="false" />. </returns>
+        /// <param name="element">
+        ///     The element for which to check.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> if the dictionary contains the specified element; otherwise, <see langword="false" />.
+        /// </returns>
         bool Contains(TElement element);
     }
 }

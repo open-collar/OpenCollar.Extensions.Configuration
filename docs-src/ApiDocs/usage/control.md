@@ -21,30 +21,12 @@ default values and whether values are loaded or saved.
                     [ConfigurationPersistenceActions](/api/OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.html)
                     enum.  The actions available are:
 
-<table>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-<tr>
-<th>Ignore</th>
-<td>Values will be neither loaded nor saved.</td>
-</tr>
-<tr>
-<th>LoadAndSave</th>
-<td>Values are loaded from the configuration service and changes are saved back to the configuration service.
-This is the default behavior.</td>
-</tr>
-<tr>
-<th>LoadOnly</th>
-<td>Values are loaded from the configuration service, but changes are never saved back to the configuration service.</td>
-</tr>
-<tr>
-<th>SaveOnly</th>
-<td>Values are never loaded from the configuration service, but changes are saved back to the configuration service.
-</td>
-</tr>
-</table>
+Name | Description
+---- | -----------
+**Ignore** | Values will be neither loaded nor saved.
+**LoadAndSave** | Values are loaded from the configuration service and changes are saved back to the configuration service. This is the default behavior.</td>
+**LoadOnly** | Values are loaded from the configuration service, but changes are never saved back to the configuration service.
+**SaveOnly** | Values are never loaded from the configuration service, but changes are saved back to the configuration service.
 
 ## Path Attribute
 
@@ -53,20 +35,7 @@ attribute allows the location of the configuration value to be determined.  Ther
 defined in the [ConfigurationPersistenceActions](/api/OpenCollar.Extensions.Configuration.PathIs.html)
 that can be assigned:
 
-
-<table>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-<tr>
-<th>Root</th>
-<td>The path is treated as a root and any previous context is ignored.  This allows a completely
-arbitrary path to be used.</td>
-</tr>
-<tr>
-<th>Suffix</th>
-<td>The path is treated as a suffix to be applied (as part of colon delimited list) to the existing
-path context.  This is the default behavior.</td>
-</tr>
-</table>
+Name | Description
+---- | -----------
+**Root** | The path is treated as a root and any previous context is ignored.  This allows a completely arbitrary path to be used.
+**Suffix** | The path is treated as a suffix to be applied (as part of colon delimited list) to the existing path context.  This is the default behavior.

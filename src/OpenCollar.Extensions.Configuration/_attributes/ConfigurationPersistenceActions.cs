@@ -26,7 +26,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </summary>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
-    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/_attributes/ConfigurationPersistenceActions/ConfigurationPersistenceActions.svg" />
+    ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/attributes/ConfigurationPersistenceActions/ConfigurationPersistenceActions.svg" />
     /// </remarks>
     [Flags]
     public enum ConfigurationPersistenceActions
@@ -34,7 +34,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Values will be neither loaded nor saved.
         /// </summary>
-        /// <remarks> To use this value a default value must be provided. </remarks>
+        /// <remarks>
+        ///     To use this value a default value must be provided.
+        /// </remarks>
         Ignore = 0,
 
         /// <summary>
@@ -45,13 +47,17 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Values are never loaded from the configuration service, but changes are saved back to the configuration service.
         /// </summary>
-        /// <remarks> To use this value a default value must be provided. </remarks>
+        /// <remarks>
+        ///     To use this value a default value must be provided.
+        /// </remarks>
         SaveOnly = 2,
 
         /// <summary>
         ///     Values are loaded from the configuration service and changes are saved back to the configuration service.
         /// </summary>
-        /// <remarks> This is the default behavior. </remarks>
+        /// <remarks>
+        ///     This is the default behavior.
+        /// </remarks>
         LoadAndSave = LoadOnly | SaveOnly,
     }
 }
