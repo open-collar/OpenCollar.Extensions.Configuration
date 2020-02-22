@@ -13,24 +13,30 @@
       "is_incremental": false
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationAttribute.yml",
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationAttribute.html",
-          "hash": "fWRiOlFrRZe0PPJLNEjKig=="
+          "hash": "anopl2eP40txN9laBrRFdA=="
         }
       },
       "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationException.yml",
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationException.html",
-          "hash": "t2VzKEYa6ryUiuRI+VH2KQ=="
+          "hash": "S6trNXMWrE2wL9DIW5/5Gg=="
         }
       },
       "is_incremental": false,
@@ -42,103 +48,127 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.html",
-          "hash": "ly0p2h6dvV9GRc2OCgVl2w=="
+          "hash": "sd1LrPrCgccKymG5uo3zDg=="
         }
       },
       "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.yml",
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.html",
-          "hash": "zuSrgpqPVh05K+UoMbTy8Q=="
+          "hash": "lXhitVDYt5nsE7teWTP2Rg=="
         }
       },
       "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationCollection-1.yml",
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationCollection-1.html",
-          "hash": "cDYLKkyFCw2mdEJUTcOKgQ=="
+          "hash": "ZLNMSIA/zPu0blYtw9qkmg=="
         }
       },
       "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationDictionary-1.yml",
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationDictionary-1.html",
-          "hash": "2NCMggaMSlpF467nr3aezQ=="
+          "hash": "cF7pDO2xUuX2LBwPp2PhIQ=="
         }
       },
       "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationObject.yml",
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationObject.html",
-          "hash": "NS1dBOA2jP+xbqz9uSjcVw=="
+          "hash": "yTBZncFoxgODYlHvzoF6yQ=="
         }
       },
       "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "api/OpenCollar.Extensions.Configuration.IReadOnlyConfigurationCollection-1.yml",
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IReadOnlyConfigurationCollection-1.html",
-          "hash": "i4FAw4/8UkXOgaxzvCsRbg=="
+          "hash": "GEhiOaKB3dtrPu5HPAIEjw=="
         }
       },
       "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "api/OpenCollar.Extensions.Configuration.IReadOnlyConfigurationDictionary-1.yml",
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IReadOnlyConfigurationDictionary-1.html",
-          "hash": "22XN1HXBvF5EYsttIuibpA=="
+          "hash": "SIwsSuWD8YWkHl7e9wal3g=="
         }
       },
       "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "api/OpenCollar.Extensions.Configuration.InvalidPropertyException.yml",
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.InvalidPropertyException.html",
-          "hash": "KZR+TgJEGYZtFu4tBiUGwg=="
+          "hash": "wpOuBKIxmqQ/xQI64uuJTQ=="
         }
       },
       "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "api/OpenCollar.Extensions.Configuration.PathAttribute.yml",
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.PathAttribute.html",
-          "hash": "CNzIJwrF7EisvjJ8oI9dhw=="
+          "hash": "XUdGU5I6SvHg807ovkZvOw=="
         }
       },
       "is_incremental": false,
@@ -153,7 +183,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.PathIs.html",
-          "hash": "JRVeaad6IFXU6TEkIdAZpg=="
+          "hash": "wgQoIm0ti2qIbBCYfzBX/g=="
         }
       },
       "is_incremental": false,
@@ -165,19 +195,22 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.html",
-          "hash": "f5yhn5xn3XsSpZiSfJ0JCg=="
+          "hash": "N6VJoL6DQtcBJq0Z2Vq4fA=="
         }
       },
       "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "api/OpenCollar.Extensions.Configuration.TypeMismatchException.yml",
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.TypeMismatchException.html",
-          "hash": "TGOg+W6lh38lpfndKl7Img=="
+          "hash": "CskhzbKfPJezyayoTeaSGA=="
         }
       },
       "is_incremental": false,
@@ -189,7 +222,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.html",
-          "hash": "QfZUpo0m1nnaefRr5o6kQQ=="
+          "hash": "DsdQw+RERirT3DEO6wsN1A=="
         }
       },
       "is_incremental": false,
@@ -518,219 +551,10 @@
     },
     {
       "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/attributes/ConfigurationAttribute/ConfigurationAttribute.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/attributes/ConfigurationAttribute/ConfigurationAttribute.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/attributes/ConfigurationPersistenceActions/ConfigurationPersistenceActions.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/attributes/ConfigurationPersistenceActions/ConfigurationPersistenceActions.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/attributes/PathAttribute/PathAttribute.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/attributes/PathAttribute/PathAttribute.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/exceptions/ConfigurationException/ConfigurationException.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/exceptions/ConfigurationException/ConfigurationException.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/exceptions/InvalidPropertyException/InvalidPropertyException.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/exceptions/InvalidPropertyException/InvalidPropertyException.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/exceptions/TypeMismatchException/TypeMismatchException.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/exceptions/TypeMismatchException/TypeMismatchException.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
       "source_relative_path": "images/uml-diagrams/include/include.svg",
       "output": {
         "resource": {
           "relative_path": "images/uml-diagrams/include/include.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/interfaces/IConfigurationChild/IConfigurationChild.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/interfaces/IConfigurationChild/IConfigurationChild.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/interfaces/IConfigurationCollection/IConfigurationCollection.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/interfaces/IConfigurationCollection/IConfigurationCollection.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/interfaces/IConfigurationDictionary/IConfigurationDictionary.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/interfaces/IConfigurationDictionary/IConfigurationDictionary.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/interfaces/IConfigurationObject/IConfigurationObject.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/interfaces/IConfigurationObject/IConfigurationObject.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/interfaces/IConfigurationParent/IConfigurationParent.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/interfaces/IConfigurationParent/IConfigurationParent.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/interfaces/IImplementation/IImplementation.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/interfaces/IImplementation/IImplementation.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/interfaces/IPropertyDef/IPropertyDef.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/interfaces/IPropertyDef/IPropertyDef.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/interfaces/IPropertyValue/IPropertyValue.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/interfaces/IPropertyValue/IPropertyValue.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/interfaces/IReadOnlyConfigurationCollection/IReadOnlyConfigurationCollection.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/interfaces/IReadOnlyConfigurationCollection/IReadOnlyConfigurationCollection.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/interfaces/IReadOnlyConfigurationDictionary/IReadOnlyConfigurationDictionary.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/interfaces/IReadOnlyConfigurationDictionary/IReadOnlyConfigurationDictionary.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/interfaces/IValue/IValue.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/interfaces/IValue/IValue.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/interfaces/IValueChanged/IValueChanged.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/interfaces/IValueChanged/IValueChanged.svg"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/uml-diagrams/interfaces/ImplementationKind/ImplementationKind.svg",
-      "output": {
-        "resource": {
-          "relative_path": "images/uml-diagrams/interfaces/ImplementationKind/ImplementationKind.svg"
         }
       },
       "is_incremental": false,
@@ -856,11 +680,10 @@
         "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
-        "ResourceDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
-          "total_file_count": 0,
+          "total_file_count": 15,
           "skipped_file_count": 0
         },
         "ConceptualDocumentProcessor": {
@@ -869,10 +692,11 @@
           "total_file_count": 8,
           "skipped_file_count": 0
         },
-        "ManagedReferenceDocumentProcessor": {
+        "ResourceDocumentProcessor": {
           "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
-          "total_file_count": 15,
+          "total_file_count": 0,
           "skipped_file_count": 0
         },
         "TocDocumentProcessor": {
