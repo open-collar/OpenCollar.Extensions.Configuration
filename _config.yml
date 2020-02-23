@@ -1,1 +1,11 @@
 theme: jekyll-theme-slate
+include:
+ - .attributes
+ - .exceptions
+ - .interfaces
+ - images/uml-diagrams/.attributes
+ - images/uml-diagrams/.exceptions
+ - images/uml-diagrams/.interfaces
+ - docs/images/uml-diagrams/.attributes
+ - docs/images/uml-diagrams/.exceptions
+ - docs/images/uml-diagrams/.interfaces

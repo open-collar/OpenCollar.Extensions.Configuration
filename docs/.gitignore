@@ -1,4 +1,6 @@
 # All build output are to be captured - this is the mechanism by which we publish our
 # built documentation.
+
+!_config.yml
 *.yml
 .manifest
