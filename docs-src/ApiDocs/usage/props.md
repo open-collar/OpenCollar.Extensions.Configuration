@@ -6,7 +6,7 @@ configuration.  The interface must derive from
 [IConfigurationObject](/api/OpenCollar.Extensions.Configuration.IConfigurationObject.md).
 The interfaces must be public.  For example:
 
-```
+```cs
 public interface IEnvironment : IConfigurationObject
 {
     public string EnvironmentName { get; }

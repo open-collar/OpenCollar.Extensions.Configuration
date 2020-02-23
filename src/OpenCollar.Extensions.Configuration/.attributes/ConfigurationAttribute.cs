@@ -39,6 +39,29 @@ namespace OpenCollar.Extensions.Configuration
     ///         <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/.attributes/ConfigurationAttribute/ConfigurationAttribute.svg" />
     ///     </para>
     /// </remarks>
+    ///     <example> In the example below a property on an interface is defined with a default value, meaning that a
+    ///     value will be set, and no error will be thrown, even if there is no value in the underlying configuration
+    ///     service.  In this case the result is a property that will be set to "DEFAULT" if no name is specified in
+    ///     configuration file.
+    ///         <code lang="c#">
+    ///[Configuration(DefaultValue = "DEFAULT")]
+    ///string Name
+    ///{
+    ///    get; set;
+    ///}
+    ///         </code>
+    ///     </example>
+    ///     <example> In the following example the attribute is used to define the way in which a property is persisted.
+    ///     The value will be loaded from the configuration file, but never saved back to the file.  This allows the
+    ///     application to change the value for all consumers of the interface, but it will never be changed in the file.
+    ///         <code lang="c#">
+    ///[Configuration(Persistence = ConfigurationPersistenceActions.LoadOnly)]
+    ///string InitialValue
+    ///{
+    ///    get; set;
+    ///}
+    ///         </code>
+    ///     </example>
     /// <seealso cref="Attribute" />
     /// <seealso cref="ConfigurationPersistenceActions" />
     [AttributeUsage(AttributeTargets.Property)]

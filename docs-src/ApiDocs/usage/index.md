@@ -11,7 +11,7 @@ configuration.  The interface must derive from
 [IConfigurationObject](/api/OpenCollar.Extensions.Configuration.IConfigurationObject.md).
 The interfaces must be public.  For example:
 
-```
+```cs
 public interface IEnvironment : IConfigurationObject
 {
     public string EnvironmentName { get; }
@@ -34,7 +34,7 @@ At the same time the
 [IConfigurationRoot](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.iconfigurationroot?view=dotnet-plat-ext-3.1)
 object for the application must also be registered as a service.
 
-```
+```cs
 public class Startup
 {
     private readonly IConfigurationRoot _configuration;
@@ -57,7 +57,7 @@ public class Startup
 
 Later, when needed, the configuration reader is available as a service:
 
-```
+```cs
 public MyConstructor(IMyConfig config)
 {
     var version = config.Environment.Version;
