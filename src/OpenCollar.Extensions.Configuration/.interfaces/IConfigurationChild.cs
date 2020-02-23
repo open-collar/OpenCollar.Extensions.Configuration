@@ -3,7 +3,7 @@
 namespace OpenCollar.Extensions.Configuration
 {
     /// <summary>
-    ///     Defines the interface common to a objects that may belong to a configuration object.
+    ///     Defines the interface required on objects that can belong to a configuration object.
     /// </summary>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using

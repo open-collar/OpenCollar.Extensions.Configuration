@@ -8,7 +8,8 @@ namespace OpenCollar.Extensions.Configuration
     /// </summary>
     /// <remarks>
     ///     <para>
-    ///         Use the <see cref="ConfigurationPath" /> property to discover the path to the configuration item concerned.
+    ///         Use the <see cref="ConfigurationException.ConfigurationPath" /> property to discover the path to the
+    ///         configuration item concerned.
     ///     </para>
     ///     <para>
     ///         The following UML has been generated directly from the source code using
