@@ -40,6 +40,16 @@ namespace OpenCollar.Extensions.Configuration
     ///         <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/.attributes/PathAttribute/PathAttribute.svg" />
     ///     </para>
     /// </remarks>
+    /// <example>
+    ///     In the following example the attribute is used to define a path that is always absolute.
+    ///     <code lang="c#">
+    ///[Path(PathIs.Absolute, "ConfigurationStrings:Database")]
+    ///string DatabaseConnectionString
+    ///{
+    ///    get; set;
+    ///}
+    ///     </code>
+    /// </example>
     /// <seealso cref="Attribute" />
     /// <seealso cref="PathIs" />
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
@@ -69,8 +79,8 @@ namespace OpenCollar.Extensions.Configuration
 
             switch(usage)
             {
-                case PathIs.Root:
-                case PathIs.Suffix:
+                case PathIs.Absolute:
+                case PathIs.Relative:
                     break;
 
                 default:

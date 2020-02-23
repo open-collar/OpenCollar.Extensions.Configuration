@@ -29,14 +29,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         public void TestConstructor()
         {
             const string path = @"PATH";
-            var x = new PathAttribute(PathIs.Root, path);
+            var x = new PathAttribute(PathIs.Absolute, path);
 
             Assert.NotNull(x);
             Assert.Equal(path, x.Path);
-            Assert.Equal(PathIs.Root, x.Usage);
+            Assert.Equal(PathIs.Absolute, x.Usage);
 
-            Assert.Throws<ArgumentException>(() => { new PathAttribute(PathIs.Root, null); });
-            Assert.Throws<ArgumentException>(() => { new PathAttribute(PathIs.Root, string.Empty); });
+            Assert.Throws<ArgumentException>(() => { new PathAttribute(PathIs.Absolute, null); });
+            Assert.Throws<ArgumentException>(() => { new PathAttribute(PathIs.Absolute, string.Empty); });
             Assert.Throws<ArgumentOutOfRangeException>(() => { new PathAttribute(PathIs.Unknown, path); });
             Assert.Throws<ArgumentOutOfRangeException>(() => { new PathAttribute((PathIs)666, path); });
         }

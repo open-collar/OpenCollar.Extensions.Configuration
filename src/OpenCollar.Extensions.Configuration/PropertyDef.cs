@@ -63,7 +63,7 @@ namespace OpenCollar.Extensions.Configuration
             }
             else
             {
-                PathModifier = PathIs.Suffix;
+                PathModifier = PathIs.Relative;
                 PathSection = PropertyName;
             }
 
@@ -236,7 +236,7 @@ namespace OpenCollar.Extensions.Configuration
 
             switch(PathModifier)
             {
-                case PathIs.Suffix:
+                case PathIs.Relative:
                     return PathHelper.CalculatePath(parent.CalculatePath(), PathSection);
             }
 
