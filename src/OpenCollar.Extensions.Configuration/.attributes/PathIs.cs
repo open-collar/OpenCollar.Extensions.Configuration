@@ -19,7 +19,7 @@
 
 namespace OpenCollar.Extensions.Configuration
 {
-#pragma warning disable CA1717 // Just because it ends in an S doesn't mean it is a plural!
+#pragma warning disable CA1717 // Just because it ends in an 'S' doesn't mean it is a plural!
 
     /// <summary>
     ///     An enumeration of the ways in which the string supplied to the <see cref="PathAttribute"> Path </see>
@@ -41,11 +41,24 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     The path is treated as a root and any previous context is ignored.
         /// </summary>
-        Root,
+        Absolute,
 
         /// <summary>
         ///     The path is treated as a suffix to be applied (as part of colon delimited list) to the existing path context.
         /// </summary>
-        Suffix
+        Relative,
+
+        /// <summary>
+        ///     <b> Obsolete. </b> The path is treated as a root and any previous context is ignored.
+        /// </summary>
+        [System.Obsolete("This value has been replaced with \"Absolute\", use that instead.")]
+        Root = Absolute,
+
+        /// <summary>
+        ///     <b> Obsolete. </b> The path is treated as a suffix to be applied (as part of colon delimited list) to
+        ///     the existing path context.
+        /// </summary>
+        [System.Obsolete("This value has been replaced with \"Relative\", use that instead.")]
+        Suffix = Relative
     }
 }

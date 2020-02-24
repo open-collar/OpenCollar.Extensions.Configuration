@@ -1,12 +1,11 @@
 ﻿# Properties
 
-
 The starting point is to define an interface through which to read your 
 configuration.  The interface must derive from
 [IConfigurationObject](/api/OpenCollar.Extensions.Configuration.IConfigurationObject.md).
 The interfaces must be public.  For example:
 
-```
+```cs
 public interface IEnvironment : IConfigurationObject
 {
     public string EnvironmentName { get; }
@@ -25,7 +24,8 @@ public interface IMyConfig : IConfigurationObject
 
 ## Read-only
 
-To make properties read-only then define only a getter.
+To make properties read-only then define only a getter.  To change the readability of collections
+and dictionaries different interfaces are available.
 
 ### Read-Only Collections
 
@@ -42,6 +42,7 @@ interface.
 
 ![UML Diagram of the ReadOnlyConfigurationDictionary<> class](../images/uml-diagrams/Collections/ReadOnlyConfigurationDictionary/ReadOnlyConfigurationDictionary.svg)
 
-## Read-write
-
 ## Configuration Object Values
+
+A configuration object is automatically generated for any property with a type
+derived from [IConfigurationObject](api/OpenCollar.Extensions.Configuration.IConfigurationObject.html).

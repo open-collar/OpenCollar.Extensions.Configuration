@@ -33,7 +33,8 @@ namespace OpenCollar.Extensions.Configuration
     public enum ConfigurationPersistenceActions
     {
         /// <summary>
-        ///     Values will be neither loaded nor saved.
+        ///     Values will be neither loaded nor saved. This effectively means the property is never persisted and is
+        ///     plain writeable property on the class.
         /// </summary>
         /// <remarks>
         ///     To use this value a default value must be provided.

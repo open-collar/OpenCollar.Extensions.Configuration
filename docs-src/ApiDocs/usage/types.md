@@ -13,3 +13,6 @@
 ![UML Diagram of the ConfigurationDictionary<> class](../images/uml-diagrams/Collections/ConfigurationDictionary/ConfigurationDictionary.svg)
 
 ## "Naive" Types
+
+Any type not derived from [IConfigurationObject](api/OpenCollar.Extensions.Configuration.IConfigurationObject.html) is considered
+"naive" and will be serialized as a single value.

@@ -37,7 +37,9 @@ namespace OpenCollar.Extensions.Configuration
     ///     A base class that allows configuration from classes in the <see cref="Microsoft.Extensions.Configuration" />
     ///     namespace to be to be accessed through a user-defined model with strongly typed interfaces.
     /// </summary>
-    /// <typeparam name="TInterface"> The type of the configuration interface implemented. </typeparam>
+    /// <typeparam name="TInterface">
+    ///     The type of the configuration interface implemented.
+    /// </typeparam>
     /// <seealso cref="Disposable" />
     /// <seealso cref="IConfigurationObject" />
     /// <remarks>
@@ -68,7 +70,9 @@ namespace OpenCollar.Extensions.Configuration
         ///     The definition of the property defined by this object. This can be <see lang="null" /> if this object is
         ///     the root of the hierarchy.
         /// </param>
-        /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
+        /// <param name="configurationRoot">
+        ///     The configuration root from which to read and write values.
+        /// </param>
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
@@ -95,7 +99,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Indicates whether the current object is equal to another object of the same type.
         /// </summary>
-        /// <param name="other"> An object to compare with this object. </param>
+        /// <param name="other">
+        ///     An object to compare with this object.
+        /// </param>
         /// <returns>
         ///     <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter;
         ///     otherwise, <see langword="false" />.
@@ -160,7 +166,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationObjectBase" /> class.
         /// </summary>
-        /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
+        /// <param name="configurationRoot">
+        ///     The configuration root from which to read and write values.
+        /// </param>
         /// <param name="propertyDef">
         ///     The definition of the property defined by this object. This can be <see lang="null" /> if this object is
         ///     the root of the hierarchy.
@@ -168,7 +176,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="configurationRoot" /> is <see langword="null" />. </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="configurationRoot" /> is <see langword="null" />.
+        /// </exception>
         protected ConfigurationObjectBase(IPropertyDef? propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent)
         {
             configurationRoot.Validate(nameof(configurationRoot), ObjectIs.NotNull);
@@ -187,12 +197,18 @@ namespace OpenCollar.Extensions.Configuration
         ///     The definition of the property defined by this object. This can be <see lang="null" /> if this object is
         ///     the root of the hierarchy.
         /// </param>
-        /// <param name="configurationRoot"> The configuration root from which to read and write values. </param>
-        /// <param name="childPropertyDefs"> A sequence containing the definitions of the properties to represent. </param>
+        /// <param name="configurationRoot">
+        ///     The configuration root from which to read and write values.
+        /// </param>
+        /// <param name="childPropertyDefs">
+        ///     A sequence containing the definitions of the properties to represent.
+        /// </param>
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="childPropertyDefs" /> is <see langword="null" />. </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="childPropertyDefs" /> is <see langword="null" />.
+        /// </exception>
         protected ConfigurationObjectBase(IPropertyDef? propertyDef, IEnumerable<IPropertyDef> childPropertyDefs, IConfigurationRoot configurationRoot,
         IConfigurationParent parent) : this(propertyDef, configurationRoot, parent)
         {
@@ -223,6 +239,11 @@ namespace OpenCollar.Extensions.Configuration
             {
                 EnforceDisposed();
 
+                if(!ReferenceEquals(PropertyDef, null) && !PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.SaveOnly))
+                {
+                    return false;
+                }
+
                 return PropertiesByName.Values.Any(p => p.IsDirty);
             }
         }
@@ -230,13 +251,17 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets a value indicating whether this container is read-only.
         /// </summary>
-        /// <value> <see langword="true" /> if this container is read-only; otherwise, <see langword="false" />. </value>
+        /// <value>
+        ///     <see langword="true" /> if this container is read-only; otherwise, <see langword="false" />.
+        /// </value>
         public bool IsReadOnly => false;
 
         /// <summary>
         ///     Gets the definition of this property object.
         /// </summary>
-        /// <value> The definition of this property object. </value>
+        /// <value>
+        ///     The definition of this property object.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public IPropertyDef? PropertyDef
@@ -247,7 +272,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the property values of the object.
         /// </summary>
-        /// <value> The property values of the object. </value>
+        /// <value>
+        ///     The property values of the object.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected IEnumerable<IValue> Values => PropertiesByName.Values;
@@ -255,7 +282,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets a dictionary of property values keyed on the name of the property it represents (case sensitive).
         /// </summary>
-        /// <value> A dictionary of property values keyed on the name of the property it represents (case sensitive). </value>
+        /// <value>
+        ///     A dictionary of property values keyed on the name of the property it represents (case sensitive).
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected IDictionary<string, IValue> PropertiesByName => _propertiesByName;
@@ -263,7 +292,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the path to this configuration object.
         /// </summary>
-        /// <returns> A string containing the path to this configuration object. </returns>
+        /// <returns>
+        ///     A string containing the path to this configuration object.
+        /// </returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         [ExcludeFromCodeCoverage]
@@ -289,9 +320,15 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets or sets the value of the property with the specified name.
         /// </summary>
-        /// <value> The value requested. </value>
-        /// <param name="name"> The name of the property to get or set. </param>
-        /// <returns> The value of the property requested. </returns>
+        /// <value>
+        ///     The value requested.
+        /// </value>
+        /// <param name="name">
+        ///     The name of the property to get or set.
+        /// </param>
+        /// <returns>
+        ///     The value of the property requested.
+        /// </returns>
         /// <exception cref="ObjectDisposedException">
         ///     This method cannot be used after the object has been disposed of.
         /// </exception>
@@ -319,7 +356,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the path to this configuration object.
         /// </summary>
-        /// <returns> A string containing the path to this configuration object. </returns>
+        /// <returns>
+        ///     A string containing the path to this configuration object.
+        /// </returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string CalculatePath()
         {
@@ -381,9 +420,15 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Called when a value has changed.
         /// </summary>
-        /// <param name="oldValue"> The old value. </param>
-        /// <param name="newValue"> The new value. </param>
-        /// <exception type="System.ArgumentNullException"> <paramref name="newValue" /> was <see langword="null" />. </exception>
+        /// <param name="oldValue">
+        ///     The old value.
+        /// </param>
+        /// <param name="newValue">
+        ///     The new value.
+        /// </param>
+        /// <exception type="System.ArgumentNullException">
+        ///     <paramref name="newValue" /> was <see langword="null" />.
+        /// </exception>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void OnValueChanged(IValue oldValue, IValue newValue)
         {
@@ -421,7 +466,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Sets the parent of a configuration object.
         /// </summary>
-        /// <param name="parent"> The new parent object. </param>
+        /// <param name="parent">
+        ///     The new parent object.
+        /// </param>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void SetParent(IConfigurationParent? parent)
         {
@@ -431,7 +478,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Clones the property values from the specified instance.
         /// </summary>
-        /// <param name="value"> The instance from which to clone the values. </param>
+        /// <param name="value">
+        ///     The instance from which to clone the values.
+        /// </param>
         internal void Clone(IConfigurationObject value)
         {
             foreach(var property in PropertiesByName)
@@ -462,7 +511,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Called when a section in the configuration root has changed.
         /// </summary>
-        /// <param name="sectionObject"> An object containing the section that has changed. </param>
+        /// <param name="sectionObject">
+        ///     An object containing the section that has changed.
+        /// </param>
         private void OnSectionChanged(object sectionObject)
         {
             Debug.Assert(ReferenceEquals(_configurationRoot, sectionObject));

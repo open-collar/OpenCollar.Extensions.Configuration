@@ -89,7 +89,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         // We would expect this to be implemented as a read/write property.
-        [Path(PathIs.Root, "CustomRoot")]
+        [Path(PathIs.Absolute, "CustomRoot")]
         string CustomProperty
         {
             get; set;

@@ -148,7 +148,18 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             foreach(var path in valuesBefore)
             {
-                Assert.Null(valuesAfter[path].Value);
+                switch(path)
+                {
+                    case nameof(IRootElement.CustomValueA):
+                    case nameof(IRootElement.CustomValueC):
+
+                        Assert.NotNull(valuesAfter[path].Value);
+                        break;
+
+                    default:
+                        Assert.Null(valuesAfter[path].Value);
+                        break;
+                }
             }
         }
 
