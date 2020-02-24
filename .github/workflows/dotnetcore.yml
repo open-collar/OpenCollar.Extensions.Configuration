@@ -66,7 +66,7 @@ jobs:
         git config --local user.email "jevans@open-collar.org.uk"
         git config --local user.name "Jonathan Evans"
         git add -- ./docs
-        git commit -m "Published documentation from build."
+        git commit -m "Published documentation from build $VERSION."
       
     - name: Push changes (documentation)
       uses: ad-m/github-push-action@v0.5.0
