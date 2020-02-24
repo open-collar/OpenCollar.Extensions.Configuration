@@ -10,7 +10,7 @@
     <meta name="title" content="Basics | API Documentation ">
     <meta name="generator" content="docfx 2.48.1.0">
     
-    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="shortcut icon" href=".././images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
@@ -88,7 +88,7 @@ library.</p>
 configuration.  The interface must derive from
 <a href="/api/OpenCollar.Extensions.Configuration.IConfigurationObject.md">IConfigurationObject</a>.
 The interfaces must be public.  For example:</p>
-<pre><code>public interface IEnvironment : IConfigurationObject
+<pre><code class="lang-cs">public interface IEnvironment : IConfigurationObject
 {
     public string EnvironmentName { get; }
 
@@ -108,7 +108,7 @@ public interface IMyConfig : IConfigurationObject
 At the same time the
 <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.iconfigurationroot?view=dotnet-plat-ext-3.1">IConfigurationRoot</a>
 object for the application must also be registered as a service.</p>
-<pre><code>public class Startup
+<pre><code class="lang-cs">public class Startup
 {
     private readonly IConfigurationRoot _configuration;
 
@@ -128,7 +128,7 @@ object for the application must also be registered as a service.</p>
 }
 </code></pre>
 <p>Later, when needed, the configuration reader is available as a service:</p>
-<pre><code>public MyConstructor(IMyConfig config)
+<pre><code class="lang-cs">public MyConstructor(IMyConfig config)
 {
     var version = config.Environment.Version;
 }
@@ -179,7 +179,7 @@ control the way in which configuration data is used.</p>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.183</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.2.193</span></div></div>
             
           </div>
         </div>

@@ -12,7 +12,7 @@
    | API Documentation ">
     <meta name="generator" content="docfx 2.48.1.0">
     
-    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="shortcut icon" href=".././images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
@@ -113,19 +113,27 @@ individual property.</p>
     <h3 id="interfaces">Interfaces
   </h3>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationCollection-1.html">IConfigurationCollection&lt;TElement&gt;</a></h4>
-      <section><p>Represents a collection of values stored in a property.</p>
+      <section><p>Represents a collection of values stored in a property.  Use the interface for properties
+representing an arbitrary number of the same kind of object identified by index.</p>
 </section>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationDictionary-1.html">IConfigurationDictionary&lt;TElement&gt;</a></h4>
-      <section><p>Defines a dictionary containing configuration items and keyed on the element name.</p>
+      <section><p>Represents a dictionary of values stored in a property, keyed against a string value.
+Use the interface for properties representing an arbitrary number of the same kind of
+object identified by unique string keys.</p>
 </section>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html">IConfigurationObject</a></h4>
       <section><p>The interface from which all configuration objects are derived.</p>
 </section>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.IReadOnlyConfigurationCollection-1.html">IReadOnlyConfigurationCollection&lt;TElement&gt;</a></h4>
-      <section><p>Represents a read-only collection of values stored in a property.</p>
+      <section><p>Represents a read-only collection of values stored in a property.  Use the interface for properties
+representing an arbitrary number of the same kind of object identified by index.  Items cannot be added or
+removed.</p>
 </section>
       <h4><a class="xref" href="OpenCollar.Extensions.Configuration.IReadOnlyConfigurationDictionary-1.html">IReadOnlyConfigurationDictionary&lt;TElement&gt;</a></h4>
-      <section><p>Defines a read-only dictionary containing configuration items and keyed on the element name.</p>
+      <section><p>Represents a read-only dictionary of values stored in a property, keyed against a string value.
+Use the interface for properties representing an arbitrary number of the same kind of
+object identified by unique string keys.  Items cannot be added or
+removed.</p>
 </section>
     <h3 id="enums">Enums
   </h3>
@@ -160,7 +168,7 @@ attribute can be used to create a full path.</p>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.183</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.2.193</span></div></div>
             
           </div>
         </div>

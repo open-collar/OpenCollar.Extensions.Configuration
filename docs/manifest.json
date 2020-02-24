@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationAttribute.html",
-          "hash": "wCTI0IWGuzsssejor5zJrQ=="
+          "hash": "grJrC7p78L3+/grb8kB3yQ=="
         }
       },
       "is_incremental": false,
@@ -36,7 +36,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationException.html",
-          "hash": "BU22gzSsfhhGBHi4IEw3oQ=="
+          "hash": "4i2mAwnQm36wfi/o51FiPQ=="
         }
       },
       "is_incremental": false,
@@ -48,7 +48,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.html",
-          "hash": "xsdDvsBiWTix6ht31n3ZtQ=="
+          "hash": "CEhCCZw4p0uKLTJcvNQ3Nw=="
         }
       },
       "is_incremental": false,
@@ -63,7 +63,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.html",
-          "hash": "fxHevnE3T8k7ZixuJYRLPg=="
+          "hash": "4czQxgp/ZIxF7L8vU7vY1Q=="
         }
       },
       "is_incremental": false,
@@ -78,7 +78,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationCollection-1.html",
-          "hash": "9J65ELyofBT3XwJwVS3c4A=="
+          "hash": "7Oc/RLFega5dNRf2OEsvBw=="
         }
       },
       "is_incremental": false,
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationDictionary-1.html",
-          "hash": "2yrZxxhWrew4b4osfnsyRg=="
+          "hash": "8LHxIdqvzdACqAh95FAFRg=="
         }
       },
       "is_incremental": false,
@@ -108,7 +108,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationObject.html",
-          "hash": "iRoxCvscsGtx8l267+oBFg=="
+          "hash": "bKLC8kfthcp8t20QZAE7Zg=="
         }
       },
       "is_incremental": false,
@@ -123,7 +123,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IReadOnlyConfigurationCollection-1.html",
-          "hash": "Q/EgN03zADejiW9cNWBnbQ=="
+          "hash": "ADV0RuVhAxSszGk3yJkgfw=="
         }
       },
       "is_incremental": false,
@@ -138,7 +138,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IReadOnlyConfigurationDictionary-1.html",
-          "hash": "iFLyAxAYKxwSOn71apiY9Q=="
+          "hash": "5rVsyTEG0GkUXa605jQM+A=="
         }
       },
       "is_incremental": false,
@@ -153,7 +153,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.InvalidPropertyException.html",
-          "hash": "dSA6UIVo8XxUB6EPw2Em4g=="
+          "hash": "Nt/jaTyjOsk8uWUPlbZvag=="
         }
       },
       "is_incremental": false,
@@ -168,7 +168,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.PathAttribute.html",
-          "hash": "yPItgmmkbbsdBAP8m+KdiQ=="
+          "hash": "U9xzK5FpOmLC8PLhVxh8IA=="
         }
       },
       "is_incremental": false,
@@ -183,7 +183,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.PathIs.html",
-          "hash": "M2rQxYlMKSwb0FqT3nMfQQ=="
+          "hash": "z7bYmo8cMMeAkJ4C0zj59Q=="
         }
       },
       "is_incremental": false,
@@ -195,7 +195,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.html",
-          "hash": "CjsKramcQyQLnFneOwYLyw=="
+          "hash": "fjKPc1tRoaxnr2uUAF10Pw=="
         }
       },
       "is_incremental": false,
@@ -210,7 +210,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.TypeMismatchException.html",
-          "hash": "CMSR3Ca2c0WavTMyP8r7xA=="
+          "hash": "i5JG3N6B6mEM1lRfVXo1wg=="
         }
       },
       "is_incremental": false,
@@ -222,7 +222,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.html",
-          "hash": "DsdQw+RERirT3DEO6wsN1A=="
+          "hash": "K/Nu3YW+8sniSwDRpp1eMw=="
         }
       },
       "is_incremental": false,
@@ -234,7 +234,7 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "6tG3UXRBsPpnu/Zgdv73MQ=="
+          "hash": "NjLk7tJYG5zynoQsFVnIqQ=="
         }
       },
       "is_incremental": false,
@@ -247,6 +247,28 @@
         ".html": {
           "relative_path": "api/toc.html",
           "hash": "ThW614MdpQiM5sxaxln4Pg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/favicon.ico",
+      "output": {
+        "resource": {
+          "relative_path": "images/favicon.ico"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/favicon.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/favicon.png"
         }
       },
       "is_incremental": false,
@@ -566,7 +588,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "lZB4VvD7NIuKBHliDv+HxA=="
+          "hash": "DwSeltEOODICKXbHR2GaMg=="
         }
       },
       "is_incremental": false,
@@ -590,7 +612,7 @@
       "output": {
         ".html": {
           "relative_path": "usage/control.html",
-          "hash": "Zdrh/CEeyeiSBXKhvotX+A=="
+          "hash": "4mNIskEivEuUTsP2lMLahw=="
         }
       },
       "is_incremental": false,
@@ -602,7 +624,7 @@
       "output": {
         ".html": {
           "relative_path": "usage/events.html",
-          "hash": "HcvO/OYwQLfXoW1OgQ9+1g=="
+          "hash": "+X8yKppIq9Ot9xVWPj94kQ=="
         }
       },
       "is_incremental": false,
@@ -614,31 +636,37 @@
       "output": {
         ".html": {
           "relative_path": "usage/index.html",
-          "hash": "En0exVSpO6O3Wgghztzghw=="
+          "hash": "ui2Mh8vu24k7ayYMTM+DHA=="
         }
       },
       "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Conceptual",
       "source_relative_path": "usage/persist.md",
       "output": {
         ".html": {
           "relative_path": "usage/persist.html",
-          "hash": "dZKf2pTNAwi0ZO2w3zygjw=="
+          "hash": "7GKOFg9UlrfIQ+uW1ekksQ=="
         }
       },
       "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Conceptual",
       "source_relative_path": "usage/props.md",
       "output": {
         ".html": {
           "relative_path": "usage/props.html",
-          "hash": "u95wR7m7gdP9DGbOmQdoeA=="
+          "hash": "4PUWyVYIVSO9nzpGJt0sGw=="
         }
       },
       "is_incremental": false,
@@ -657,12 +685,15 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Conceptual",
       "source_relative_path": "usage/types.md",
       "output": {
         ".html": {
           "relative_path": "usage/types.html",
-          "hash": "q52HO4gny0SC4pwkZgaSZA=="
+          "hash": "+x9A/Jb06rYIltOIu6pXnA=="
         }
       },
       "is_incremental": false,
@@ -687,16 +718,16 @@
           "total_file_count": 0,
           "skipped_file_count": 0
         },
-        "ConceptualDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build",
-          "total_file_count": 8,
-          "skipped_file_count": 0
-        },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 15,
+          "skipped_file_count": 0
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 8,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
