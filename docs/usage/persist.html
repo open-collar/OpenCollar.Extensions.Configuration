@@ -10,7 +10,7 @@
     <meta name="title" content="Persistence | API Documentation ">
     <meta name="generator" content="docfx 2.48.1.0">
     
-    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="shortcut icon" href=".././images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
@@ -79,15 +79,23 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="persistence">Persistence</h1>
 
-<p>Later, when needed, the configuration reader is available as a service:</p>
-<pre><code>public MyConstructor(IMyConfig config)
-{
-    var version = config.Environment.Version;
-}
-</code></pre>
+<p>All configuration values are loaded on when the object is created.  Configuration reload events are
+subscribed to, and any change to properties are reported using <a href="events.html">Events</a> such as property
+changed and collection changed.</p>
+<p>To determine whether there any unsaved changes check the
+<a href="api/OpenCollar.Extensions.Configuration.IConfigurationObject.html#OpenCollar_Extensions_Configuration_IConfigurationObject_IsDirty">IsDirty</a>
+propery.</p>
 <h2 id="save">Save</h2>
+<p>Changed made to properties and collections are not commited to the underlying configuration sources
+until the <a href="api/OpenCollar.Extensions.Configuration.IConfigurationObject.html#OpenCollar_Extensions_Configuration_IConfigurationObject_Save">Save</a>
+method.</p>
 <h2 id="load">Load</h2>
+<p>Any changes made since the configuration was loaded can reloaded using the <a href="api/OpenCollar.Extensions.Configuration.IConfigurationObject.html#OpenCollar_Extensions_Configuration_IConfigurationObject_Load">Load</a>
+method.</p>
 <h2 id="delete">Delete</h2>
+<p>At any time a node and it's children can be removed from the underlying configuration provider using
+the <a href="api/OpenCollar.Extensions.Configuration.IConfigurationObject.html#OpenCollar_Extensions_Configuration_IConfigurationObject_Delete">Delete</a>
+method.</p>
 </article>
           </div>
           
@@ -115,7 +123,7 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.183</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.2.193</span></div></div>
             
           </div>
         </div>

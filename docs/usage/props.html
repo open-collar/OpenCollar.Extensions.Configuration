@@ -10,7 +10,7 @@
     <meta name="title" content="Properties | API Documentation ">
     <meta name="generator" content="docfx 2.48.1.0">
     
-    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="shortcut icon" href=".././images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
@@ -83,7 +83,7 @@
 configuration.  The interface must derive from
 <a href="/api/OpenCollar.Extensions.Configuration.IConfigurationObject.md">IConfigurationObject</a>.
 The interfaces must be public.  For example:</p>
-<pre><code>public interface IEnvironment : IConfigurationObject
+<pre><code class="lang-cs">public interface IEnvironment : IConfigurationObject
 {
     public string EnvironmentName { get; }
 
@@ -99,7 +99,8 @@ public interface IMyConfig : IConfigurationObject
 }
 </code></pre>
 <h2 id="read-only">Read-only</h2>
-<p>To make properties read-only then define only a getter.</p>
+<p>To make properties read-only then define only a getter.  To change the readability of collections
+and dictionaries different interfaces are available.</p>
 <h3 id="read-only-collections">Read-Only Collections</h3>
 <p>To make a collection read-only use the <a href="/api/OpenCollar.Extensions.Configuration.IReadOnlyConfigurationCollection-1.html">IReadOnlyConfigurationCollection</a>
 interface.</p>
@@ -108,8 +109,9 @@ interface.</p>
 <p>To make a collection read-only use the <a href="/api/OpenCollar.Extensions.Configuration.IReadOnlyConfigurationDictionary-1.html">IReadOnlyConfigurationDictionary</a>
 interface.</p>
 <p><img src="../images/uml-diagrams/Collections/ReadOnlyConfigurationDictionary/ReadOnlyConfigurationDictionary.svg" alt="UML Diagram of the ReadOnlyConfigurationDictionary&lt;&gt; class"></p>
-<h2 id="read-write">Read-write</h2>
 <h2 id="configuration-object-values">Configuration Object Values</h2>
+<p>A configuration object is automatically generated for any property with a type
+derived from <a href="api/OpenCollar.Extensions.Configuration.IConfigurationObject.html">IConfigurationObject</a>.</p>
 </article>
           </div>
           
@@ -137,7 +139,7 @@ interface.</p>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.183</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.2.193</span></div></div>
             
           </div>
         </div>

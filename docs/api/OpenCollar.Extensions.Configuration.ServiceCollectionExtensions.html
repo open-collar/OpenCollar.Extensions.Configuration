@@ -12,7 +12,7 @@
    | API Documentation ">
     <meta name="generator" content="docfx 2.48.1.0">
     
-    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="shortcut icon" href=".././images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
@@ -91,30 +91,6 @@
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">ServiceCollectionExtensions</span></div>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetHashCode()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetType()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ToString()</span>
-    </div>
-  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="OpenCollar.Extensions.Configuration.html">OpenCollar.Extensions.Configuration</a></h6>
   <h6><strong>Assembly</strong>: OpenCollar.Extensions.Configuration.dll</h6>
   <h5 id="OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_syntax">Syntax</h5>
@@ -125,6 +101,51 @@
   <div class="markdown level0 remarks"><p>The following UML has been generated directly from the source code using
 <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/ServiceCollectionExtensions/ServiceCollectionExtensions.svg"></p>
 </div>
+  <h5 id="OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_examples"><strong>Examples</strong></h5>
+  <p>
+    The starting point is to define an interface through which to read your configuration. The interface
+    must derive from <a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html">IConfigurationObject</a>. The interfaces must be public. See th example below.
+</p>
+<pre><code>public interface IEnvironment : IConfigurationObject
+{
+public string EnvironmentName { get; }
+<p>public string Version { get; }
+}</p>
+<p>public interface IMyConfig : IConfigurationObject
+{
+public IEnvironment Environment { get; }</p>
+<p>public string ReadOnlyString { get; }</p>
+<p>public string ReadWriteString { get; }
+}</code></pre><p>
+<p>
+    The next step is to register the interface as a service in
+<a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/startup?view=aspnetcore-3.1">
+Startup.cs </a>. At the same time the
+<a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.iconfigurationroot?view=dotnet-plat-ext-3.1">
+IConfigurationRoot </a> object for the application must also be registered as a service.
+</p>
+<pre><code>public class Startup
+{
+private readonly IConfigurationRoot _configuration;
+<p>public Startup(IConfiguration configuration)
+{
+// Capture the configuration object passed in when the application is started.
+_configuration = (IConfigurationRoot)configuration;
+}</p>
+<p>public void ConfigureServices(IServiceCollection services)
+{
+services.AddRazorPages();
+services.AddSingleton(_configuration);
+services.AddConfigurationReader&lt;IMyConfig&gt;();
+}
+...
+}</code></pre></p>
+<p> Later, when needed, the configuration reader is available as a service: </p>
+<pre><code>public MyConstructor(IMyConfig config)
+{
+var version = config.Environment.Version;
+}</code></pre>
+
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
@@ -132,7 +153,7 @@
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationReader__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader%60%601(Microsoft.Extensions.DependencyInjection.IServiceCollection)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/56633fe4254eedfe730d58dbb22950259b7120ff/src/OpenCollar.Extensions.Configuration/ServiceCollectionExtensions.cs/#L53">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/fe10467e14d64ae1e9301ece3c522d8dd30a7e92/src/OpenCollar.Extensions.Configuration/ServiceCollectionExtensions.cs/#L112">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationReader_" data-uid="OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationReader__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">AddConfigurationReader&lt;TConfigurationObject&gt;(IServiceCollection)</h4>
@@ -191,7 +212,7 @@
                     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ServiceCollectionExtensions.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ServiceCollectionExtensions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/56633fe4254eedfe730d58dbb22950259b7120ff/src/OpenCollar.Extensions.Configuration/ServiceCollectionExtensions.cs/#L39" class="contribution-link">View Source</a>
+                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/fe10467e14d64ae1e9301ece3c522d8dd30a7e92/src/OpenCollar.Extensions.Configuration/ServiceCollectionExtensions.cs/#L96" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
@@ -210,7 +231,7 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.183</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.2.193</span></div></div>
             
           </div>
         </div>

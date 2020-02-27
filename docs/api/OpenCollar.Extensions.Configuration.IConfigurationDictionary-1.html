@@ -12,7 +12,7 @@
    | API Documentation ">
     <meta name="generator" content="docfx 2.48.1.0">
     
-    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="shortcut icon" href=".././images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
@@ -83,7 +83,9 @@
   
   <h1 id="OpenCollar_Extensions_Configuration_IConfigurationDictionary_1" data-uid="OpenCollar.Extensions.Configuration.IConfigurationDictionary`1" class="text-break">Interface IConfigurationDictionary&lt;TElement&gt;
   </h1>
-  <div class="markdown level0 summary"><p>Defines a dictionary containing configuration items and keyed on the element name.</p>
+  <div class="markdown level0 summary"><p>Represents a dictionary of values stored in a property, keyed against a string value.
+Use the interface for properties representing an arbitrary number of the same kind of
+object identified by unique string keys.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritedMembers">
@@ -139,12 +141,30 @@
     <div>
       <span class="xref">System.Collections.Specialized.INotifyCollectionChanged.CollectionChanged</span>
     </div>
+    <div>
+      <a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html#OpenCollar_Extensions_Configuration_IConfigurationObject_IsDirty">IConfigurationObject.IsDirty</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html#OpenCollar_Extensions_Configuration_IConfigurationObject_Delete">IConfigurationObject.Delete()</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html#OpenCollar_Extensions_Configuration_IConfigurationObject_Load">IConfigurationObject.Load()</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html#OpenCollar_Extensions_Configuration_IConfigurationObject_Save">IConfigurationObject.Save()</a>
+    </div>
+    <div>
+      <span class="xref">System.IDisposable.Dispose()</span>
+    </div>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
+    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="OpenCollar.Extensions.Configuration.html">OpenCollar.Extensions.Configuration</a></h6>
   <h6><strong>Assembly</strong>: OpenCollar.Extensions.Configuration.dll</h6>
   <h5 id="OpenCollar_Extensions_Configuration_IConfigurationDictionary_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IConfigurationDictionary&lt;TElement&gt; : IDictionary&lt;string, TElement&gt;, ICollection&lt;KeyValuePair&lt;string, TElement&gt;&gt;, IEnumerable&lt;KeyValuePair&lt;string, TElement&gt;&gt;, IEnumerable, INotifyCollectionChanged</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IConfigurationDictionary&lt;TElement&gt; : IDictionary&lt;string, TElement&gt;, ICollection&lt;KeyValuePair&lt;string, TElement&gt;&gt;, IEnumerable&lt;KeyValuePair&lt;string, TElement&gt;&gt;, IEnumerable, INotifyCollectionChanged, IConfigurationObject, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -157,7 +177,7 @@
     <tbody>
       <tr>
         <td><span class="parametername">TElement</span></td>
-        <td><p>The type of the elements contained in the dictionary.</p>
+        <td><p>The type of the dictionary element. This must be nullable if the type is a reference type and can be <span class="xref">null</span>.</p>
 </td>
       </tr>
     </tbody>
@@ -166,6 +186,23 @@
   <div class="markdown level0 remarks"><p>The following UML has been generated directly from the source code using
 <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/.interfaces/IConfigurationDictionary/IConfigurationDictionary.svg"></p>
 </div>
+  <h5 id="OpenCollar_Extensions_Configuration_IConfigurationDictionary_1_examples"><strong>Examples</strong></h5>
+  <p>In the example below a property on an interface is defined as containing an arbitray
+number of strings.</p>
+<pre><code>IConfigurationDictionary&lt;string> Names
+{
+get; set;
+}</code></pre>
+<p>If the configuration is specified in a JSON configuration file it would look
+something like this:</p>
+<pre><code>{
+&quot;Names&quot;: {
+    &quot;First&quot;: &quot;Value 1&quot;,
+    &quot;Second&quot;: &quot;Value 2&quot;,
+    &quot;Third&quot;: &quot;Value 3&quot;
+}
+}</code></pre>
+
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
@@ -173,7 +210,7 @@
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_IConfigurationDictionary_1_AddCopy_System_String__0_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.IConfigurationDictionary%601.AddCopy(System.String%2C%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/56633fe4254eedfe730d58dbb22950259b7120ff/src/OpenCollar.Extensions.Configuration/.interfaces/IConfigurationDictionary.cs/#L54">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/fe10467e14d64ae1e9301ece3c522d8dd30a7e92/src/OpenCollar.Extensions.Configuration/.interfaces/IConfigurationDictionary.cs/#L82">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_IConfigurationDictionary_1_AddCopy_" data-uid="OpenCollar.Extensions.Configuration.IConfigurationDictionary`1.AddCopy*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_IConfigurationDictionary_1_AddCopy_System_String__0_" data-uid="OpenCollar.Extensions.Configuration.IConfigurationDictionary`1.AddCopy(System.String,`0)">AddCopy(String, TElement)</h4>
@@ -220,7 +257,10 @@ returning the new value.</p>
     <tbody>
       <tr>
         <td><span class="xref">TElement</span></td>
-        <td><p>The newly added element.</p>
+        <td><p>The newly added element. If this element is derived from <a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html">IConfigurationObject</a>,
+<a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationCollection-1.html">IConfigurationCollection&lt;TElement&gt;</a> or <a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationDictionary-1.html">IConfigurationDictionary&lt;TElement&gt;</a>,
+and the object given was not created by this library, then a new object will be created and they
+properties and elements in the object given will be copied.</p>
 </td>
       </tr>
     </tbody>
@@ -233,7 +273,7 @@ returning the new value.</p>
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_IConfigurationDictionary_1_AddNew_System_String_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.IConfigurationDictionary%601.AddNew(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/56633fe4254eedfe730d58dbb22950259b7120ff/src/OpenCollar.Extensions.Configuration/.interfaces/IConfigurationDictionary.cs/#L65">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/fe10467e14d64ae1e9301ece3c522d8dd30a7e92/src/OpenCollar.Extensions.Configuration/.interfaces/IConfigurationDictionary.cs/#L94">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_IConfigurationDictionary_1_AddNew_" data-uid="OpenCollar.Extensions.Configuration.IConfigurationDictionary`1.AddNew*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_IConfigurationDictionary_1_AddNew_System_String_" data-uid="OpenCollar.Extensions.Configuration.IConfigurationDictionary`1.AddNew(System.String)">AddNew(String)</h4>
@@ -273,17 +313,20 @@ returning the new value.</p>
     <tbody>
       <tr>
         <td><span class="xref">TElement</span></td>
-        <td><p>The newly added element.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
+  <h5 id="OpenCollar_Extensions_Configuration_IConfigurationDictionary_1_AddNew_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This allows instances of the internal implementation of objects to be created and added to the
+collection, and returned to be populated.</p>
+</div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_IConfigurationDictionary_1_Contains__0_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.IConfigurationDictionary%601.Contains(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/56633fe4254eedfe730d58dbb22950259b7120ff/src/OpenCollar.Extensions.Configuration/.interfaces/IConfigurationDictionary.cs/#L76">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/fe10467e14d64ae1e9301ece3c522d8dd30a7e92/src/OpenCollar.Extensions.Configuration/.interfaces/IConfigurationDictionary.cs/#L105">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_IConfigurationDictionary_1_Contains_" data-uid="OpenCollar.Extensions.Configuration.IConfigurationDictionary`1.Contains*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_IConfigurationDictionary_1_Contains__0_" data-uid="OpenCollar.Extensions.Configuration.IConfigurationDictionary`1.Contains(`0)">Contains(TElement)</h4>
@@ -331,6 +374,8 @@ returning the new value.</p>
   <h3 id="seealso">See Also</h3>
   <div class="seealso">
       <div><span class="xref">System.Collections.Generic.IDictionary</span>&lt;TKey, TValue&gt;</div>
+      <div><span class="xref">System.Collections.Specialized.INotifyCollectionChanged</span></div>
+      <div><a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html">IConfigurationObject</a></div>
   </div>
 </article>
           </div>
@@ -343,7 +388,7 @@ returning the new value.</p>
                     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_IConfigurationDictionary_1.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.IConfigurationDictionary%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/56633fe4254eedfe730d58dbb22950259b7120ff/src/OpenCollar.Extensions.Configuration/.interfaces/IConfigurationDictionary.cs/#L36" class="contribution-link">View Source</a>
+                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/fe10467e14d64ae1e9301ece3c522d8dd30a7e92/src/OpenCollar.Extensions.Configuration/.interfaces/IConfigurationDictionary.cs/#L61" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
@@ -362,7 +407,7 @@ returning the new value.</p>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.183</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.2.193</span></div></div>
             
           </div>
         </div>

@@ -10,7 +10,7 @@
     <meta name="title" content="OpenCollar.Extensions.Configuration | API Documentation ">
     <meta name="generator" content="docfx 2.48.1.0">
     
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="./images/favicon.ico">
     <link rel="stylesheet" href="styles/docfx.vendor.css">
     <link rel="stylesheet" href="styles/docfx.css">
     <link rel="stylesheet" href="styles/main.css">
@@ -82,7 +82,7 @@
         <td style="width: 20%; border-style: none;"><a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/actions"><img src="https://img.shields.io/github/workflow/status/open-collar/OpenCollar.Extensions.Configuration/Build and Deploy"></a></td>
         <td style="width: 20%; border-style: none;"><a href="https://coveralls.io/github/open-collar/OpenCollar.Extensions.Configuration?branch=master"><img src="https://coveralls.io/repos/github/open-collar/OpenCollar.Extensions.Configuration/badge.svg?branch=master"></a></td>
         <td style="width: 20%; border-style: none;"><a href="https://www.nuget.org/packages/OpenCollar.Extensions.Configuration/"><img src="https://img.shields.io/nuget/vpre/OpenCollar.Extensions.Configuration?color=green"></a></td>
-        <td style="width: 20%; border-style: none;"><a href="https://open-collar.github.io/OpenCollar.Extensions.Configuration/articles/intro.html"><img src="https://img.shields.io/nuget/dt/OpenCollar.Extensions.Configuration?color=green"></a></td>
+        <td style="width: 20%; border-style: none;"><a href="https://www.nuget.org/packages/OpenCollar.Extensions.Configuration/"><img src="https://img.shields.io/nuget/dt/OpenCollar.Extensions.Configuration?color=green"></a></td>
     </tr>
 </table>
 <ul>
@@ -100,7 +100,7 @@ library.</p>
 configuration.  The interface must derive from
 <a href="/api/OpenCollar.Extensions.Configuration.IConfigurationObject.md">IConfigurationObject</a>.
 The interfaces must be public.  For example:</p>
-<pre><code>public interface IEnvironment : IConfigurationObject
+<pre><code class="lang-cs">public interface IEnvironment : IConfigurationObject
 {
     public string EnvironmentName { get; }
 
@@ -120,7 +120,7 @@ public interface IMyConfig : IConfigurationObject
 At the same time the
 <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.iconfigurationroot?view=dotnet-plat-ext-3.1">IConfigurationRoot</a>
 object for the application must also be registered as a service.</p>
-<pre><code>public class Startup
+<pre><code class="lang-cs">public class Startup
 {
     private readonly IConfigurationRoot _configuration;
 
@@ -140,7 +140,7 @@ object for the application must also be registered as a service.</p>
 }
 </code></pre>
 <p>Later, when needed the configuration reader will be available as a service:</p>
-<pre><code>public MyConstructor(IMyConfig config)
+<pre><code class="lang-cs">public MyConstructor(IMyConfig config)
 {
     var version = config.Environment.Version;
 }
@@ -188,7 +188,7 @@ the naming and path to the underlying configuration key.</li>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.1.183</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.2.193</span></div></div>
             
           </div>
         </div>
