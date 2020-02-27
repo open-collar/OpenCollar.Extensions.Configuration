@@ -55,7 +55,7 @@ namespace OpenCollar.Extensions.Configuration
     ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/.interfaces/IConfigurationCollection/IConfigurationCollection.svg" />
     /// </remarks>
     /// <seealso cref="IReadOnlyCollection{TElement}" />
-    /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationCollection{TElement}" />
+    /// <seealso cref="IConfigurationCollection{TElement}" />
     public interface IReadOnlyConfigurationCollection<TElement> : IConfigurationCollection<TElement>, IReadOnlyCollection<TElement>
     {
     }

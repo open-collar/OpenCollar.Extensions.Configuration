@@ -29,7 +29,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <summary>
     ///     A read-only dictionary of configuration objects, keyed on the name of the object.
     /// </summary>
-    /// <typeparam name="TElement"> The type of the element. </typeparam>
+    /// <typeparam name="TElement">
+    ///     The type of the element.
+    /// </typeparam>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
     ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/Collections/ReadOnlyConfigurationDictionary/ReadOnlyConfigurationDictionary.svg" />
@@ -37,6 +39,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="ConfigurationDictionaryBase{TKey,TElement}" />
     /// <seealso cref="IConfigurationDictionary{TElement}" />
     [DebuggerDisplay("\\{ReadOnlyConfigurationDictionary<{typeof(TElement).Name,nq}>\\}: \"{" + nameof(CalculatePath) + "(),nq}\"")]
+    [System.Text.Json.Serialization.JsonConverter(typeof(Converter.ConfigurationDictionaryConverterFactory))]
     internal sealed class ReadOnlyConfigurationDictionary<TElement> : ConfigurationDictionary<TElement>, IReadOnlyConfigurationDictionary<TElement>
     {
         /// <summary>
@@ -45,11 +48,15 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="propertyDef">
+        ///     The definition of the property defined by this object.
+        /// </param>
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
-        /// <param name="elements"> The elements with which to initialize to the collection. </param>
+        /// <param name="elements">
+        ///     The elements with which to initialize to the collection.
+        /// </param>
         public ReadOnlyConfigurationDictionary(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot,
         IEnumerable<KeyValuePair<string, TElement>>? elements) : base(parent, propertyDef, configurationRoot, elements)
         {
@@ -61,7 +68,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="propertyDef">
+        ///     The definition of the property defined by this object.
+        /// </param>
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
@@ -92,15 +101,23 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the element with the specified key.
         /// </summary>
-        /// <value> The element requested. </value>
-        /// <param name="key"> The key identify the element. </param>
-        /// <returns> The value of the element specified </returns>
+        /// <value>
+        ///     The element requested.
+        /// </value>
+        /// <param name="key">
+        ///     The key identify the element.
+        /// </param>
+        /// <returns>
+        ///     The value of the element specified
+        /// </returns>
         TElement IReadOnlyDictionary<string, TElement>.this[string key] => base[key].Value;
 
         /// <summary>
         ///     Returns an enumerator that iterates through a collection.
         /// </summary>
-        /// <returns> An <see cref="IEnumerator" /> object that can be used to iterate through the collection. </returns>
+        /// <returns>
+        ///     An <see cref="IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             EnforceDisposed();
@@ -111,8 +128,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Converts the string given to the key.
         /// </summary>
-        /// <param name="key"> The key to convert, as a string. </param>
-        /// <returns> Returns the key converted to the correct type. </returns>
+        /// <param name="key">
+        ///     The key to convert, as a string.
+        /// </param>
+        /// <returns>
+        ///     Returns the key converted to the correct type.
+        /// </returns>
         internal override string ConvertStringToKey(string key)
         {
             return key;

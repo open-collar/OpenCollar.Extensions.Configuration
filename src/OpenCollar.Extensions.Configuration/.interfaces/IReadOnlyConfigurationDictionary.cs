@@ -55,8 +55,8 @@ namespace OpenCollar.Extensions.Configuration
     ///     The following UML has been generated directly from the source code using
     ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/.interfaces/IConfigurationDictionary/IConfigurationDictionary.svg" />
     /// </remarks>
-    /// <seealso cref="System.Collections.Generic.IReadOnlyDictionary{TKey, TElement}" />
-    /// <seealso cref="OpenCollar.Extensions.Configuration.IConfigurationDictionary{TElement}" />
+    /// <seealso cref="IReadOnlyDictionary{TKey, TElement}" />
+    /// <seealso cref="IConfigurationDictionary{TElement}" />
     public interface IReadOnlyConfigurationDictionary<TElement> : IConfigurationDictionary<TElement>, IReadOnlyDictionary<string, TElement>
     {
     }

@@ -251,7 +251,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var propertyInfo = typeof(IRootElement).GetProperty(nameof(IRootElement.Int32PropertyB), BindingFlags.Instance | BindingFlags.Public);
             var propertyDef = new PropertyDef(propertyInfo);
 
-            var copy = propertyDef.CopyValue<int>(propertyDef.Implementation, 123, null, root);
+            var copy = propertyDef.CopyValue(propertyDef.Implementation, 123, null, root);
 
             Assert.Equal(123, copy);
         }
@@ -282,7 +282,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
                 Value = 3
             });
 
-            var copy = propertyDef.CopyValue<ConfigurationCollection<IChildElement>>(propertyDef.Implementation, collection, null, root);
+            var copy = propertyDef.CopyValue(propertyDef.Implementation, collection, null, root);
 
             Assert.NotNull(copy);
             Assert.Equal(collection.Count, copy.Count);
@@ -321,7 +321,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
                 Value = 3
             });
 
-            var copy = propertyDef.CopyValue<ConfigurationDictionary<IChildElement>>(propertyDef.Implementation, dictionary, null, root);
+            var copy = propertyDef.CopyValue(propertyDef.Implementation, dictionary, null, root);
 
             Assert.NotNull(copy);
             Assert.Equal(dictionary.Count, copy.Count);
