@@ -14,9 +14,13 @@
 }
 
 .active {
-	font-size: 14px;
+    font-size: 14px;
 }
 
-.toc{
-	overflow-x: auto;
+.toc {
+    overflow-x: auto;
+}
+
+#toc > ul > li > a {
+    font-size: 12px;
 }
