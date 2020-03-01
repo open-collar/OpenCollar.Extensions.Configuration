@@ -36,8 +36,12 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationObjectTypeBuilder" /> class.
         /// </summary>
-        /// <param name="interfaceType"> The type of the interface. </param>
-        /// <param name="propertyDefs"> The definitions of the interface's properties.. </param>
+        /// <param name="interfaceType">
+        ///     The type of the interface.
+        /// </param>
+        /// <param name="propertyDefs">
+        ///     The definitions of the interface's properties..
+        /// </param>
         public ConfigurationObjectTypeBuilder(Type interfaceType, IEnumerable<PropertyDef> propertyDefs)
         {
             // TODO: Make type builders cacheable.
@@ -50,7 +54,8 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Generates this instance.
         /// </summary>
-        /// <returns> </returns>
+        /// <returns>
+        /// </returns>
         public Type Generate()
         {
             var indexerDef = _baseClassType.GetProperty("Item", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
@@ -87,12 +92,35 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Adds the property.
         /// </summary>
-        /// <param name="builder"> The type builder into which to add generated code. </param>
-        /// <param name="propertyDef"> The definition of the property for which to generate code. </param>
-        /// <param name="indexerDef"> The definition of the indexer in the base class that represents the property. </param>
+        /// <param name="builder">
+        ///     The type builder into which to add generated code.
+        /// </param>
+        /// <param name="propertyDef">
+        ///     The definition of the property for which to generate code.
+        /// </param>
+        /// <param name="indexerDef">
+        ///     The definition of the indexer in the base class that represents the property.
+        /// </param>
         private static void AddProperty(TypeBuilder builder, PropertyDef propertyDef, PropertyInfo indexerDef)
         {
             var propertyBuilder = builder.DefineProperty(propertyDef.PropertyName, PropertyAttributes.HasDefault, propertyDef.Type, null);
+
+            // PropertyName attribute to aid JSON serialization. [System.Text.Json.Serialization.JsonPropertyNameAttribute(typeof(Converters.ConfigurationDictionaryConverter<TElement>))]
+            var propertyNameAttributeConstructor = typeof(System.Text.Json.Serialization.JsonPropertyNameAttribute).GetConstructor(new[] { typeof(string) });
+            var propertyNameAttributeBuilder = new CustomAttributeBuilder(propertyNameAttributeConstructor, new object[] { propertyDef.PathSection });
+            propertyBuilder.SetCustomAttribute(propertyNameAttributeBuilder);
+
+            if(propertyDef.Implementation.ImplementationKind == ImplementationKind.ConfigurationDictionary)
+            {
+                // [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Converters.ConfigurationDictionaryConverter<TElement>))]
+
+                // Converter attribute to aid JSON serialization.
+                var converterAttributeConstructor = typeof(System.Text.Json.Serialization.JsonConverterAttribute).GetConstructor(new[] { typeof(Type) });
+                var converterType = typeof(Converters.ConfigurationDictionaryConverter<>).MakeGenericType(new[] { propertyDef.Implementation.Type });
+                var converterAttributeBuilder = new CustomAttributeBuilder(converterAttributeConstructor, new object[] { converterType });
+                propertyBuilder.SetCustomAttribute(converterAttributeBuilder);
+            }
+
             var getMethodBuilder = builder.DefineMethod("get_" + propertyDef.PropertyName,
             MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.Virtual, propertyDef.Type, Type.EmptyTypes);
 
@@ -107,10 +135,18 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Writes the code implementing a property getter.
         /// </summary>
-        /// <param name="propertyDef"> The definition of the property for which to generate code. </param>
-        /// <param name="indexerDef"> The definition of the indexer in the base class that represents the property. </param>
-        /// <param name="propertyBuilder"> The property builder with which to generate code. </param>
-        /// <param name="getMethodBuilder"> The get method builder. </param>
+        /// <param name="propertyDef">
+        ///     The definition of the property for which to generate code.
+        /// </param>
+        /// <param name="indexerDef">
+        ///     The definition of the indexer in the base class that represents the property.
+        /// </param>
+        /// <param name="propertyBuilder">
+        ///     The property builder with which to generate code.
+        /// </param>
+        /// <param name="getMethodBuilder">
+        ///     The get method builder.
+        /// </param>
         private static void AddPropertyGet(PropertyDef propertyDef, PropertyInfo indexerDef, PropertyBuilder propertyBuilder, MethodBuilder getMethodBuilder)
         {
             var ilGenerator = getMethodBuilder.GetILGenerator();
@@ -130,10 +166,18 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Writes the code implementing a property setter.
         /// </summary>
-        /// <param name="builder"> The type builder into which to add generated code. </param>
-        /// <param name="propertyDef"> The definition of the property for which to generate code. </param>
-        /// <param name="indexerDef"> The definition of the indexer in the base class that represents the property. </param>
-        /// <param name="propertyBuilder"> The property builder with which to generate code. </param>
+        /// <param name="builder">
+        ///     The type builder into which to add generated code.
+        /// </param>
+        /// <param name="propertyDef">
+        ///     The definition of the property for which to generate code.
+        /// </param>
+        /// <param name="indexerDef">
+        ///     The definition of the indexer in the base class that represents the property.
+        /// </param>
+        /// <param name="propertyBuilder">
+        ///     The property builder with which to generate code.
+        /// </param>
         private static void WritePropertySet(TypeBuilder builder, PropertyDef propertyDef, PropertyInfo indexerDef, PropertyBuilder propertyBuilder)
         {
             var setMethodBuilder = builder.DefineMethod("set_" + propertyDef.PropertyName,
@@ -158,7 +202,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Adds the constructor for the generated class.
         /// </summary>
-        /// <param name="builder"> The type builder into which to add the generated code. </param>
+        /// <param name="builder">
+        ///     The type builder into which to add the generated code.
+        /// </param>
         private void AddConstructor(TypeBuilder builder)
         {
             var constructorArgumentTypes = new[] { typeof(IPropertyDef), typeof(IConfigurationRoot), typeof(IConfigurationParent) };
@@ -184,7 +230,8 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the type builder.
         /// </summary>
-        /// <returns> </returns>
+        /// <returns>
+        /// </returns>
         private TypeBuilder GetTypeBuilder()
         {
             var name = _interfaceType.Name;

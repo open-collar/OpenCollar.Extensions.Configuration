@@ -40,7 +40,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="ConfigurationDictionaryBase{TKey,TElement}" />
     /// <seealso cref="IConfigurationDictionary{TElement}" />
     [DebuggerDisplay("\\{ConfigurationDictionary<{typeof(TElement).Name,nq}>\\}: \"{" + nameof(CalculatePath) + "(),nq}\"")]
-    [System.Text.Json.Serialization.JsonConverter(typeof(Converter.ConfigurationDictionaryConverterFactory))]
+    [System.Text.Json.Serialization.JsonConverter(typeof(Converters.ConfigurationDictionaryConverterFactory))]
     internal class ConfigurationDictionary<TElement> : ConfigurationDictionaryBase<string, TElement>, IConfigurationDictionary<TElement>
     {
         /// <summary>
