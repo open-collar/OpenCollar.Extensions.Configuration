@@ -40,7 +40,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
         /// </summary>
-        /// <param name="propertyInfo"> The definition of the property. </param>
+        /// <param name="propertyInfo">
+        ///     The definition of the property.
+        /// </param>
         /// <exception cref="InvalidPropertyException">
         ///     'ConfigurationValue' attribute on property specifies that persistence should only save values (not
         ///     load), but no default value is provided.
@@ -50,6 +52,12 @@ namespace OpenCollar.Extensions.Configuration
             PropertyInfo = propertyInfo;
             PropertyName = propertyInfo.Name;
             Type = propertyInfo.PropertyType;
+
+            if(Type.IsArray)
+            {
+                throw new InvalidPropertyException(PropertyName, $@"Property '{PropertyName}' is an array which is not supported.  Use 'IConfigurationCollection' or 'IReadOnlyConfigurationCollection' instead.");
+            }
+
             UnderlyingType = GetUnderlyingType(propertyInfo.PropertyType);
             IsReadOnly = !propertyInfo.CanWrite;
 
@@ -101,7 +109,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets or sets the default value.
         /// </summary>
-        /// <value> The default value. Can be <see langword="null" />. </value>
+        /// <value>
+        ///     The default value. Can be <see langword="null" />.
+        /// </value>
         public object? DefaultValue
         {
             get;
@@ -110,7 +120,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the details of the specific implementation of this property.
         /// </summary>
-        /// <value> The details of the specific implementation of this property. </value>
+        /// <value>
+        ///     The details of the specific implementation of this property.
+        /// </value>
         public IImplementation? ElementImplementation
         {
             get;
@@ -130,7 +142,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the details of the specific implementation of this property.
         /// </summary>
-        /// <value> The details of the specific implementation of this property. </value>
+        /// <value>
+        ///     The details of the specific implementation of this property.
+        /// </value>
         public IImplementation Implementation
         {
             get;
@@ -151,7 +165,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the path modifier.
         /// </summary>
-        /// <value> The path modifier. </value>
+        /// <value>
+        ///     The path modifier.
+        /// </value>
         public PathIs PathModifier
         {
             get;
@@ -160,7 +176,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the path section.
         /// </summary>
-        /// <value> The path section. </value>
+        /// <value>
+        ///     The path section.
+        /// </value>
         public string PathSection
         {
             get;
@@ -174,7 +192,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the property information that defines the interface property.
         /// </summary>
-        /// <value> The property information that defines the interface property. </value>
+        /// <value>
+        ///     The property information that defines the interface property.
+        /// </value>
         public PropertyInfo PropertyInfo
         {
             get;
@@ -183,7 +203,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the name of the property represented by this object.
         /// </summary>
-        /// <value> The name of the property represented by this object. </value>
+        /// <value>
+        ///     The name of the property represented by this object.
+        /// </value>
         public string PropertyName
         {
             get;
@@ -192,7 +214,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the type of the value held in the property.
         /// </summary>
-        /// <value> The type of the value held in the property. </value>
+        /// <value>
+        ///     The type of the value held in the property.
+        /// </value>
         public Type Type
         {
             get;
@@ -202,7 +226,9 @@ namespace OpenCollar.Extensions.Configuration
         ///     Gets the basic type represented by the type of the property (for example by <c> int? </c> would have an
         ///     underlying type of <see cref="int" /> ).
         /// </summary>
-        /// <returns> The basic type represented by the type given. </returns>
+        /// <returns>
+        ///     The basic type represented by the type given.
+        /// </returns>
         public Type UnderlyingType
         {
             get;
@@ -211,8 +237,11 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the basic type represented by the type given.
         /// </summary>
-        /// <param name="type"> The type for which to find the underlying type. </param>
-        /// <returns> </returns>
+        /// <param name="type">
+        ///     The type for which to find the underlying type.
+        /// </param>
+        /// <returns>
+        /// </returns>
         public static Type GetUnderlyingType(Type type)
         {
             if(type.IsConstructedGenericType && (type.GetGenericTypeDefinition() == typeof(Nullable<>)))
@@ -226,7 +255,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the path to this configuration object.
         /// </summary>
-        /// <returns> A string containing the path to this configuration object. </returns>
+        /// <returns>
+        ///     A string containing the path to this configuration object.
+        /// </returns>
         public string CalculatePath(IConfigurationParent? parent)
         {
             if(ReferenceEquals(parent, null))
@@ -246,10 +277,18 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Parses a string value into the type defined by the property definition.
         /// </summary>
-        /// <param name="path"> The path to the value being converted (used in error messages). </param>
-        /// <param name="stringRepresentation"> The string to parse. </param>
-        /// <returns> The string parsed as the type of this property. </returns>
-        /// <exception cref="ConfigurationException"> Value could not be converted. </exception>
+        /// <param name="path">
+        ///     The path to the value being converted (used in error messages).
+        /// </param>
+        /// <param name="stringRepresentation">
+        ///     The string to parse.
+        /// </param>
+        /// <returns>
+        ///     The string parsed as the type of this property.
+        /// </returns>
+        /// <exception cref="ConfigurationException">
+        ///     Value could not be converted.
+        /// </exception>
         public object? ConvertStringToValue(string path, string? stringRepresentation)
         {
             if(ReferenceEquals(stringRepresentation, null))
@@ -442,8 +481,12 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Given a value that can be assigned to the property represented, returns a string equivalent.
         /// </summary>
-        /// <param name="value"> The value. </param>
-        /// <returns> The string equivalent of the value given. </returns>
+        /// <param name="value">
+        ///     The value.
+        /// </param>
+        /// <returns>
+        ///     The string equivalent of the value given.
+        /// </returns>
         public string? ConvertValueToString(object? value)
         {
             if(ReferenceEquals(value, null))
@@ -535,14 +578,24 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Copies the value of an element.
         /// </summary>
-        /// <typeparam name="TElement"> The type of the element to copy. </typeparam>
-        /// <param name="implementation"> The details of the implementation for which to make a copy. </param>
-        /// <param name="value"> The value to copy. </param>
-        /// <param name="parent"> The parent object to which cloned configuration objects will belong. </param>
+        /// <typeparam name="TElement">
+        ///     The type of the element to copy.
+        /// </typeparam>
+        /// <param name="implementation">
+        ///     The details of the implementation for which to make a copy.
+        /// </param>
+        /// <param name="value">
+        ///     The value to copy.
+        /// </param>
+        /// <param name="parent">
+        ///     The parent object to which cloned configuration objects will belong.
+        /// </param>
         /// <param name="configurationRoot">
         ///     The configuration root from which cloned configuration objects are to be populated.
         /// </param>
-        /// <returns> The newly copied element. </returns>
+        /// <returns>
+        ///     The newly copied element.
+        /// </returns>
         public TElement CopyValue<TElement>(IImplementation implementation, TElement value, IConfigurationParent parent, IConfigurationRoot configurationRoot)
         {
             if(ReferenceEquals(value, null))
@@ -575,9 +628,15 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Determines whether the current value is the same as the original value.
         /// </summary>
-        /// <param name="original"> The original value. </param>
-        /// <param name="current"> The current value. </param>
-        /// <returns> <see langword="true" /> if the values are the same; otherwise, <see langword="false" />. </returns>
+        /// <param name="original">
+        ///     The original value.
+        /// </param>
+        /// <param name="current">
+        ///     The current value.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> if the values are the same; otherwise, <see langword="false" />.
+        /// </returns>
         internal static bool AreEqual(object? original, object? current)
         {
             if(ReferenceEquals(original, current))

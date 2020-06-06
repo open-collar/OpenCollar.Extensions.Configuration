@@ -6,7 +6,7 @@ using OpenCollar.Extensions.Configuration.Validation;
 namespace OpenCollar.Extensions.Configuration
 {
     /// <summary>
-    ///     An exception thrown when a property is incorrectly defined..
+    ///     An exception thrown when a property is incorrectly defined.
     /// </summary>
     /// <remarks>
     ///     <para> Use the <see cref="PropertyName" /> property to discover the name of the property concerned. </para>
