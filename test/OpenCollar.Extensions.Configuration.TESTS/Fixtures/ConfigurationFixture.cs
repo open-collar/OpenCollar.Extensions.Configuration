@@ -85,6 +85,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var provider = new MemoryConfigurationProvider(source);
             ConfigurationRoot = new ConfigurationRoot(new[] { provider });
 
+            // Force the Newtonsoft.Json assembly to load.
+            var serializer = Newtonsoft.Json.JsonSerializer.Create();
+
             IServiceCollection servicesCollection = new ServiceCollection();
             servicesCollection.AddSingleton(ConfigurationRoot);
             servicesCollection.AddConfigurationReader<IRootElement>();

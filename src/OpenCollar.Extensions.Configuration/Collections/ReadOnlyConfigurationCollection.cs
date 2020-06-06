@@ -25,6 +25,8 @@ using System.Globalization;
 
 using Microsoft.Extensions.Configuration;
 
+using Newtonsoft.Json;
+
 using OpenCollar.Extensions.Configuration.Resources;
 
 namespace OpenCollar.Extensions.Configuration.Collections
@@ -33,12 +35,15 @@ namespace OpenCollar.Extensions.Configuration.Collections
     ///     A read-only collection of <see cref="IConfigurationObject"> configuration objects </see> that notifies when
     ///     an element is added or removed.
     /// </summary>
-    /// <typeparam name="TElement"> The type of the element. </typeparam>
+    /// <typeparam name="TElement">
+    ///     The type of the element.
+    /// </typeparam>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
     ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/Collections/ReadOnlyConfigurationCollection/ReadOnlyConfigurationCollection.svg" />
     /// </remarks>
     [DebuggerDisplay("\\{ReadOnlyConfigurationCollection<{typeof(TElement).Name,nq}>\\}: \"{" + nameof(CalculatePath) + "(),nq}\"")]
+    [JsonObject(MemberSerialization.OptIn)]
     internal sealed class ReadOnlyConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IReadOnlyConfigurationCollection<TElement>
     {
         /// <summary>
@@ -47,11 +52,15 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="propertyDef">
+        ///     The definition of the property defined by this object.
+        /// </param>
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
-        /// <param name="elements"> The elements with which to initialize to the collection. </param>
+        /// <param name="elements">
+        ///     The elements with which to initialize to the collection.
+        /// </param>
         public ReadOnlyConfigurationCollection(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot,
         IEnumerable<TElement>? elements) : base(parent, propertyDef, configurationRoot, GetIndexedElements(elements))
         {
@@ -63,7 +72,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="propertyDef">
+        ///     The definition of the property defined by this object.
+        /// </param>
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
@@ -84,9 +95,15 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets or sets the item at the specified index.
         /// </summary>
-        /// <value> The value of the item to get or set. </value>
-        /// <param name="index"> The index of the item in the collection. </param>
-        /// <returns> The item specified by <paramref name="index" />. </returns>
+        /// <value>
+        ///     The value of the item to get or set.
+        /// </value>
+        /// <param name="index">
+        ///     The index of the item in the collection.
+        /// </param>
+        /// <returns>
+        ///     The item specified by <paramref name="index" />.
+        /// </returns>
         TElement IList<TElement>.this[int index]
         {
             get => base[index].Value;
@@ -96,39 +113,57 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Adds the specified item to the end of the collection..
         /// </summary>
-        /// <param name="item"> The item to add. </param>
+        /// <param name="item">
+        ///     The item to add.
+        /// </param>
         public void Add(TElement item) => Add(Count, item);
 
         /// <summary>
         ///     Adds a new value with the key specified, copying the properties and elements from the value give,
         ///     returning the new value.
         /// </summary>
-        /// <param name="value"> The value to copy. </param>
-        /// <returns> The newly added element. </returns>
+        /// <param name="value">
+        ///     The value to copy.
+        /// </param>
+        /// <returns>
+        ///     The newly added element.
+        /// </returns>
         /// <remarks>
         ///     Used to add objects and collections that have been constructed externally using alternate implementations.
         /// </remarks>
-        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        /// <exception cref="NotImplementedException">
+        ///     This collection is read-only.
+        /// </exception>
         public TElement AddCopy(TElement value) => throw new NotImplementedException(Exceptions.CollectionIsReadOnly);
 
         /// <summary>
         ///     Adds a new value with the key specified, returning the new value.
         /// </summary>
-        /// <returns> The newly added element. </returns>
-        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        /// <returns>
+        ///     The newly added element.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        ///     This collection is read-only.
+        /// </exception>
         public TElement AddNew() => throw new NotImplementedException(Exceptions.CollectionIsReadOnly);
 
         /// <summary>
         ///     Determines whether this instance contains the object.
         /// </summary>
-        /// <param name="item"> The item for which to check. </param>
-        /// <returns> <see langword="true" /> if the collection contains the specified item; otherwise, <see langword="false" />. </returns>
+        /// <param name="item">
+        ///     The item for which to check.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> if the collection contains the specified item; otherwise, <see langword="false" />.
+        /// </returns>
         public bool Contains(TElement item) => ContainsValue(item);
 
         /// <summary>
         ///     Copies the contents of the collection to an array.
         /// </summary>
-        /// <param name="array"> The array to which to copy the contents of the collection. </param>
+        /// <param name="array">
+        ///     The array to which to copy the contents of the collection.
+        /// </param>
         /// <param name="arrayIndex">
         ///     The index of the first location in the array to which to copy the collection contents.
         /// </param>
@@ -161,7 +196,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the enumerator for the values in this collection.
         /// </summary>
-        /// <returns> The enumerator for the values in this collection. </returns>
+        /// <returns>
+        ///     The enumerator for the values in this collection.
+        /// </returns>
         public IEnumerator<TElement> GetEnumerator()
         {
             EnforceDisposed();
@@ -172,7 +209,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Finds the index of the first element in the collection that equals the item provided.
         /// </summary>
-        /// <param name="item"> The item to find. </param>
+        /// <param name="item">
+        ///     The item to find.
+        /// </param>
         /// <returns>
         ///     The zero-based index of the first matching item or a value less than zero if no match is found.
         /// </returns>
@@ -197,9 +236,15 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Inserts an item at the specified index.
         /// </summary>
-        /// <param name="index"> The zero-based index of the location at which the item should be inserted. </param>
-        /// <param name="item"> The item to insert. </param>
-        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        /// <param name="index">
+        ///     The zero-based index of the location at which the item should be inserted.
+        /// </param>
+        /// <param name="item">
+        ///     The item to insert.
+        /// </param>
+        /// <exception cref="NotImplementedException">
+        ///     This collection is read-only.
+        /// </exception>
         public void Insert(int index, TElement item)
         {
             EnforceDisposed();
@@ -209,8 +254,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Removes the item at the zero-based index specified.
         /// </summary>
-        /// <param name="index"> The index of the item to remove. </param>
-        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        /// <param name="index">
+        ///     The index of the item to remove.
+        /// </param>
+        /// <exception cref="NotImplementedException">
+        ///     This collection is read-only.
+        /// </exception>
         public void RemoveAt(int index)
         {
             EnforceDisposed();
@@ -220,7 +269,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Returns an enumerator that iterates through a collection.
         /// </summary>
-        /// <returns> An <see cref="IEnumerator" /> object that can be used to iterate through the collection. </returns>
+        /// <returns>
+        ///     An <see cref="IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)Values).GetEnumerator();
@@ -229,8 +280,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Converts the string given to the key.
         /// </summary>
-        /// <param name="key"> The key to convert, as a string. </param>
-        /// <returns> Returns the key converted to the correct type. </returns>
+        /// <param name="key">
+        ///     The key to convert, as a string.
+        /// </param>
+        /// <returns>
+        ///     Returns the key converted to the correct type.
+        /// </returns>
         internal override int ConvertStringToKey(string key)
         {
             return int.Parse(key, NumberStyles.Integer, CultureInfo.InvariantCulture);

@@ -21,9 +21,8 @@ using System;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using OpenCollar.Extensions.Configuration.Converters;
 
-namespace OpenCollar.Extensions.Configuration.Converters
+namespace OpenCollar.Extensions.Configuration.Converters.Text.Json
 {
     /// <summary>
     ///     A factory that produces converters allowing objects implementing

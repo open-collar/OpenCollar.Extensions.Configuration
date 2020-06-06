@@ -99,17 +99,18 @@ namespace OpenCollar.Extensions.Configuration
         ///     Add a new kind of configuration reader that represents values taken directly from the
         ///     <see cref="IConfigurationRoot" /> object in the service collection.
         /// </summary>
-        /// <param name="serviceCollection">
-        ///     The service collection to which to add the configuration reader. This must not be <see langword="null" />.
-        /// </param>
         /// <typeparam name="TConfigurationObject">
         ///     The interface through which consumers will access the configuration. This must be derived from the
         ///     <see cref="IConfigurationObject" /> interface.
         /// </typeparam>
-        /// <exception type="System.ArgumentNullException">
-        ///     <paramref name="serviceCollection" /> was <see langword="null" />.
-        /// </exception>
-        public static void AddConfigurationReader<TConfigurationObject>(this IServiceCollection serviceCollection)
+        /// <param name="serviceCollection">
+        ///     The service collection to which to add the configuration reader. This must not be <see langword="null" />.
+        /// </param>
+        /// <param name="supportNewtonsoftJson">
+        ///     If set to <see langword="true" /> support for <see cref="Newtonsoft.Json" /> is included in the
+        ///     generated code. Defaults to <see langword="false" />.
+        /// </param>
+        public static void AddConfigurationReader<TConfigurationObject>(this IServiceCollection serviceCollection, bool supportNewtonsoftJson = false)
         where TConfigurationObject : IConfigurationObject
         {
             serviceCollection.Validate(nameof(serviceCollection), ObjectIs.NotNull);
@@ -122,6 +123,12 @@ namespace OpenCollar.Extensions.Configuration
             if(serviceCollection.Any(d => d.ServiceType == serviceType))
             {
                 return;
+            }
+
+            // Force Newtonsoft Json assembly to load.
+            if(supportNewtonsoftJson)
+            {
+                var serializer = Newtonsoft.Json.JsonSerializer.Create();
             }
 
             var implementationType = GenerateConfigurationObjectType<TConfigurationObject>();
@@ -179,7 +186,9 @@ namespace OpenCollar.Extensions.Configuration
 
             var builder = new ConfigurationObjectTypeBuilder(type, propertyDefs);
 
-            return builder.Generate();
+            var generatedType = builder.Generate();
+
+            return generatedType;
         }
 
         /// <summary>

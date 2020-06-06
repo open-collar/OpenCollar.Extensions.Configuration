@@ -29,6 +29,8 @@ using JetBrains.Annotations;
 
 using Microsoft.Extensions.Configuration;
 
+using Newtonsoft.Json;
+
 using OpenCollar.Extensions.Configuration.Validation;
 
 namespace OpenCollar.Extensions.Configuration
@@ -60,6 +62,7 @@ namespace OpenCollar.Extensions.Configuration
     /// </remarks>
     /// <seealso cref="IConfigurationObject" />
     [EditorBrowsable(EditorBrowsableState.Never)]
+    [JsonObject(MemberSerialization.OptIn)]
     public abstract class ConfigurationObjectBase<TInterface> : ConfigurationObjectBase, IEquatable<TInterface> where TInterface : IConfigurationObject
     {
         /// <summary>
@@ -344,6 +347,7 @@ namespace OpenCollar.Extensions.Configuration
 
                 return PropertiesByName[name].Value;
             }
+
             [DebuggerStepThrough]
             set
             {

@@ -25,6 +25,8 @@ using System.Linq;
 
 using Microsoft.Extensions.Configuration;
 
+using Newtonsoft.Json;
+
 namespace OpenCollar.Extensions.Configuration.Collections
 {
     /// <summary>
@@ -40,7 +42,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="ConfigurationDictionaryBase{TKey,TElement}" />
     /// <seealso cref="IConfigurationDictionary{TElement}" />
     [DebuggerDisplay("\\{ConfigurationDictionary<{typeof(TElement).Name,nq}>\\}: \"{" + nameof(CalculatePath) + "(),nq}\"")]
-    [System.Text.Json.Serialization.JsonConverter(typeof(Converters.ConfigurationDictionaryConverterFactory))]
+    [System.Text.Json.Serialization.JsonConverter(typeof(Converters.Text.Json.ConfigurationDictionaryConverterFactory))]
+    [JsonObject(MemberSerialization.OptIn)]
     internal class ConfigurationDictionary<TElement> : ConfigurationDictionaryBase<string, TElement>, IConfigurationDictionary<TElement>
     {
         /// <summary>
@@ -100,6 +103,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     The key identifying the element required.
         /// </param>
         /// <returns>
+        ///     The element specified.
         /// </returns>
         TElement IDictionary<string, TElement>.this[string key]
         {

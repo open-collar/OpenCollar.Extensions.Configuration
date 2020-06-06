@@ -18,6 +18,48 @@ namespace OpenCollar.Extensions.Configuration
     /// </remarks>
     internal class ConfigurationObjectTypeBuilder
     {
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<Type, Type> _collectionConverters = new System.Collections.Concurrent.ConcurrentDictionary<Type, Type>();
+
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<Type, Type> _dictionaryConverters = new System.Collections.Concurrent.ConcurrentDictionary<Type, Type>();
+
+        /// <summary>
+        ///     The type of the <see cref="Newtonsoft.Json.JsonPropertyAttribute" /> class, loaded lazily.
+        /// </summary>
+        private static readonly Lazy<Assembly?> _newtonSoftJsonAssembly = new Lazy<Assembly?>(() =>
+        {
+            var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
+            var newtonSoftJsonAssembly = assemblies.FirstOrDefault(a => a.FullName.StartsWith(@"Newtonsoft.Json,", System.StringComparison.Ordinal));
+            return newtonSoftJsonAssembly;
+        }, System.Threading.LazyThreadSafetyMode.ExecutionAndPublication);
+
+        /// <summary>
+        ///     The type of the <see cref="Newtonsoft.Json.JsonConverterAttribute" /> class, loaded lazily.
+        /// </summary>
+        private static readonly Lazy<Type?> _newtonSoftJsonConverterAttributeType = new Lazy<Type?>(() =>
+        {
+            var newtonSoftJsonAssembly = _newtonSoftJsonAssembly.Value;
+            if(ReferenceEquals(newtonSoftJsonAssembly, null))
+            {
+                return null;
+            }
+            var attributeType = newtonSoftJsonAssembly.ExportedTypes.FirstOrDefault(t => t.Name == nameof(Newtonsoft.Json.JsonConverterAttribute));
+            return attributeType;
+        }, System.Threading.LazyThreadSafetyMode.ExecutionAndPublication);
+
+        /// <summary>
+        ///     The type of the <see cref="Newtonsoft.Json.JsonPropertyAttribute" /> class, loaded lazily.
+        /// </summary>
+        private static readonly Lazy<Type?> _newtonSoftJsonPropertyAttributeType = new Lazy<Type?>(() =>
+                {
+                    var newtonSoftJsonAssembly = _newtonSoftJsonAssembly.Value;
+                    if(ReferenceEquals(newtonSoftJsonAssembly, null))
+                    {
+                        return null;
+                    }
+                    var attributeType = newtonSoftJsonAssembly.ExportedTypes.FirstOrDefault(t => t.Name == nameof(Newtonsoft.Json.JsonPropertyAttribute));
+                    return attributeType;
+                }, System.Threading.LazyThreadSafetyMode.ExecutionAndPublication);
+
         /// <summary>
         ///     The type of the <see cref="ConfigurationObjectBase{T}" /> class.
         /// </summary>
@@ -110,15 +152,55 @@ namespace OpenCollar.Extensions.Configuration
             var propertyNameAttributeBuilder = new CustomAttributeBuilder(propertyNameAttributeConstructor, new object[] { propertyDef.PathSection });
             propertyBuilder.SetCustomAttribute(propertyNameAttributeBuilder);
 
-            if(propertyDef.Implementation.ImplementationKind == ImplementationKind.ConfigurationDictionary)
+            // Newtonsoft JsonObject attribute (used to identify properties to be serialized by the Newtonsoft.Json
+            // serializer when that is being used). NB. We are not directly referencing the assembly, but instead
+            // loading it dynamically, to avoid creating a dependency for code that does not use the Newtonsoft.Json assemblies.
+            var newtonSoftJsonPropertyAttributeType = _newtonSoftJsonPropertyAttributeType.Value;
+            if(!ReferenceEquals(newtonSoftJsonPropertyAttributeType, null))
             {
-                // [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Converters.ConfigurationDictionaryConverter<TElement>))]
+                // [Newtonsoft.Json.Serialization.JsonPropertyAttribute("<property-name>")]
+                var newtonSoftJsonPropertyAttributeConstructor = newtonSoftJsonPropertyAttributeType.GetConstructor(new[] { typeof(string) });
+                var newtonSoftJsonPropertyAttributeBuilder = new CustomAttributeBuilder(newtonSoftJsonPropertyAttributeConstructor, new object[] { propertyDef.PathSection });
+                propertyBuilder.SetCustomAttribute(newtonSoftJsonPropertyAttributeBuilder);
+            }
 
-                // Converter attribute to aid JSON serialization.
-                var converterAttributeConstructor = typeof(System.Text.Json.Serialization.JsonConverterAttribute).GetConstructor(new[] { typeof(Type) });
-                var converterType = typeof(Converters.ConfigurationDictionaryConverter<>).MakeGenericType(new[] { propertyDef.Implementation.Type });
-                var converterAttributeBuilder = new CustomAttributeBuilder(converterAttributeConstructor, new object[] { converterType });
-                propertyBuilder.SetCustomAttribute(converterAttributeBuilder);
+            System.Reflection.ConstructorInfo converterAttributeConstructor;
+            Type converterType;
+            CustomAttributeBuilder converterAttributeBuilder;
+            Type newtonSoftConverterAttribute;
+
+            switch(propertyDef.Implementation.ImplementationKind)
+            {
+                case ImplementationKind.ConfigurationCollection:
+
+                    newtonSoftConverterAttribute = _newtonSoftJsonConverterAttributeType.Value;
+                    if(!ReferenceEquals(newtonSoftConverterAttribute, null))
+                    {
+                        converterAttributeConstructor = newtonSoftConverterAttribute.GetConstructor(new[] { typeof(Type) });
+                        converterType = GetCollectionConverter(propertyDef.Implementation.Type);
+                        converterAttributeBuilder = new CustomAttributeBuilder(converterAttributeConstructor, new object[] { converterType });
+                        propertyBuilder.SetCustomAttribute(converterAttributeBuilder);
+                    }
+                    break;
+
+                case ImplementationKind.ConfigurationDictionary:
+
+                    // [System.Text.Json.Serialization.JsonConverterAttribute(typeof(Converters.ConfigurationDictionaryConverter<TElement>))]
+                    // Converter attribute to aid JSON serialization.
+                    converterAttributeConstructor = typeof(System.Text.Json.Serialization.JsonConverterAttribute).GetConstructor(new[] { typeof(Type) });
+                    converterType = typeof(Converters.Text.Json.ConfigurationDictionaryConverter<>).MakeGenericType(new[] { propertyDef.Implementation.Type });
+                    converterAttributeBuilder = new CustomAttributeBuilder(converterAttributeConstructor, new object[] { converterType });
+                    propertyBuilder.SetCustomAttribute(converterAttributeBuilder);
+
+                    newtonSoftConverterAttribute = _newtonSoftJsonConverterAttributeType.Value;
+                    if(!ReferenceEquals(newtonSoftConverterAttribute, null))
+                    {
+                        converterAttributeConstructor = newtonSoftConverterAttribute.GetConstructor(new[] { typeof(Type) });
+                        converterType = GetDictionaryConverter(propertyDef.Implementation.Type);
+                        converterAttributeBuilder = new CustomAttributeBuilder(converterAttributeConstructor, new object[] { converterType });
+                        propertyBuilder.SetCustomAttribute(converterAttributeBuilder);
+                    }
+                    break;
             }
 
             var getMethodBuilder = builder.DefineMethod("get_" + propertyDef.PropertyName,
@@ -161,6 +243,16 @@ namespace OpenCollar.Extensions.Configuration
 
             ilGenerator.Emit(OpCodes.Ret);
             propertyBuilder.SetGetMethod(getMethodBuilder);
+        }
+
+        private static Type GetCollectionConverter(Type type)
+        {
+            return _collectionConverters.GetOrAdd(type, t => typeof(OpenCollar.Extensions.Configuration.Converters.Newtonsoft.Json.ConfigurationCollectionConverter<>).MakeGenericType(new Type[] { t }));
+        }
+
+        private static Type GetDictionaryConverter(Type type)
+        {
+            return _dictionaryConverters.GetOrAdd(type, t => typeof(OpenCollar.Extensions.Configuration.Converters.Newtonsoft.Json.ConfigurationDictionaryConverter<>).MakeGenericType(new Type[] { t }));
         }
 
         /// <summary>

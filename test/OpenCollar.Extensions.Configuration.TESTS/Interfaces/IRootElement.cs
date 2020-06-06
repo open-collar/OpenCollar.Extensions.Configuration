@@ -20,6 +20,7 @@
 using System;
 using System.Reflection;
 
+using OpenCollar.Extensions.Configuration.TESTS.Converters;
 using OpenCollar.Extensions.Configuration.TESTS.Interfaces;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
@@ -314,12 +315,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         }
 
         // We would expect this to be implemented as a read-only property.
+        [Newtonsoft.Json.JsonConverter(typeof(TimespanConverter))]
         TimeSpan TimeSpanPropertyA
         {
             get;
         }
 
         // We would expect this to be implemented as a read/write property.
+        [Newtonsoft.Json.JsonConverter(typeof(TimespanConverter))]
         TimeSpan TimeSpanPropertyB
         {
             get; set;

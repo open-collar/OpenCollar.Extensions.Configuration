@@ -27,6 +27,8 @@ using System.Threading;
 
 using Microsoft.Extensions.Configuration;
 
+using Newtonsoft.Json;
+
 using OpenCollar.Extensions.Configuration.Resources;
 
 namespace OpenCollar.Extensions.Configuration.Collections
@@ -34,8 +36,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <summary>
     ///     A base class provide the functionality used by both dictionaries and collections.
     /// </summary>
-    /// <typeparam name="TKey"> The type of the key. </typeparam>
-    /// <typeparam name="TElement"> The type of the element. </typeparam>
+    /// <typeparam name="TKey">
+    ///     The type of the key.
+    /// </typeparam>
+    /// <typeparam name="TElement">
+    ///     The type of the element.
+    /// </typeparam>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
     ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/Collections/ConfigurationDictionaryBase/ConfigurationDictionaryBase.svg" />
@@ -44,6 +50,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="IDictionary{TKey,TValue}" />
     /// <seealso cref="INotifyCollectionChanged" />
     [DebuggerDisplay("ConfigurationDictionaryBase<{typeof(TElement).Name,nq}>[{Count}] ({CalculatePath()})")]
+    [JsonObject(MemberSerialization.OptIn)]
     internal abstract class ConfigurationDictionaryBase<TKey, TElement> : NotifyPropertyChanged, IConfigurationObject, IValueChanged, IConfigurationChild,
     IConfigurationParent
     {
@@ -89,7 +96,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="propertyDef">
+        ///     The definition of the property defined by this object.
+        /// </param>
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
@@ -108,8 +117,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
-        /// <param name="items"> The elements with which to initialize to the collection. </param>
+        /// <param name="propertyDef">
+        ///     The definition of the property defined by this object.
+        /// </param>
+        /// <param name="items">
+        ///     The elements with which to initialize to the collection.
+        /// </param>
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
@@ -146,7 +159,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the number of elements contained in the <see cref="ICollection{T}" />.
         /// </summary>
-        /// <value> The number of elements contained in the <see cref="ICollection{T}" />. </value>
+        /// <value>
+        ///     The number of elements contained in the <see cref="ICollection{T}" />.
+        /// </value>
         /// <exception cref="ObjectDisposedException">
         ///     This method cannot be used after the object has been disposed of.
         /// </exception>
@@ -240,7 +255,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the definition of this property object.
         /// </summary>
-        /// <value> The definition of this property object. </value>
+        /// <value>
+        ///     The definition of this property object.
+        /// </value>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public IPropertyDef PropertyDef
         {
@@ -275,7 +292,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the configuration root service from which values are read or to which all values will be written.
         /// </summary>
-        /// <value> The configuration root service from which values are read or to which all values will be written. </value>
+        /// <value>
+        ///     The configuration root service from which values are read or to which all values will be written.
+        /// </value>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal IConfigurationRoot ConfigurationRoot
         {
@@ -285,8 +304,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the number of elements contained in the <see cref="ICollection{T}" />.
         /// </summary>
-        /// <value> The number of elements contained in the <see cref="ICollection{T}" />. </value>
-        /// <remarks> Assumes that the caller already holds a read or write lock. </remarks>
+        /// <value>
+        ///     The number of elements contained in the <see cref="ICollection{T}" />.
+        /// </value>
+        /// <remarks>
+        ///     Assumes that the caller already holds a read or write lock.
+        /// </remarks>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected int InnerCount => _itemsByKey.Count;
 
@@ -302,27 +325,39 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the lock object used to control concurrent access to the collection.
         /// </summary>
-        /// <value> The lock object used to control concurrent access to the collection. </value>
+        /// <value>
+        ///     The lock object used to control concurrent access to the collection.
+        /// </value>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected ReaderWriterLockSlim Lock { get; } = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
 
         /// <summary>
         ///     Gets the items in the dictionary as an ordered, read-only list.
         /// </summary>
-        /// <value> The items in the dictionary as an ordered, read-only list. </value>
+        /// <value>
+        ///     The items in the dictionary as an ordered, read-only list.
+        /// </value>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected IReadOnlyList<Element<TKey, TElement>> OrderedItems => _orderedItems.AsReadOnly();
 
         /// <summary>
         ///     Gets or sets the item with the specified key.
         /// </summary>
-        /// <value> The item to get or set. </value>
-        /// <param name="key"> The key identifying the element to get or set. </param>
-        /// <returns> The element specified by <paramref name="key" />. </returns>
+        /// <value>
+        ///     The item to get or set.
+        /// </value>
+        /// <param name="key">
+        ///     The key identifying the element to get or set.
+        /// </param>
+        /// <returns>
+        ///     The element specified by <paramref name="key" />.
+        /// </returns>
         /// <exception cref="ArgumentOutOfRangeException">
         ///     <paramref name="key" /> did not identify a valid element.
         /// </exception>
-        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        /// <exception cref="NotImplementedException">
+        ///     This collection is read-only.
+        /// </exception>
         /// <exception cref="ObjectDisposedException">
         ///     This method cannot be used after the object has been disposed of.
         /// </exception>
@@ -345,9 +380,15 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     Adds a new value with the key specified, copying the properties and elements from the value give,
         ///     returning the new value.
         /// </summary>
-        /// <param name="key"> The key identifying the value to add. </param>
-        /// <param name="value"> The value to copy. </param>
-        /// <returns> The newly added element. </returns>
+        /// <param name="key">
+        ///     The key identifying the value to add.
+        /// </param>
+        /// <param name="value">
+        ///     The value to copy.
+        /// </param>
+        /// <returns>
+        ///     The newly added element.
+        /// </returns>
         /// <remarks>
         ///     Used to add objects and collections that have been constructed externally using alternate implementations.
         /// </remarks>
@@ -365,7 +406,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the path to this configuration object.
         /// </summary>
-        /// <returns> A string containing the path to this configuration object. </returns>
+        /// <returns>
+        ///     A string containing the path to this configuration object.
+        /// </returns>
         public string CalculatePath()
         {
             if(ReferenceEquals(_parent, null))
@@ -380,7 +423,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Removes all items from the <see cref="ICollection{T}" />.
         /// </summary>
-        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        /// <exception cref="NotImplementedException">
+        ///     This collection is read-only.
+        /// </exception>
         /// <exception cref="ObjectDisposedException">
         ///     This method cannot be used after the object has been disposed of.
         /// </exception>
@@ -397,7 +442,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Determines whether the <see cref="IDictionary{T,T}" /> contains an element with the specified key.
         /// </summary>
-        /// <param name="key"> The key to locate in the <see cref="IDictionary{T,T}" />. </param>
+        /// <param name="key">
+        ///     The key to locate in the <see cref="IDictionary{T,T}" />.
+        /// </param>
         /// <returns>
         ///     <see langword="true" /> if the <see cref="IDictionary{T,T}" /> contains an element with the key;
         ///     otherwise, <see langword="false" />.
@@ -423,7 +470,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Recursively deletes all of the properties from the configuration sources.
         /// </summary>
-        /// <exception cref="NotImplementedException"> </exception>
+        /// <exception cref="NotImplementedException">
+        /// </exception>
         public void Delete()
         {
             if(!PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.SaveOnly))
@@ -448,8 +496,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Called when a value has changed.
         /// </summary>
-        /// <param name="oldValue"> The old value. </param>
-        /// <param name="newValue"> The new value. </param>
+        /// <param name="oldValue">
+        ///     The old value.
+        /// </param>
+        /// <param name="newValue">
+        ///     The new value.
+        /// </param>
         public void OnValueChanged(IValue oldValue, IValue newValue)
         {
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldValue, newValue));
@@ -458,13 +510,17 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Removes the element with the specified key from the <see cref="IDictionary{T,T}" />.
         /// </summary>
-        /// <param name="key"> The key of the element to remove. </param>
+        /// <param name="key">
+        ///     The key of the element to remove.
+        /// </param>
         /// <returns>
         ///     <see langword="true" /> if the element is successfully removed; otherwise, <see langword="false" />.
         ///     This method also returns <see langword="false" /> if <paramref name="key" /> was not found in the
         ///     original <see cref="IDictionary{T,T}" />.
         /// </returns>
-        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        /// <exception cref="NotImplementedException">
+        ///     This collection is read-only.
+        /// </exception>
         public virtual bool Remove(TKey key)
         {
             EnforceDisposed();
@@ -504,13 +560,17 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Removes the first occurrence of a specific object from the <see cref="ICollection{T}" />.
         /// </summary>
-        /// <param name="item"> The object to remove from the <see cref="ICollection{T}" />. </param>
+        /// <param name="item">
+        ///     The object to remove from the <see cref="ICollection{T}" />.
+        /// </param>
         /// <returns>
         ///     <see langword="true" /> if <paramref name="item" /> was successfully removed from the
         ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />. This method also returns
         ///     <see langword="false" /> if <paramref name="item" /> is not found in the original <see cref="ICollection{T}" />.
         /// </returns>
-        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        /// <exception cref="NotImplementedException">
+        ///     This collection is read-only.
+        /// </exception>
         public virtual bool Remove(TElement item)
         {
             EnforceDisposed();
@@ -547,7 +607,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Sets the parent of a configuration object.
         /// </summary>
-        /// <param name="parent"> The new parent object. </param>
+        /// <param name="parent">
+        ///     The new parent object.
+        /// </param>
         public void SetParent(IConfigurationParent? parent)
         {
             _parent = parent;
@@ -556,7 +618,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the value associated with the specified key.
         /// </summary>
-        /// <param name="key"> The key whose value to get. </param>
+        /// <param name="key">
+        ///     The key whose value to get.
+        /// </param>
         /// <param name="value">
         ///     When this method returns, the value associated with the specified key, if the key is found; otherwise,
         ///     the default value for the type of the <paramref name="value" /> parameter. This parameter is passed uninitialized.
@@ -590,14 +654,20 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Converts the string given to the key.
         /// </summary>
-        /// <param name="key"> The key to convert, as a string. </param>
-        /// <returns> Returns the key converted to the correct type. </returns>
+        /// <param name="key">
+        ///     The key to convert, as a string.
+        /// </param>
+        /// <returns>
+        ///     Returns the key converted to the correct type.
+        /// </returns>
         internal abstract TKey ConvertStringToKey(string key);
 
         /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
-        /// <param name="initializing"> If set to <see langword="true" /> the element changed events are not fired. </param>
+        /// <param name="initializing">
+        ///     If set to <see langword="true" /> the element changed events are not fired.
+        /// </param>
         internal void Load(bool initializing)
         {
             if(!PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.LoadOnly))
@@ -655,8 +725,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the elements given as a sequence of <see cref="KeyValuePair{T, TElement}" /> keyed in the index.
         /// </summary>
-        /// <param name="elements"> The elements to convert. </param>
-        /// <returns> The sequence of elements given, as <see cref="KeyValuePair{T, TElement}" /> objects. </returns>
+        /// <param name="elements">
+        ///     The elements to convert.
+        /// </param>
+        /// <returns>
+        ///     The sequence of elements given, as <see cref="KeyValuePair{T, TElement}" /> objects.
+        /// </returns>
         protected static IEnumerable<KeyValuePair<int, TElement>> GetIndexedElements(IEnumerable<TElement>? elements)
         {
             if(ReferenceEquals(elements, null))
@@ -674,14 +748,24 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Adds the specified item to the collection, using the key specified.
         /// </summary>
-        /// <param name="key"> The key used to identify the item to add. Must be unique. </param>
-        /// <param name="value"> The value to assign to the value. </param>
-        /// <exception cref="ArgumentException"> An item with the same key has already been added. </exception>
-        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        /// <param name="key">
+        ///     The key used to identify the item to add. Must be unique.
+        /// </param>
+        /// <param name="value">
+        ///     The value to assign to the value.
+        /// </param>
+        /// <exception cref="ArgumentException">
+        ///     An item with the same key has already been added.
+        /// </exception>
+        /// <exception cref="NotImplementedException">
+        ///     This collection is read-only.
+        /// </exception>
         /// <exception cref="ObjectDisposedException">
         ///     This method cannot be used after the object has been disposed of.
         /// </exception>
-        /// <exception cref="TypeMismatchException"> Expected object of different type. </exception>
+        /// <exception cref="TypeMismatchException">
+        ///     Expected object of different type.
+        /// </exception>
         protected void Add(TKey key, TElement value)
         {
             EnforceDisposed();
@@ -744,8 +828,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Adds a new value with the key specified, returning the new value.
         /// </summary>
-        /// <param name="key"> The key identifying the value to add. </param>
-        /// <returns> The newly added value. </returns>
+        /// <param name="key">
+        ///     The key identifying the value to add.
+        /// </param>
+        /// <returns>
+        ///     The newly added value.
+        /// </returns>
         protected TElement AddNew(TKey key)
         {
             TElement value;
@@ -776,7 +864,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Determines whether this instance contains the object.
         /// </summary>
-        /// <param name="item"> The object to locate in the <see cref="ICollection{T}" />. </param>
+        /// <param name="item">
+        ///     The object to locate in the <see cref="ICollection{T}" />.
+        /// </param>
         /// <returns>
         ///     <see langword="true" /> if <paramref name="item" /> is found in the <see cref="ICollection{T}" />;
         ///     otherwise, <see langword="false" />.
@@ -853,8 +943,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     The one-dimensional <see cref="Array" /> that is the destination of the elements copied from
         ///     <see cref="ICollection{T}" />. The <see cref="Array" /> must have zero-based indexing.
         /// </param>
-        /// <param name="arrayIndex"> The zero-based index in <paramref name="array" /> at which copying begins. </param>
-        /// <remarks> Assumes the caller already holds a read or write lock. </remarks>
+        /// <param name="arrayIndex">
+        ///     The zero-based index in <paramref name="array" /> at which copying begins.
+        /// </param>
+        /// <remarks>
+        ///     Assumes the caller already holds a read or write lock.
+        /// </remarks>
         protected void InnerCopyTo(KeyValuePair<TKey, Element<TKey, TElement>>[] array, int arrayIndex)
         {
             _orderedItems.Select(e => new KeyValuePair<TKey, Element<TKey, TElement>>(e.Key, e)).ToArray().CopyTo(array, arrayIndex);
@@ -863,7 +957,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Called when the collection has changed.
         /// </summary>
-        /// <param name="args"> The <see cref="NotifyCollectionChangedEventArgs" /> instance defining the change. </param>
+        /// <param name="args">
+        ///     The <see cref="NotifyCollectionChangedEventArgs" /> instance defining the change.
+        /// </param>
         protected void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
         {
             if(_disableCollectionChangedEvents.Value > 0)
@@ -898,8 +994,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Re-indexes the items after the specified index after removing an item.
         /// </summary>
-        /// <param name="removedIndex"> Index of the removed item. </param>
-        /// <param name="getNewKey"> A function that returns the new key for re-indexed items. </param>
+        /// <param name="removedIndex">
+        ///     Index of the removed item.
+        /// </param>
+        /// <param name="getNewKey">
+        ///     A function that returns the new key for re-indexed items.
+        /// </param>
         protected void ReIndex(int removedIndex, Func<int, Element<TKey, TElement>, TKey> getNewKey)
         {
             if(removedIndex >= Count)
@@ -928,9 +1028,15 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Replaces the contents of the dictionary.
         /// </summary>
-        /// <param name="list"> The new contents. </param>
-        /// <remarks> Assumes that a write lock is held by the caller. </remarks>
-        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        /// <param name="list">
+        ///     The new contents.
+        /// </param>
+        /// <remarks>
+        ///     Assumes that a write lock is held by the caller.
+        /// </remarks>
+        /// <exception cref="NotImplementedException">
+        ///     This collection is read-only.
+        /// </exception>
         protected void Replace(IEnumerable<Element<TKey, TElement>> list)
         {
             EnforceReadOnly();
@@ -952,7 +1058,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Enforces the read-only property.
         /// </summary>
-        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        /// <exception cref="NotImplementedException">
+        ///     This collection is read-only.
+        /// </exception>
         private void EnforceReadOnly()
         {
             if(_disableReadOnly.Value > 0)
@@ -969,10 +1077,18 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Loads all of the properties from the configuration sources, overwriting any unsaved changes.
         /// </summary>
-        /// <param name="initializing"> If set to <see langword="true" /> the element changed events are not fired. </param>
-        /// <param name="existingValues"> A list of the existing values. </param>
-        /// <param name="newValues"> A list to which to add the new values. </param>
-        /// <param name="updatedValues"> A list to which to add the updated values. </param>
+        /// <param name="initializing">
+        ///     If set to <see langword="true" /> the element changed events are not fired.
+        /// </param>
+        /// <param name="existingValues">
+        ///     A list of the existing values.
+        /// </param>
+        /// <param name="newValues">
+        ///     A list to which to add the new values.
+        /// </param>
+        /// <param name="updatedValues">
+        ///     A list to which to add the updated values.
+        /// </param>
         private void InnerLoad(bool initializing, List<KeyValuePair<TKey, IConfigurationSection>> existingValues, List<Element<TKey, TElement>> newValues, List<Element<TKey, TElement>> updatedValues)
         {
             // Assumes validation has already been performed.
@@ -1013,7 +1129,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Removes all items from the <see cref="ICollection{T}" />.
         /// </summary>
-        /// <exception cref="NotImplementedException"> This collection is read-only. </exception>
+        /// <exception cref="NotImplementedException">
+        ///     This collection is read-only.
+        /// </exception>
         private void InternalClear()
         {
             Lock.EnterWriteLock();
@@ -1033,7 +1151,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Called when a section in the configuration root has changed.
         /// </summary>
-        /// <param name="sectionObject"> An object containing the section that has changed. </param>
+        /// <param name="sectionObject">
+        ///     An object containing the section that has changed.
+        /// </param>
         private void OnSectionChanged(object sectionObject)
         {
             _disableReadOnly.Value = _disableReadOnly.Value + 1;
@@ -1061,7 +1181,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Removes the first occurrence of a specific object from the <see cref="ICollection{T}" />.
         /// </summary>
-        /// <param name="item"> The object to remove from the <see cref="ICollection{T}" />. </param>
+        /// <param name="item">
+        ///     The object to remove from the <see cref="ICollection{T}" />.
+        /// </param>
         /// <returns>
         ///     <see langword="true" /> if <paramref name="item" /> was successfully removed from the
         ///     <see cref="ICollection{T}" />; otherwise, <see langword="false" />. This method also returns
