@@ -32,32 +32,32 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Remove="plantuml\**" />
-      <EmbeddedResource Remove="plantuml\**" />
-      <None Remove="plantuml\**" />
+        <Compile Remove="plantuml\**" />
+        <EmbeddedResource Remove="plantuml\**" />
+        <None Remove="plantuml\**" />
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Include=".attributes\ConfigurationAttribute.cs" />
-      <Compile Include=".attributes\ConfigurationPersistenceActions.cs" />
-      <Compile Include=".attributes\PathAttribute.cs" />
-      <Compile Include=".attributes\PathIs.cs" />
-      <Compile Include=".exceptions\ConfigurationException.cs" />
-      <Compile Include=".exceptions\InvalidPropertyException.cs" />
-      <Compile Include=".exceptions\TypeMismatchException.cs" />
-      <Compile Include=".interfaces\IConfigurationChild.cs" />
-      <Compile Include=".interfaces\IConfigurationCollection.cs" />
-      <Compile Include=".interfaces\IConfigurationDictionary.cs" />
-      <Compile Include=".interfaces\IConfigurationObject.cs" />
-      <Compile Include=".interfaces\IConfigurationParent.cs" />
-      <Compile Include=".interfaces\IImplementation.cs" />
-      <Compile Include=".interfaces\ImplementationKind.cs" />
-      <Compile Include=".interfaces\IPropertyDef.cs" />
-      <Compile Include=".interfaces\IPropertyValue.cs" />
-      <Compile Include=".interfaces\IReadOnlyConfigurationCollection.cs" />
-      <Compile Include=".interfaces\IReadOnlyConfigurationDictionary.cs" />
-      <Compile Include=".interfaces\IValue.cs" />
-      <Compile Include=".interfaces\IValueChanged.cs" />
+        <Compile Include=".attributes\ConfigurationAttribute.cs" />
+        <Compile Include=".attributes\ConfigurationPersistenceActions.cs" />
+        <Compile Include=".attributes\PathAttribute.cs" />
+        <Compile Include=".attributes\PathIs.cs" />
+        <Compile Include=".exceptions\ConfigurationException.cs" />
+        <Compile Include=".exceptions\InvalidPropertyException.cs" />
+        <Compile Include=".exceptions\TypeMismatchException.cs" />
+        <Compile Include=".interfaces\IConfigurationChild.cs" />
+        <Compile Include=".interfaces\IConfigurationCollection.cs" />
+        <Compile Include=".interfaces\IConfigurationDictionary.cs" />
+        <Compile Include=".interfaces\IConfigurationObject.cs" />
+        <Compile Include=".interfaces\IConfigurationParent.cs" />
+        <Compile Include=".interfaces\IImplementation.cs" />
+        <Compile Include=".interfaces\ImplementationKind.cs" />
+        <Compile Include=".interfaces\IPropertyDef.cs" />
+        <Compile Include=".interfaces\IPropertyValue.cs" />
+        <Compile Include=".interfaces\IReadOnlyConfigurationCollection.cs" />
+        <Compile Include=".interfaces\IReadOnlyConfigurationDictionary.cs" />
+        <Compile Include=".interfaces\IValue.cs" />
+        <Compile Include=".interfaces\IValueChanged.cs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -69,7 +69,10 @@
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.4" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.4" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.4" />
-        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3">
+            <!-- Do not expose the Newtonsoft dependency. -->
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
         <PackageReference Include="System.ObjectModel" Version="4.3.0" />
         <PackageReference Include="System.Text.Json" Version="4.7.2" />
     </ItemGroup>
