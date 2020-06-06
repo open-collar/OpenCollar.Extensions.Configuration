@@ -179,7 +179,9 @@ namespace OpenCollar.Extensions.Configuration
 
             var builder = new ConfigurationObjectTypeBuilder(type, propertyDefs);
 
-            return builder.Generate();
+            var generatedType = builder.Generate();
+
+            return generatedType;
         }
 
         /// <summary>

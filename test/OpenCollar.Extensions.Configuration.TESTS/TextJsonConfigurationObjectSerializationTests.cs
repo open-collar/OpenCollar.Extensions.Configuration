@@ -1,15 +1,15 @@
-﻿using System.Text.Json;
-using System.Linq;
+﻿using System.Linq;
+using System.Text.Json;
+
 using Xunit;
-using OpenCollar.Extensions.Configuration.Converters;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
 {
-    public class ConfigurationObjectSerializationTests : IClassFixture<ConfigurationFixture>
+    public class TextJsonConfigurationObjectSerializationTests : IClassFixture<ConfigurationFixture>
     {
         private readonly ConfigurationFixture _configurationFixture;
 
-        public ConfigurationObjectSerializationTests(ConfigurationFixture configurationFixture)
+        public TextJsonConfigurationObjectSerializationTests(ConfigurationFixture configurationFixture)
         {
             _configurationFixture = configurationFixture;
         }
@@ -32,7 +32,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             {
                 Converters =
                            {
-                              new ConfigurationDictionaryConverterFactory()
+                              new OpenCollar.Extensions.Configuration.Converters.Text.Json.ConfigurationDictionaryConverterFactory()
                            }
             };
 
@@ -52,40 +52,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             // We can't just compare strings because the ordering of properties is not guaranteed, so instead we must
             // deserialize the strings and use a deep equals that does not pay attention to property ordering.
-            Assert.True(Equals(bagX, bagY));
-        }
-
-        private static bool Equals(System.Collections.Generic.Dictionary<string, object> a, System.Collections.Generic.Dictionary<string, object> b)
-        {
-            if(ReferenceEquals(a, b))
-            {
-                return true;
-            }
-            if(ReferenceEquals(a, null))
-            {
-                return false;
-            }
-            if(ReferenceEquals(b, null))
-            {
-                return false;
-            }
-            if(a.Count != b.Count)
-            {
-                return false;
-            }
-            foreach(var pair in a)
-            {
-                if(!b.TryGetValue(pair.Key, out var bValue))
-                {
-                    return false;
-                }
-                if(!Equals(pair.Value, bValue))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            Assert.True(EqualityHelper.Equals(bagX, bagY));
         }
 
         private static System.Collections.Generic.Dictionary<string, object> JsonDocumentToPropertyBag(System.Text.Json.JsonDocument document)

@@ -21,7 +21,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace OpenCollar.Extensions.Configuration.Converters
+namespace OpenCollar.Extensions.Configuration.Converters.Text.Json
 {
     /// <summary>
     ///     A converter allowing <see cref="IConfigurationDictionary{TElement}" /> derived objects to be serialized and

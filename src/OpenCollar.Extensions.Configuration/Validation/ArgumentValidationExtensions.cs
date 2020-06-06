@@ -56,7 +56,7 @@ namespace OpenCollar.Extensions.Configuration.Validation
         /// </exception>
         [AssertionMethod]
         [ContractArgumentValidator]
-        public static void Validate<TEnum>(this TEnum argumentValue, [NotNull] [InvokerParameterName] string argumentName, EnumIs validation)
+        public static void Validate<TEnum>(this TEnum argumentValue, [NotNull][InvokerParameterName] string argumentName, EnumIs validation)
         where TEnum : struct
         {
             var type = typeof(TEnum);
@@ -112,7 +112,7 @@ namespace OpenCollar.Extensions.Configuration.Validation
         [ContractArgumentValidator]
         [ContractAbbreviator]
         public static void Validate([AssertionCondition(AssertionConditionType.IS_NOT_NULL)] [ValidatedNotNull]
-        this string argumentValue, [NotNull] [InvokerParameterName] string argumentName, StringIs validation)
+        this string argumentValue, [NotNull][InvokerParameterName] string argumentName, StringIs validation)
         {
             /*
              * We should test "validation", but that would be an expensive thing to do for something that could be
@@ -158,7 +158,7 @@ namespace OpenCollar.Extensions.Configuration.Validation
         [ContractArgumentValidator]
         [ContractAbbreviator]
         public static void Validate<T>([AssertionCondition(AssertionConditionType.IS_NOT_NULL)] [NoEnumeration] [ValidatedNotNull]
-        this T argumentValue, [NotNull] [InvokerParameterName] string argumentName, ObjectIs validation) where T : class
+        this T argumentValue, [NotNull][InvokerParameterName] string argumentName, ObjectIs validation) where T : class
         {
             /*
              * We should test "validation", but that would be an expensive thing to do for something that could be
@@ -194,7 +194,7 @@ namespace OpenCollar.Extensions.Configuration.Validation
         [ContractArgumentValidator]
         [ContractAbbreviator]
         public static T[] Validate<T>([ItemCanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] [ValidatedNotNull]
-        this IEnumerable<T> argumentValue, [NotNull] [InvokerParameterName] string argumentName, ObjectIs argumentValidation, ObjectIs elementValidation)
+        this IEnumerable<T> argumentValue, [NotNull][InvokerParameterName] string argumentName, ObjectIs argumentValidation, ObjectIs elementValidation)
         where T : class
         {
             /*

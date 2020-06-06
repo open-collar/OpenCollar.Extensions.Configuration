@@ -28,6 +28,8 @@ using System.Linq;
 
 using Microsoft.Extensions.Configuration;
 
+using Newtonsoft.Json;
+
 using OpenCollar.Extensions.Configuration.Resources;
 using OpenCollar.Extensions.Configuration.Validation;
 
@@ -37,7 +39,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
     ///     A collection of <see cref="IConfigurationObject"> configuration objects </see> that notifies when an element
     ///     is added or removed.
     /// </summary>
-    /// <typeparam name="TElement"> The type of the element. </typeparam>
+    /// <typeparam name="TElement">
+    ///     The type of the element.
+    /// </typeparam>
     /// <remarks>
     ///     The following UML has been generated directly from the source code using
     ///     <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/Collections/ConfigurationCollection/ConfigurationCollection.svg" />
@@ -45,6 +49,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
     /// <seealso cref="ConfigurationDictionaryBase{TKey,TElement}" />
     /// <seealso cref="IConfigurationCollection{TElement}" />
     [DebuggerDisplay("\\{ConfigurationCollection<{typeof(TElement).Name,nq}>\\}: \"{" + nameof(CalculatePath) + "(),nq}\"")]
+    [JsonObject(MemberSerialization.OptIn)]
     internal class ConfigurationCollection<TElement> : ConfigurationDictionaryBase<int, TElement>, IConfigurationCollection<TElement>
     {
         /// <summary>
@@ -53,11 +58,15 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="propertyDef">
+        ///     The definition of the property defined by this object.
+        /// </param>
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
-        /// <param name="elements"> The elements with which to initialize to the collection. </param>
+        /// <param name="elements">
+        ///     The elements with which to initialize to the collection.
+        /// </param>
         public ConfigurationCollection(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot,
         IEnumerable<TElement>? elements) : base(parent, propertyDef, configurationRoot, GetIndexedElements(elements))
         {
@@ -69,7 +78,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        /// <param name="propertyDef"> The definition of the property defined by this object. </param>
+        /// <param name="propertyDef">
+        ///     The definition of the property defined by this object.
+        /// </param>
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
@@ -84,16 +95,23 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets a value indicating whether the <see cref="ICollection{TElement}" /> is read-only.
         /// </summary>
-        /// <value> <see langword="true" /> if this collection is read-only; otherwise, <see langword="false" />. </value>
+        /// <value>
+        ///     <see langword="true" /> if this collection is read-only; otherwise, <see langword="false" />.
+        /// </value>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected override bool InnerIsReadOnly => false;
 
         /// <summary>
         ///     Gets or sets the <typeparamref name="TElement" /> at the specified index.
         /// </summary>
-        /// <value> The <typeparamref name="TElement" /> at the index specified. </value>
-        /// <param name="index"> The index of the item to get or set. </param>
-        /// <returns> </returns>
+        /// <value>
+        ///     The <typeparamref name="TElement" /> at the index specified.
+        /// </value>
+        /// <param name="index">
+        ///     The index of the item to get or set.
+        /// </param>
+        /// <returns>
+        /// </returns>
         public new TElement this[int index]
         {
             get => base[index].Value;
@@ -103,15 +121,21 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Adds the specified item to the end of the collection..
         /// </summary>
-        /// <param name="item"> The item to add. </param>
+        /// <param name="item">
+        ///     The item to add.
+        /// </param>
         public void Add(TElement item) => Add(Count, item);
 
         /// <summary>
         ///     Adds a new value with the key specified, copying the properties and elements from the value give,
         ///     returning the new value.
         /// </summary>
-        /// <param name="value"> The value to copy. </param>
-        /// <returns> The newly added element. </returns>
+        /// <param name="value">
+        ///     The value to copy.
+        /// </param>
+        /// <returns>
+        ///     The newly added element.
+        /// </returns>
         /// <remarks>
         ///     Used to add objects and collections that have been constructed externally using alternate implementations.
         /// </remarks>
@@ -120,20 +144,28 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Adds a new value with the key specified, returning the new value.
         /// </summary>
-        /// <returns> The newly added element. </returns>
+        /// <returns>
+        ///     The newly added element.
+        /// </returns>
         public TElement AddNew() => AddNew(Count);
 
         /// <summary>
         ///     Determines whether this instance contains the object.
         /// </summary>
-        /// <param name="item"> The item for which to check. </param>
-        /// <returns> <see langword="true" /> if the collection contains the specified item; otherwise, <see langword="false" />. </returns>
+        /// <param name="item">
+        ///     The item for which to check.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> if the collection contains the specified item; otherwise, <see langword="false" />.
+        /// </returns>
         public bool Contains(TElement item) => ContainsValue(item);
 
         /// <summary>
         ///     Copies the contents of the collection to an array.
         /// </summary>
-        /// <param name="array"> The array to which to copy the contents of the collection. </param>
+        /// <param name="array">
+        ///     The array to which to copy the contents of the collection.
+        /// </param>
         /// <param name="arrayIndex">
         ///     The index of the first location in the array to which to copy the collection contents.
         /// </param>
@@ -141,7 +173,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         ///     <paramref name="arrayIndex" /> must be at least zero. or <paramref name="array" /> is not large enough
         ///     to hold the contents of this collection (if data is copied to the location specified by <paramref name="arrayIndex" />.
         /// </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="array" /> is <see langword="null" />. </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="array" /> is <see langword="null" />.
+        /// </exception>
         public void CopyTo(TElement[] array, int arrayIndex)
         {
             array.Validate(nameof(array), ObjectIs.NotNull);
@@ -167,7 +201,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Gets the enumerator for the values in this collection.
         /// </summary>
-        /// <returns> The enumerator for the values in this collection. </returns>
+        /// <returns>
+        ///     The enumerator for the values in this collection.
+        /// </returns>
         public IEnumerator<TElement> GetEnumerator()
         {
             EnforceDisposed();
@@ -177,7 +213,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Finds the index of the first element in the collection that equals the item provided.
         /// </summary>
-        /// <param name="item"> The item to find. </param>
+        /// <param name="item">
+        ///     The item to find.
+        /// </param>
         /// <returns>
         ///     The zero-based index of the first matching item or a value less than zero if no match is found.
         /// </returns>
@@ -202,8 +240,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Inserts an item at the specified index.
         /// </summary>
-        /// <param name="index"> The zero-based index of the location at which the item should be inserted. </param>
-        /// <param name="item"> The item to insert. </param>
+        /// <param name="index">
+        ///     The zero-based index of the location at which the item should be inserted.
+        /// </param>
+        /// <param name="item">
+        ///     The item to insert.
+        /// </param>
         public void Insert(int index, TElement item)
         {
             EnforceDisposed();
@@ -246,8 +288,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Inserts an item at the specified index.
         /// </summary>
-        /// <param name="index"> The zero-based index of the location at which the item should be inserted. </param>
-        /// <param name="item"> The item to insert. </param>
+        /// <param name="index">
+        ///     The zero-based index of the location at which the item should be inserted.
+        /// </param>
+        /// <param name="item">
+        ///     The item to insert.
+        /// </param>
         public TElement InsertCopy(int index, TElement item)
         {
             Debug.Assert(PropertyDef.ElementImplementation != null, "PropertyDef.ElementImplementation != null");
@@ -262,7 +308,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Removes the first occurrence of a specific object from the <see cref="ICollection{TElement}" />.
         /// </summary>
-        /// <param name="item"> The object to remove from the <see cref="ICollection{TElement}" />. </param>
+        /// <param name="item">
+        ///     The object to remove from the <see cref="ICollection{TElement}" />.
+        /// </param>
         /// <returns>
         ///     <see langword="true" /> if <paramref name="item" /> was successfully removed from the
         ///     <see cref="ICollection{TElement}" />; otherwise, <see langword="false" />. This method also returns
@@ -282,7 +330,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Removes the element with the specified key from the <see cref="IDictionary{T,T}" />.
         /// </summary>
-        /// <param name="index"> The zero-based index of the element to remove. </param>
+        /// <param name="index">
+        ///     The zero-based index of the element to remove.
+        /// </param>
         /// <returns>
         ///     <see langword="true" /> if the element is successfully removed; otherwise, <see langword="false" />.
         ///     This method also returns <see langword="false" /> if <paramref name="index" /> was not found in the
@@ -302,7 +352,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Removes the item at the zero-based index specified.
         /// </summary>
-        /// <param name="index"> The index of the item to remove. </param>
+        /// <param name="index">
+        ///     The index of the item to remove.
+        /// </param>
         public void RemoveAt(int index)
         {
             base.Remove(index);
@@ -312,7 +364,9 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Returns an enumerator that iterates through a collection.
         /// </summary>
-        /// <returns> An <see cref="IEnumerator" /> object that can be used to iterate through the collection. </returns>
+        /// <returns>
+        ///     An <see cref="IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)Values).GetEnumerator();
@@ -321,8 +375,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Converts the string given to the key.
         /// </summary>
-        /// <param name="key"> The key to convert, as a string. </param>
-        /// <returns> Returns the key converted to the correct type. </returns>
+        /// <param name="key">
+        ///     The key to convert, as a string.
+        /// </param>
+        /// <returns>
+        ///     Returns the key converted to the correct type.
+        /// </returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
         internal override int ConvertStringToKey(string key)
         {
@@ -332,8 +390,12 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <summary>
         ///     Inserts an item at the specified index.
         /// </summary>
-        /// <param name="index"> The zero-based index of the location at which the item should be inserted. </param>
-        /// <param name="item"> The item to insert. </param>
+        /// <param name="index">
+        ///     The zero-based index of the location at which the item should be inserted.
+        /// </param>
+        /// <param name="item">
+        ///     The item to insert.
+        /// </param>
         private void InnerInsert(int index, TElement item)
         {
             // Assumes that the arguments have been validated.

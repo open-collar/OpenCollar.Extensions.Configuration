@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OpenCollar.Extensions.Configuration.TESTS.Interfaces
+﻿namespace OpenCollar.Extensions.Configuration.TESTS.Interfaces
 {
     public interface IConfigurationObjectWIthArrayProperty : IConfigurationObject
     {
