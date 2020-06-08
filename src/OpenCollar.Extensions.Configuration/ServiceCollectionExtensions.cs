@@ -106,11 +106,28 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="serviceCollection">
         ///     The service collection to which to add the configuration reader. This must not be <see langword="null" />.
         /// </param>
+        public static IServiceCollection AddConfigurationReader<TConfigurationObject>(this IServiceCollection serviceCollection)
+        where TConfigurationObject : IConfigurationObject
+        {
+            return AddConfigurationReader<TConfigurationObject>(serviceCollection, null);
+        }
+
+        /// <summary>
+        ///     Add a new kind of configuration reader that represents values taken directly from the
+        ///     <see cref="IConfigurationRoot" /> object in the service collection.
+        /// </summary>
+        /// <typeparam name="TConfigurationObject">
+        ///     The interface through which consumers will access the configuration. This must be derived from the
+        ///     <see cref="IConfigurationObject" /> interface.
+        /// </typeparam>
+        /// <param name="serviceCollection">
+        ///     The service collection to which to add the configuration reader. This must not be <see langword="null" />.
+        /// </param>
         /// <param name="settings">
         ///     Optional settings used to control how configuration objects are created and the features they support.
         /// </param>
-        public static void AddConfigurationReader<TConfigurationObject>(this IServiceCollection serviceCollection, ConfigurationObjectSettings? settings = null)
-        where TConfigurationObject : IConfigurationObject
+        public static IServiceCollection AddConfigurationReader<TConfigurationObject>(this IServiceCollection serviceCollection, ConfigurationObjectSettings? settings = null)
+    where TConfigurationObject : IConfigurationObject
         {
             serviceCollection.Validate(nameof(serviceCollection), ObjectIs.NotNull);
 
@@ -126,7 +143,7 @@ namespace OpenCollar.Extensions.Configuration
 
             if(serviceCollection.Any(d => d.ServiceType == serviceType))
             {
-                return;
+                return serviceCollection;
             }
 
             var implementationType = GenerateConfigurationObjectType<TConfigurationObject>(settings);
@@ -143,6 +160,8 @@ namespace OpenCollar.Extensions.Configuration
             }, ServiceLifetime.Singleton);
 
             serviceCollection.Add(descriptor);
+
+            return serviceCollection;
         }
 
         /// <summary>
