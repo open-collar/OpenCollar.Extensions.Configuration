@@ -185,6 +185,7 @@ namespace OpenCollar.Extensions.Configuration
         public TValue Value
         {
             get => _currentValue;
+
             set
             {
                 if(_parent.IsReadOnly)
@@ -316,7 +317,7 @@ namespace OpenCollar.Extensions.Configuration
                         configurationObject = (_currentValue ?? _originalValue) as IConfigurationObject;
                         if(ReferenceEquals(configurationObject, null) || (configurationObject.GetType() != implementation.ImplementationType))
                         {
-                            Value = (TValue)Activator.CreateInstance(implementation.ImplementationType, null, _propertyDef, configurationRoot);
+                            Value = (TValue)Activator.CreateInstance(implementation.ImplementationType, null, _propertyDef, configurationRoot, implementation.Settings);
                         }
                         else
                         {
@@ -331,7 +332,7 @@ namespace OpenCollar.Extensions.Configuration
                         configurationObject = (_currentValue ?? _originalValue) as IConfigurationObject;
                         if(ReferenceEquals(configurationObject, null) || (configurationObject.GetType() != implementation.ImplementationType))
                         {
-                            Value = (TValue)Activator.CreateInstance(implementation.ImplementationType, PropertyDef, configurationRoot, null);
+                            Value = (TValue)Activator.CreateInstance(implementation.ImplementationType, PropertyDef, configurationRoot, null, implementation.Settings);
                         }
                         else
                         {

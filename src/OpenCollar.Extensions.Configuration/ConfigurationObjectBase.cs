@@ -79,8 +79,11 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="parent">
         ///     The parent object to which this one belongs. <see langword="null" /> if this is a root object.
         /// </param>
-        protected ConfigurationObjectBase(IPropertyDef? propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent) : base(propertyDef,
-        ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface)), configurationRoot, parent)
+        /// <param name="settings">
+        ///     The settings used to control how configuration objects are created and the features they support.
+        /// </param>
+        protected ConfigurationObjectBase(IPropertyDef? propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent, ConfigurationObjectSettings settings) : base(propertyDef,
+        ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface), settings), configurationRoot, parent)
         {
             DisablePropertyChangedEvents();
             try

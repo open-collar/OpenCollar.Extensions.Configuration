@@ -39,7 +39,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var testContext = _propertyTestData.GetContext();
 
             var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
-            testContext.Configuration.ConfigurationRoot);
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings());
 
             var customObjectA = testContext.GetChildElement("a");
             var configObjectA = x.AddCopy(customObjectA);
@@ -74,7 +74,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var testContext = _propertyTestData.GetContext();
 
             var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
-            testContext.Configuration.ConfigurationRoot);
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings());
 
             var customObjectA = testContext.GetChildElement("a");
             var configObjectA = x.AddCopy(customObjectA);
@@ -98,7 +98,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var testContext = _propertyTestData.GetContext();
 
             var x = new ConfigurationCollection<IChildElement>(null, testContext.ChildConfigurationCollectionPropertyDef,
-            testContext.Configuration.ConfigurationRoot);
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings());
 
             var customObjectA = testContext.GetChildElement("a");
             var configObjectA = x.AddCopy(customObjectA);

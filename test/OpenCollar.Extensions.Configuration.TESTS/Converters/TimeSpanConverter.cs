@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 
-using System;
-
 using Newtonsoft.Json;
 
 namespace OpenCollar.Extensions.Configuration.TESTS.Converters

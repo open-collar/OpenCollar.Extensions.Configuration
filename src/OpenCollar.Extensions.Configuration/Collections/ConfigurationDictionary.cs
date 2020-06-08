@@ -61,8 +61,11 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="elements">
         ///     The elements with which to initialize to the collection.
         /// </param>
+        /// <param name="settings">
+        ///     The settings used to control how configuration objects are created and the features they support.
+        /// </param>
         public ConfigurationDictionary(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot,
-        IEnumerable<KeyValuePair<string, TElement>>? elements) : base(parent, propertyDef, configurationRoot, elements)
+        IEnumerable<KeyValuePair<string, TElement>>? elements, ConfigurationObjectSettings settings) : base(parent, propertyDef, configurationRoot, elements, settings)
         {
         }
 
@@ -81,8 +84,11 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="elements">
         ///     A parameter array containing the elements with which to initialize to the collection.
         /// </param>
-        public ConfigurationDictionary(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot,
-        params KeyValuePair<string, TElement>[]? elements) : base(parent, propertyDef, configurationRoot, elements)
+        /// <param name="settings">
+        ///     The settings used to control how configuration objects are created and the features they support.
+        /// </param>
+        public ConfigurationDictionary(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot, ConfigurationObjectSettings settings,
+        params KeyValuePair<string, TElement>[]? elements) : base(parent, propertyDef, configurationRoot, elements, settings)
         {
         }
 

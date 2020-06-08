@@ -46,7 +46,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var testContext = _propertyTestData.GetContext();
 
             var x = new ConfigurationDictionary<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
-            testContext.Configuration.ConfigurationRoot);
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings());
 
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
@@ -155,7 +155,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var c = testContext.GetChildElement("c");
             var d = testContext.GetChildElement("d");
             var x = new ConfigurationDictionary<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
-            testContext.Configuration.ConfigurationRoot, Get("a", a), Get("b", b), Get("c", c), Get("d", d));
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings(), Get("a", a), Get("b", b), Get("c", c), Get("d", d));
 
             Assert.Equal(4, x.Count);
 
@@ -181,7 +181,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         {
             var testContext = _propertyTestData.GetContext();
             var x = new ConfigurationDictionary<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
-            testContext.Configuration.ConfigurationRoot);
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings());
 
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
@@ -209,7 +209,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         {
             var testContext = _propertyTestData.GetContext();
             var x = new ConfigurationDictionary<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
-            testContext.Configuration.ConfigurationRoot);
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings());
 
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
@@ -244,7 +244,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         {
             var testContext = _propertyTestData.GetContext();
             var x = new ConfigurationDictionary<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
-            testContext.Configuration.ConfigurationRoot);
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings());
             x.Dispose();
             Assert.Throws<ObjectDisposedException>(() => x.ContainsKey("A"));
         }
@@ -254,7 +254,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         {
             var testContext = _propertyTestData.GetContext();
             var x = new ConfigurationDictionary<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
-            testContext.Configuration.ConfigurationRoot);
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings());
 
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
@@ -331,7 +331,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         {
             var testContext = _propertyTestData.GetContext();
             var x = new ConfigurationDictionary<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
-            testContext.Configuration.ConfigurationRoot);
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings());
 
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
@@ -400,7 +400,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var e = testContext.GetChildElement("e");
 
             var x = new ConfigurationDictionary<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
-            testContext.Configuration.ConfigurationRoot, Get("a", a), Get("b", b), Get("c", c));
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings(), Get("a", a), Get("b", b), Get("c", c));
 
             Assert.False(x.IsDirty);
 
@@ -414,7 +414,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         {
             var testContext = _propertyTestData.GetContext();
             var x = new ConfigurationDictionary<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
-            testContext.Configuration.ConfigurationRoot);
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings());
 
             Assert.False(x.IsReadOnly);
         }
@@ -428,7 +428,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var c = testContext.GetChildElement("c");
 
             var x = new ConfigurationDictionary<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
-            testContext.Configuration.ConfigurationRoot, Get("a", a), Get("b", b), Get("c", c));
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings(), Get("a", a), Get("b", b), Get("c", c));
 
             var keys = x.Keys;
 
@@ -467,7 +467,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         {
             var testContext = _propertyTestData.GetContext();
             var x = new ConfigurationDictionary<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
-            testContext.Configuration.ConfigurationRoot);
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings());
 
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
@@ -490,7 +490,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         {
             var testContext = _propertyTestData.GetContext();
             var x = new ConfigurationDictionary<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
-            testContext.Configuration.ConfigurationRoot);
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings());
 
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
@@ -549,14 +549,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var testContext = _propertyTestData.GetContext();
             var propertyDef = testContext.ChildConfigurationDictionaryPropertyDef;
 
-            var x = new ConfigurationDictionary<IChildElement>(null, propertyDef, testContext.Configuration.ConfigurationRoot);
+            var x = new ConfigurationDictionary<IChildElement>(null, propertyDef, testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings());
 
             Assert.NotNull(x);
             Assert.Equal(0, x.Count);
             Assert.Equal(propertyDef.PropertyName, x.PropertyDef.PropertyName);
 
             x = new ConfigurationDictionary<IChildElement>(null, propertyDef, testContext.Configuration.ConfigurationRoot,
-            (IEnumerable<KeyValuePair<string, IChildElement>>)null);
+            (IEnumerable<KeyValuePair<string, IChildElement>>)null, new ConfigurationObjectSettings());
 
             Assert.NotNull(x);
             Assert.Equal(0, x.Count);
@@ -565,14 +565,14 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var a = testContext.GetChildElement("a");
             var b = testContext.GetChildElement("b");
 
-            x = new ConfigurationDictionary<IChildElement>(null, propertyDef, testContext.Configuration.ConfigurationRoot, Get("a", a), Get("b", b));
+            x = new ConfigurationDictionary<IChildElement>(null, propertyDef, testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings(), Get("a", a), Get("b", b));
 
             Assert.NotNull(x);
             Assert.Equal(2, x.Count);
             Assert.Equal(propertyDef.PropertyName, x.PropertyDef.PropertyName);
 
             x = new ConfigurationDictionary<IChildElement>(null, propertyDef, testContext.Configuration.ConfigurationRoot,
-            (IEnumerable<KeyValuePair<string, IChildElement>>)(new[] { Get("a", a), Get("b", b) }));
+            (IEnumerable<KeyValuePair<string, IChildElement>>)(new[] { Get("a", a), Get("b", b) }), new ConfigurationObjectSettings());
 
             Assert.NotNull(x);
             Assert.Equal(2, x.Count);
@@ -589,7 +589,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var d = testContext.GetChildElement("d");
 
             var x = new ConfigurationDictionary<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
-            testContext.Configuration.ConfigurationRoot, Get("a", a), Get("b", b), Get("c", c));
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings(), Get("a", a), Get("b", b), Get("c", c));
 
             Assert.True(x.TryGetValue("a", out var found));
             Assert.Equal(a, found, ConfigurationObjectComparer.Instance);
@@ -607,7 +607,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var c = testContext.GetChildElement("c");
 
             var x = new ConfigurationDictionary<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
-            testContext.Configuration.ConfigurationRoot);
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings());
 
             foreach(var item in (IEnumerable)x)
             {
@@ -615,7 +615,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             }
 
             x = new ConfigurationDictionary<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
-            testContext.Configuration.ConfigurationRoot, Get("a", a), Get("b", b), Get("c", c));
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings(), Get("a", a), Get("b", b), Get("c", c));
 
             var n = 0;
             foreach(KeyValuePair<string, IChildElement> item in (IEnumerable)x)
@@ -660,7 +660,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             var c = testContext.GetChildElement("c");
 
             var x = new ConfigurationDictionary<IChildElement>(null, testContext.ChildConfigurationDictionaryPropertyDef,
-            testContext.Configuration.ConfigurationRoot, Get("a", a), Get("b", b), Get("c", c));
+            testContext.Configuration.ConfigurationRoot, new ConfigurationObjectSettings(), Get("a", a), Get("b", b), Get("c", c));
 
             var values = x.Values;
 

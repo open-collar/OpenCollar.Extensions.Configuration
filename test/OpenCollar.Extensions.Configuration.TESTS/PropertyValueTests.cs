@@ -31,8 +31,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             using(var fixture = new ConfigurationFixture())
             {
                 const string propertyName = "StringPropertyA";
-                var def = new PropertyDef(typeof(IRootElement).GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance));
-                var parent = new ConfigurationObjectMock(def, fixture.ConfigurationRoot, null);
+                var def = new PropertyDef(typeof(IRootElement).GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance), new ConfigurationObjectSettings());
+                var parent = new ConfigurationObjectMock(def, fixture.ConfigurationRoot, null, new ConfigurationObjectSettings());
                 var x = new PropertyValue<string>(def, parent);
 
                 Assert.NotNull(x);

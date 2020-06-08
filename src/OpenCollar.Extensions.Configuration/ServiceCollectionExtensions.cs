@@ -106,17 +106,21 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="serviceCollection">
         ///     The service collection to which to add the configuration reader. This must not be <see langword="null" />.
         /// </param>
-        /// <param name="supportNewtonsoftJson">
-        ///     If set to <see langword="true" /> support for <see cref="Newtonsoft.Json" /> is included in the
-        ///     generated code. Defaults to <see langword="false" />.
+        /// <param name="settings">
+        ///     Optional settings used to control how configuration objects are created and the features they support.
         /// </param>
-        public static void AddConfigurationReader<TConfigurationObject>(this IServiceCollection serviceCollection, bool supportNewtonsoftJson = false)
+        public static void AddConfigurationReader<TConfigurationObject>(this IServiceCollection serviceCollection, ConfigurationObjectSettings? settings = null)
         where TConfigurationObject : IConfigurationObject
         {
             serviceCollection.Validate(nameof(serviceCollection), ObjectIs.NotNull);
 
             // Check to see if the collection has the relevant configuration reader registered, and if not, create and
             // add a new instance.
+
+            if(ReferenceEquals(settings, null))
+            {
+                settings = new ConfigurationObjectSettings();
+            }
 
             var serviceType = typeof(TConfigurationObject);
 
@@ -125,19 +129,13 @@ namespace OpenCollar.Extensions.Configuration
                 return;
             }
 
-            // Force Newtonsoft Json assembly to load.
-            if(supportNewtonsoftJson)
-            {
-                var serializer = Newtonsoft.Json.JsonSerializer.Create();
-            }
-
-            var implementationType = GenerateConfigurationObjectType<TConfigurationObject>();
+            var implementationType = GenerateConfigurationObjectType<TConfigurationObject>(settings);
 
             var descriptor = new ServiceDescriptor(serviceType, (provider) =>
             {
                 var configurationRoot = provider.GetService<IConfigurationRoot>();
 
-                var configurationObject = (TConfigurationObject)Activator.CreateInstance(implementationType, null, configurationRoot, null);
+                var configurationObject = (TConfigurationObject)Activator.CreateInstance(implementationType, null, configurationRoot, null, settings);
 
                 configurationObject.Load();
 
@@ -150,6 +148,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Creates the type of the configuration object.
         /// </summary>
+        /// <param name="settings">
+        ///     The settings used to control how configuration objects are created and the features they support.
+        /// </param>
         /// <typeparam name="TConfigurationObject">
         ///     The type of the interface to be implemented by the configuration object to create.
         /// </typeparam>
@@ -160,11 +161,11 @@ namespace OpenCollar.Extensions.Configuration
         ///     Type specifies more than one 'Path' attribute and so cannot be processed. - or - Property specifies more
         ///     than one 'Path' attribute and so cannot be processed.
         /// </exception>
-        internal static Type GenerateConfigurationObjectType<TConfigurationObject>() where TConfigurationObject : IConfigurationObject
+        internal static Type GenerateConfigurationObjectType<TConfigurationObject>(ConfigurationObjectSettings settings) where TConfigurationObject : IConfigurationObject
         {
             var type = typeof(TConfigurationObject);
 
-            return GenerateConfigurationObjectType(type);
+            return GenerateConfigurationObjectType(type, settings);
         }
 
         /// <summary>
@@ -173,6 +174,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="type">
         ///     The type of the interface to be implemented by the configuration object to create.
         /// </param>
+        /// <param name="settings">
+        ///     The settings used to control how configuration objects are created and the features they support.
+        /// </param>
         /// <returns>
         ///     An implementation of the interface specified that can be used to interact with the configuration.
         /// </returns>
@@ -180,11 +184,11 @@ namespace OpenCollar.Extensions.Configuration
         ///     Type specifies more than one 'Path' attribute and so cannot be processed. - or - Property specifies more
         ///     than one 'Path' attribute and so cannot be processed.
         /// </exception>
-        internal static Type GenerateConfigurationObjectType(Type type)
+        internal static Type GenerateConfigurationObjectType(Type type, ConfigurationObjectSettings settings)
         {
-            var propertyDefs = GetConfigurationObjectDefinition(type);
+            var propertyDefs = GetConfigurationObjectDefinition(type, settings);
 
-            var builder = new ConfigurationObjectTypeBuilder(type, propertyDefs);
+            var builder = new ConfigurationObjectTypeBuilder(type, propertyDefs, settings);
 
             var generatedType = builder.Generate();
 
@@ -197,13 +201,16 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="type">
         ///     The type of the object to define.
         /// </param>
+        /// <param name="settings">
+        ///     The settings used to control how configuration objects are created and the features they support.
+        /// </param>
         /// <returns>
         ///     A list of the property definitions for the type specified.
         /// </returns>
         /// <exception cref="InvalidOperationException">
         ///     Type '{type.Namespace}.{type.Name}' specifies more than one 'Path' attribute and so cannot be processed.
         /// </exception>
-        internal static List<PropertyDef> GetConfigurationObjectDefinition(Type type)
+        internal static List<PropertyDef> GetConfigurationObjectDefinition(Type type, ConfigurationObjectSettings settings)
         {
             // TODO: Circular reference detection - for this version.
 
@@ -216,7 +223,7 @@ namespace OpenCollar.Extensions.Configuration
                     continue;
                 }
 
-                var propertyDef = new PropertyDef(property);
+                var propertyDef = new PropertyDef(property, settings);
 
                 propertyDefs.Add(propertyDef);
             }

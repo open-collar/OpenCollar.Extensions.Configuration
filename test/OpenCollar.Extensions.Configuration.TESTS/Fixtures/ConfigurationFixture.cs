@@ -29,6 +29,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS
     {
         public ConfigurationFixture()
         {
+            var settings = new ConfigurationObjectSettings() { EnableNewtonSoftJsonSupport = true };
+
             var source = new MemoryConfigurationSource()
             {
                 InitialData = new[]
@@ -90,7 +92,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             IServiceCollection servicesCollection = new ServiceCollection();
             servicesCollection.AddSingleton(ConfigurationRoot);
-            servicesCollection.AddConfigurationReader<IRootElement>();
+            servicesCollection.AddConfigurationReader<IRootElement>(settings);
 
             Services = servicesCollection.BuildServiceProvider();
 

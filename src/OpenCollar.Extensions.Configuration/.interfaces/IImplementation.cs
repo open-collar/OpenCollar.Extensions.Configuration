@@ -55,6 +55,14 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets the settings used to control how configuration objects are created and the features they support.
+        /// </summary>
+        /// <value>
+        ///     The settings used to control how configuration objects are created and the features they support.
+        /// </value>
+        ConfigurationObjectSettings Settings { get; }
+
+        /// <summary>
         ///     Gets the type of the value represented (the type of the property).
         /// </summary>
         /// <value>

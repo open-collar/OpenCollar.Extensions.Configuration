@@ -17,19 +17,30 @@ namespace OpenCollar.Extensions.Configuration
     public sealed class Implementation : IImplementation
     {
         /// <summary>
+        ///     The settings used to control how configuration objects are created and the features they support.
+        /// </summary>
+        private readonly ConfigurationObjectSettings _settings;
+
+        /// <summary>
         ///     Initializes a new instance of the <see cref="Implementation" /> class.
         /// </summary>
-        /// <param name="underlyingType"> The underlying type of the property or collection represented. </param>
-        internal Implementation(Type underlyingType)
+        /// <param name="underlyingType">
+        ///     The underlying type of the property or collection represented.
+        /// </param>
+        /// <param name="settings">
+        ///     The settings used to control how configuration objects are created and the features they support.
+        /// </param>
+        internal Implementation(Type underlyingType, ConfigurationObjectSettings settings)
         {
             ImplementationKind = GetImplementationKind(underlyingType, out var isReadOnlyColectionType);
+            _settings = settings;
 
             Type elementType;
 
             switch(ImplementationKind)
             {
                 case ImplementationKind.ConfigurationObject:
-                    ImplementationType = ServiceCollectionExtensions.GenerateConfigurationObjectType(underlyingType);
+                    ImplementationType = ServiceCollectionExtensions.GenerateConfigurationObjectType(underlyingType, settings);
                     Type = underlyingType;
                     break;
 
@@ -71,7 +82,9 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the kind of the implementation to use to instantiate values.
         /// </summary>
-        /// <value> The kind of the implementation to use to instantiate values. </value>
+        /// <value>
+        ///     The kind of the implementation to use to instantiate values.
+        /// </value>
         public ImplementationKind ImplementationKind
         {
             get;
@@ -89,9 +102,19 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        ///     Gets the settings used to control how configuration objects are created and the features they support.
+        /// </summary>
+        /// <value>
+        ///     The settings used to control how configuration objects are created and the features they support.
+        /// </value>
+        public ConfigurationObjectSettings Settings { get { return _settings; } }
+
+        /// <summary>
         ///     Gets the type of the value represented (the type of the property).
         /// </summary>
-        /// <value> The type of the value represented (the type of the property). </value>
+        /// <value>
+        ///     The type of the value represented (the type of the property).
+        /// </value>
         public Type Type
         {
             get;
@@ -100,11 +123,14 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Gets the kind of the implementation required for the type given.
         /// </summary>
-        /// <param name="type"> The type for which the implementation kind is required. </param>
+        /// <param name="type">
+        ///     The type for which the implementation kind is required.
+        /// </param>
         /// <param name="isReadOnly">
         ///     Returns a value which, if set to <see langword="true" />, indicates that the implementation is read-only.
         /// </param>
-        /// <returns> </returns>
+        /// <returns>
+        /// </returns>
         private static ImplementationKind GetImplementationKind(Type type, out bool isReadOnly)
         {
             if(type.IsConstructedGenericType)

@@ -33,7 +33,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         {
             using(var fixture = new ConfigurationFixture())
             {
-                var def = new PropertyDef(typeof(IRootElement).GetProperty(nameof(IRootElement.StringPropertyA), BindingFlags.Public | BindingFlags.Instance));
+                var def = new PropertyDef(typeof(IRootElement).GetProperty(nameof(IRootElement.StringPropertyA), BindingFlags.Public | BindingFlags.Instance), new ConfigurationObjectSettings());
 
                 var elementA = new Element<string, IChildElement>(def, (ConfigurationDictionaryBase<string, IChildElement>)fixture.RootElement.ChildDictionary,
                 "TEST1");
@@ -55,7 +55,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         public void TestWithoutParent()
         {
             const string propertyName = "StringPropertyA";
-            var def = new PropertyDef(typeof(IRootElement).GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance));
+            var def = new PropertyDef(typeof(IRootElement).GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance), new ConfigurationObjectSettings());
 
             Assert.Throws<ArgumentNullException>(() =>
             {
@@ -73,7 +73,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
             {
                 var parentObject = fixture.RootElement;
 
-                var def = new PropertyDef(typeof(IRootElement).GetProperty(nameof(IRootElement.ChildDictionary), BindingFlags.Public | BindingFlags.Instance));
+                var def = new PropertyDef(typeof(IRootElement).GetProperty(nameof(IRootElement.ChildDictionary), BindingFlags.Public | BindingFlags.Instance), new ConfigurationObjectSettings());
 
                 var x = new Element<string, IChildElement>(def, (ConfigurationDictionaryBase<string, IChildElement>)parentObject.ChildDictionary, "TEST");
 

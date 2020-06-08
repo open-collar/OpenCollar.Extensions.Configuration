@@ -80,6 +80,11 @@ namespace OpenCollar.Extensions.Configuration.Collections
         private readonly List<Element<TKey, TElement>> _orderedItems = new List<Element<TKey, TElement>>();
 
         /// <summary>
+        ///     The settings used to control how configuration objects are created and the features they support.
+        /// </summary>
+        private readonly ConfigurationObjectSettings _settings;
+
+        /// <summary>
         ///     The object that is the parent of this one, or <see langword="null" /> if this is the root.
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -102,11 +107,15 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
-        protected ConfigurationDictionaryBase(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot)
+        /// <param name="settings">
+        ///     The settings used to control how configuration objects are created and the features they support.
+        /// </param>
+        protected ConfigurationDictionaryBase(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot, ConfigurationObjectSettings settings)
         {
             _parent = parent;
             PropertyDef = propertyDef;
             ConfigurationRoot = configurationRoot;
+            _settings = settings;
 
             RegisterReloadToken();
         }
@@ -126,8 +135,11 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// <param name="configurationRoot">
         ///     The configuration root service from which values are read or to which all values will be written.
         /// </param>
+        /// <param name="settings">
+        ///     The settings used to control how configuration objects are created and the features they support.
+        /// </param>
         protected ConfigurationDictionaryBase(IConfigurationParent? parent, IPropertyDef propertyDef, IConfigurationRoot configurationRoot,
-        IEnumerable<KeyValuePair<TKey, TElement>>? items) : this(parent, propertyDef, configurationRoot)
+        IEnumerable<KeyValuePair<TKey, TElement>>? items, ConfigurationObjectSettings settings) : this(parent, propertyDef, configurationRoot, settings)
         {
             PropertyDef = propertyDef;
 
@@ -844,11 +856,11 @@ namespace OpenCollar.Extensions.Configuration.Collections
             {
                 case ImplementationKind.ConfigurationCollection:
                 case ImplementationKind.ConfigurationDictionary:
-                    value = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, this, PropertyDef, ConfigurationRoot);
+                    value = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, this, PropertyDef, ConfigurationRoot, PropertyDef.Settings);
                     break;
 
                 case ImplementationKind.ConfigurationObject:
-                    value = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, PropertyDef, ConfigurationRoot, this);
+                    value = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, PropertyDef, ConfigurationRoot, this, PropertyDef.Settings);
                     break;
 
                 default:

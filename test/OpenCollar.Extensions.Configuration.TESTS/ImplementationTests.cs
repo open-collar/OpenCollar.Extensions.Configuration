@@ -31,7 +31,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         [Fact]
         public void TestConfiguationCollectionType()
         {
-            var x = new Implementation(typeof(IConfigurationCollection<IChildElement>));
+            var x = new Implementation(typeof(IConfigurationCollection<IChildElement>), new ConfigurationObjectSettings());
 
             Assert.NotNull(x);
             Assert.Equal(ImplementationKind.ConfigurationCollection, x.ImplementationKind);
@@ -42,7 +42,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         [Fact]
         public void TestConfiguationDictionaryType()
         {
-            var x = new Implementation(typeof(IConfigurationDictionary<IChildElement>));
+            var x = new Implementation(typeof(IConfigurationDictionary<IChildElement>), new ConfigurationObjectSettings());
 
             Assert.NotNull(x);
             Assert.Equal(ImplementationKind.ConfigurationDictionary, x.ImplementationKind);
@@ -53,7 +53,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         [Fact]
         public void TestConfigurationDictionaryType()
         {
-            var x = new Implementation(typeof(IRootElement));
+            var x = new Implementation(typeof(IRootElement), new ConfigurationObjectSettings());
 
             Assert.NotNull(x);
             Assert.Equal(ImplementationKind.ConfigurationObject, x.ImplementationKind);
@@ -64,21 +64,21 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         [Fact]
         public void TestNaiveTpe()
         {
-            var x = new Implementation(typeof(string));
+            var x = new Implementation(typeof(string), new ConfigurationObjectSettings());
 
             Assert.NotNull(x);
             Assert.Null(x.ImplementationType);
             Assert.Equal(ImplementationKind.Naive, x.ImplementationKind);
             Assert.Equal(typeof(string), x.Type);
 
-            x = new Implementation(typeof(Lazy<int>));
+            x = new Implementation(typeof(Lazy<int>), new ConfigurationObjectSettings());
 
             Assert.NotNull(x);
             Assert.Null(x.ImplementationType);
             Assert.Equal(ImplementationKind.Naive, x.ImplementationKind);
             Assert.Equal(typeof(Lazy<int>), x.Type);
 
-            x = new Implementation(typeof(KeyValuePair<int, int>));
+            x = new Implementation(typeof(KeyValuePair<int, int>), new ConfigurationObjectSettings());
 
             Assert.NotNull(x);
             Assert.Null(x.ImplementationType);
@@ -89,7 +89,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         [Fact]
         public void TestReadOnlyConfigurationCollectionType()
         {
-            var x = new Implementation(typeof(IReadOnlyConfigurationCollection<IChildElement>));
+            var x = new Implementation(typeof(IReadOnlyConfigurationCollection<IChildElement>), new ConfigurationObjectSettings());
 
             Assert.NotNull(x);
             Assert.Equal(ImplementationKind.ConfigurationCollection, x.ImplementationKind);
@@ -100,7 +100,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         [Fact]
         public void TestReadOnlyConfigurationDictionaryType()
         {
-            var x = new Implementation(typeof(IReadOnlyConfigurationDictionary<IChildElement>));
+            var x = new Implementation(typeof(IReadOnlyConfigurationDictionary<IChildElement>), new ConfigurationObjectSettings());
 
             Assert.NotNull(x);
             Assert.Equal(ImplementationKind.ConfigurationDictionary, x.ImplementationKind);

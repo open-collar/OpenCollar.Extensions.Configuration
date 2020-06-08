@@ -27,15 +27,15 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
     {
         public TestDataFixture()
         {
-            BooleanPropertyDef = new PropertyDef(typeof(IRootElement).GetProperty("BooleanPropertyA", BindingFlags.Instance | BindingFlags.Public));
+            BooleanPropertyDef = new PropertyDef(typeof(IRootElement).GetProperty("BooleanPropertyA", BindingFlags.Instance | BindingFlags.Public), new ConfigurationObjectSettings());
             ChildConfigurationDictionaryPropertyDef = new PropertyDef(
-            typeof(IRootElement).GetProperty("ChildDictionary", BindingFlags.Instance | BindingFlags.Public));
+            typeof(IRootElement).GetProperty("ChildDictionary", BindingFlags.Instance | BindingFlags.Public), new ConfigurationObjectSettings());
             ChildConfigurationCollectionPropertyDef = new PropertyDef(
-            typeof(IRootElement).GetProperty("ChildCollection", BindingFlags.Instance | BindingFlags.Public));
+            typeof(IRootElement).GetProperty("ChildCollection", BindingFlags.Instance | BindingFlags.Public), new ConfigurationObjectSettings());
             ReadOnlyChildConfigurationDictionaryPropertyDef = new PropertyDef(
-            typeof(IRootElement).GetProperty("ReadOnlyChildDictionary", BindingFlags.Instance | BindingFlags.Public));
+            typeof(IRootElement).GetProperty("ReadOnlyChildDictionary", BindingFlags.Instance | BindingFlags.Public), new ConfigurationObjectSettings());
             ReadOnlyChildConfigurationCollectionPropertyDef = new PropertyDef(
-            typeof(IRootElement).GetProperty("ReadOnlyChildCollection", BindingFlags.Instance | BindingFlags.Public));
+            typeof(IRootElement).GetProperty("ReadOnlyChildCollection", BindingFlags.Instance | BindingFlags.Public), new ConfigurationObjectSettings());
 
             Data = new[]
             {
@@ -83,7 +83,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS.Collections
         {
             var mockRoot = new Mock<IConfigurationParent>();
             var mock = mockRoot.As<IChildElement>();
-            mockRoot.Setup(x => x.PropertyDef).Returns(new PropertyDef(typeof(IDummyInterface).GetProperty(name, BindingFlags.Instance | BindingFlags.Public)));
+            mockRoot.Setup(x => x.PropertyDef).Returns(new PropertyDef(typeof(IDummyInterface).GetProperty(name, BindingFlags.Instance | BindingFlags.Public), new ConfigurationObjectSettings()));
             mock.Setup(x => x.IsDirty).Returns(isDirty);
             mock.Setup(x => x.Name).Returns(name);
             mock.Setup(x => x.Value).Returns(value);

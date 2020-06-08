@@ -38,20 +38,29 @@ namespace OpenCollar.Extensions.Configuration
     internal class PropertyDef : IPropertyDef
     {
         /// <summary>
+        ///     The settings used to control how configuration objects are created and the features they support.
+        /// </summary>
+        private readonly ConfigurationObjectSettings _settings;
+
+        /// <summary>
         ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
         /// </summary>
         /// <param name="propertyInfo">
         ///     The definition of the property.
         /// </param>
+        /// <param name="settings">
+        ///     The settings used to control how configuration objects are created and the features they support.
+        /// </param>
         /// <exception cref="InvalidPropertyException">
         ///     'ConfigurationValue' attribute on property specifies that persistence should only save values (not
         ///     load), but no default value is provided.
         /// </exception>
-        internal PropertyDef(PropertyInfo propertyInfo)
+        internal PropertyDef(PropertyInfo propertyInfo, ConfigurationObjectSettings settings)
         {
             PropertyInfo = propertyInfo;
             PropertyName = propertyInfo.Name;
             Type = propertyInfo.PropertyType;
+            _settings = settings;
 
             if(Type.IsArray)
             {
@@ -75,13 +84,13 @@ namespace OpenCollar.Extensions.Configuration
                 PathSection = PropertyName;
             }
 
-            Implementation = new Implementation(UnderlyingType);
+            Implementation = new Implementation(UnderlyingType, _settings);
             switch(Implementation.ImplementationKind)
             {
                 case ImplementationKind.ConfigurationCollection:
                 case ImplementationKind.ConfigurationDictionary:
                 case ImplementationKind.ConfigurationObject:
-                    ElementImplementation = new Implementation(Implementation.Type);
+                    ElementImplementation = new Implementation(Implementation.Type, _settings);
                     break;
             }
 
@@ -210,6 +219,14 @@ namespace OpenCollar.Extensions.Configuration
         {
             get;
         }
+
+        /// <summary>
+        ///     Gets the settings used to control how configuration objects are created and the features they support.
+        /// </summary>
+        /// <value>
+        ///     The settings used to control how configuration objects are created and the features they support.
+        /// </value>
+        public ConfigurationObjectSettings Settings { get { return _settings; } }
 
         /// <summary>
         ///     Gets the type of the value held in the property.
@@ -611,13 +628,13 @@ namespace OpenCollar.Extensions.Configuration
             switch(implementation.ImplementationKind)
             {
                 case ImplementationKind.ConfigurationCollection:
-                    return (TElement)Activator.CreateInstance(implementation.ImplementationType, parent, this, configurationRoot, value);
+                    return (TElement)Activator.CreateInstance(implementation.ImplementationType, parent, this, configurationRoot, value, implementation.Settings);
 
                 case ImplementationKind.ConfigurationDictionary:
-                    return (TElement)Activator.CreateInstance(implementation.ImplementationType, parent, this, configurationRoot, value);
+                    return (TElement)Activator.CreateInstance(implementation.ImplementationType, parent, this, configurationRoot, value, implementation.Settings);
 
                 case ImplementationKind.ConfigurationObject:
-                    var clone = Activator.CreateInstance(implementation.ImplementationType, this, configurationRoot, parent);
+                    var clone = Activator.CreateInstance(implementation.ImplementationType, this, configurationRoot, parent, implementation.Settings);
                     ((ConfigurationObjectBase)clone).Clone((IConfigurationObject)value);
                     return (TElement)clone;
             }
