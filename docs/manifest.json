@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationAttribute.html",
-          "hash": "KE1lfKYPJZ2vy9mqmqCiWg=="
+          "hash": "CCuFLXuc1KzyC4fLRRp1cg=="
         }
       },
       "is_incremental": false,
@@ -36,7 +36,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationException.html",
-          "hash": "cexiXnDpEwahKMPzkP0XHQ=="
+          "hash": "jNZYkvqiereI2TyXGGueEw=="
         }
       },
       "is_incremental": false,
@@ -48,7 +48,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationObjectComparer.html",
-          "hash": "aXo2G+/vSPMqWFH1fLpeOg=="
+          "hash": "qcX2KhThRNkToWw8QZnOJQ=="
         }
       },
       "is_incremental": false,
@@ -60,7 +60,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationObjectSettings.html",
-          "hash": "JTM5oHAWEF3agQY3rBFgXA=="
+          "hash": "dxLD/ZwLdOi0Pkz/A8sg/g=="
         }
       },
       "is_incremental": false,
@@ -75,7 +75,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ConfigurationPersistenceActions.html",
-          "hash": "j5oiiamogI2dnrnnLHDwtw=="
+          "hash": "ZxxQFdWwRDhQTnro8zqyiQ=="
         }
       },
       "is_incremental": false,
@@ -87,7 +87,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.Converters.Newtonsoft.Json.ConfigurationCollectionConverter-1.html",
-          "hash": "8UFr7TRNhMQAaJjG7Au+Vg=="
+          "hash": "MkR+WD6BoQxKRCpLrea/aQ=="
         }
       },
       "is_incremental": false,
@@ -99,7 +99,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.Converters.Newtonsoft.Json.ConfigurationDictionaryConverter-1.html",
-          "hash": "hYFX+/NgC8VKvYkcfPeAsQ=="
+          "hash": "ErDoSvXVmi4wePbi4eD3Tw=="
         }
       },
       "is_incremental": false,
@@ -123,7 +123,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.Converters.Text.Json.ConfigurationDictionaryConverter-1.html",
-          "hash": "fIdR8RmrjvPuv8ImFF43bg=="
+          "hash": "cVyqisF/GL5RKyizpO77dw=="
         }
       },
       "is_incremental": false,
@@ -135,7 +135,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.Converters.Text.Json.ConfigurationDictionaryConverterFactory.html",
-          "hash": "vijv5o6WH+O0/epC0z2+CA=="
+          "hash": "cCYi3YRnpjI6X2QjLFWrZA=="
         }
       },
       "is_incremental": false,
@@ -162,7 +162,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationCollection-1.html",
-          "hash": "QSZL22pY2vX8YlpR6ROTHQ=="
+          "hash": "TCW7oT54QPb+9+2P+aN7lA=="
         }
       },
       "is_incremental": false,
@@ -177,7 +177,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationDictionary-1.html",
-          "hash": "VBol/F4fIreoa0AhS7LpMw=="
+          "hash": "jwPsNiSkCYHpUuwu2nMKXQ=="
         }
       },
       "is_incremental": false,
@@ -192,7 +192,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IConfigurationObject.html",
-          "hash": "0t/hscdlr/UZvgjyTdx6+Q=="
+          "hash": "FBsHpQ6itRtWLTM54+yaXA=="
         }
       },
       "is_incremental": false,
@@ -207,7 +207,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IReadOnlyConfigurationCollection-1.html",
-          "hash": "7yutr/5q4O8GB5yQrJSl8Q=="
+          "hash": "LFP9aHAhO1sj408gQD8GOA=="
         }
       },
       "is_incremental": false,
@@ -222,7 +222,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.IReadOnlyConfigurationDictionary-1.html",
-          "hash": "oqFRd5sJqBzNYK2CjQlG7w=="
+          "hash": "OhL5bFg4HGijD1igG+1arA=="
         }
       },
       "is_incremental": false,
@@ -237,7 +237,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.InvalidPropertyException.html",
-          "hash": "Ghnc+QMHh6oXXXVKKgAUaw=="
+          "hash": "e8jrprOR+yMzHzZAvGkjCA=="
         }
       },
       "is_incremental": false,
@@ -252,7 +252,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.PathAttribute.html",
-          "hash": "EDI6wUH31p0JKxHj4OvL+Q=="
+          "hash": "rT1/2Bxm7GP9sXpuamoXdg=="
         }
       },
       "is_incremental": false,
@@ -267,7 +267,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.PathIs.html",
-          "hash": "Y3PLOQ5f1aG9P9M6jsbFbQ=="
+          "hash": "YL6eRvjsZciI8GxMMQu7tg=="
         }
       },
       "is_incremental": false,
@@ -279,7 +279,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.html",
-          "hash": "k+Z9doBxDaF3W8pPPJwKOQ=="
+          "hash": "xuWCluYyXTRWvGNvY0xA5A=="
         }
       },
       "is_incremental": false,
@@ -294,7 +294,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenCollar.Extensions.Configuration.TypeMismatchException.html",
-          "hash": "ZE65QAfuxsmsXsW6rkHRWA=="
+          "hash": "REdsQF6jgz5fvV1hrFuJUA=="
         }
       },
       "is_incremental": false,
@@ -814,16 +814,16 @@
           "total_file_count": 0,
           "skipped_file_count": 0
         },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build",
-          "total_file_count": 22,
-          "skipped_file_count": 0
-        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 9,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 22,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
