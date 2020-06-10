@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-using OpenCollar.Extensions.Configuration.Validation;
+using OpenCollar.Extensions.Validation;
 
 namespace OpenCollar.Extensions.Configuration
 {

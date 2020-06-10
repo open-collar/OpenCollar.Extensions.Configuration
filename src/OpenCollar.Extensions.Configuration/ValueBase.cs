@@ -23,7 +23,7 @@ using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
 
 using OpenCollar.Extensions.Configuration.Resources;
-using OpenCollar.Extensions.Configuration.Validation;
+using OpenCollar.Extensions.Validation;
 
 namespace OpenCollar.Extensions.Configuration
 {

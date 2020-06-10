@@ -31,7 +31,7 @@ using Microsoft.Extensions.Configuration;
 
 using Newtonsoft.Json;
 
-using OpenCollar.Extensions.Configuration.Validation;
+using OpenCollar.Extensions.Validation;
 
 namespace OpenCollar.Extensions.Configuration
 {

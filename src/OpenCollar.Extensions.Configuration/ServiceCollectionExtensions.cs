@@ -25,7 +25,7 @@ using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using OpenCollar.Extensions.Configuration.Validation;
+using OpenCollar.Extensions.Validation;
 
 namespace OpenCollar.Extensions.Configuration
 {
