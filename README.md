@@ -143,3 +143,9 @@ There are no hard dependencies on tooling, all that is required is the
  * [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
  * [Coveralls GitHub Action](https://github.com/marketplace/actions/coveralls-github-action)
  * [Badges](https://shields.io/category/build)
+
+# Related Project
+
+* [OpenCollar.Extensions](https://github.com/open-collar/OpenCollar.Extensions)
+* [OpenCollar.Extensions.Configuration](https://github.com/open-collar/OpenCollar.Extensions.Configuration)
+* [OpenCollar.Extensions.Validation](https://github.com/open-collar/OpenCollar.Extensions.Validation)
