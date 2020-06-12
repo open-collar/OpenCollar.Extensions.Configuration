@@ -129,7 +129,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            EnforceDisposed();
+            CheckNotDisposed();
 
             return ((IEnumerable)OrderedItems.Select(e => new KeyValuePair<string, TElement>(e.Key, e.Value))).GetEnumerator();
         }

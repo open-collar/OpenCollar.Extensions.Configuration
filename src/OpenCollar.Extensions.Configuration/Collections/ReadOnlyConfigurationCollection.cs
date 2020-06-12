@@ -179,7 +179,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </exception>
         public void CopyTo(TElement[] array, int arrayIndex)
         {
-            EnforceDisposed();
+            CheckNotDisposed();
 
             if(arrayIndex < 0)
             {
@@ -207,7 +207,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </returns>
         public IEnumerator<TElement> GetEnumerator()
         {
-            EnforceDisposed();
+            CheckNotDisposed();
 
             return Values.GetEnumerator();
         }
@@ -223,7 +223,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </returns>
         public int IndexOf(TElement item)
         {
-            EnforceDisposed();
+            CheckNotDisposed();
 
             var n = 0;
             foreach(var element in this)
@@ -253,7 +253,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </exception>
         public void Insert(int index, TElement item)
         {
-            EnforceDisposed();
+            CheckNotDisposed();
             throw new NotImplementedException(Exceptions.CollectionIsReadOnly);
         }
 
@@ -268,7 +268,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </exception>
         public void RemoveAt(int index)
         {
-            EnforceDisposed();
+            CheckNotDisposed();
             throw new NotImplementedException(Exceptions.CollectionIsReadOnly);
         }
 

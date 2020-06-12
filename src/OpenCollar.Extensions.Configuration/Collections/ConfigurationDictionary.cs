@@ -178,7 +178,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </param>
         public void CopyTo(KeyValuePair<string, TElement>[] array, int arrayIndex)
         {
-            EnforceDisposed();
+            CheckNotDisposed();
 
             Lock.EnterReadLock();
             try
@@ -199,7 +199,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </returns>
         public IEnumerator<KeyValuePair<string, TElement>> GetEnumerator()
         {
-            EnforceDisposed();
+            CheckNotDisposed();
 
             Lock.EnterReadLock();
             try
@@ -270,7 +270,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            EnforceDisposed();
+            CheckNotDisposed();
 
             return ((IEnumerable)OrderedItems.Select(e => new KeyValuePair<string, TElement>(e.Key, e.Value))).GetEnumerator();
         }

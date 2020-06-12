@@ -212,7 +212,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </returns>
         public IEnumerator<TElement> GetEnumerator()
         {
-            EnforceDisposed();
+            CheckNotDisposed();
             return Values.GetEnumerator();
         }
 
@@ -227,7 +227,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </returns>
         public int IndexOf(TElement item)
         {
-            EnforceDisposed();
+            CheckNotDisposed();
 
             var n = 0;
             foreach(var element in this)
@@ -254,7 +254,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </param>
         public void Insert(int index, TElement item)
         {
-            EnforceDisposed();
+            CheckNotDisposed();
 
             Debug.Assert(PropertyDef.ElementImplementation != null);
 

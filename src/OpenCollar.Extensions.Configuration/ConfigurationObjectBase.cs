@@ -243,7 +243,7 @@ namespace OpenCollar.Extensions.Configuration
         {
             get
             {
-                EnforceDisposed();
+                CheckNotDisposed();
 
                 if(!ReferenceEquals(PropertyDef, null) && !PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.SaveOnly))
                 {
@@ -346,7 +346,7 @@ namespace OpenCollar.Extensions.Configuration
             [DebuggerStepThrough]
             get
             {
-                EnforceDisposed();
+                CheckNotDisposed();
 
                 return PropertiesByName[name].Value;
             }
@@ -354,7 +354,7 @@ namespace OpenCollar.Extensions.Configuration
             [DebuggerStepThrough]
             set
             {
-                EnforceDisposed();
+                CheckNotDisposed();
 
                 PropertiesByName[name].Value = value;
             }
@@ -385,7 +385,7 @@ namespace OpenCollar.Extensions.Configuration
         /// </exception>
         public void Delete()
         {
-            EnforceDisposed();
+            CheckNotDisposed();
 
             if(!ReferenceEquals(PropertyDef, null) && !PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.SaveOnly))
             {
@@ -406,7 +406,7 @@ namespace OpenCollar.Extensions.Configuration
         /// </exception>
         public void Load()
         {
-            EnforceDisposed();
+            CheckNotDisposed();
 
             if(!ReferenceEquals(PropertyDef, null) && !PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.LoadOnly))
             {
@@ -452,7 +452,7 @@ namespace OpenCollar.Extensions.Configuration
         /// </exception>
         public void Save()
         {
-            EnforceDisposed();
+            CheckNotDisposed();
 
             if(!ReferenceEquals(PropertyDef, null) && !PropertyDef.Persistence.HasFlag(ConfigurationPersistenceActions.SaveOnly))
             {

@@ -181,7 +181,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         {
             get
             {
-                EnforceDisposed();
+                CheckNotDisposed();
 
                 Lock.EnterReadLock();
                 try
@@ -209,7 +209,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         {
             get
             {
-                EnforceDisposed();
+                CheckNotDisposed();
 
                 Lock.EnterReadLock();
                 try
@@ -249,7 +249,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         {
             get
             {
-                EnforceDisposed();
+                CheckNotDisposed();
 
                 Lock.EnterReadLock();
                 try
@@ -286,7 +286,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         {
             get
             {
-                EnforceDisposed();
+                CheckNotDisposed();
 
                 Lock.EnterReadLock();
                 try
@@ -377,7 +377,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         {
             get
             {
-                EnforceDisposed();
+                CheckNotDisposed();
 
                 if(_itemsByKey.TryGetValue(key, out var value))
                 {
@@ -443,7 +443,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </exception>
         public void Clear()
         {
-            EnforceDisposed();
+            CheckNotDisposed();
             EnforceReadOnly();
 
             InternalClear();
@@ -466,7 +466,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </exception>
         public bool ContainsKey(TKey key)
         {
-            EnforceDisposed();
+            CheckNotDisposed();
 
             Lock.EnterReadLock();
             try
@@ -535,7 +535,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </exception>
         public virtual bool Remove(TKey key)
         {
-            EnforceDisposed();
+            CheckNotDisposed();
             EnforceReadOnly();
 
             NotifyCollectionChangedEventArgs? args = null;
@@ -585,7 +585,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </exception>
         public virtual bool Remove(TElement item)
         {
-            EnforceDisposed();
+            CheckNotDisposed();
             EnforceReadOnly();
 
             var args = RemoveInner(item);
@@ -643,7 +643,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </returns>
         public bool TryGetValue(TKey key, out TElement value)
         {
-            EnforceDisposed();
+            CheckNotDisposed();
 
             Lock.EnterReadLock();
             try
@@ -780,7 +780,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </exception>
         protected void Add(TKey key, TElement value)
         {
-            EnforceDisposed();
+            CheckNotDisposed();
             EnforceReadOnly();
 
             Debug.Assert(PropertyDef.ElementImplementation != null);
@@ -885,7 +885,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
         /// </returns>
         protected bool ContainsValue(TElement item)
         {
-            EnforceDisposed();
+            CheckNotDisposed();
 
             Lock.EnterReadLock();
             try
