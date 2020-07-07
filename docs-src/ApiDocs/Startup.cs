@@ -38,7 +38,7 @@ namespace ApiDocs
             };
             options.StaticFileOptions.DefaultContentType = @"text/html";
             options.StaticFileOptions.ServeUnknownFileTypes = true;
-            var path = System.IO.Path.GetFullPath(Path.Combine(env.ContentRootPath, @"..", @"..", @"docs"));
+            var path = Path.GetFullPath(Path.Combine(env.ContentRootPath, @"..", @"..", @"docs"));
             options.StaticFileOptions.FileProvider = new PhysicalFileProvider(path);
             options.DefaultFilesOptions.DefaultFileNames.Add(@"index.html");
 

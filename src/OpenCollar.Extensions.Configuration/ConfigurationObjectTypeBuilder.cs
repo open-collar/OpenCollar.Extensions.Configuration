@@ -216,6 +216,23 @@ namespace OpenCollar.Extensions.Configuration
         }
 
         /// <summary>
+        /// Makes the identifier given into camelCase.
+        /// </summary>
+        /// <param name="identifier">The name to convert to camelCase.</param>
+        /// <returns>The identifier given in camelCase.</returns>
+        private static string MakeCamelCase(string identifier)
+        {
+#pragma warning disable CA1308 // Normalize strings to uppercase
+            if(identifier.Length <= 1)
+            {
+                return identifier.ToLowerInvariant();
+            }
+
+            return string.Concat(identifier.Substring(0,1).ToLowerInvariant(), identifier.Substring(1));
+#pragma warning restore CA1308 // Normalize strings to uppercase
+        }
+
+        /// <summary>
         ///     Adds the property.
         /// </summary>
         /// <param name="builder">
@@ -231,9 +248,11 @@ namespace OpenCollar.Extensions.Configuration
         {
             var propertyBuilder = builder.DefineProperty(propertyDef.PropertyName, PropertyAttributes.HasDefault, propertyDef.Type, null);
 
+            var propertyName = MakeCamelCase(propertyDef.PropertyName);
+
             // PropertyName attribute to aid JSON serialization. [System.Text.Json.Serialization.JsonPropertyNameAttribute(typeof(Converters.ConfigurationDictionaryConverter<TElement>))]
             var propertyNameAttributeConstructor = typeof(System.Text.Json.Serialization.JsonPropertyNameAttribute).GetConstructor(new[] { typeof(string) });
-            var propertyNameAttributeBuilder = new CustomAttributeBuilder(propertyNameAttributeConstructor, new object[] { propertyDef.PathSection });
+            var propertyNameAttributeBuilder = new CustomAttributeBuilder(propertyNameAttributeConstructor, new object[] { propertyName });
             propertyBuilder.SetCustomAttribute(propertyNameAttributeBuilder);
 
             if(_settings.EnableNewtonSoftJsonSupport)
@@ -245,11 +264,11 @@ namespace OpenCollar.Extensions.Configuration
                 // [Newtonsoft.Json.Serialization.JsonPropertyAttribute("<property-name>")]
                 var newtonSoftJsonPropertyAttributeType = ConfigurationObjectSettings.NewtonSoftJsonPropertyAttributeType;
                 var newtonSoftJsonPropertyAttributeConstructor = newtonSoftJsonPropertyAttributeType.GetConstructor(new[] { typeof(string) });
-                var newtonSoftJsonPropertyAttributeBuilder = new CustomAttributeBuilder(newtonSoftJsonPropertyAttributeConstructor, new object[] { propertyDef.PathSection });
+                var newtonSoftJsonPropertyAttributeBuilder = new CustomAttributeBuilder(newtonSoftJsonPropertyAttributeConstructor, new object[] { propertyName });
                 propertyBuilder.SetCustomAttribute(newtonSoftJsonPropertyAttributeBuilder);
             }
 
-            System.Reflection.ConstructorInfo converterAttributeConstructor;
+            ConstructorInfo converterAttributeConstructor;
             Type converterType;
             CustomAttributeBuilder converterAttributeBuilder;
             Type newtonSoftConverterAttribute;
