@@ -1,4 +1,23 @@
-﻿using System.IO;
+﻿/*
+ * This file is part of OpenCollar.Extensions.Configuration.
+ *
+ * OpenCollar.Extensions.Configuration is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ *
+ * OpenCollar.Extensions.Configuration is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * OpenCollar.Extensions.Configuration.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Copyright © 2019-2020 Jonathan Evans (jevans@open-collar.org.uk).
+ */
+
+using System.IO;
 using System.Linq;
 
 using Newtonsoft.Json;
@@ -27,7 +46,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             var childElement = _configurationFixture.RootElement.ChildCollection.First();
 
-            var serializer = Newtonsoft.Json.JsonSerializer.Create(_settings);
+            var serializer = JsonSerializer.Create(_settings);
             using(var textWriter = new StringWriter())
             {
                 using(var jsonWriter = new JsonTextWriter(textWriter))
@@ -36,7 +55,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
                     var jsonString = textWriter.ToString();
 
-                    Assert.Equal("{\"Name\":\"Item_0\",\"Value\":0}", jsonString);
+                    Assert.Equal("{\"name\":\"Item_0\",\"value\":0}", jsonString);
                 }
             }
         }
@@ -48,7 +67,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             var rootElement = fixture.RootElement;
 
-            var serializer = Newtonsoft.Json.JsonSerializer.Create(_settings);
+            var serializer = JsonSerializer.Create(_settings);
             using(var textWriter = new StringWriter())
             {
                 using(var jsonWriter = new JsonTextWriter(textWriter))
@@ -57,7 +76,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
                     var jsonString = textWriter.ToString();
 
-                    const string x = "{\"BooleanPropertyA\":true,\"BooleanPropertyB\":false,\"BytePropertyA\":1,\"BytePropertyB\":123,\"CharPropertyA\":\"a\",\"CharPropertyB\":\"B\",\"ChildCollection\":[{\"Name\":\"Item_0\",\"Value\":0},{\"Name\":\"Item_1\",\"Value\":1},{\"Name\":\"Item_2\",\"Value\":2}],\"ChildDictionary\":{\"Item1\":{\"Name\":\"Item_1\",\"Value\":1},\"Item2\":{\"Name\":\"Item_2\",\"Value\":2},\"Item3\":{\"Name\":\"Item_3\",\"Value\":3}},\"ChildElementProperty\":{\"Name\":\"NAME-1\",\"Value\":1},\"CustomRoot\":\"XX_XX\",\"CustomValueA\":\"CUSTOM-VALUE-A\",\"CustomValueB\":\"DEFAULT_VALUE\",\"CustomValueC\":\"DEFAULT_VALUE\",\"DateTimeOffsetPropertyA\":\"2020-01-10T18:00:30+03:00\",\"DateTimeOffsetPropertyB\":\"2019-10-01T14:30:15+03:00\",\"DateTimePropertyA\":\"2020-01-10T18:00:30\",\"DateTimePropertyB\":\"2019-10-01T14:30:15\",\"DecimalPropertyA\":555.666,\"DecimalPropertyB\":-666.777,\"DoublePropertyA\":555.666,\"DoublePropertyB\":-666.777,\"EnumPropertyA\":16,\"EnumPropertyB\":4,\"Int16PropertyA\":333,\"Int16PropertyB\":-444,\"Int32PropertyA\":333,\"Int32PropertyB\":-444,\"Int32PropertyC\":999,\"Int32PropertyD\":555,\"Int64PropertyA\":333,\"Int64PropertyB\":-444,\"NonFlagsEnumPropertyA\":1,\"NonFlagsEnumPropertyB\":3,\"ReadOnlyChildCollection\":[],\"ReadOnlyChildDictionary\":{},\"ReadOnlyCollection\":[],\"ReadOnlyDictionary\":[],\"SBytePropertyA\":99,\"SBytePropertyB\":-100,\"SinglePropertyA\":555.666,\"SinglePropertyB\":-666.777,\"SinglePropertyNoDefault\":-666.777,\"SinglePropertyWithDefault\":555.666,\"StringPropertyA\":\"111\",\"StringPropertyB\":\"222\",\"StringPropertyC\":\"222\",\"TimeSpanPropertyA\":\"0.04:00:10:\",\"TimeSpanPropertyB\":\"0.00:30:30:\"}";
+                    const string x = "{\"booleanPropertyA\":true,\"booleanPropertyB\":false,\"bytePropertyA\":1,\"bytePropertyB\":123,\"charPropertyA\":\"a\",\"charPropertyB\":\"B\",\"childCollection\":[{\"name\":\"Item_0\",\"value\":0},{\"name\":\"Item_1\",\"value\":1},{\"name\":\"Item_2\",\"value\":2}],\"childDictionary\":{\"Item1\":{\"name\":\"Item_1\",\"value\":1},\"Item2\":{\"name\":\"Item_2\",\"value\":2},\"Item3\":{\"name\":\"Item_3\",\"value\":3}},\"childElementProperty\":{\"name\":\"NAME-1\",\"value\":1},\"customProperty\":\"XX_XX\",\"customValueA\":\"CUSTOM-VALUE-A\",\"customValueB\":\"DEFAULT_VALUE\",\"customValueC\":\"DEFAULT_VALUE\",\"dateTimeOffsetPropertyA\":\"2020-01-10T18:00:30+03:00\",\"dateTimeOffsetPropertyB\":\"2019-10-01T14:30:15+03:00\",\"dateTimePropertyA\":\"2020-01-10T18:00:30\",\"dateTimePropertyB\":\"2019-10-01T14:30:15\",\"decimalPropertyA\":555.666,\"decimalPropertyB\":-666.777,\"doublePropertyA\":555.666,\"doublePropertyB\":-666.777,\"enumPropertyA\":16,\"enumPropertyB\":4,\"int16PropertyA\":333,\"int16PropertyB\":-444,\"int32PropertyA\":333,\"int32PropertyB\":-444,\"int32PropertyC\":999,\"int32PropertyD\":555,\"int64PropertyA\":333,\"int64PropertyB\":-444,\"nonFlagsEnumPropertyA\":1,\"nonFlagsEnumPropertyB\":3,\"readOnlyChildCollection\":[],\"readOnlyChildDictionary\":{},\"readOnlyCollection\":[],\"readOnlyDictionary\":[],\"sBytePropertyA\":99,\"sBytePropertyB\":-100,\"singlePropertyA\":555.666,\"singlePropertyB\":-666.777,\"singlePropertyNoDefault\":-666.777,\"singlePropertyWithDefault\":555.666,\"stringPropertyA\":\"111\",\"stringPropertyB\":\"222\",\"stringPropertyC\":\"222\",\"timeSpanPropertyA\":\"0.04:00:10:\",\"timeSpanPropertyB\":\"0.00:30:30:\"}";
 
                     var objX = JToken.Parse(x);
                     var objY = JToken.Parse(jsonString);

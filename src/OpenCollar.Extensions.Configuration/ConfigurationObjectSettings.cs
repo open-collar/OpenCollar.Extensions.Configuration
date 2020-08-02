@@ -38,8 +38,8 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         private static readonly Lazy<Assembly?> _newtonSoftJsonAssembly = new Lazy<Assembly?>(() =>
         {
-            var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
-            var newtonSoftJsonAssembly = assemblies.FirstOrDefault(a => a.FullName.StartsWith(NewtonsoftJsonAssemblyName + @",", System.StringComparison.Ordinal));
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var newtonSoftJsonAssembly = assemblies.FirstOrDefault(a => a.FullName.StartsWith(NewtonsoftJsonAssemblyName + @",", StringComparison.Ordinal));
             return newtonSoftJsonAssembly;
         }, System.Threading.LazyThreadSafetyMode.ExecutionAndPublication);
 
@@ -48,7 +48,7 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         private static readonly Lazy<Type?> _newtonSoftJsonConverterAttributeType = new Lazy<Type?>(() =>
         {
-            var newtonSoftJsonAssembly = ConfigurationObjectSettings.NewtonSoftJsonAssembly;
+            var newtonSoftJsonAssembly = NewtonSoftJsonAssembly;
             if(ReferenceEquals(newtonSoftJsonAssembly, null))
             {
                 return null;
@@ -62,7 +62,7 @@ namespace OpenCollar.Extensions.Configuration
         /// </summary>
         private static readonly Lazy<Type?> _newtonSoftJsonPropertyAttributeType = new Lazy<Type?>(() =>
         {
-            var newtonSoftJsonAssembly = ConfigurationObjectSettings.NewtonSoftJsonAssembly;
+            var newtonSoftJsonAssembly = NewtonSoftJsonAssembly;
             if(ReferenceEquals(newtonSoftJsonAssembly, null))
             {
                 return null;
@@ -150,7 +150,7 @@ namespace OpenCollar.Extensions.Configuration
         {
             if(EnableNewtonSoftJsonSupport && !_newtonSoftJsonAssembly.IsValueCreated || ReferenceEquals(_newtonSoftJsonAssembly.Value, null))
             {
-                System.Reflection.Assembly.Load(NewtonsoftJsonAssemblyName);
+                Assembly.Load(NewtonsoftJsonAssemblyName);
             }
         }
     }
