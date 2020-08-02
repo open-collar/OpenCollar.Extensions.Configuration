@@ -107,8 +107,15 @@ Fine control over properties is provided by three attributes:
  * [`PathAttribute`](https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.PathAttribute.html) -
    the naming and path to the underlying configuration key.
 
-# Related Project
+# Related Projects
 
 * [OpenCollar.Extensions](https://github.com/open-collar/OpenCollar.Extensions)
-* [OpenCollar.Extensions.Configuration](https://github.com/open-collar/OpenCollar.Extensions.Configuration)
+* [OpenCollar.Extensions.ApplicationInsights](https://github.com/open-collar/OpenCollar.Extensions.ApplicationInsights)
+* [OpenCollar.Extensions.Collections](https://github.com/open-collar/OpenCollar.Extensions.Collections)
+* [OpenCollar.Extensions.Configuraton](https://github.com/open-collar/OpenCollar.Extensions.Configuraton)
+* [OpenCollar.Extensions.Environment](https://github.com/open-collar/OpenCollar.Extensions.Environment)
+* [OpenCollar.Extensions.IO](https://github.com/open-collar/OpenCollar.Extensions.IO)
+* [OpenCollar.Extensions.Logging](https://github.com/open-collar/OpenCollar.Extensions.Logging)
+* [OpenCollar.Extensions.Security](https://github.com/open-collar/OpenCollar.Extensions.Security)
+* [OpenCollar.Extensions.Threading](https://github.com/open-collar/OpenCollar.Extensions.Threading)
 * [OpenCollar.Extensions.Validation](https://github.com/open-collar/OpenCollar.Extensions.Validation)
