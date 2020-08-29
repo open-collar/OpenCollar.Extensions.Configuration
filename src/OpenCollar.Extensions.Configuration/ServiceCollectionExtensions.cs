@@ -24,6 +24,7 @@ using System.Reflection;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 using OpenCollar.Extensions.Validation;
 
@@ -159,7 +160,7 @@ namespace OpenCollar.Extensions.Configuration
                 return configurationObject;
             }, ServiceLifetime.Singleton);
 
-            serviceCollection.Add(descriptor);
+            serviceCollection.TryAdd(descriptor);
 
             return serviceCollection;
         }
