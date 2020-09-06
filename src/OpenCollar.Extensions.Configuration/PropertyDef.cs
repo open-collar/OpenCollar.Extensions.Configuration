@@ -38,11 +38,6 @@ namespace OpenCollar.Extensions.Configuration
     internal class PropertyDef : IPropertyDef
     {
         /// <summary>
-        ///     The settings used to control how configuration objects are created and the features they support.
-        /// </summary>
-        private readonly ConfigurationObjectSettings _settings;
-
-        /// <summary>
         ///     Initializes a new instance of the <see cref="PropertyDef" /> class.
         /// </summary>
         /// <param name="propertyInfo">
@@ -60,7 +55,7 @@ namespace OpenCollar.Extensions.Configuration
             PropertyInfo = propertyInfo;
             PropertyName = propertyInfo.Name;
             Type = propertyInfo.PropertyType;
-            _settings = settings;
+            Settings = settings;
 
             if(Type.IsArray)
             {
@@ -84,13 +79,13 @@ namespace OpenCollar.Extensions.Configuration
                 PathSection = PropertyName;
             }
 
-            Implementation = new Implementation(UnderlyingType, _settings);
+            Implementation = new Implementation(UnderlyingType, Settings);
             switch(Implementation.ImplementationKind)
             {
                 case ImplementationKind.ConfigurationCollection:
                 case ImplementationKind.ConfigurationDictionary:
                 case ImplementationKind.ConfigurationObject:
-                    ElementImplementation = new Implementation(Implementation.Type, _settings);
+                    ElementImplementation = new Implementation(Implementation.Type, Settings);
                     break;
             }
 
@@ -101,6 +96,24 @@ namespace OpenCollar.Extensions.Configuration
                 DefaultValue = attribute.DefaultValue;
                 HasDefaultValue = attribute.IsDefaultValueSet;
                 Persistence = attribute.Persistence;
+
+                if(HasDefaultValue)
+                {
+                    if(ReferenceEquals(DefaultValue, null))
+                    {
+                        if(Type.IsValueType)
+                        {
+                            throw new ConfigurationException(PropertyName, string.Format(CultureInfo.InvariantCulture, "Property '{0}' has a default value of a type of 'null', which is incompatible with the type of the property.", PropertyName));
+                        }
+                    }
+                    else
+                    {
+                        if(!Type.IsAssignableFrom(DefaultValue.GetType()))
+                        {
+                            throw new ConfigurationException(PropertyName, string.Format(CultureInfo.InvariantCulture, "Property '{0}' has a default value of a type incompatible with the type of the property.", PropertyName));
+                        }
+                    }
+                }
             }
             else
             {
@@ -226,7 +239,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <value>
         ///     The settings used to control how configuration objects are created and the features they support.
         /// </value>
-        public ConfigurationObjectSettings Settings { get { return _settings; } }
+        public ConfigurationObjectSettings Settings { get; }
 
         /// <summary>
         ///     Gets the type of the value held in the property.

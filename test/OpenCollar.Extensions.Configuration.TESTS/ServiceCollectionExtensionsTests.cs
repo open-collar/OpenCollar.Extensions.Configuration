@@ -19,6 +19,8 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
+using OpenCollar.Extensions.Configuration.TESTS.Interfaces;
+
 using Xunit;
 
 namespace OpenCollar.Extensions.Configuration.TESTS
@@ -58,6 +60,28 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.IsAssignableFrom<IRootElement>(rootElement2);
 
             Assert.Equal(rootElement1, rootElement2);
+        }//
+
+        [Fact]
+        public void TestAddServiceWithBadInterface_DefaultNullASsignment()
+        {
+            var configurationRoot = _configurationFixture.ConfigurationRoot;
+
+            IServiceCollection servicesCollection = new ServiceCollection();
+            servicesCollection.AddSingleton(configurationRoot);
+
+            Assert.Throws<ConfigurationException>(() => servicesCollection.AddConfigurationReader<IInvalidDefaultInterfaceNullAssignment>());
+        }
+
+        [Fact]
+        public void TestAddServiceWithBadInterface_DefaultTypeMismtach()
+        {
+            var configurationRoot = _configurationFixture.ConfigurationRoot;
+
+            IServiceCollection servicesCollection = new ServiceCollection();
+            servicesCollection.AddSingleton(configurationRoot);
+
+            Assert.Throws<ConfigurationException>(() => servicesCollection.AddConfigurationReader<IInvalidDefaultInterfaceTypeMismatch>());
         }
     }
 }

@@ -202,7 +202,7 @@ namespace OpenCollar.Extensions.Configuration
 
                     _parent.OnValueChanged(this, this);
                 }
-                catch(Exception ex)
+                catch(InvalidCastException ex)
                 {
                     throw new ConfigurationException(_propertyDef.PropertyName, string.Format(System.Globalization.CultureInfo.InvariantCulture, Exceptions.UnableToAssignValue, _propertyDef.PropertyName), ex);
                 }
@@ -392,7 +392,7 @@ namespace OpenCollar.Extensions.Configuration
             {
                 return SetValue((TValue)value);
             }
-            catch(Exception ex)
+            catch(InvalidCastException ex)
             {
                 throw new ConfigurationException(_propertyDef.PropertyName, string.Format(System.Globalization.CultureInfo.InvariantCulture, Exceptions.UnableToAssignValue, _propertyDef.PropertyName), ex);
             }
