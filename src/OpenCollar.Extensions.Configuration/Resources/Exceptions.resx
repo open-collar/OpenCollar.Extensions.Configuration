@@ -195,6 +195,6 @@
     <comment>{0} - The duplicated key.</comment>
   </data>
   <data name="UnableToAssignValue" xml:space="preserve">
-    <value>Unable to assign value to property '{0}'.</value>
+    <value>Unable to assign value to property '{0}'.  See inner exception for details.</value>
   </data>
 </root>

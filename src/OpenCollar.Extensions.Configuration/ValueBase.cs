@@ -188,17 +188,24 @@ namespace OpenCollar.Extensions.Configuration
 
             set
             {
-                if(_parent.IsReadOnly)
+                try
                 {
-                    throw new NotImplementedException(Exceptions.ValueIsReadOnly);
-                }
+                    if(_parent.IsReadOnly)
+                    {
+                        throw new NotImplementedException(Exceptions.ValueIsReadOnly);
+                    }
 
-                if(!SetValue(value))
+                    if(!SetValue(value))
+                    {
+                        return;
+                    }
+
+                    _parent.OnValueChanged(this, this);
+                }
+                catch(Exception ex)
                 {
-                    return;
+                    throw new ConfigurationException(_propertyDef.PropertyName, string.Format(System.Globalization.CultureInfo.InvariantCulture, Exceptions.UnableToAssignValue, _propertyDef.PropertyName), ex);
                 }
-
-                _parent.OnValueChanged(this, this);
             }
         }
 

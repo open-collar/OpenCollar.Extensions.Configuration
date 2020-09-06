@@ -106,7 +106,7 @@ namespace OpenCollar.Extensions.Configuration.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to assign value to property &apos;{0}&apos;..
+        ///   Looks up a localized string similar to Unable to assign value to property &apos;{0}&apos;.  See inner exception for details..
         /// </summary>
         internal static string UnableToAssignValue {
             get {
