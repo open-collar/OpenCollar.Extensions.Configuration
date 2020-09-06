@@ -188,9 +188,13 @@
   </data>
   <data name="ValueIsReadOnly" xml:space="preserve">
     <value>This value is read-only.</value>
+    <comment>0: The name of the value that cannot be assigned.</comment>
   </data>
   <data name="DuplicateKey" xml:space="preserve">
-      <value>An item with the same key has already been added: {0}.</value>
-      <comment>{0} - The duplicated key.</comment>
+    <value>An item with the same key has already been added: {0}.</value>
+    <comment>{0} - The duplicated key.</comment>
+  </data>
+  <data name="UnableToAssignValue" xml:space="preserve">
+    <value>Unable to assign value to property '{0}'.</value>
   </data>
 </root>

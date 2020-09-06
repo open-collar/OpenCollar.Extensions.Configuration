@@ -381,7 +381,14 @@ namespace OpenCollar.Extensions.Configuration
         /// </returns>
         public bool SetValue(object? value)
         {
-            return SetValue((TValue)value);
+            try
+            {
+                return SetValue((TValue)value);
+            }
+            catch(Exception ex)
+            {
+                throw new ConfigurationException(_propertyDef.PropertyName, string.Format(System.Globalization.CultureInfo.InvariantCulture, Exceptions.UnableToAssignValue, _propertyDef.PropertyName), ex);
+            }
         }
 
         /// <summary>

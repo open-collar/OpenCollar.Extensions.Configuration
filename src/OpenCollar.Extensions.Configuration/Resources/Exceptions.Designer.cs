@@ -106,6 +106,15 @@ namespace OpenCollar.Extensions.Configuration.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to assign value to property &apos;{0}&apos;..
+        /// </summary>
+        internal static string UnableToAssignValue {
+            get {
+                return ResourceManager.GetString("UnableToAssignValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; is null..
         /// </summary>
         internal static string Validate_ArgumentIsNull {
