@@ -127,7 +127,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="settings">
         ///     Optional settings used to control how configuration objects are created and the features they support.
         /// </param>
-        public static IServiceCollection AddConfigurationReader<TConfigurationObject>(this IServiceCollection serviceCollection, ConfigurationObjectSettings? settings = null)
+        public static IServiceCollection AddConfigurationReader<TConfigurationObject>(this IServiceCollection serviceCollection, ConfigurationObjectSettings? settings)
     where TConfigurationObject : IConfigurationObject
         {
             serviceCollection.Validate(nameof(serviceCollection), ObjectIs.NotNull);
