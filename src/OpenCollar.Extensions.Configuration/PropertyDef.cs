@@ -403,7 +403,7 @@ namespace OpenCollar.Extensions.Configuration
                 }
 
                 throw new ConfigurationException(path,
-                $"Value could not be parsed as an 'Byte'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+                $"Value could not be parsed as a 'Byte'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(int))
@@ -436,7 +436,7 @@ namespace OpenCollar.Extensions.Configuration
                 }
 
                 throw new ConfigurationException(path,
-                $"Value could not be parsed as an 'Single'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+                $"Value could not be parsed as a 'Single'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(double))
@@ -447,7 +447,7 @@ namespace OpenCollar.Extensions.Configuration
                 }
 
                 throw new ConfigurationException(path,
-                $"Value could not be parsed as an 'Double'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+                $"Value could not be parsed as a 'Double'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(decimal))
@@ -458,7 +458,7 @@ namespace OpenCollar.Extensions.Configuration
                 }
 
                 throw new ConfigurationException(path,
-                $"Value could not be parsed as an 'Decimal'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+                $"Value could not be parsed as a 'Decimal'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(DateTime))
@@ -469,7 +469,7 @@ namespace OpenCollar.Extensions.Configuration
                 }
 
                 throw new ConfigurationException(path,
-                $"Value could not be parsed as an 'DateTime'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+                $"Value could not be parsed as a 'DateTime'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(DateTimeOffset))
@@ -480,7 +480,7 @@ namespace OpenCollar.Extensions.Configuration
                 }
 
                 throw new ConfigurationException(path,
-                $"Value could not be parsed as an 'DateTimeOffset'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+                $"Value could not be parsed as a 'DateTimeOffset'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(TimeSpan))
@@ -491,7 +491,7 @@ namespace OpenCollar.Extensions.Configuration
                 }
 
                 throw new ConfigurationException(path,
-                $"Value could not be parsed as an 'TimeSpan'; configuration path: '{path}'; value: '{stringRepresentation}'.");
+                $"Value could not be parsed as a 'TimeSpan'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
             if(type == typeof(bool))

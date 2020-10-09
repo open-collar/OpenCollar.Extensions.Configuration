@@ -62,7 +62,7 @@
 
     <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
-        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -73,8 +73,8 @@
             <!-- Do not expose the Newtonsoft dependency. -->
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="OpenCollar.Extensions" Version="0.5.7" />
-        <PackageReference Include="OpenCollar.Extensions.Validation" Version="0.5.10" />
+        <PackageReference Include="OpenCollar.Extensions" Version="0.5.15" />
+        <PackageReference Include="OpenCollar.Extensions.Validation" Version="0.5.12" />
         <PackageReference Include="System.ObjectModel" Version="4.3.0" />
         <PackageReference Include="System.Text.Json" Version="4.7.2" />
     </ItemGroup>
