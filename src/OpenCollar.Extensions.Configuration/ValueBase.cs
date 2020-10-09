@@ -360,10 +360,8 @@ namespace OpenCollar.Extensions.Configuration
                             {
                                 throw new ConfigurationException(path, $"No value could be found for configuration path: '{path}'.");
                             }
-                            else
-                            {
-                                Value = (TValue)_propertyDef.DefaultValue;
-                            }
+
+                            Value = (TValue)_propertyDef.DefaultValue;
                         }
                         else
                         {
@@ -426,10 +424,6 @@ namespace OpenCollar.Extensions.Configuration
                             {
                                 ((IConfigurationObject)_currentValue).Save();
                             }
-                            else
-                            {
-                                // TODO: Make sure all mention of the value has been deleted.
-                            }
                         }
 
                         break;
@@ -470,7 +464,7 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Called when the current value has been saved to he underlying configuration source.
         /// </summary>
-        internal void Saved()
+        public void Saved()
         {
             lock(_lock)
             {

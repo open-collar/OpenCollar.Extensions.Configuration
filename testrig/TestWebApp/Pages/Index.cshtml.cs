@@ -37,6 +37,10 @@ namespace TestWebApp.Pages
             var environment = config.Environment;
 
             var version = environment.Version;
+
+            var y = config.TestDefaults;
+
+            // y should be false.
         }
 
         public void OnGet()

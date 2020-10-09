@@ -93,6 +93,7 @@ namespace OpenCollar.Extensions.Configuration
                     if(value.PropertyDef.HasDefaultValue)
                     {
                         value.Value = value.PropertyDef.DefaultValue;
+                        value.Saved();
                     }
                 }
             }

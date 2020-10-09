@@ -122,5 +122,10 @@ namespace OpenCollar.Extensions.Configuration
         ///     The configuration root to which to write the value.
         /// </param>
         void WriteValue(IConfigurationRoot configurationRoot);
+
+        /// <summary>
+        ///     Called when the current value has been saved to he underlying configuration source.
+        /// </summary>
+        public void Saved();
     }
 }

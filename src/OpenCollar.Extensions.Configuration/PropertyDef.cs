@@ -327,10 +327,8 @@ namespace OpenCollar.Extensions.Configuration
                 {
                     return DefaultValue;
                 }
-                else
-                {
-                    throw new ConfigurationException(path, $"Null value cannot be assigned to configuration path: '{path}'.");
-                }
+
+                throw new ConfigurationException(path, $"Null value cannot be assigned to configuration path: '{path}'.");
             }
 
             var type = UnderlyingType;

@@ -42,5 +42,10 @@ namespace TestWebApp.Configuration
         {
             get; set;
         }
+
+
+        [Configuration(Persistence = ConfigurationPersistenceActions.LoadOnly, DefaultValue = true)]
+        [Path(PathIs.Relative, @"TestDefaults")]
+        public bool TestDefaults { get; set; }
     }
 }

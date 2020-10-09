@@ -69,7 +69,7 @@ namespace TestWebApp
         {
             services.AddRazorPages();
             services.AddSingleton(_configuration);
-            services.AddConfigurationReader<IMyConfig>();
+            services.AddConfigurationReader<IMyConfig>(new ConfigurationObjectSettings(){EnableNewtonSoftJsonSupport = false});
         }
     }
 }
