@@ -131,6 +131,9 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             var fixture = new ConfigurationFixture();
 
             Assert.Equal("DEFAULT_VALUE", fixture.RootElement.CustomValueB);
+
+            // The default here is true, but the value in the config is false.  In earlier versions the default overrode the config value.
+            Assert.False(fixture.RootElement.TestDefaults);
         }
 
         [Fact]
@@ -152,6 +155,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
                 {
                     case nameof(IRootElement.CustomValueA):
                     case nameof(IRootElement.CustomValueC):
+                    case nameof(IRootElement.TestDefaults):
 
                         Assert.NotNull(valuesAfter[path].Value);
                         break;

@@ -327,5 +327,10 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             get; set;
         }
+
+        // In earlier versions it was possible for values with this persistence/default to only ever return the default value.
+        [Configuration(Persistence = ConfigurationPersistenceActions.LoadOnly, DefaultValue = true)]
+        [Path(PathIs.Relative, @"TestDefaults")]
+        public bool TestDefaults { get; set; }
     }
 }

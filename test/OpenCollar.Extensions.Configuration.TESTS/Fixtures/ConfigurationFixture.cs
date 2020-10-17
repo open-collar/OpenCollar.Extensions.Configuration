@@ -80,7 +80,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             new KeyValuePair<string, string>(nameof(IRootElement.CustomValueA), "CUSTOM-VALUE-A"),
             new KeyValuePair<string, string>(nameof(IRootElement.CustomValueC), "VALUE THAT WILL BE IGNORED"),
             new KeyValuePair<string, string>(nameof(IRootElement.ChildElementProperty) + ":" + nameof(IChildElement.Name), "NAME-1"),
-            new KeyValuePair<string, string>(nameof(IRootElement.ChildElementProperty) + ":" + nameof(IChildElement.Value), "1")
+            new KeyValuePair<string, string>(nameof(IRootElement.ChildElementProperty) + ":" + nameof(IChildElement.Value), "1"),
+            new KeyValuePair<string, string>(nameof(IRootElement.TestDefaults), "false")
             }
             };
 

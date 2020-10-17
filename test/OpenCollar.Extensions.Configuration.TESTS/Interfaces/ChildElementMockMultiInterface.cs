@@ -304,6 +304,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             get; set;
         }
 
+        public bool TestDefaults { get; set; }
+
         public string CalculatePath() => throw new NotImplementedException();
     }
 }
