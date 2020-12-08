@@ -105,38 +105,239 @@
 public class ConfigurationException : Exception, ISerializable</code></pre>
   </div>
   <h5 id="OpenCollar_Extensions_Configuration_ConfigurationException_remarks"><strong>Remarks</strong></h5>
-  <div class="markdown level0 remarks"><p>
-    Use the <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationException.html#OpenCollar_Extensions_Configuration_ConfigurationException_ConfigurationPath">ConfigurationPath</a> property to discover the path to the configuration item concerned.
-</p>
+  <div class="markdown level0 remarks"><p> Use the <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationException.html#OpenCollar_Extensions_Configuration_ConfigurationException_ConfigurationPath">ConfigurationPath</a> property to discover the path to the configuration item concerned. </p>
 <p>
     The following UML has been generated directly from the source code using
-<a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>. <img src="../images/uml-diagrams/.exceptions/ConfigurationException/ConfigurationException.svg">
+<a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml"> Jebbs PlantUML </a>.
+<img src="../images/uml-diagrams/.exceptions/ConfigurationException/ConfigurationException.svg">
 </p>
 </div>
   <h3 id="constructors">Constructors
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationException__ctor.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationException.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationException__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationException.%23ctor(Microsoft.Extensions.Configuration.IConfigurationRoot)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/03d61ac33c78861bd805702ccdd60889362e09c0/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L27">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/41f8a6aa43e90d140ae7ce89d002ef5576631b61/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L30">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor*"></a>
-  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor">ConfigurationException()</h4>
+  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(Microsoft.Extensions.Configuration.IConfigurationRoot)">ConfigurationException(IConfigurationRoot)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationException.html">ConfigurationException</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ConfigurationException()</code></pre>
+    <pre><code class="lang-csharp hljs">public ConfigurationException(IConfigurationRoot configuration)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Microsoft.Extensions.Configuration.IConfigurationRoot</span></td>
+        <td><span class="parametername">configuration</span></td>
+        <td><p>The configuration service from which data was being read.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationException__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_System_String_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationException.%23ctor(Microsoft.Extensions.Configuration.IConfigurationRoot%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/41f8a6aa43e90d140ae7ce89d002ef5576631b61/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L38">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_System_String_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(Microsoft.Extensions.Configuration.IConfigurationRoot,System.String)">ConfigurationException(IConfigurationRoot, String)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationException.html">ConfigurationException</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConfigurationException(IConfigurationRoot configuration, string message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Microsoft.Extensions.Configuration.IConfigurationRoot</span></td>
+        <td><span class="parametername">configuration</span></td>
+        <td><p>The configuration service from which data was being read.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message that describes the error.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationException__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_System_String_System_Exception_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationException.%23ctor(Microsoft.Extensions.Configuration.IConfigurationRoot%2CSystem.String%2CSystem.Exception)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/41f8a6aa43e90d140ae7ce89d002ef5576631b61/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L58">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_System_String_System_Exception_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(Microsoft.Extensions.Configuration.IConfigurationRoot,System.String,System.Exception)">ConfigurationException(IConfigurationRoot, String, Exception)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationException.html">ConfigurationException</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConfigurationException(IConfigurationRoot configuration, string message, Exception innerException)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Microsoft.Extensions.Configuration.IConfigurationRoot</span></td>
+        <td><span class="parametername">configuration</span></td>
+        <td><p>The configuration service from which data was being read.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The error message that explains the reason for the exception.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Exception</span></td>
+        <td><span class="parametername">innerException</span></td>
+        <td><p>The exception that is the cause of the current exception, or <span class="xref">null</span> if no inner exception is specified.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationException__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_System_String_System_String_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationException.%23ctor(Microsoft.Extensions.Configuration.IConfigurationRoot%2CSystem.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/41f8a6aa43e90d140ae7ce89d002ef5576631b61/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L47">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_System_String_System_String_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(Microsoft.Extensions.Configuration.IConfigurationRoot,System.String,System.String)">ConfigurationException(IConfigurationRoot, String, String)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationException.html">ConfigurationException</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConfigurationException(IConfigurationRoot configuration, string configurationPath, string message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Microsoft.Extensions.Configuration.IConfigurationRoot</span></td>
+        <td><span class="parametername">configuration</span></td>
+        <td><p>The configuration service from which data was being read.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">configurationPath</span></td>
+        <td><p>The path to the configuration affected.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message that describes the error.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationException__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_System_String_System_String_System_Exception_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationException.%23ctor(Microsoft.Extensions.Configuration.IConfigurationRoot%2CSystem.String%2CSystem.String%2CSystem.Exception)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/41f8a6aa43e90d140ae7ce89d002ef5576631b61/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L69">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_Microsoft_Extensions_Configuration_IConfigurationRoot_System_String_System_String_System_Exception_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(Microsoft.Extensions.Configuration.IConfigurationRoot,System.String,System.String,System.Exception)">ConfigurationException(IConfigurationRoot, String, String, Exception)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationException.html">ConfigurationException</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConfigurationException(IConfigurationRoot configuration, string configurationPath, string message, Exception innerException)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Microsoft.Extensions.Configuration.IConfigurationRoot</span></td>
+        <td><span class="parametername">configuration</span></td>
+        <td><p>The configuration service from which data was being read.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">configurationPath</span></td>
+        <td><p>The path to the configuration affected.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The error message that explains the reason for the exception.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Exception</span></td>
+        <td><span class="parametername">innerException</span></td>
+        <td><p>The exception that is the cause of the current exception, or <span class="xref">null</span> if no inner exception is specified.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationException.%23ctor(System.Runtime.Serialization.SerializationInfo%2CSystem.Runtime.Serialization.StreamingContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/03d61ac33c78861bd805702ccdd60889362e09c0/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L96">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/41f8a6aa43e90d140ae7ce89d002ef5576631b61/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L79">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">ConfigurationException(SerializationInfo, StreamingContext)</h4>
@@ -171,168 +372,6 @@ public class ConfigurationException : Exception, ISerializable</code></pre>
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationException__ctor_System_String_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationException.%23ctor(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/03d61ac33c78861bd805702ccdd60889362e09c0/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L37">View Source</a>
-  </span>
-  <a id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor*"></a>
-  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_System_String_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(System.String)">ConfigurationException(String)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationException.html">ConfigurationException</a> class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ConfigurationException(string message)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">message</span></td>
-        <td><p>The message that describes the error.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationException__ctor_System_String_System_Exception_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationException.%23ctor(System.String%2CSystem.Exception)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/03d61ac33c78861bd805702ccdd60889362e09c0/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L65">View Source</a>
-  </span>
-  <a id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor*"></a>
-  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_System_String_System_Exception_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(System.String,System.Exception)">ConfigurationException(String, Exception)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationException.html">ConfigurationException</a> class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ConfigurationException(string message, Exception innerException)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">message</span></td>
-        <td><p>The error message that explains the reason for the exception.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Exception</span></td>
-        <td><span class="parametername">innerException</span></td>
-        <td><p>The exception that is the cause of the current exception, or <span class="xref">null</span> if no inner
-exception is specified.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationException__ctor_System_String_System_String_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationException.%23ctor(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/03d61ac33c78861bd805702ccdd60889362e09c0/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L50">View Source</a>
-  </span>
-  <a id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor*"></a>
-  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_System_String_System_String_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(System.String,System.String)">ConfigurationException(String, String)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationException.html">ConfigurationException</a> class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ConfigurationException(string configurationPath, string message)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">configurationPath</span></td>
-        <td><p>The path to the configuration affected.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">message</span></td>
-        <td><p>The message that describes the error.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationException__ctor_System_String_System_String_System_Exception_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationException.%23ctor(System.String%2CSystem.String%2CSystem.Exception)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/03d61ac33c78861bd805702ccdd60889362e09c0/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L82">View Source</a>
-  </span>
-  <a id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor*"></a>
-  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationException__ctor_System_String_System_String_System_Exception_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.#ctor(System.String,System.String,System.Exception)">ConfigurationException(String, String, Exception)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationException.html">ConfigurationException</a> class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ConfigurationException(string configurationPath, string message, Exception innerException)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">configurationPath</span></td>
-        <td><p>The path to the configuration affected.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">message</span></td>
-        <td><p>The error message that explains the reason for the exception.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Exception</span></td>
-        <td><span class="parametername">innerException</span></td>
-        <td><p>The exception that is the cause of the current exception, or <span class="xref">null</span> if no inner
-exception is specified.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
@@ -340,7 +379,7 @@ exception is specified.</p>
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationException_ConfigurationPath.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationException.ConfigurationPath%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/03d61ac33c78861bd805702ccdd60889362e09c0/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L107">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/41f8a6aa43e90d140ae7ce89d002ef5576631b61/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L87">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_ConfigurationException_ConfigurationPath_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.ConfigurationPath*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_ConfigurationException_ConfigurationPath" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.ConfigurationPath">ConfigurationPath</h4>
@@ -367,6 +406,38 @@ exception is specified.</p>
       </tr>
     </tbody>
   </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationException_LoadedConfiguration.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationException.LoadedConfiguration%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/41f8a6aa43e90d140ae7ce89d002ef5576631b61/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L91">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_ConfigurationException_LoadedConfiguration_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.LoadedConfiguration*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_ConfigurationException_LoadedConfiguration" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.LoadedConfiguration">LoadedConfiguration</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the details of the loaded configuration providers at the time of the error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string LoadedConfiguration { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The details of the loaded configuration providers at the time of the error.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
@@ -374,7 +445,7 @@ exception is specified.</p>
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationException_GetObjectData_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationException.GetObjectData(System.Runtime.Serialization.SerializationInfo%2CSystem.Runtime.Serialization.StreamingContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/03d61ac33c78861bd805702ccdd60889362e09c0/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L124">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/41f8a6aa43e90d140ae7ce89d002ef5576631b61/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L97">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_ConfigurationException_GetObjectData_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.GetObjectData*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_ConfigurationException_GetObjectData_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_" data-uid="OpenCollar.Extensions.Configuration.ConfigurationException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">GetObjectData(SerializationInfo, StreamingContext)</h4>
@@ -446,7 +517,7 @@ exception is specified.</p>
                     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ConfigurationException.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ConfigurationException%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/03d61ac33c78861bd805702ccdd60889362e09c0/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L21" class="contribution-link">View Source</a>
+                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/41f8a6aa43e90d140ae7ce89d002ef5576631b61/src/OpenCollar.Extensions.Configuration/.exceptions/ConfigurationException.cs/#L25" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
@@ -465,7 +536,7 @@ exception is specified.</p>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.2.223</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.2.226</span></div></div>
             
           </div>
         </div>
