@@ -264,7 +264,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                 {
                     if(PropertyDef.ElementImplementation.ImplementationType != item.GetType())
                     {
-                        throw new TypeMismatchException($"Expected object of type {PropertyDef.ElementImplementation.ImplementationType.FullName}.",
+                        throw new TypeMismatchException(null, $"Expected object of type {PropertyDef.ElementImplementation.ImplementationType.FullName}.",
                         CalculatePath());
                     }
                 }

@@ -204,7 +204,7 @@ namespace OpenCollar.Extensions.Configuration
                 }
                 catch(InvalidCastException ex)
                 {
-                    throw new ConfigurationException(_propertyDef.PropertyName, string.Format(System.Globalization.CultureInfo.InvariantCulture, Exceptions.UnableToAssignValue, _propertyDef.PropertyName), ex);
+                    throw new ConfigurationException(null, _propertyDef.PropertyName, string.Format(System.Globalization.CultureInfo.InvariantCulture, Exceptions.UnableToAssignValue, _propertyDef.PropertyName), ex);
                 }
             }
         }
@@ -358,7 +358,7 @@ namespace OpenCollar.Extensions.Configuration
                         {
                             if(!_propertyDef.HasDefaultValue)
                             {
-                                throw new ConfigurationException(path, $"No value could be found for configuration path: '{path}'.");
+                                throw new ConfigurationException(configurationRoot, path, $"No value could be found for configuration path: '{path}'.");
                             }
 
                             Value = (TValue)_propertyDef.DefaultValue;
@@ -392,7 +392,7 @@ namespace OpenCollar.Extensions.Configuration
             }
             catch(InvalidCastException ex)
             {
-                throw new ConfigurationException(_propertyDef.PropertyName, string.Format(System.Globalization.CultureInfo.InvariantCulture, Exceptions.UnableToAssignValue, _propertyDef.PropertyName), ex);
+                throw new ConfigurationException(null, _propertyDef.PropertyName, string.Format(System.Globalization.CultureInfo.InvariantCulture, Exceptions.UnableToAssignValue, _propertyDef.PropertyName), ex);
             }
         }
 
@@ -429,7 +429,16 @@ namespace OpenCollar.Extensions.Configuration
                         break;
 
                     default:
-                        configurationRoot[CalculatePath()] = StringValue;
+                        var path = CalculatePath();
+                        try
+                        {
+                            configurationRoot[path] = StringValue;
+                        }
+                        catch(Exception ex)
+                        {
+                            throw new ConfigurationException(configurationRoot, path,ex);
+                        }
+
                         break;
                 }
 

@@ -30,7 +30,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         [Fact]
         public void TestException1()
         {
-            var x = new ConfigurationException();
+            var x = new ConfigurationException(null);
 
             Assert.NotNull(x);
             Assert.Equal($"Exception of type '{typeof(ConfigurationException).FullName}' was thrown.", x.Message);
@@ -43,7 +43,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
         {
             const string message = "MESSAGE";
 
-            var x = new ConfigurationException(message);
+            var x = new ConfigurationException(null, message);
 
             Assert.NotNull(x);
             Assert.Equal(message, x.Message);
@@ -58,7 +58,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             var ex = new Exception(message + ".INNER");
 
-            var x = new ConfigurationException(message, ex);
+            var x = new ConfigurationException(null, message, ex);
 
             Assert.NotNull(x);
             Assert.Equal(message, x.Message);
@@ -75,7 +75,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             const string path = "PATH";
 
-            var x = new ConfigurationException(path, message, ex);
+            var x = new ConfigurationException(null, path, message, ex);
 
             Assert.NotNull(x);
             Assert.Equal(message, x.Message);
@@ -89,7 +89,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             const string message = "MESSAGE";
             const string path = "PATH";
 
-            var x = new ConfigurationException(path, message);
+            var x = new ConfigurationException(null, path, message);
 
             Assert.NotNull(x);
             Assert.Equal(message, x.Message);
@@ -106,7 +106,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             const string path = "PATH";
 
-            var x = new ConfigurationException(path, message, ex);
+            var x = new ConfigurationException(null, path, message, ex);
 
             var serializer = new BinaryFormatter();
 

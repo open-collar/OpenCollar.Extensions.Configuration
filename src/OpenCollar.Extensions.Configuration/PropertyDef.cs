@@ -103,14 +103,14 @@ namespace OpenCollar.Extensions.Configuration
                     {
                         if(Type.IsValueType)
                         {
-                            throw new ConfigurationException(PropertyName, string.Format(CultureInfo.InvariantCulture, "Property '{0}' has a default value of a type of 'null', which is incompatible with the type of the property.", PropertyName));
+                            throw new ConfigurationException(null, PropertyName, string.Format(CultureInfo.InvariantCulture, "Property '{0}' has a default value of a type of 'null', which is incompatible with the type of the property.", PropertyName));
                         }
                     }
                     else
                     {
                         if(!Type.IsAssignableFrom(DefaultValue.GetType()))
                         {
-                            throw new ConfigurationException(PropertyName, string.Format(CultureInfo.InvariantCulture, "Property '{0}' has a default value of a type incompatible with the type of the property.", PropertyName));
+                            throw new ConfigurationException(null, PropertyName, string.Format(CultureInfo.InvariantCulture, "Property '{0}' has a default value of a type incompatible with the type of the property.", PropertyName));
                         }
                     }
                 }
@@ -328,7 +328,7 @@ namespace OpenCollar.Extensions.Configuration
                     return DefaultValue;
                 }
 
-                throw new ConfigurationException(path, $"Null value cannot be assigned to configuration path: '{path}'.");
+                throw new ConfigurationException(null, path, $"Null value cannot be assigned to configuration path: '{path}'.");
             }
 
             var type = UnderlyingType;
@@ -344,14 +344,14 @@ namespace OpenCollar.Extensions.Configuration
 
                     if(!Enum.IsDefined(type, enumValue))
                     {
-                        throw new ConfigurationException(path,
+                        throw new ConfigurationException(null, path,
                         $"Value could not be treated as a '{type.FullName}'; configuration path: '{path}'; value: '{stringRepresentation}'.");
                     }
 
                     return enumValue;
                 }
 
-                throw new ConfigurationException(path,
+                throw new ConfigurationException(null, path,
                 $"Value could not be treated as a '{type.FullName}'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
@@ -364,7 +364,7 @@ namespace OpenCollar.Extensions.Configuration
             {
                 if(stringRepresentation.Length != 1)
                 {
-                    throw new ConfigurationException(path,
+                    throw new ConfigurationException(null, path,
                     $"Value could not be treated as a 'char'; configuration path: '{path}'; value: '{stringRepresentation}'.");
                 }
 
@@ -378,7 +378,7 @@ namespace OpenCollar.Extensions.Configuration
                     return parsed;
                 }
 
-                throw new ConfigurationException(path,
+                throw new ConfigurationException(null, path,
                 $"Value could not be parsed as an 'Int16'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
@@ -389,7 +389,7 @@ namespace OpenCollar.Extensions.Configuration
                     return parsed;
                 }
 
-                throw new ConfigurationException(path,
+                throw new ConfigurationException(null, path,
                 $"Value could not be parsed as an 'SByte'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
@@ -400,7 +400,7 @@ namespace OpenCollar.Extensions.Configuration
                     return parsed;
                 }
 
-                throw new ConfigurationException(path,
+                throw new ConfigurationException(null, path,
                 $"Value could not be parsed as a 'Byte'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
@@ -411,7 +411,7 @@ namespace OpenCollar.Extensions.Configuration
                     return int32Value;
                 }
 
-                throw new ConfigurationException(path,
+                throw new ConfigurationException(null, path,
                 $"Value could not be parsed as an 'Int32'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
@@ -422,7 +422,7 @@ namespace OpenCollar.Extensions.Configuration
                     return int64Value;
                 }
 
-                throw new ConfigurationException(path,
+                throw new ConfigurationException(null, path,
                 $"Value could not be parsed as an 'Int64'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
@@ -433,7 +433,7 @@ namespace OpenCollar.Extensions.Configuration
                     return parsed;
                 }
 
-                throw new ConfigurationException(path,
+                throw new ConfigurationException(null, path,
                 $"Value could not be parsed as a 'Single'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
@@ -444,7 +444,7 @@ namespace OpenCollar.Extensions.Configuration
                     return parsed;
                 }
 
-                throw new ConfigurationException(path,
+                throw new ConfigurationException(null, path,
                 $"Value could not be parsed as a 'Double'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
@@ -455,7 +455,7 @@ namespace OpenCollar.Extensions.Configuration
                     return parsed;
                 }
 
-                throw new ConfigurationException(path,
+                throw new ConfigurationException(null, path,
                 $"Value could not be parsed as a 'Decimal'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
@@ -466,7 +466,7 @@ namespace OpenCollar.Extensions.Configuration
                     return parsed;
                 }
 
-                throw new ConfigurationException(path,
+                throw new ConfigurationException(null, path,
                 $"Value could not be parsed as a 'DateTime'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
@@ -477,7 +477,7 @@ namespace OpenCollar.Extensions.Configuration
                     return parsed;
                 }
 
-                throw new ConfigurationException(path,
+                throw new ConfigurationException(null, path,
                 $"Value could not be parsed as a 'DateTimeOffset'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
@@ -488,7 +488,7 @@ namespace OpenCollar.Extensions.Configuration
                     return parsed;
                 }
 
-                throw new ConfigurationException(path,
+                throw new ConfigurationException(null, path,
                 $"Value could not be parsed as a 'TimeSpan'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
@@ -499,7 +499,7 @@ namespace OpenCollar.Extensions.Configuration
                     return parsed;
                 }
 
-                throw new ConfigurationException(path,
+                throw new ConfigurationException(null, path,
                 $"Value could not be parsed as an 'Boolean'; configuration path: '{path}'; value: '{stringRepresentation}'.");
             }
 
