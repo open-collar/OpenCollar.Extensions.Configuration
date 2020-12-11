@@ -55,7 +55,7 @@ jobs:
 
     - name: Set documentation version number
       run: |
-        echo "Setting documentation version: $VERSION"        
+        echo "Setting documentation version: $VERSION"
         cd docs
         git grep -lz 'BUILD_VERSION' | xargs -0 sed -i -e "s/BUILD_VERSION/$VERSION/g"
         cd ..
