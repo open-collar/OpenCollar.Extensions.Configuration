@@ -89,7 +89,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     This property will default to <see langword="true" /> if the <see cref="Newtonsoft.Json" /> assembly is
         ///     loaded at the time the settings object is created.
         /// </remarks>
-        public bool EnableNewtonSoftJsonSupport { get; set; }
+        public bool EnableNewtonSoftJsonSupport { get; set; } = false;
 
         /// <summary>
         ///     Gets the <see cref="Newtonsoft.Json" /> assembly.

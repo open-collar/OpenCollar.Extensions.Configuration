@@ -108,9 +108,36 @@ namespace OpenCollar.Extensions.Configuration
         ///     The service collection to which to add the configuration reader. This must not be <see langword="null" />.
         /// </param>
         public static IServiceCollection AddConfigurationReader<TConfigurationObject>(this IServiceCollection serviceCollection)
-        where TConfigurationObject : IConfigurationObject
+            where TConfigurationObject : IConfigurationObject
         {
-            return AddConfigurationReader<TConfigurationObject>(serviceCollection, null);
+            return AddConfigurationReader<TConfigurationObject>(serviceCollection, (ConfigurationObjectSettings?)null);
+        }
+
+        /// <summary>
+        ///     Add a new kind of configuration reader that represents values taken directly from the
+        ///     <see cref="IConfigurationRoot" /> object in the service collection.
+        /// </summary>
+        /// <typeparam name="TConfigurationObject">
+        ///     The interface through which consumers will access the configuration. This must be derived from the
+        ///     <see cref="IConfigurationObject" /> interface.
+        /// </typeparam>
+        /// <param name="serviceCollection">
+        ///     The service collection to which to add the configuration reader. This must not be <see langword="null" />.
+        /// </param>
+        /// <param name="configureOptions">
+        ///     A method or lambda that will configure the settings used to control how configuration objects are created and the features they support.
+        /// </param>
+        /// <exception cref="ArgumentNullException"><paramref name="configureOptions"/> is <see langword="null"/>.</exception>
+        public static IServiceCollection AddConfigurationReader<TConfigurationObject>(this IServiceCollection serviceCollection, Action<ConfigurationObjectSettings> configureOptions)
+            where TConfigurationObject : IConfigurationObject
+        {
+            configureOptions.Validate(nameof(configureOptions), ObjectIs.NotNull);
+
+            var settings = new ConfigurationObjectSettings();
+
+            configureOptions(settings);
+
+            return AddConfigurationReader<TConfigurationObject>(serviceCollection, settings);
         }
 
         /// <summary>
@@ -128,7 +155,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     Optional settings used to control how configuration objects are created and the features they support.
         /// </param>
         public static IServiceCollection AddConfigurationReader<TConfigurationObject>(this IServiceCollection serviceCollection, ConfigurationObjectSettings? settings)
-    where TConfigurationObject : IConfigurationObject
+            where TConfigurationObject : IConfigurationObject
         {
             serviceCollection.Validate(nameof(serviceCollection), ObjectIs.NotNull);
 
@@ -137,6 +164,7 @@ namespace OpenCollar.Extensions.Configuration
 
             if(ReferenceEquals(settings, null))
             {
+                // Use default values.
                 settings = new ConfigurationObjectSettings();
             }
 
