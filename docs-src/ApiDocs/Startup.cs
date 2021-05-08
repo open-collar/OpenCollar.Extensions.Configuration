@@ -27,9 +27,20 @@ using Microsoft.Extensions.FileProviders;
 
 namespace ApiDocs
 {
+    /// <summary>
+    ///     A class used to initialize the environment.
+    /// </summary>
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        ///     This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app">
+        ///     The application builder.
+        /// </param>
+        /// <param name="env">
+        ///     The host environment.
+        /// </param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             var options = new FileServerOptions()
@@ -50,8 +61,17 @@ namespace ApiDocs
             app.UseFileServer(options);
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container. For more
-        // information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        /// <summary>
+        ///     This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services">
+        ///     The services collection.
+        /// </param>
+        /// <remarks>
+        ///     For more information on how to configure your application, visit
+        ///     <see href="https://go.microsoft.com/fwlink/?LinkID=398940">
+        ///     https://go.microsoft.com/fwlink/?LinkID=398940 </see>.
+        /// </remarks>
         public void ConfigureServices(IServiceCollection services)
         {
         }

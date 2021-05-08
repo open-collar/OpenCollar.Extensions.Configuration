@@ -127,8 +127,9 @@
     <value>[Unknown]</value>
   </data>
   <data name="KeyNotFound" xml:space="preserve">
-    <value>'{0}' did not identify a valid element.</value>
-    <comment>0: The argument name.</comment>
+    <value>'{0}' did not identify a valid element.  Value: {1}.</value>
+    <comment>0: The argument name.
+1: The value of the key.</comment>
   </data>
   <data name="Validate_ArgumentIsNull" xml:space="preserve">
     <value>'{0}' is null.</value>
@@ -192,7 +193,7 @@
   </data>
   <data name="DuplicateKey" xml:space="preserve">
     <value>An item with the same key has already been added: {0}.</value>
-    <comment>{0} - The duplicated key.</comment>
+    <comment>0 - The duplicated key.</comment>
   </data>
   <data name="UnableToAssignValue" xml:space="preserve">
     <value>Unable to assign value to property '{0}'.  See inner exception for details.</value>

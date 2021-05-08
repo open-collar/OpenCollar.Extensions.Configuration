@@ -384,7 +384,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     return value;
                 }
 
-                throw new ArgumentOutOfRangeException(nameof(key), string.Format(CultureInfo.CurrentCulture, Exceptions.KeyNotFound, nameof(key)));
+                throw new ArgumentOutOfRangeException(nameof(key), key, string.Format(CultureInfo.CurrentCulture, Exceptions.KeyNotFound, nameof(key)));
             }
         }
 

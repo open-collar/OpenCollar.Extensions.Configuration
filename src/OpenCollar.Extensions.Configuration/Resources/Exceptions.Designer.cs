@@ -97,7 +97,7 @@ namespace OpenCollar.Extensions.Configuration.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; did not identify a valid element..
+        ///   Looks up a localized string similar to &apos;{0}&apos; did not identify a valid element.  Value: {1}..
         /// </summary>
         internal static string KeyNotFound {
             get {
