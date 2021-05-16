@@ -55,7 +55,7 @@ namespace OpenCollar.Extensions.Configuration
         ///     The type of the interface.
         /// </param>
         /// <param name="propertyDefs">
-        ///     The definitions of the interface's properties..
+        ///     The definitions of the interface's properties.
         /// </param>
         /// <param name="settings">
         ///     Optional settings used to control how configuration objects are created and the features they support.
@@ -194,7 +194,8 @@ namespace OpenCollar.Extensions.Configuration
         /// </param>
         private void AddConstructor(TypeBuilder builder)
         {
-            var constructorArgumentTypes = new[] { typeof(IPropertyDef), typeof(IConfigurationRoot), typeof(IConfigurationParent), typeof(ConfigurationObjectSettings) };
+            var validators = typeof(IEnumerable<>).MakeGenericType(new[] { typeof(IConfigurationObjectValidator<>).MakeGenericType(new[] { _interfaceType }) });
+            var constructorArgumentTypes = new[] { typeof(IPropertyDef), typeof(IConfigurationRoot), typeof(IConfigurationParent), typeof(ConfigurationObjectSettings), validators };
 
             var baseConstructor = _baseClassType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null,
             constructorArgumentTypes, null);
@@ -211,15 +212,20 @@ namespace OpenCollar.Extensions.Configuration
             generator.Emit(OpCodes.Ldarg, 2);
             generator.Emit(OpCodes.Ldarg, 3);
             generator.Emit(OpCodes.Ldarg, 4);
+            generator.Emit(OpCodes.Ldarg, 5);
             generator.Emit(OpCodes.Call, baseConstructor);
             generator.Emit(OpCodes.Ret);
         }
 
         /// <summary>
-        /// Makes the identifier given into camelCase.
+        ///     Makes the identifier given into camelCase.
         /// </summary>
-        /// <param name="identifier">The name to convert to camelCase.</param>
-        /// <returns>The identifier given in camelCase.</returns>
+        /// <param name="identifier">
+        ///     The name to convert to camelCase.
+        /// </param>
+        /// <returns>
+        ///     The identifier given in camelCase.
+        /// </returns>
         private static string MakeCamelCase(string identifier)
         {
 #pragma warning disable CA1308 // Normalize strings to uppercase
@@ -228,7 +234,7 @@ namespace OpenCollar.Extensions.Configuration
                 return identifier.ToLowerInvariant();
             }
 
-            return string.Concat(identifier.Substring(0,1).ToLowerInvariant(), identifier.Substring(1));
+            return string.Concat(identifier.Substring(0, 1).ToLowerInvariant(), identifier.Substring(1));
 #pragma warning restore CA1308 // Normalize strings to uppercase
         }
 

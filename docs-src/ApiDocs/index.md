@@ -107,6 +107,16 @@ Fine control over properties is provided by three attributes:
  * [`PathAttribute`](https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.PathAttribute.html) -
    the naming and path to the underlying configuration key.
 
+## Validation
+
+Add a validator to the services collection using the
+[`AddConfigurationObjectValidator`](https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationObjectValidator.html) method to add
+a class that implements the
+[`IConfigurationObjectValidator`](https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.IConfigurationObjectValidator.html)
+interface.  The
+[`Validate`](https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.IConfigurationObjectValidator.Validate.html)
+method is called every time a batch of changes completes.
+
 # Related Projects
 
 * [OpenCollar.Extensions](https://github.com/open-collar/OpenCollar.Extensions)

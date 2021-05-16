@@ -337,9 +337,11 @@ namespace OpenCollar.Extensions.Configuration
 
                     case ImplementationKind.ConfigurationObject:
                         configurationObject = (_currentValue ?? _originalValue) as IConfigurationObject;
-                        if(ReferenceEquals(configurationObject, null) || (configurationObject.GetType() != implementation.ImplementationType))
+                        if(ReferenceEquals(configurationObject, null) || (configurationObject.GetType() != implementation.Type))
                         {
-                            Value = (TValue)Activator.CreateInstance(implementation.ImplementationType, PropertyDef, configurationRoot, null, implementation.Settings);
+                            var getValidators = typeof(ServiceCollectionExtensions).GetMethod(nameof(ServiceCollectionExtensions.GetValidators));
+                            var validators = ServiceCollectionExtensions.GetValidators(implementation.Type);
+                            Value = (TValue)Activator.CreateInstance(implementation.ImplementationType, PropertyDef, configurationRoot, null, implementation.Settings, validators);
                         }
                         else
                         {
@@ -372,6 +374,18 @@ namespace OpenCollar.Extensions.Configuration
                 }
 
                 Saved();
+            }
+        }
+
+        /// <summary>
+        ///     Called when the current value has been saved to he underlying configuration source.
+        /// </summary>
+        public void Saved()
+        {
+            lock(_lock)
+            {
+                _isSaved = true;
+                _originalValue = _currentValue;
             }
         }
 
@@ -436,7 +450,7 @@ namespace OpenCollar.Extensions.Configuration
                         }
                         catch(Exception ex)
                         {
-                            throw new ConfigurationException(configurationRoot, path,ex);
+                            throw new ConfigurationException(configurationRoot, path, ex);
                         }
 
                         break;
@@ -469,18 +483,6 @@ namespace OpenCollar.Extensions.Configuration
         ///     The configuration root to which to write the value.
         /// </param>
         void IValue.WriteValue(IConfigurationRoot configurationRoot) => WriteValue(configurationRoot);
-
-        /// <summary>
-        ///     Called when the current value has been saved to he underlying configuration source.
-        /// </summary>
-        public void Saved()
-        {
-            lock(_lock)
-            {
-                _isSaved = true;
-                _originalValue = _currentValue;
-            }
-        }
 
         /// <summary>
         ///     Sets the value without firing any events.

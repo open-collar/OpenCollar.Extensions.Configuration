@@ -66,6 +66,16 @@ namespace OpenCollar.Extensions.Configuration
     public abstract class ConfigurationObjectBase<TInterface> : ConfigurationObjectBase, IEquatable<TInterface> where TInterface : IConfigurationObject
     {
         /// <summary>
+        ///     A lookup of the resolved validation methods.
+        /// </summary>
+        private readonly System.Collections.Concurrent.ConcurrentDictionary<Type, System.Reflection.MethodInfo> _validatorMethods = new ConcurrentDictionary<Type, System.Reflection.MethodInfo>();
+
+        /// <summary>
+        ///     The validators that can be applied to configuration objects of this type.
+        /// </summary>
+        private readonly IConfigurationObjectValidator<TInterface>[] _validators;
+
+        /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationObjectBase{TInterface}" /> class. This is the
         ///     interface used when creating the root instance for the service collection.
         /// </summary>
@@ -82,9 +92,14 @@ namespace OpenCollar.Extensions.Configuration
         /// <param name="settings">
         ///     The settings used to control how configuration objects are created and the features they support.
         /// </param>
-        protected ConfigurationObjectBase(IPropertyDef? propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent, ConfigurationObjectSettings settings) : base(propertyDef,
+        /// <param name="validators">
+        ///     The validators that can be applied to configuration objects of this type.
+        /// </param>
+        protected ConfigurationObjectBase(IPropertyDef? propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent, ConfigurationObjectSettings settings, IEnumerable<IConfigurationObjectValidator<TInterface>> validators) : base(propertyDef,
         ServiceCollectionExtensions.GetConfigurationObjectDefinition(typeof(TInterface), settings), configurationRoot, parent)
         {
+            _validators = validators?.ToArray() ?? Array.Empty<IConfigurationObjectValidator<TInterface>>();
+
             DisablePropertyChangedEvents();
             try
             {
@@ -100,6 +115,8 @@ namespace OpenCollar.Extensions.Configuration
             finally
             {
                 EnablePropertyChangedEvents();
+
+                Validate();
             }
         }
 
@@ -116,6 +133,19 @@ namespace OpenCollar.Extensions.Configuration
         public bool Equals(TInterface other)
         {
             return ConfigurationObjectComparer.Instance.Equals(this, other);
+        }
+
+        /// <summary>
+        ///     Validates this instance.
+        /// </summary>
+        protected override void Validate()
+        {
+            foreach(var validator in _validators)
+            {
+                //var method = _validatorMethods.GetOrAdd(validator.GetType(), validator.GetType().GetMethod(nameof(IConfigurationObjectValidator<TInterface>.Validate)).MakeGenericMethod(new[] { typeof(TInterface) }));
+                var method = _validatorMethods.GetOrAdd(validator.GetType(), validator.GetType().GetMethod(nameof(IConfigurationObjectValidator<TInterface>.Validate)));
+                method.Invoke(validator, new object[] { this });
+            }
         }
     }
 
@@ -423,6 +453,8 @@ namespace OpenCollar.Extensions.Configuration
 
                 value.ReadValue(_configurationRoot);
             }
+
+            Validate();
         }
 
         /// <summary>
@@ -469,6 +501,8 @@ namespace OpenCollar.Extensions.Configuration
 
                 value.WriteValue(_configurationRoot);
             }
+
+            Validate();
         }
 
         /// <summary>
@@ -515,6 +549,11 @@ namespace OpenCollar.Extensions.Configuration
 
             base.Dispose(disposing);
         }
+
+        /// <summary>
+        ///     Validates this instance.
+        /// </summary>
+        protected abstract void Validate();
 
         /// <summary>
         ///     Called when a section in the configuration root has changed.

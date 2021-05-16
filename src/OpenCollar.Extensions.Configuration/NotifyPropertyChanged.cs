@@ -92,8 +92,12 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Called when an underlying property has been changed.
         /// </summary>
-        /// <param name="propertyName"> The name of the property that has changed. </param>
-        /// <exception cref="AggregateException"> One or more change event handlers threw an exception. </exception>
+        /// <param name="propertyName">
+        ///     The name of the property that has changed.
+        /// </param>
+        /// <exception cref="AggregateException">
+        ///     One or more change event handlers threw an exception.
+        /// </exception>
         protected void OnPropertyChanged(string propertyName)
         {
             if(_disablePropertyChangedEvents.Value > 0)
@@ -144,12 +148,24 @@ namespace OpenCollar.Extensions.Configuration
         /// <summary>
         ///     Called when a property is to be changed.
         /// </summary>
-        /// <typeparam name="T"> The type of the property. </typeparam>
-        /// <param name="field"> The field to which the value is to be assigned. </param>
-        /// <param name="value"> The value to assign. </param>
-        /// <param name="propertyName"> The name of the property that has changed. </param>
-        /// <returns> <see langword="true" /> if the property has changed; otherwise, <see langword="false" /> </returns>
-        /// <remarks> Raises the <see cref="PropertyChanged" /> event if the value has changed. </remarks>
+        /// <typeparam name="T">
+        ///     The type of the property.
+        /// </typeparam>
+        /// <param name="field">
+        ///     The field to which the value is to be assigned.
+        /// </param>
+        /// <param name="value">
+        ///     The value to assign.
+        /// </param>
+        /// <param name="propertyName">
+        ///     The name of the property that has changed.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> if the property has changed; otherwise, <see langword="false" />
+        /// </returns>
+        /// <remarks>
+        ///     Raises the <see cref="PropertyChanged" /> event if the value has changed.
+        /// </remarks>
         protected bool OnPropertyChanged<T>(string propertyName, ref T field, T value)
         {
             if(UniversalComparer.Equals(field, value))

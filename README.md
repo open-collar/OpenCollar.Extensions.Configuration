@@ -107,6 +107,16 @@ control the way in which configuration data is used.
  * [API Documentation](https://open-collar.github.io/OpenCollar.Extensions.Configuration/)
  * View package in [nuget.org](https://nuget.org) at: https://www.nuget.org/packages/OpenCollar.Extensions.Configuration/
 
+## Validation
+
+Add a validator to the services collection using the
+[`AddConfigurationObjectValidator`](https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationObjectValidator.html) method to add
+a class that implements the
+[`IConfigurationObjectValidator`](https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.IConfigurationObjectValidator.html)
+interface.  The
+[`Validate`](https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.IConfigurationObjectValidator.Validate.html)
+method is called every time a batch of changes completes.
+
 ## Set-up Developer Environment
 
 There are no hard dependencies on tooling, all that is required is the 

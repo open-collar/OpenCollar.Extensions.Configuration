@@ -88,3 +88,13 @@ Fine control over properties is provided by three attributes:
 
 The "[Fine Control](/usage/control.md)" article looks in more depth at how attributes can be used to 
 control the way in which configuration data is used.
+
+## Validation
+
+Add a validator to the services collection using the
+[`AddConfigurationObjectValidator`](https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationObjectValidator.html) method to add
+a class that implements the
+[`IConfigurationObjectValidator`](https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.IConfigurationObjectValidator.html)
+interface.  The
+[`Validate`](https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.IConfigurationObjectValidator.Validate.html)
+method is called every time a batch of changes completes.

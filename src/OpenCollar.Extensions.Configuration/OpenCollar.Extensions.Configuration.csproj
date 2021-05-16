@@ -49,6 +49,7 @@
         <Compile Include=".interfaces\IConfigurationCollection.cs" />
         <Compile Include=".interfaces\IConfigurationDictionary.cs" />
         <Compile Include=".interfaces\IConfigurationObject.cs" />
+        <Compile Include=".interfaces\IConfigurationObjectValidator.cs" />
         <Compile Include=".interfaces\IConfigurationParent.cs" />
         <Compile Include=".interfaces\IImplementation.cs" />
         <Compile Include=".interfaces\ImplementationKind.cs" />

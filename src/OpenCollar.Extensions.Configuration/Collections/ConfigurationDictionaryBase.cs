@@ -860,7 +860,8 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     break;
 
                 case ImplementationKind.ConfigurationObject:
-                    value = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, PropertyDef, ConfigurationRoot, this, PropertyDef.Settings);
+                    var validators = ServiceCollectionExtensions.GetValidators(PropertyDef.ElementImplementation.ImplementationType);
+                    value = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, PropertyDef, ConfigurationRoot, this, PropertyDef.Settings, validators);
                     break;
 
                 default:

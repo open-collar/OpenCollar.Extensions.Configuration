@@ -97,6 +97,36 @@ namespace OpenCollar.Extensions.Configuration
     public static class ServiceCollectionExtensions
     {
         /// <summary>
+        ///     A collection of all registered validators.
+        /// </summary>
+        private static readonly System.Collections.Concurrent.ConcurrentBag<IConfigurationObjectValidator> _validators = new System.Collections.Concurrent.ConcurrentBag<IConfigurationObjectValidator>();
+
+        /// <summary>
+        ///     Adds a configuration object validator to the service collection.
+        /// </summary>
+        /// <typeparam name="TConfigurationObjectValidator">
+        ///     The type of the configuration object validator.
+        /// </typeparam>
+        /// <typeparam name="TConfigurationObject">
+        ///     The type of the configuration object that is validated.
+        /// </typeparam>
+        /// <returns>
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        ///     <paramref name="serviceCollection" /> is <see langword="null" />.
+        /// </exception>
+        public static IServiceCollection AddConfigurationObjectValidator<TConfigurationObject, TConfigurationObjectValidator>(this IServiceCollection serviceCollection)
+            where TConfigurationObjectValidator : class, IConfigurationObjectValidator<TConfigurationObject>
+            where TConfigurationObject : class, IConfigurationObject
+        {
+            serviceCollection.Validate(nameof(serviceCollection), ObjectIs.NotNull);
+
+            serviceCollection.AddSingleton<IConfigurationObjectValidator, TConfigurationObjectValidator>();
+
+            return serviceCollection;
+        }
+
+        /// <summary>
         ///     Add a new kind of configuration reader that represents values taken directly from the
         ///     <see cref="IConfigurationRoot" /> object in the service collection.
         /// </summary>
@@ -125,9 +155,12 @@ namespace OpenCollar.Extensions.Configuration
         ///     The service collection to which to add the configuration reader. This must not be <see langword="null" />.
         /// </param>
         /// <param name="configureOptions">
-        ///     A method or lambda that will configure the settings used to control how configuration objects are created and the features they support.
+        ///     A method or lambda that will configure the settings used to control how configuration objects are
+        ///     created and the features they support.
         /// </param>
-        /// <exception cref="ArgumentNullException"><paramref name="configureOptions"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="configureOptions" /> is <see langword="null" />.
+        /// </exception>
         public static IServiceCollection AddConfigurationReader<TConfigurationObject>(this IServiceCollection serviceCollection, Action<ConfigurationObjectSettings> configureOptions)
             where TConfigurationObject : IConfigurationObject
         {
@@ -181,7 +214,17 @@ namespace OpenCollar.Extensions.Configuration
             {
                 var configurationRoot = provider.GetService<IConfigurationRoot>();
 
-                var configurationObject = (TConfigurationObject)Activator.CreateInstance(implementationType, null, configurationRoot, null, settings);
+                if(_validators.Count <= 0)
+                {
+                    foreach(var validator in provider.GetServices<IConfigurationObjectValidator>())
+                    {
+                        _validators.Add(validator);
+                    }
+                }
+
+                var validators = GetValidatorsEx<TConfigurationObject>();
+
+                var configurationObject = (TConfigurationObject)Activator.CreateInstance(implementationType, null, configurationRoot, null, settings, validators);
 
                 configurationObject.Load();
 
@@ -277,6 +320,37 @@ namespace OpenCollar.Extensions.Configuration
             }
 
             return propertyDefs;
+        }
+
+        /// <summary>
+        ///     Gets all the validators registered for the configuration object type specified.
+        /// </summary>
+        /// <param name="configurationObjectType">
+        ///     The type of the configuration object.
+        /// </param>
+        /// <returns>
+        ///     Returns an enumerable of all the validators for the configuration object type given.
+        /// </returns>
+        internal static object GetValidators(Type configurationObjectType)
+        {
+            var getValidatorsGeneric = typeof(ServiceCollectionExtensions).GetMethod(nameof(ServiceCollectionExtensions.GetValidatorsEx), BindingFlags.Static | BindingFlags.NonPublic);
+            var getValidators = getValidatorsGeneric.MakeGenericMethod(new[] { configurationObjectType });
+
+            return getValidators.Invoke(null, Array.Empty<object>());
+        }
+
+        /// <summary>
+        ///     Gets all the validators registered for the configuration object type specified.
+        /// </summary>
+        /// <typeparam name="TConfigurationObject">
+        ///     The type of the configuration object.
+        /// </typeparam>
+        /// <returns>
+        ///     Returns an enumerable of all the validators for the configuration object type given.
+        /// </returns>
+        private static IEnumerable<IConfigurationObjectValidator<TConfigurationObject>> GetValidatorsEx<TConfigurationObject>() where TConfigurationObject : IConfigurationObject
+        {
+            return _validators.OfType<IConfigurationObjectValidator<TConfigurationObject>>();
         }
     }
 }
