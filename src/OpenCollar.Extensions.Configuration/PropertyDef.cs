@@ -645,7 +645,7 @@ namespace OpenCollar.Extensions.Configuration
                     return (TElement)Activator.CreateInstance(implementation.ImplementationType, parent, this, configurationRoot, value, implementation.Settings);
 
                 case ImplementationKind.ConfigurationObject:
-                    var validators = ServiceCollectionExtensions.GetValidators(implementation.ImplementationType);
+                    var validators = ServiceCollectionExtensions.GetValidators(implementation.Type);
                     var clone = Activator.CreateInstance(implementation.ImplementationType, this, configurationRoot, parent, implementation.Settings, validators);
                     ((ConfigurationObjectBase)clone).Clone((IConfigurationObject)value);
                     return (TElement)clone;

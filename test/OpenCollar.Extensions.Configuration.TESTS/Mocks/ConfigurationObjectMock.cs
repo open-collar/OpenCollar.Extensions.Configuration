@@ -23,7 +23,7 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 {
     internal class ConfigurationObjectMock : ConfigurationObjectBase<IRootElement>
     {
-        public ConfigurationObjectMock(IPropertyDef propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent, ConfigurationObjectSettings settings) : base(propertyDef, configurationRoot, parent, settings)
+        public ConfigurationObjectMock(IPropertyDef propertyDef, IConfigurationRoot configurationRoot, IConfigurationParent parent, ConfigurationObjectSettings settings) : base(propertyDef, configurationRoot, parent, settings, System.Array.Empty<IConfigurationObjectValidator<IRootElement>>())
         {
         }
     }

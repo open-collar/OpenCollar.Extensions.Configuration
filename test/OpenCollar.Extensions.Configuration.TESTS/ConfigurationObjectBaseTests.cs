@@ -106,14 +106,16 @@ namespace OpenCollar.Extensions.Configuration.TESTS
             Assert.NotNull(x);
             Assert.Null(x.PropertyDef());
 
+            var validators = System.Array.Empty<IConfigurationObjectValidator<IRootElement>>();
+
             Assert.Throws<TargetInvocationException>(() =>
             {
-                var y = Activator.CreateInstance(x.GetType(), (IPropertyDef)null, (IConfigurationRoot)null, (IConfigurationParent)null, new ConfigurationObjectSettings());
+                var y = Activator.CreateInstance(x.GetType(), (IPropertyDef)null, (IConfigurationRoot)null, (IConfigurationParent)null, new ConfigurationObjectSettings(), validators);
             });
 
             try
             {
-                var y = Activator.CreateInstance(x.GetType(), (IPropertyDef)null, (IConfigurationRoot)null, (IConfigurationParent)null, new ConfigurationObjectSettings());
+                var y = Activator.CreateInstance(x.GetType(), (IPropertyDef)null, (IConfigurationRoot)null, (IConfigurationParent)null, new ConfigurationObjectSettings(), validators);
             }
             catch(TargetInvocationException ex)
             {
@@ -132,7 +134,8 @@ namespace OpenCollar.Extensions.Configuration.TESTS
 
             Assert.Equal("DEFAULT_VALUE", fixture.RootElement.CustomValueB);
 
-            // The default here is true, but the value in the config is false.  In earlier versions the default overrode the config value.
+            // The default here is true, but the value in the config is false. In earlier versions the default overrode
+            // the config value.
             Assert.False(fixture.RootElement.TestDefaults);
         }
 

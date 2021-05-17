@@ -384,7 +384,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     return value;
                 }
 
-                throw new ArgumentOutOfRangeException(nameof(key), key, string.Format(CultureInfo.CurrentCulture, Exceptions.KeyNotFound, nameof(key)));
+                throw new ArgumentOutOfRangeException(nameof(key), key, string.Format(CultureInfo.CurrentCulture, Exceptions.KeyNotFound, nameof(key), key));
             }
         }
 
@@ -860,7 +860,7 @@ namespace OpenCollar.Extensions.Configuration.Collections
                     break;
 
                 case ImplementationKind.ConfigurationObject:
-                    var validators = ServiceCollectionExtensions.GetValidators(PropertyDef.ElementImplementation.ImplementationType);
+                    var validators = ServiceCollectionExtensions.GetValidators(PropertyDef.ElementImplementation.Type);
                     value = (TElement)Activator.CreateInstance(PropertyDef.ElementImplementation.ImplementationType, PropertyDef, ConfigurationRoot, this, PropertyDef.Settings, validators);
                     break;
 
