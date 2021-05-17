@@ -161,6 +161,14 @@ basic control over default value, loading and saving.</li>
 <li><a href="https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.PathAttribute.html"><code>PathAttribute</code></a> -
 the naming and path to the underlying configuration key.</li>
 </ul>
+<h2 id="validation">Validation</h2>
+<p>Add a validator to the services collection using the
+<a href="https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationObjectValidator.html"><code>AddConfigurationObjectValidator</code></a> method to add
+a class that implements the
+<a href="https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.IConfigurationObjectValidator.html"><code>IConfigurationObjectValidator</code></a>
+interface.  The
+<a href="https://open-collar.github.io/OpenCollar.Extensions.Configuration/api/OpenCollar.Extensions.Configuration.IConfigurationObjectValidator.Validate.html"><code>Validate</code></a>
+method is called every time a batch of changes completes.</p>
 <h1 id="related-projects">Related Projects</h1>
 <ul>
 <li><a href="https://github.com/open-collar/OpenCollar.Extensions">OpenCollar.Extensions</a></li>
@@ -201,7 +209,7 @@ the naming and path to the underlying configuration key.</li>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.2.227</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.2.232</span></div></div>
             
           </div>
         </div>

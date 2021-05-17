@@ -150,10 +150,96 @@ var version = config.Environment.Version;
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationObjectValidator__2_Microsoft_Extensions_DependencyInjection_IServiceCollection_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationObjectValidator%60%602(Microsoft.Extensions.DependencyInjection.IServiceCollection)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/master/src/OpenCollar.Extensions.Configuration/ServiceCollectionExtensions.cs/#L118">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationObjectValidator_" data-uid="OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationObjectValidator*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationObjectValidator__2_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationObjectValidator``2(Microsoft.Extensions.DependencyInjection.IServiceCollection)">AddConfigurationObjectValidator&lt;TConfigurationObject, TConfigurationObjectValidator&gt;(IServiceCollection)</h4>
+  <div class="markdown level1 summary"><p>Adds a configuration object validator to the service collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IServiceCollection AddConfigurationObjectValidator&lt;TConfigurationObject, TConfigurationObjectValidator&gt;(this IServiceCollection serviceCollection)
+    where TConfigurationObject : class, IConfigurationObject where TConfigurationObjectValidator : class, IConfigurationObjectValidator&lt;TConfigurationObject&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Microsoft.Extensions.DependencyInjection.IServiceCollection</span></td>
+        <td><span class="parametername">serviceCollection</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Microsoft.Extensions.DependencyInjection.IServiceCollection</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TConfigurationObject</span></td>
+        <td><p>The type of the configuration object that is validated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TConfigurationObjectValidator</span></td>
+        <td><p>The type of the configuration object validator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">serviceCollection</code> is <span class="xref">null</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationReader__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader%60%601(Microsoft.Extensions.DependencyInjection.IServiceCollection)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/6ede0969729fffdfa31a81d07b5fa85d7e685649/src/OpenCollar.Extensions.Configuration/ServiceCollectionExtensions.cs/#L110">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/master/src/OpenCollar.Extensions.Configuration/ServiceCollectionExtensions.cs/#L140">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationReader_" data-uid="OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationReader__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_" data-uid="OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">AddConfigurationReader&lt;TConfigurationObject&gt;(IServiceCollection)</h4>
@@ -221,7 +307,7 @@ var version = config.Environment.Version;
     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationReader__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_OpenCollar_Extensions_Configuration_ConfigurationObjectSettings_.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader%60%601(Microsoft.Extensions.DependencyInjection.IServiceCollection%2COpenCollar.Extensions.Configuration.ConfigurationObjectSettings)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/6ede0969729fffdfa31a81d07b5fa85d7e685649/src/OpenCollar.Extensions.Configuration/ServiceCollectionExtensions.cs/#L130">View Source</a>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/master/src/OpenCollar.Extensions.Configuration/ServiceCollectionExtensions.cs/#L190">View Source</a>
   </span>
   <a id="OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationReader_" data-uid="OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader*"></a>
   <h4 id="OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationReader__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_OpenCollar_Extensions_Configuration_ConfigurationObjectSettings_" data-uid="OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,OpenCollar.Extensions.Configuration.ConfigurationObjectSettings)">AddConfigurationReader&lt;TConfigurationObject&gt;(IServiceCollection, ConfigurationObjectSettings)</h4>
@@ -290,6 +376,97 @@ var version = config.Environment.Version;
       </tr>
     </tbody>
   </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationReader__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_OpenCollar_Extensions_Configuration_ConfigurationObjectSettings__.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader%60%601(Microsoft.Extensions.DependencyInjection.IServiceCollection%2CSystem.Action%7BOpenCollar.Extensions.Configuration.ConfigurationObjectSettings%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/master/src/OpenCollar.Extensions.Configuration/ServiceCollectionExtensions.cs/#L164">View Source</a>
+  </span>
+  <a id="OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationReader_" data-uid="OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader*"></a>
+  <h4 id="OpenCollar_Extensions_Configuration_ServiceCollectionExtensions_AddConfigurationReader__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_OpenCollar_Extensions_Configuration_ConfigurationObjectSettings__" data-uid="OpenCollar.Extensions.Configuration.ServiceCollectionExtensions.AddConfigurationReader``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{OpenCollar.Extensions.Configuration.ConfigurationObjectSettings})">AddConfigurationReader&lt;TConfigurationObject&gt;(IServiceCollection, Action&lt;ConfigurationObjectSettings&gt;)</h4>
+  <div class="markdown level1 summary"><p>Add a new kind of configuration reader that represents values taken directly from the
+<span class="xref">Microsoft.Extensions.Configuration.IConfigurationRoot</span> object in the service collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IServiceCollection AddConfigurationReader&lt;TConfigurationObject&gt;(this IServiceCollection serviceCollection, Action&lt;ConfigurationObjectSettings&gt; configureOptions)
+    where TConfigurationObject : IConfigurationObject</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Microsoft.Extensions.DependencyInjection.IServiceCollection</span></td>
+        <td><span class="parametername">serviceCollection</span></td>
+        <td><p>The service collection to which to add the configuration reader. This must not be <span class="xref">null</span>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;<a class="xref" href="OpenCollar.Extensions.Configuration.ConfigurationObjectSettings.html">ConfigurationObjectSettings</a>&gt;</td>
+        <td><span class="parametername">configureOptions</span></td>
+        <td><p>A method or lambda that will configure the settings used to control how configuration objects are
+created and the features they support.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Microsoft.Extensions.DependencyInjection.IServiceCollection</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TConfigurationObject</span></td>
+        <td><p>The interface through which consumers will access the configuration. This must be derived from the
+<a class="xref" href="OpenCollar.Extensions.Configuration.IConfigurationObject.html">IConfigurationObject</a> interface.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">configureOptions</code> is <span class="xref">null</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           
@@ -301,7 +478,7 @@ var version = config.Environment.Version;
                     <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/new/master/docs-ref-overwrite/new?filename=OpenCollar_Extensions_Configuration_ServiceCollectionExtensions.md&amp;value=---%0Auid%3A%20OpenCollar.Extensions.Configuration.ServiceCollectionExtensions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/6ede0969729fffdfa31a81d07b5fa85d7e685649/src/OpenCollar.Extensions.Configuration/ServiceCollectionExtensions.cs/#L97" class="contribution-link">View Source</a>
+                    <a href="https://github.com/open-collar/OpenCollar.Extensions.Configuration/blob/master/src/OpenCollar.Extensions.Configuration/ServiceCollectionExtensions.cs/#L97" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
@@ -320,7 +497,7 @@ var version = config.Environment.Version;
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.2.227</span></div></div>
+            <div style='box-sizing: border-box;'><div style='float: left; width: calc(100% - 200px);'>Copyright &copy; 2019-2020 <a href='mailto:jevans@open-collar.org.uk'>Jonathan Evans</a></div><div style='float: left; width: 200px;'><span style='font-style: italic;'>Version: 0.2.232</span></div></div>
             
           </div>
         </div>
